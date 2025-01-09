@@ -1,0 +1,45 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Waterfront/Waterfront.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "Waterfront/Waterfront.tmx": {
+            "expandedGroupLayers": [
+                3
+            ],
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1258,
+                "y": 703
+            }
+        },
+        "Waterfront/Waterfront_old.tmx#floor_tiles": {
+            "scaleInEditor": 1
+        },
+        "floor_tiles.tsx": {
+            "scaleInDock": 0.25,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "/home2/pgml/Projekte/Godot/dear-guests-3d/Resources/Tiled",
+    "last.imagePath": "/home2/pgml/Projekte/Godot/dear-guests-3d/Assets/Sprites/Tiles",
+    "map.height": 40,
+    "map.lastUsedExportFilter": "Godot 4 Scene files (*.tscn)",
+    "map.lastUsedFormat": "tmx",
+    "map.width": 80,
+    "openFiles": [
+        "Waterfront/Waterfront.tmx",
+        "floor_tiles.tsx"
+    ],
+    "project": "dear-guests.tiled-project",
+    "recentFiles": [
+        "floor_tiles.tsx",
+        "Waterfront/Waterfront.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

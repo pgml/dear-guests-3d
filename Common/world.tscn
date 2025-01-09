@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsca8xc1cojae"]
+
+[ext_resource type="Environment" uid="uid://jff1p13xc4bx" path="res://Resources/default_environment.tres" id="1_6qw00"]
+[ext_resource type="Texture2D" uid="uid://drjt0uhsjl4jk" path="res://Resources/Tiled/Waterfront/Waterfront.png" id="2_iaoyc"]
+
+[node name="World" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_6qw00")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.850823, -0.186179, -0.491362, 0.521164, 0.179791, 0.834304, -0.0669873, -0.965925, 0.25, 0, 0, 0)
+rotation_order = 4
+light_energy = 1.2
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_normal_bias = 0.01
+shadow_blur = 10.0
+directional_shadow_split_1 = 0.493
+directional_shadow_split_2 = 0.503
+directional_shadow_split_3 = 0.512
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.996041, -2.96843e-08, 0.0888943, -0.0730839, -0.56928, 0.818889, 0.0506057, -0.822144, -0.567026, 0, 0, 0)
+rotation_order = 4
+visible = false
+light_color = Color(1, 1, 0.6, 1)
+light_energy = 0.0
+shadow_opacity = 0.25
+directional_shadow_split_1 = 0.45
+directional_shadow_split_2 = 0.475
+directional_shadow_split_3 = 0.515
+
+[node name="EditorAngleRef" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.74206, 0, 0)
+visible = false
+
+[node name="Sprite3D" type="Sprite3D" parent="EditorAngleRef"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -14.4588, 15.2738, -12.6942)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_iaoyc")
+region_enabled = true
+region_rect = Rect2(286, 719, 38, 114)
+
+[node name="Sprite3D4" type="Sprite3D" parent="EditorAngleRef"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -10.0725, 18.4668, -16.1616)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_iaoyc")
+region_enabled = true
+region_rect = Rect2(288, 719, 32, 22)
+
+[node name="Sprite3D2" type="Sprite3D" parent="EditorAngleRef"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -16.2085, 13.6523, 12.0528)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_iaoyc")
+region_enabled = true
+region_rect = Rect2(173, 1055, 66, 162)
+
+[node name="Sprite3D3" type="Sprite3D" parent="EditorAngleRef"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -15.9503, 16.0661, -22.5606)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_iaoyc")
+region_enabled = true
+region_rect = Rect2(201, 842, 54, 101)

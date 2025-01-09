@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnutg2mbomaxd"]
+
+[ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="1_8od7v"]
+[ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_35xla"]
+[ext_resource type="PackedScene" uid="uid://yrmmist0esc6" path="res://Assets/Exterior/rubbish_bin.tscn" id="3_qc4db"]
+[ext_resource type="PackedScene" uid="uid://dofasu8kldusa" path="res://Assets/Exterior/street_light.tscn" id="5_35xla"]
+[ext_resource type="PackedScene" uid="uid://byufb06nwr5eo" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i3aeo"]
+size = Vector3(4.02246, 0.826416, 8.55029)
+
+[node name="Scene" type="Node3D"]
+
+[node name="World" parent="." instance=ExtResource("1_35xla")]
+
+[node name="Actor" parent="." instance=ExtResource("1_8od7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.92029, 3.57949, -4.71476)
+
+[node name="Map" parent="." instance=ExtResource("5_i3aeo")]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+
+[node name="Stair" type="Area3D" parent="Map" groups=["Stairs"]]
+transform = Transform3D(1, 0, 0, 0, 0.707329, -0.706885, 0, 0.706885, 0.707329, 3.9665, 3.39023, -10.8711)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Stair"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 2.98023e-08, 0, 2.08616e-07, 1, 0.0232542, 0, 0.180908)
+shape = SubResource("BoxShape3D_i3aeo")
+debug_color = Color(0.961072, 0, 0.51244, 0.42)
+
+[node name="Props" type="Node" parent="."]
+
+[node name="RubbishBin" parent="Props" instance=ExtResource("3_qc4db")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.375, 1.002, -21.831)
+
+[node name="StreetLight2" parent="Props" instance=ExtResource("5_35xla")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.90087, 0, -12.2097)
+
+[node name="StreetLight" parent="Props" instance=ExtResource("5_35xla")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5951, -7.62939e-06, -21.3369)

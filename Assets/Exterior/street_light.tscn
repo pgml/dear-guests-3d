@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://dofasu8kldusa"]
+
+[ext_resource type="ArrayMesh" uid="uid://bwlu1h3ynial0" path="res://Assets/Exterior/street_light_mesh_mesh.tres" id="1_wtb4s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3aeo"]
+height = 10.015
+
+[node name="StreetLight" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, -1.08509, 0, 0.000769138)
+mesh = ExtResource("1_wtb4s")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.26442, -0.0065527)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CapsuleShape3D_i3aeo")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 10.3941, 1.38684)
+visible = false
+light_color = Color(1, 0.989164, 0.784084, 1)
+light_energy = 3.245
+shadow_enabled = true
+omni_range = 11.731
+omni_attenuation = 3.45
+omni_shadow_mode = 0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.63239, 0.303677)
+visible = false
+light_color = Color(1, 0.930329, 0.764837, 1)
+light_energy = 3.0
+shadow_enabled = true
+shadow_opacity = 0.5
+spot_range = 16.0
+spot_angle = 28.0
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 9.60773, -0.285696)
+visible = false
+light_color = Color(1, 0.929412, 0.764706, 1)
+light_energy = 3.0
+shadow_enabled = true
+shadow_opacity = 0.5
+spot_range = 16.0
+spot_angle = 28.0

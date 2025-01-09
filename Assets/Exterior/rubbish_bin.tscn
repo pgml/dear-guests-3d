@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://yrmmist0esc6"]
+
+[ext_resource type="ArrayMesh" uid="uid://cakjui4c72enf" path="res://Assets/Exterior/rubbish_bin_mesh.tres" id="1_257ev"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mojea"]
+size = Vector3(1.45337, 3.54251, 1.00195)
+
+[node name="RubbishBin" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19147, 1.00199, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0.0825386, -1, 0)
+mesh = ExtResource("1_257ev")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.583777, 1, 0, 0.489441)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.190792, 0.799637, -0.840021)
+shape = SubResource("BoxShape3D_mojea")

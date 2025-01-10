@@ -9,10 +9,9 @@
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_4f71o")
-day_time = 8.39
+day_time = 10.0252
 clouds_cutoff = 1.0
 use_day_time_for_shader = true
-time_scale = 0.1
 sun_base_enegry = 1.5
 moon_base_enegry = 0.2
 

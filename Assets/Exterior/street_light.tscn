@@ -9,6 +9,12 @@ height = 10.015
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, -1.08509, 0, 0.000769138)
+cast_shadow = 0
+mesh = ExtResource("1_wtb4s")
+
+[node name="ShadowMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, -1.08509, 0, 0.000769138)
+cast_shadow = 3
 mesh = ExtResource("1_wtb4s")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

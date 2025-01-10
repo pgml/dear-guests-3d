@@ -11,6 +11,20 @@ environment = ExtResource("1_6qw00")
 [node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.850823, -0.186179, -0.491362, 0.521164, 0.179791, 0.834304, -0.0669873, -0.965925, 0.25, 0, 0, 0)
 rotation_order = 4
+light_color = Color(0.964706, 0.952941, 0.901961, 1)
+light_energy = 1.5
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_normal_bias = 0.01
+shadow_blur = 10.0
+directional_shadow_split_1 = 0.493
+directional_shadow_split_2 = 0.503
+directional_shadow_split_3 = 0.512
+
+[node name="SunPerspective" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.850823, -0.186179, -0.491362, 0.521164, 0.179791, 0.834304, -0.0669873, -0.965925, 0.25, 0, 0, 0)
+rotation_order = 4
+visible = false
 light_energy = 1.2
 shadow_enabled = true
 shadow_bias = 0.01

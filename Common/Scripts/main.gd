@@ -8,6 +8,9 @@ extends Node3D
 const HOURS_IN_DAY : float = 24.0
 const DAYS_IN_YEAR : int = 365
 
+@export var enable_clouds : bool = false;
+@export var use_custom_shader : bool = false;
+
 # For simplify, a local time, I skip totally a longitude
 @export_range( 0.0, HOURS_IN_DAY, 0.0001 ) var day_time : float = 0.0 :
 	set( value ) :
@@ -43,6 +46,14 @@ const DAYS_IN_YEAR : int = 365
 	set( value ) :
 		moon_orbital_period = value
 		_update_moon()
+@export_range( 0.0, 1.0, 0.01 ) var clouds_cutoff : float = 0.3 :
+	set( value ) :
+		clouds_cutoff = value
+		_update_clouds()
+@export_range( 0.0, 1.0, 0.01 ) var clouds_weight : float = 0.0 :
+	set( value ) :
+		clouds_weight = value
+		_update_clouds()
 ## If on, the sum of day_of_year and day_time will be passed to the sky shadader to use instead of TIME from the engine
 @export var use_day_time_for_shader : bool = false :
 	set( value ) :
@@ -65,9 +76,9 @@ const DAYS_IN_YEAR : int = 365
 		moon_base_enegry = value
 		_update_shader()
 
-@onready var environment : WorldEnvironment = $WorldEnvironment
-@onready var sun : DirectionalLight3D = $Sun
-@onready var moon : DirectionalLight3D = $Moon
+@onready var environment : WorldEnvironment = $World/WorldEnvironment
+@onready var sun : DirectionalLight3D = $World/Sun
+@onready var moon : DirectionalLight3D = $World/Moon
 
 func _ready() -> void :
 	if is_instance_valid( sun ) :
@@ -91,6 +102,7 @@ func _process( delta: float ) -> void :
 func _update() -> void :
 	_update_sun()
 	_update_moon()
+	_update_clouds()
 	_update_shader()
 
 func _update_sun() -> void :
@@ -124,8 +136,19 @@ func _update_moon() -> void :
 		var moon_direction = moon.to_global( Vector3( 0.0, 0.0, 1.0 )).normalized()
 		moon.light_energy = smoothstep( -0.05, 0.1, moon_direction.y ) * moon_base_enegry
 
-func _update_shader() -> void :
+func _update_clouds() -> void :
+	if !enable_clouds:
+		return
+
 	if is_instance_valid( environment ) :
+		environment.environment.sky.sky_material.set_shader_parameter( "clouds_cutoff", clouds_cutoff )
+		environment.environment.sky.sky_material.set_shader_parameter( "clouds_weight", clouds_weight )
+
+func _update_shader() -> void :
+	if !use_custom_shader:
+		return
+
+	if is_instance_valid( environment ) and environment.environment.sky :
 		environment.environment.sky.sky_material.set_shader_parameter(
 			"overwritten_time",
 			( day_of_year * HOURS_IN_DAY + day_time ) * 100.0 if use_day_time_for_shader else 0.0

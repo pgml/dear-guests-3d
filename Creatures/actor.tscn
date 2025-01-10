@@ -261,11 +261,12 @@ CharacterNode = NodePath("Character")
 DefaultWalkSpeed = 8.0
 DefaultRunSpeed = 12.0
 
-[node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent")]
+[node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent", "SunShadowSprite")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.215856, 0)
 script = ExtResource("3_ew7kk")
 Parent = NodePath("../..")
 ComponentsParent = NodePath("../../Components")
+SunShadowSprite = NodePath("SunShadowMesh")
 
 [node name="OrthoCam" type="Camera3D" parent="Controller/Character"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 9.51248, 9.109)
@@ -286,6 +287,18 @@ visible = false
 
 [node name="CharacterSprite" type="Sprite3D" parent="Controller/Character"]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+cast_shadow = 0
+pixel_size = 0.07
+shaded = true
+alpha_cut = 2
+texture_filter = 0
+texture = ExtResource("4_p5kc0")
+hframes = 6
+vframes = 16
+
+[node name="SunShadowMesh" type="Sprite3D" parent="Controller/Character"]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, -0.5)
+cast_shadow = 3
 pixel_size = 0.07
 shaded = true
 alpha_cut = 2

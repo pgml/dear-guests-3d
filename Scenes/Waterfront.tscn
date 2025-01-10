@@ -1,19 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5v47rbkri3mb"]
+[gd_scene load_steps=7 format=3 uid="uid://b5v47rbkri3mb"]
 
+[ext_resource type="Script" uid="uid://cwj3ewadx2rsh" path="res://Common/Scripts/main.gd" id="1_4f71o"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_6g5e3"]
 [ext_resource type="PackedScene" uid="uid://cvlkn8s2ij0dw" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
 [ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="3_6g5e3"]
+[ext_resource type="Texture2D" uid="uid://drjt0uhsjl4jk" path="res://Resources/Tiled/Waterfront/Waterfront.png" id="4_6g5e3"]
 [ext_resource type="PackedScene" uid="uid://dofasu8kldusa" path="res://Assets/Exterior/street_light.tscn" id="5_yg5ax"]
 
 [node name="Scene" type="Node3D"]
+script = ExtResource("1_4f71o")
+day_time = 8.39
+clouds_cutoff = 1.0
+use_day_time_for_shader = true
+time_scale = 0.1
+sun_base_enegry = 1.5
+moon_base_enegry = 0.2
 
 [node name="World" parent="." instance=ExtResource("1_6g5e3")]
 
-[node name="Sun" parent="World" index="1"]
-light_color = Color(0.964434, 0.953507, 0.901046, 1)
-
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.9787, 3.62923, -5.67035)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6858, 3.56264, -3.25232)
 
 [node name="Map" parent="." instance=ExtResource("2_4mlve")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
@@ -22,7 +28,49 @@ transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 
 [node name="Lights" type="Node" parent="."]
 
-[node name="StreetLight" parent="." instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.55002, 0.0120821, -8.19397)
+[node name="StreetLight" parent="Lights" instance=ExtResource("5_yg5ax")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.82154, 0, -8.091)
 
-[editable path="World"]
+[node name="Ref" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3257, -11.0137, -10.6979)
+visible = false
+
+[node name="Sprite3D" type="Sprite3D" parent="Ref"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -14.4588, 15.2738, -12.6942)
+modulate = Color(1, 1, 1, 0.713726)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("4_6g5e3")
+region_enabled = true
+region_rect = Rect2(286, 719, 38, 114)
+
+[node name="Sprite3D4" type="Sprite3D" parent="Ref"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -10.0725, 18.4668, -16.1616)
+modulate = Color(1, 1, 1, 0.713726)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("4_6g5e3")
+region_enabled = true
+region_rect = Rect2(288, 719, 32, 22)
+
+[node name="Sprite3D2" type="Sprite3D" parent="Ref"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -16.1239, 12.8682, 10.9114)
+modulate = Color(1, 1, 1, 0.713726)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("4_6g5e3")
+region_enabled = true
+region_rect = Rect2(173, 1055, 66, 162)
+
+[node name="Sprite3D3" type="Sprite3D" parent="Ref"]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -15.9503, 16.0661, -22.5606)
+modulate = Color(1, 1, 1, 0.713726)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = ExtResource("4_6g5e3")
+region_enabled = true
+region_rect = Rect2(201, 842, 54, 101)

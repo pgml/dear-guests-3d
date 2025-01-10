@@ -12,7 +12,6 @@ ssao_enabled = true
 ssao_radius = 3.0
 ssao_sharpness = 1.0
 ssao_ao_channel_affect = 1.0
-ssil_enabled = true
 sdfgi_use_occlusion = true
 fog_mode = 1
 fog_light_color = Color(1, 1, 1, 1)

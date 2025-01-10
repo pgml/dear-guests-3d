@@ -8,17 +8,19 @@
 [ext_resource type="PackedScene" uid="uid://dofasu8kldusa" path="res://Assets/Exterior/street_light.tscn" id="5_yg5ax"]
 
 [node name="Scene" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 script = ExtResource("1_4f71o")
-day_time = 10.0252
+day_time = 11.2748
 clouds_cutoff = 1.0
 use_day_time_for_shader = true
+time_scale = 0.0
 sun_base_enegry = 1.5
 moon_base_enegry = 0.2
 
 [node name="World" parent="." instance=ExtResource("1_6g5e3")]
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6858, 3.56264, -3.25232)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6858, 13.0314, -14.2523)
 
 [node name="Map" parent="." instance=ExtResource("2_4mlve")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)

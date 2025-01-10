@@ -34,6 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.26442, -0.0065527)
 shape = SubResource("CapsuleShape3D_i3aeo")
 
 [node name="LightSources" type="Node3D" parent="."]
+visible = false
 
 [node name="OmniLight3D" type="OmniLight3D" parent="LightSources"]
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 10.3941, 1.38684)

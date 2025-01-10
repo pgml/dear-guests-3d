@@ -44,7 +44,7 @@ public partial class Actor : Node3D
 
 		_characterData.Node = this;
 
-		SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);
+		//SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);
 
 		if (Input.IsKeyPressed(Key.Shift)) {
 			_characterData.IsRunning = !_characterData.IsRunning;

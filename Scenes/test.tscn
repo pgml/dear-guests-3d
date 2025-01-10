@@ -11,10 +11,8 @@ size = Vector3(4.02246, 0.826416, 8.55029)
 
 [node name="Scene" type="Node3D"]
 
-[node name="World" parent="." instance=ExtResource("1_35xla")]
-
 [node name="Actor" parent="." instance=ExtResource("1_8od7v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.92029, 3.57949, -4.71476)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.81673, 3.57949, -17.5098)
 
 [node name="Map" parent="." instance=ExtResource("5_i3aeo")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
@@ -37,3 +35,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.90087, 0, -12.2097)
 
 [node name="StreetLight" parent="Props" instance=ExtResource("5_35xla")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5951, -7.62939e-06, -21.3369)
+
+[node name="World" parent="." instance=ExtResource("1_35xla")]
+
+[node name="Sun" parent="World" index="1"]
+transform = Transform3D(0.458736, -0.85341, -0.247488, 0.815589, 0.293853, 0.498462, -0.352668, -0.430511, 0.830834, 0, 0, 0)
+
+[editable path="World"]

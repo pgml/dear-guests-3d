@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfxesufusbh01"
-valid=false
+uid="uid://ckbrdijacu2yj"
+path="res://.godot/imported/stairs.png-a9864212d84a6f234d401eeb63ed0c11.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Assets/Sprites/Tiles/decals.png"
+source_file="res://Assets/Sprites/Tiles/stairs.png"
+dest_files=["res://.godot/imported/stairs.png-a9864212d84a6f234d401eeb63ed0c11.ctex"]
 
 [params]
 

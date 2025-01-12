@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfxesufusbh01"
-valid=false
+uid="uid://bv2x7j5r5b14g"
+path="res://.godot/imported/seamless.png-c295f8d3f4858a82d80fbe72f3e25685.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Assets/Sprites/Tiles/decals.png"
+source_file="res://Assets/Sprites/Tiles/seamless.png"
+dest_files=["res://.godot/imported/seamless.png-c295f8d3f4858a82d80fbe72f3e25685.ctex"]
 
 [params]
 

@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfxesufusbh01"
-valid=false
+uid="uid://hrhu3bg80ky7"
+path="res://.godot/imported/walls.png-0aeb3c731d8b8748d5704f5ee72e4a75.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Assets/Sprites/Tiles/decals.png"
+source_file="res://Assets/Sprites/Tiles/walls.png"
+dest_files=["res://.godot/imported/walls.png-0aeb3c731d8b8748d5704f5ee72e4a75.ctex"]
 
 [params]
 

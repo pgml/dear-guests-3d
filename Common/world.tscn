@@ -16,7 +16,6 @@ transform = Transform3D(0.917754, 0, -0.397148, 0.383615, 0.258819, 0.886482, 0.
 rotation_order = 4
 light_color = Color(0.964706, 0.952941, 0.901961, 1)
 light_energy = 1.5
-shadow_enabled = true
 shadow_bias = 0.01
 shadow_normal_bias = 2.5
 shadow_blur = 10.0

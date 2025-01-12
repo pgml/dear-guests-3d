@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfxesufusbh01"
-valid=false
+uid="uid://cxe8ora1dmjak"
+path="res://.godot/imported/waterfront_reloaded.png-ae07b1177e8245056180d372a7f721cf.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Assets/Sprites/Tiles/decals.png"
+source_file="res://Assets/Sprites/Ase/waterfront_reloaded.png"
+dest_files=["res://.godot/imported/waterfront_reloaded.png-ae07b1177e8245056180d372a7f721cf.ctex"]
 
 [params]
 

@@ -66,6 +66,8 @@ public partial class Actor : Node3D
 			IsOnStairs = false;
 		}
 
+		gravity = 0;
+
 		if (!_characterData.IsOnFloor) {
 			direction.Y -= gravity * (float)delta;
 			direction.Y = Mathf.Clamp(direction.Y, -1200, 1200);

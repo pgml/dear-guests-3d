@@ -1,8 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=31 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
-[ext_resource type="PackedScene" uid="uid://cmtx36c4tpvdc" path="res://Common/Components/StairMovementComponent.tscn" id="2_o2med"]
 [ext_resource type="Script" uid="uid://befclxu225ee8" path="res://Creatures/Scripts/Actor.cs" id="3_ew7kk"]
 [ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="4_p5kc0"]
 [ext_resource type="Texture2D" uid="uid://dibopwl34gxtd" path="res://Assets/Sprites/shadow.png" id="6_i7mqa"]
@@ -241,21 +240,16 @@ states/Walk/position = Vector2(471.445, 108.516)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8od7v"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_ys1qc"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_qc4db")]
 
 [node name="Actor" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.55718, 0)
 
 [node name="Components" type="Node" parent="."]
 
 [node name="AnimationComponent" parent="Components" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y1pvj")]
 AnimationTree = NodePath("../../AnimationTree")
 
-[node name="StairMovementComponent" parent="Components" node_paths=PackedStringArray("Controller") instance=ExtResource("2_o2med")]
-Controller = NodePath("../../Controller")
-MovementPenalty = 0.5
-MaxStepUp = 1.0
-MaxStepDown = 1.0
-
 [node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterNode")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00305462, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.54328, 0)
+floor_max_angle = 1.39626
+floor_snap_length = 1.0
 script = ExtResource("2_6neyu")
 CharacterNode = NodePath("Character")
 DefaultWalkSpeed = 8.0

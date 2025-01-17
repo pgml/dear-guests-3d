@@ -3,7 +3,6 @@ using static IController;
 
 public partial class Controller : CreatureController, IController
 {
-	public StairMovementComponent StairMovement { get; private set; } = new();
 	private ActorData _actorData;
 	//private AIData _aiData;
 	private AnimationNodeStateMachinePlayback _stateMachine;
@@ -14,7 +13,6 @@ public partial class Controller : CreatureController, IController
 		base._Ready();
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-		StairMovement = CharacterData.StairMovementComponent;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -56,18 +54,12 @@ public partial class Controller : CreatureController, IController
 				CharacterData.VelocityMultiplier = CharacterData.RunSpeed;
 			}
 
-			//CharacterData.IsOnStairs = CharacterData.Node.IsOnStairs;
-			//if (CharacterData.IsOnSlope) {
-			//	SlopeMovement();
-			//}
-
-			StairMovement.StepUp();
+			SlopeMovement();
 
 			Velocity = CharacterData.Direction * CharacterData.VelocityMultiplier;
 			CharacterData.Velocity = Velocity;
 
 			MoveAndSlide();
-			StairMovement.StepDown();
 
 			if (CharacterData.Direction != Vector3.Zero) {
 				CharacterData.FacingDirection = CharacterData.Direction;
@@ -77,6 +69,43 @@ public partial class Controller : CreatureController, IController
 		//SetCollider(CharacterData.Direction);
 	}
 
+	public void SlopeMovement()
+	{
+		if (_isOnSlope()) {
+			// Counter orthogonal slope movement seem faster on vertical (in top down view) slopes
+			if (CharacterData.Direction.Z != 0) {
+				CharacterData.VelocityMultiplier /= Mathf.Sqrt2;
+			}
+
+			FloorConstantSpeed = true;
+		}
+		else {
+			FloorConstantSpeed = false;
+		}
+	}
+
+	private bool _isOnSlope()
+	{
+		var isOnSlope = false;
+
+		if (Mathf.IsZeroApprox(GetFloorAngle())) {
+			return isOnSlope;
+		}
+
+		isOnSlope = true;
+
+		if (GetSlideCollisionCount() > 0) {
+			var collider = GetLastSlideCollision().GetCollider() as Node3D;
+
+			if (collider.IsInGroup("Stairs")) {
+				CharacterData.IsOnStairs = CharacterData.Node.IsOnStairs;
+			}
+		}
+
+		CharacterData.IsOnSlope = isOnSlope;
+
+		return isOnSlope;
+	}
 
 	private void _setActorData()
 	{

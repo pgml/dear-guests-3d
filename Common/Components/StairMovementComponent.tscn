@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmtx36c4tpvdc"]
-
-[ext_resource type="Script" uid="uid://byj25a0aq1dfn" path="res://Common/Components/StairMovementComponent.cs" id="1_b1dfd"]
-
-[node name="StairMovementComponent" type="Node"]
-script = ExtResource("1_b1dfd")

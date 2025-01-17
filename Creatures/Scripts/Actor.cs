@@ -57,17 +57,6 @@ public partial class Actor : Node3D
 
 		float gravity = _characterData.Controller.GravitySq;
 
-		foreach (var node in GetTree().GetNodesInGroup("Stairs")) {
-			var area = (Area3D)node;
-	 		if (area.GetOverlappingBodies().IndexOf(_characterData.Controller) >= 0) {
-				IsOnStairs = true;
-				continue;
-			}
-			IsOnStairs = false;
-		}
-
-		gravity = 0;
-
 		if (!_characterData.IsOnFloor) {
 			direction.Y -= gravity * (float)delta;
 			direction.Y = Mathf.Clamp(direction.Y, -1200, 1200);
@@ -75,8 +64,6 @@ public partial class Actor : Node3D
 
 		_characterData.Direction = direction;
 		_characterData.IsOnStairs = IsOnStairs;
-
-		//GD.Print(IsOnStairs);
 	}
 
 	private Dictionary<string, Component> _components()

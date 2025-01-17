@@ -29,7 +29,7 @@ public partial class ActorData : Resource
 	public bool IsRunning = false;
 	public bool IsIdle = false;
 	public bool IsOnStairs = false;
+	public bool IsOnSlope = false;
 
 	// Component Helper
-	public StairMovementComponent StairMovementComponent = new();
 }

@@ -1,0 +1,123 @@
+[gd_scene load_steps=5 format=3 uid="uid://c01cdiavnc8pt"]
+
+[ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_6uyms"]
+[ext_resource type="ArrayMesh" uid="uid://bsb4o1ss0wnq2" path="res://Assets/Exterior/rubbish_container_mesh.tres" id="2_jtaxk"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5lg3b"]
+data = PackedVector3Array(-2, 0, 0, -2, 4, 0, 2, 4, 0, -2, 0, 0, 2, 4, 0, 2, 0, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6uyms"]
+size = Vector3(4.37527, 3.98294, 2.2327)
+
+[node name="RubbishContainer" type="Node3D"]
+script = ExtResource("1_6uyms")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+cast_shadow = 2
+mesh = ExtResource("2_jtaxk")
+skeleton = NodePath("")
+metadata/extras = {
+"data": {
+"billboard": {
+"enabled": false,
+"y": false
+},
+"custom": [],
+"directional": {
+"angles": [{
+"angle": 0.0,
+"enabled": true,
+"max": 22.5,
+"min": -22.5,
+"suffix": "_S"
+}, {
+"angle": 45.0,
+"enabled": true,
+"max": 67.5,
+"min": 22.5,
+"suffix": "_SW"
+}, {
+"angle": 90.0,
+"enabled": true,
+"max": 112.5,
+"min": 67.5,
+"suffix": "_W"
+}, {
+"angle": 135.0,
+"enabled": true,
+"max": 157.5,
+"min": 112.5,
+"suffix": "_NW"
+}, {
+"angle": 180.0,
+"enabled": true,
+"max": 202.5,
+"min": 157.5,
+"suffix": "_N"
+}, {
+"angle": 225.0,
+"enabled": true,
+"max": 247.5,
+"min": 202.5,
+"suffix": "_NE"
+}, {
+"angle": 270.0,
+"enabled": true,
+"max": 292.5,
+"min": 247.5,
+"suffix": "_E"
+}, {
+"angle": 315.0,
+"enabled": true,
+"max": 337.5,
+"min": 292.5,
+"suffix": "_SE"
+}],
+"enabled": false,
+"mode": "cameraAngle"
+},
+"instance": {
+"custom": [],
+"name": "rubbish_container-col",
+"parent": null,
+"pos": {
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+},
+"rot": {
+"order": "XYZ",
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+},
+"sca": {
+"x": 1.0,
+"y": 1.0,
+"z": 1.0
+},
+"uuid": "CC9977F5-1C9D-47C3-9688-4AD76ABA675C"
+},
+"name": "rubbish_container-col",
+"points": [{
+"name": "Origin",
+"pos": {
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+}
+}]
+}
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Mesh"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_5lg3b")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="Mesh"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.080719, 1.98557, -1.12843)
+shape = SubResource("BoxShape3D_6uyms")

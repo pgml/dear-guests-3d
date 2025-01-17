@@ -1,12 +1,26 @@
 {
-    "activeFile": "",
+    "activeFile": "Waterfront.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
+        "Waterfront.tmx": {
+            "scale": 0.44568359374999994,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1280.0560936062054,
+                "y": 639.4671107410492
+            }
+        },
+        "Waterfront.tsx": {
+            "scaleInDock": 1
+        }
     },
     "openFiles": [
+        "Waterfront.tmx"
     ],
     "project": "waterfront.tiled-project",
     "recentFiles": [
+        "Waterfront.tmx"
     ]
 }

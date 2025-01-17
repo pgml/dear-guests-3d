@@ -20,9 +20,10 @@ settings/stdout/print_fps=true
 
 [display]
 
+window/size/viewport_width=640
+window/size/viewport_height=360
 window/size/always_on_top=true
-window/stretch/mode="viewport"
-window/vsync/vsync_mode=0
+window/stretch/mode="canvas_items"
 window/directional_shadow/size=4096
 
 [dotnet]
@@ -46,6 +47,11 @@ Stairs=""
 scene={
 &"gltf/embedded_image_handling": 3,
 &"meshes/force_disable_compression": true
+}
+3d_texture={
+&"compress/lossy_quality": 1.0,
+&"compress/mode": 0,
+&"mipmaps/generate": false
 }
 
 [input]
@@ -93,3 +99,4 @@ textures/canvas_textures/default_texture_filter=0
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=3
 environment/glow/upscale_mode=0
+2d/snap/snap_2d_vertices_to_pixel=true

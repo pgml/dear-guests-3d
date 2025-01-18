@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b5v47rbkri3mb"]
+[gd_scene load_steps=30 format=3 uid="uid://b5v47rbkri3mb"]
 
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_w3fsy"]
 [ext_resource type="PackedScene" uid="uid://f1inc7pl32n" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
@@ -55,6 +55,15 @@ size = Vector3(0.0682373, 5.77408, 6.71191)
 [sub_resource type="BoxShape3D" id="BoxShape3D_851v1"]
 size = Vector3(4.39984, 0.0966797, 8.45535)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_svxe0"]
+size = Vector3(1, 9.95459, 51.8004)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eldlo"]
+size = Vector3(1, 9.49896, 39.5627)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_psgro"]
+size = Vector3(1, 6.08289, 19.5757)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_na5xp"]
 size = Vector3(112.519, 40, 1)
 
@@ -86,7 +95,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.143848, -0.0104485)
 shape = SubResource("BoxShape3D_ffpni")
-debug_color = Color(0.957, 0, 0.534, 1)
+debug_color = Color(0, 0.640995, 0.339575, 1)
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(0.677223, 0.735778, 0, -0.735778, 0.677223, 0, 0, 0, 1, 80.7419, 0.575433, -14.1557)
@@ -94,7 +103,7 @@ transform = Transform3D(0.677223, 0.735778, 0, -0.735778, 0.677223, 0, 0, 0, 1, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.03783, -0.481941, 0.640755)
 shape = SubResource("BoxShape3D_qstua")
-debug_color = Color(0.956, 0, 0.542, 1)
+debug_color = Color(4.81308e-08, 0.637654, 0.392048, 1)
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 31.1869, 10.3111, -17.3847)
@@ -102,7 +111,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163456, -0.235023, -5.83468)
 shape = SubResource("BoxShape3D_pdtos")
-debug_color = Color(0.968, 0, 0.473, 1)
+debug_color = Color(0.172898, 0.64376, 0, 1)
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 81.2733, 10.2657, -30.6749)
@@ -110,7 +119,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.83618, -0.0033989, -1.34807)
 shape = SubResource("BoxShape3D_ta7ea")
-debug_color = Color(0.951, 0, 0.564, 1)
+debug_color = Color(0, 0.637676, 0.385797, 1)
 
 [node name="StaticBody3D5" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 93.9029, 13.6233, -49.744)
@@ -118,7 +127,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00552368, -0.210823, -5.97221)
 shape = SubResource("BoxShape3D_g7s84")
-debug_color = Color(0.95, 0, 0.573, 1)
+debug_color = Color(0, 0.640311, 0.356215, 1)
 
 [node name="StaticBody3D6" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(0.731354, -0.681998, 0, 0.681998, 0.731354, 0, 0, 0, 1, 67.4667, 13.6805, -36.9873)
@@ -126,7 +135,7 @@ transform = Transform3D(0.731354, -0.681998, 0, 0.681998, 0.731354, 0, 0, 0, 1, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.192558, 3.36165, 0.111614)
 shape = SubResource("BoxShape3D_g2emv")
-debug_color = Color(0.953, 0, 0.557, 1)
+debug_color = Color(0, 0.642808, 0.313956, 1)
 
 [node name="StaticBody3D7" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 53.675, 20.3639, -43)
@@ -134,7 +143,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00902557, 0.187973)
 shape = SubResource("BoxShape3D_c0wxc")
-debug_color = Color(0.963, 0, 0.499, 1)
+debug_color = Color(0, 0.641419, 0.330527, 1)
 
 [node name="StaticBody3D8" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 17.8709, 20.3639, -43)
@@ -142,7 +151,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0090332, 0.247456)
 shape = SubResource("BoxShape3D_c0wxc")
-debug_color = Color(0.963, 0, 0.499, 1)
+debug_color = Color(0, 0.641419, 0.330527, 1)
 
 [node name="StaticBody3D9" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(0.731354, 0.681998, 0, -0.681998, 0.731354, 0, 0, 0, 1, 55.4517, 22.0023, -47.1701)
@@ -150,7 +159,7 @@ transform = Transform3D(0.731354, 0.681998, 0, -0.681998, 0.731354, 0, 0, 0, 1, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.465891, 2.38701, 0)
 shape = SubResource("BoxShape3D_6b5rd")
-debug_color = Color(0.956, 0, 0.542, 1)
+debug_color = Color(7.21961e-07, 0.63959, 0.365541, 1)
 
 [node name="StaticBody3D10" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 20.8903, 22.2179, -53.6718)
@@ -158,7 +167,7 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.462555, -0.636341, -3.62902)
 shape = SubResource("BoxShape3D_851v1")
-debug_color = Color(0.952, 0, 0.56, 1)
+debug_color = Color(3.99485e-06, 0.640077, 0.353703, 1)
 
 [node name="Lights" type="Node3D" parent="."]
 
@@ -251,6 +260,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3785, 0.0023344, -7.74561)
 
 [node name="TreeSmallUnderground2" parent="Props" instance=ExtResource("9_37uxm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7741, 0.0184477, -8.00342)
+
+[node name="AdditionalCollisions" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="AdditionalCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9473, 0, -10.0546)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AdditionalCollisions/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.47729, -25.4002)
+shape = SubResource("BoxShape3D_svxe0")
+debug_color = Color(0.599, 0.18, 0, 1)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="AdditionalCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8749, 9.95067, -22.1192)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AdditionalCollisions/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.24948, -19.2814)
+shape = SubResource("BoxShape3D_eldlo")
+debug_color = Color(0.672, 0, 0.02, 1)
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="AdditionalCollisions"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AdditionalCollisions/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.2543, 16.0624, -49.015)
+shape = SubResource("BoxShape3D_psgro")
+debug_color = Color(0.659, 0, 0.01, 1)
 
 [node name="MapBounds" type="Node3D" parent="."]
 

@@ -50,6 +50,10 @@ public partial class StaticObject : Node3D
 
 	public void PrepareForTopdown()
 	{
+		if (FindChild("Mesh") is null) {
+			return;
+		}
+
 		Mesh = GetNode<MeshInstance3D>("Mesh");
 
 		if (!IsInstanceValid(Mesh)) {

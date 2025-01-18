@@ -37,6 +37,7 @@ import/blender/enabled=false
 [global_group]
 
 Stairs=""
+MapBounds=""
 
 [importer_defaults]
 

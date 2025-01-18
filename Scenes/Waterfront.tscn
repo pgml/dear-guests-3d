@@ -4,8 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://f1inc7pl32n" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
 [ext_resource type="PackedScene" uid="uid://cfu2aqgdl0feg" path="res://Resources/Crocotile/Props.gltf" id="3_4f71o"]
 [ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="3_6g5e3"]
-[ext_resource type="Texture2D" uid="uid://drjt0uhsjl4jk" path="res://Resources/Tiled/Waterfront/Waterfront.png" id="4_6g5e3"]
-[ext_resource type="Script" uid="uid://c17gk5lvelocd" path="res://Common/Scripts/Stairs.cs" id="5_qstua"]
 [ext_resource type="PackedScene" uid="uid://dofasu8kldusa" path="res://Assets/Exterior/street_light.tscn" id="5_yg5ax"]
 [ext_resource type="Shader" uid="uid://wphdhuavthv0" path="res://Shaders/moving_decal.gdshader" id="7_w3fsy"]
 [ext_resource type="PackedScene" uid="uid://do7dx6ksxoaf3" path="res://Assets/Exterior/bench_front.tscn" id="8_37uxm"]
@@ -57,6 +55,12 @@ size = Vector3(0.0682373, 5.77408, 6.71191)
 [sub_resource type="BoxShape3D" id="BoxShape3D_851v1"]
 size = Vector3(4.39984, 0.0966797, 8.45535)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_na5xp"]
+size = Vector3(112.519, 40, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e0om7"]
+size = Vector3(1, 40, 65.4905)
+
 [node name="Scene" type="Node3D"]
 
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
@@ -67,13 +71,14 @@ visible = false
 mesh = SubResource("PlaneMesh_37uxm")
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.2045, 9.64529, -15.1042)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7774, 20.0819, -28.4626)
 
 [node name="Map" parent="." instance=ExtResource("2_4mlve")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 
+[node name="Trees_Bushes" type="Node3D" parent="."]
+
 [node name="Stairs" type="Node3D" parent="." groups=["Stairs"]]
-script = ExtResource("5_qstua")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 3.25676, 4.85778, -14.4587)
@@ -154,8 +159,6 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.462555, -0.636341, -3.62902)
 shape = SubResource("BoxShape3D_851v1")
 debug_color = Color(0.952, 0, 0.56, 1)
-
-[node name="Trees_Bushes" type="Node3D" parent="."]
 
 [node name="Lights" type="Node3D" parent="."]
 
@@ -244,54 +247,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.1929, 0.0157471, -8.79114)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.2174, 0.0217285, -15.1698)
 
 [node name="TreeSmallUnderground" parent="Props" instance=ExtResource("9_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3785, 0.0023344, -7.80176)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3785, 0.0023344, -7.74561)
 
 [node name="TreeSmallUnderground2" parent="Props" instance=ExtResource("9_37uxm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7741, 0.0184477, -8.00342)
 
-[node name="Ref" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3257, -11.0137, -10.6979)
-visible = false
+[node name="MapBounds" type="Node3D" parent="."]
 
-[node name="Sprite3D" type="Sprite3D" parent="Ref"]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -14.4588, 15.2738, -12.6942)
-modulate = Color(1, 1, 1, 0.713726)
-billboard = 1
-shaded = true
-texture_filter = 0
-texture = ExtResource("4_6g5e3")
-region_enabled = true
-region_rect = Rect2(286, 719, 38, 114)
+[node name="Top" type="StaticBody3D" parent="MapBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.7262, 10, -61.992)
 
-[node name="Sprite3D4" type="Sprite3D" parent="Ref"]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -10.0725, 18.4668, -16.1616)
-modulate = Color(1, 1, 1, 0.713726)
-billboard = 1
-shaded = true
-texture_filter = 0
-texture = ExtResource("4_6g5e3")
-region_enabled = true
-region_rect = Rect2(288, 719, 32, 22)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MapBounds/Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.54333)
+shape = SubResource("BoxShape3D_na5xp")
+debug_color = Color(0.833, 0.105, 0, 1)
 
-[node name="Sprite3D2" type="Sprite3D" parent="Ref"]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -16.1239, 14.4252, 10.9114)
-modulate = Color(1, 1, 1, 0.841)
-billboard = 1
-shaded = true
-texture_filter = 0
-texture = ExtResource("4_6g5e3")
-region_enabled = true
-region_rect = Rect2(173, 1055, 66, 162)
+[node name="Top" type="VisibleOnScreenNotifier3D" parent="MapBounds/Top" groups=["MapBounds"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.2688, 16.4918, -0.11562)
+aabb = AABB(0, 0, 0, 100, 2.845, 1)
 
-[node name="Sprite3D3" type="Sprite3D" parent="Ref"]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -15.9503, 16.0661, -22.5606)
-modulate = Color(1, 1, 1, 0.713726)
-billboard = 1
-shaded = true
-texture_filter = 0
-texture = ExtResource("4_6g5e3")
-region_enabled = true
-region_rect = Rect2(201, 842, 54, 101)
+[node name="Right" type="StaticBody3D" parent="MapBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.095, 10, -27.474)
+
+[node name="Right" type="VisibleOnScreenNotifier3D" parent="MapBounds/Right" groups=["MapBounds"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.443748, 12.54, -46.3692)
+aabb = AABB(-0.152024, -8.78915, -23.12, 2.30405, 19.5783, 96.3924)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MapBounds/Right"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.85875)
+shape = SubResource("BoxShape3D_e0om7")
+debug_color = Color(0.722, 0.056, 0.092, 1)
 
 [node name="default" parent="." instance=ExtResource("3_4f71o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4321, 1.00199, -8.12891)

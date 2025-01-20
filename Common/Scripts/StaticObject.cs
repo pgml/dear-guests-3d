@@ -10,7 +10,7 @@ public partial class StaticObject : Node3D
 	[Export]
 	public MeshInstance3D SunShadowMesh { get; set; }
 
-	public bool _fake3DShadow = false;
+	private bool _fake3DShadow = false;
 	[Export]
 	public bool Fake3DShadow {
 		get => _fake3DShadow;
@@ -50,7 +50,7 @@ public partial class StaticObject : Node3D
 
 	public void PrepareForTopdown()
 	{
-		if (FindChild("Mesh") is null) {
+		if (!_renameMesh() || FindChild("Mesh") is null) {
 			return;
 		}
 
@@ -76,5 +76,17 @@ public partial class StaticObject : Node3D
 		if (Mesh.Scale != TopDownScale) {
 			Mesh.Scale = TopDownScale;
 		}
+	}
+
+	private bool _renameMesh()
+	{
+		var children = GetChildren();
+
+		if (children[0] is not null) {
+			children[0].Name = "Mesh";
+			return true;
+		}
+
+		return false;
 	}
 }

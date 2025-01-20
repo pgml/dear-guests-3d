@@ -61,9 +61,10 @@ public partial class Controller : CreatureController, IController
 
 			MoveAndSlide();
 
-			if (CharacterData.Direction != Vector3.Zero) {
-				CharacterData.FacingDirection = CharacterData.Direction;
-			}
+		}
+
+		if (CharacterData.Direction != Vector3.Zero) {
+			CharacterData.FacingDirection = CharacterData.Direction;
 		}
 
 		//SetCollider(CharacterData.Direction);

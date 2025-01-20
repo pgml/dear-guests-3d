@@ -38,9 +38,9 @@ public partial class Actor : Node3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!_characterData.CanMove) {
-			return;
-		}
+		//if (!_characterData.CanMoveAndTurn) {
+		//	return;
+		//}
 
 		_characterData.Node = this;
 
@@ -62,7 +62,9 @@ public partial class Actor : Node3D
 			direction.Y = Mathf.Clamp(direction.Y, -1200, 1200);
 		}
 
-		_characterData.Direction = direction;
+		//if (_characterData.CanMove) {
+			_characterData.Direction = direction;
+		//}
 		_characterData.IsOnStairs = IsOnStairs;
 	}
 

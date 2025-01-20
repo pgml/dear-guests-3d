@@ -11,6 +11,7 @@ public partial class ActorData : Resource
 
 	// movement
 	public bool CanMove = true;
+	public bool CanMoveAndTurn = true;
 	public float WalkSpeed = 0.0f;
 	public float RunSpeed = 0.0f;
 	public float DefaultWalkSpeed = 0.0f;
@@ -32,4 +33,5 @@ public partial class ActorData : Resource
 	public bool IsOnSlope = false;
 
 	// Component Helper
+	public EdgeCheckComponent edgeCheck = new();
 }

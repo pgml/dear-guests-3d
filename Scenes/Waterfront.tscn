@@ -26,7 +26,7 @@ size = Vector3(4.28656, 0.0332031, 13.7429)
 size = Vector3(13.0757, 0.0361328, 5.16161)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pdtos"]
-size = Vector3(6.48804, 0.065918, 13.4055)
+size = Vector3(6.48804, 0.065918, 13.9611)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ta7ea"]
 size = Vector3(33.7068, 0.114014, 5.12305)
@@ -38,7 +38,7 @@ size = Vector3(6.50708, 0.257813, 13.5575)
 size = Vector3(0.0378418, 8.51811, 4.95215)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c0wxc"]
-size = Vector3(4.5918, 0.0117188, 3.4892)
+size = Vector3(4.5918, 0.0117188, 4.00632)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6b5rd"]
 size = Vector3(0.0682373, 5.77408, 6.71191)
@@ -69,7 +69,7 @@ size = Vector3(1, 40, 65.4905)
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.3352, 19.0426, -34.9273)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.3336, 19.0716, -34.9449)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_na5xp")
@@ -96,11 +96,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.217, 9.50391, -21.9908)
 
 [node name="Stairs" type="Node3D" parent="NavigationRegion3D" groups=["Stairs"]]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 3.25676, 4.85778, -14.4587)
+[node name="StatidcBody3D" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+transform = Transform3D(1, 0, 0, 0, 0.71934, -0.694659, 0, 0.694659, 0.71934, 3.24079, 4.78858, -14.6562)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.143848, -0.0104485)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StatidcBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, -0.015851, 0.126812)
 shape = SubResource("BoxShape3D_ffpni")
 debug_color = Color(0, 0.640995, 0.339575, 1)
 
@@ -113,15 +113,15 @@ shape = SubResource("BoxShape3D_qstua")
 debug_color = Color(4.81308e-08, 0.637654, 0.392048, 1)
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 31.1869, 10.3111, -17.3847)
+transform = Transform3D(1, 0, 0, 0, 0.71934, -0.694659, 0, 0.694659, 0.71934, 31.1869, 10.5573, -17.2764)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.163456, -0.235023, -5.83468)
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0.163456, -0.352711, -5.68311)
 shape = SubResource("BoxShape3D_pdtos")
 debug_color = Color(0.172898, 0.64376, 0, 1)
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 81.2733, 10.2657, -30.6749)
+transform = Transform3D(1, 0, 0, 0, 0.71934, -0.694659, 0, 0.694659, 0.71934, 81.2733, 10.2588, -30.6938)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64514, -0.00339985, -1.34807)
@@ -145,15 +145,15 @@ shape = SubResource("BoxShape3D_g2emv")
 debug_color = Color(0, 0.642808, 0.313956, 1)
 
 [node name="StaticBody3D7" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 53.675, 20.3639, -43)
+transform = Transform3D(1, 0, 0, 0, 0.71934, -0.694659, 0, 0.694659, 0.71934, 53.675, 19.9005, -42.5661)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00902557, 0.187973)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0802402, -0.338802)
 shape = SubResource("BoxShape3D_c0wxc")
 debug_color = Color(0, 0.641419, 0.330527, 1)
 
 [node name="StaticBody3D8" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
-transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 17.8709, 20.3639, -43)
+transform = Transform3D(1, 0, 0, 0, 0.731354, -0.681999, 0, 0.681999, 0.731354, 17.8709, 20.2085, -42.9665)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0090332, 0.247456)
@@ -200,7 +200,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1828, 21.4079, -58.1963)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1706, 19.0868, -41.5509)
 
 [node name="StreetLight8" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8681, 19.0597, -41.5871)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8681, 19.0212, -41.5871)
 
 [node name="StreetLight9" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.7554, 0.16748, -13.871)

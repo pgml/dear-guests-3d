@@ -1,7 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=33 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
+[ext_resource type="PackedScene" uid="uid://cpbx1tdodifxd" path="res://Common/Components/AudioComponent.tscn" id="2_smncn"]
 [ext_resource type="Script" uid="uid://befclxu225ee8" path="res://Creatures/Scripts/Actor.cs" id="3_ew7kk"]
 [ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_i7mqa"]
 [ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="4_p5kc0"]
@@ -246,6 +247,9 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 
 [node name="AnimationComponent" parent="Components" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y1pvj")]
 AnimationTree = NodePath("../../AnimationTree")
+
+[node name="AudioComponent" parent="Components" instance=ExtResource("2_smncn")]
+FootStepLoopInterval = 0.34
 
 [node name="OrthoCam" type="Camera3D" parent="." node_paths=PackedStringArray("Controller")]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)

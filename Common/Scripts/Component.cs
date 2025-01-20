@@ -5,7 +5,7 @@ public partial class Component : Node
 {
 	// resources
 	protected ActorData ActorData;
-	//protected AudioLibrary AudioLibrary;
+	protected AudioLibrary AudioLibrary;
 	//protected SceneManager SceneManager;
 	//protected QuickBar Quickbar;
 
@@ -16,7 +16,7 @@ public partial class Component : Node
 		//SceneManager = GetNode<SceneManager>(Resources.SceneManager);
 
 		ActorData = Load<ActorData>(Resources.ActorData);
-		//AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
+		AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
 		//Quickbar = Load<QuickBar>(Resources.QuickBar);
 
 		Controller = _getController();

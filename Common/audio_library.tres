@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bqujfr0eb46cn"]
+
+[ext_resource type="Script" uid="uid://5b3vry7osrjh" path="res://Common/Scripts/AudioLibrary.cs" id="1_7lvr4"]
+[ext_resource type="Resource" uid="uid://dsbj0kocvnho7" path="res://Resources/Audio/AudioInstances/footstep_generic.tres" id="1_t34ec"]
+
+[resource]
+script = ExtResource("1_7lvr4")
+FootStepGeneric = ExtResource("1_t34ec")

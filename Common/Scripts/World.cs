@@ -57,7 +57,7 @@ public partial class World : Node
 	//[Export(PropertyHint.Range, "-180, 180, 0.01")]
 	//public double PlanetAxialTilt
 	//{
-	//	get => _planetAxialTilt == 0 ? 23.44 : _planetAxialTilt;
+	//	get => _planetAxialTilt == 0 ? 23.5 : _planetAxialTilt;
 	//	set {
 	//		_planetAxialTilt= value;
 	//		_update();
@@ -85,11 +85,11 @@ public partial class World : Node
 	//	 	_updateMoon();
 	//	}
 	//}
-	//
+
 	//private double _timeScale;
 	//[Export(PropertyHint.Range, "0.0, 1.0, 0.01")]
 	//public double TimeScale { get; set; } = 0.01f;
-	//
+
 	//private double _sunBaseEnergy;
 	//[Export(PropertyHint.Range, "0.0, 1.0, 0.01")]
 	//public double SunBaseEnergy
@@ -100,7 +100,7 @@ public partial class World : Node
 	//		_updateShader();
 	//	}
 	//}
-	//
+
 	//private double _moonBaseEnergy;
 	//[Export(PropertyHint.Range, "0.0, 1.0, 0.01")]
 	//public double MoonBaseEnergy
@@ -117,14 +117,13 @@ public partial class World : Node
 
 	//public override void _Ready()
 	//{
-	//	return;
 	//	if (IsInstanceValid(Sun)) {
 	//		Sun.Position = Vector3.Zero;
 	//		Sun.Rotation = Vector3.Zero;
 	//		Sun.RotationOrder = EulerOrder.Zxy;
 
-	//		if (_sunBaseEnergy == 0) {
-	//			_sunBaseEnergy = Sun.LightEnergy;
+	//		if (SunBaseEnergy == 0) {
+	//			SunBaseEnergy = Sun.LightEnergy;
 	//		}
 	//	}
 
@@ -133,21 +132,19 @@ public partial class World : Node
 	//		Moon.Rotation = Vector3.Zero;
 	//		Moon.RotationOrder = EulerOrder.Zxy;
 
-	//		if (_moonBaseEnergy == 0.0f) {
-	//			_moonBaseEnergy = Moon.LightEnergy;
+	//		if (MoonBaseEnergy == 0.0f) {
+	//			MoonBaseEnergy = Moon.LightEnergy;
 	//		}
 	//	}
-	//	
+
 	//	_update();
 	//}
 
 	//public override void _Process(double delta)
 	//{
-	//	if (Engine.IsEditorHint()) {
-	//		return;
+	//	if (!Engine.IsEditorHint()) {
+	//		DayTime += delta * TimeScale;
 	//	}
-	//	_dayTime += delta * _timeScale;
-	//	GD.Print("Day time: " + _dayTime);
 	//}
 
 	//private void _update()
@@ -156,44 +153,48 @@ public partial class World : Node
 	//	_updateMoon();
 	//	//_updateShader();
 	//}
-	//
+
 	//private void _updateSun()
  	//{
 	//	if (IsInstanceValid(Sun)) {
-	//		double dayProgress = _dayTime / HoursInDay;
-	//		double earthOrbitProgress = _dayOfYear + 193 + dayProgress;
+	//		double dayProgress = DayTime / HoursInDay;
+	//		double earthOrbitProgress = DayOfYear + 193 + dayProgress;
 	//		Sun.Rotation = new Vector3(
 	//			(float)(dayProgress * 2.0 - 0.5) * -Mathf.Pi,
-	//			(float)Mathf.DegToRad(Mathf.Cos(earthOrbitProgress * Mathf.Pi * 2.0) * _planetAxialTilt),
-	//			Mathf.DegToRad(_latitude)
+	//			(float)Mathf.DegToRad(Mathf.Cos(earthOrbitProgress * Mathf.Pi * 2.0) * PlanetAxialTilt),
+	//			Mathf.DegToRad(Latitude)
 	//		);
 	//		if (IsInsideTree()) {
 	//			Vector3 sunDirection = Sun.ToGlobal(new Vector3(0, 0, 1).Normalized());
 	//			Sun.LightEnergy = (float)Mathf.SmoothStep(
-	//			-0.0,
+	//			-0.05,
 	//			0.1,
 	//			sunDirection.Y
-	//		) * (float)_sunBaseEnergy;
+	//		) * (float)SunBaseEnergy;
 	//		}
 	//	}
 	//}
 
 	//private void _updateMoon()
  	//{
-	//	double dayProgress = _dayTime / HoursInDay;
+	//	double dayProgress = DayTime / HoursInDay;
 
 	//	if (IsInstanceValid(Moon)) {
-	//		double moonOrbitProgress = ((double)_dayOfYear % _moonOrbitalPeriod) + dayProgress;
-	//		double axialTilt = _moonOrbitalInclination;
-	//		axialTilt += _planetAxialTilt * Mathf.Sin((dayProgress * 2 - 1) * Mathf.Pi);
+	//		double moonOrbitProgress = ((double)DayOfYear % MoonOrbitalPeriod) + dayProgress / MoonOrbitalPeriod;
+	//		double axialTilt = MoonOrbitalInclination;
+	//		axialTilt += PlanetAxialTilt * Mathf.Sin(((dayProgress - moonOrbitProgress) * 2 - 1) * Mathf.Pi);
 	//		Moon.Rotation = new Vector3(
 	//			(float)(dayProgress - moonOrbitProgress * 2.0 - 0.5) * -Mathf.Pi,
 	//			Mathf.DegToRad((float)axialTilt),
-	//			Mathf.DegToRad(_latitude)
+	//			Mathf.DegToRad(Latitude)
 	//		);
 	//		if (IsInsideTree()) {
 	//			Vector3 moonDirection = Moon.ToGlobal(new Vector3(0, 0, 1).Normalized());
-	//			Moon.LightEnergy = (float)Mathf.SmoothStep(-0.0f, 0.1f, moonDirection.Y) * (float)_sunBaseEnergy;
+	//			Moon.LightEnergy = (float)Mathf.SmoothStep(
+	//				-0.05f,
+	//				0.1f,
+	//				moonDirection.Y
+	//			) * (float)MoonBaseEnergy;
 	//		}
 	//	}
 	//}
@@ -207,7 +208,10 @@ public partial class World : Node
 	//	if (Environment.Environment.Sky is null) {
 	//		return;
 	//	}
-	//	
-	//	//Environment.Environment.Sky.SkyMaterial.
+
+	//	//Environment.Environment.Sky.SkyMaterial.SetShaderParameter(
+	//	//"overwritten_time",
+	//	//(DayOfYear * HoursInDay + DayTime) * 100
+	//	//);
 	//}
 }

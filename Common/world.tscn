@@ -26,8 +26,16 @@ directional_shadow_split_2 = 0.497
 directional_shadow_split_3 = 0.563
 
 [node name="Moon" type="DirectionalLight3D" parent="."]
-visible = false
+transform = Transform3D(0.995979, 0.0895897, -3.91609e-09, 0, -4.37114e-08, -1, -0.0895897, 0.995979, -4.35356e-08, 0, 0, 0)
+light_energy = 0.0
 shadow_enabled = true
+shadow_bias = 0.01
+shadow_normal_bias = 2.5
+shadow_opacity = 0.6
+shadow_blur = 10.0
+directional_shadow_split_1 = 0.349
+directional_shadow_split_2 = 0.497
+directional_shadow_split_3 = 0.563
 
 [node name="EditorAngleRef" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.74206, 0, 0)

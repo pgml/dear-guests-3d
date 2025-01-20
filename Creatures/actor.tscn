@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=34 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_i7mqa"]
 [ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="4_p5kc0"]
 [ext_resource type="Texture2D" uid="uid://dibopwl34gxtd" path="res://Assets/Sprites/shadow.png" id="6_i7mqa"]
+[ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1pvj"]
 radius = 0.8
@@ -334,3 +335,7 @@ tree_root = SubResource("AnimationNodeStateMachine_8od7v")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idle/blend_position = Vector2(0.00133693, 1.13584)
 parameters/Walk/blend_position = Vector2(-0.0288473, 1.39062)
+
+[node name="UI" type="Node3D" parent="."]
+
+[node name="Cursor" parent="UI" instance=ExtResource("8_xua5t")]

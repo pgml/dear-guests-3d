@@ -21,9 +21,9 @@ shadow_bias = 0.01
 shadow_normal_bias = 2.5
 shadow_opacity = 0.6
 shadow_blur = 10.0
-directional_shadow_split_1 = 0.495
+directional_shadow_split_1 = 0.349
 directional_shadow_split_2 = 0.497
-directional_shadow_split_3 = 0.509
+directional_shadow_split_3 = 0.663
 
 [node name="Moon" type="DirectionalLight3D" parent="."]
 visible = false

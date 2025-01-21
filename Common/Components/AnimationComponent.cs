@@ -22,7 +22,11 @@ public partial class AnimationComponent : Component
 
 	public override void _PhysicsProcess(double delta)
 	{
-		_moveDirection = Controller.CharacterData.Direction;
+		if (!IsInstanceValid(CreatureData)) {
+			return;
+		}
+
+		_moveDirection = CreatureData.Direction;
 
 		_updateAnimationState();
 		_updateAnimationParameters(_moveDirection);
@@ -48,7 +52,7 @@ public partial class AnimationComponent : Component
 
 	private void _updateAnimationState()
 	{
-		var shouldIdle = Controller.CharacterData.VelocityMultiplier == 0;
+		var shouldIdle = CreatureData.VelocityMultiplier == 0;
 
 		if (!shouldIdle && _moveDirection != Vector3.Zero) {
 			//if (Controller.IsCharacterBoxed()) {

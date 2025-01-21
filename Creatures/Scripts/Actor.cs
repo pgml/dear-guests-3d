@@ -13,7 +13,7 @@ public partial class Actor : Node3D
 	[Export]
 	public Sprite3D SunShadowSprite { get; set; }
 
-	public ActorData CharacterData { get; private set; }
+	public CreatureData CharacterData { get; private set; }
 	public Vector3 Direction { get; set; }
 	public bool IsOnStairs { get; set; }
 
@@ -21,14 +21,14 @@ public partial class Actor : Node3D
 		get { return _components(); }
 	}
 
-	private ActorData _characterData;
+	private CreatureData _characterData;
 
 	private World _world;
 	private DirectionalLight3D _sun;
 
 	public override void _Ready()
 	{
-		_characterData = Load<ActorData>(Resources.ActorData);
+		_characterData = Load<CreatureData>(Resources.ActorData);
 		_characterData.Node = this;
 		CharacterData = _characterData;
 

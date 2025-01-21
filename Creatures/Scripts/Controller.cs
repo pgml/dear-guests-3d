@@ -3,7 +3,7 @@ using static IController;
 
 public partial class Controller : CreatureController, IController
 {
-	private ActorData _actorData;
+	private CreatureData _actorData;
 	//private AIData _aiData;
 	private AnimationNodeStateMachinePlayback _stateMachine;
 
@@ -17,9 +17,9 @@ public partial class Controller : CreatureController, IController
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (CharacterData is not null) {
-			CharacterData.WasGrounded = CharacterData.IsGrounded;
-			CharacterData.IsGrounded = IsOnFloor();
+		if (CreatureData is not null) {
+			CreatureData.WasGrounded = CreatureData.IsGrounded;
+			CreatureData.IsGrounded = IsOnFloor();
 
 			base._PhysicsProcess(delta);
 			Movement(delta);
@@ -28,12 +28,12 @@ public partial class Controller : CreatureController, IController
 
 	public void Movement(double delta)
 	{
-		CharacterData.CurrentState = CurrentState;
-		CharacterData.Position = Position;
+		CreatureData.CurrentState = CurrentState;
+		CreatureData.Position = Position;
 
 		// Set velocity to zero to make animations stop when
 		// movement is forced
-		if (CharacterData.VelocityMultiplier == 0.0f) {
+		if (CreatureData.VelocityMultiplier == 0.0f) {
 			Velocity = Vector3.Zero;
 		}
 		else {
@@ -44,27 +44,27 @@ public partial class Controller : CreatureController, IController
 			CurrentState = _stateWalk();
 		}
 
-		CharacterData.CurrentState = CurrentState;
-		CharacterData.IsIdle = CurrentState == _stateIdle();
+		CreatureData.CurrentState = CurrentState;
+		CreatureData.IsIdle = CurrentState == _stateIdle();
 
-		if (CharacterData.CanMove) {
-			CharacterData.VelocityMultiplier = CharacterData.WalkSpeed;
+		if (CreatureData.CanMove) {
+			CreatureData.VelocityMultiplier = CreatureData.WalkSpeed;
 
-			if (CharacterData.IsRunning) {
-				CharacterData.VelocityMultiplier = CharacterData.RunSpeed;
+			if (CreatureData.IsRunning) {
+				CreatureData.VelocityMultiplier = CreatureData.RunSpeed;
 			}
 
 			SlopeMovement();
 
-			Velocity = CharacterData.Direction * CharacterData.VelocityMultiplier;
-			CharacterData.Velocity = Velocity;
+			Velocity = CreatureData.Direction * CreatureData.VelocityMultiplier;
+			CreatureData.Velocity = Velocity;
 
 			MoveAndSlide();
 
 		}
 
-		if (CharacterData.Direction != Vector3.Zero) {
-			CharacterData.FacingDirection = CharacterData.Direction;
+		if (CreatureData.Direction != Vector3.Zero) {
+			CreatureData.FacingDirection = CreatureData.Direction;
 		}
 
 		//SetCollider(CharacterData.Direction);
@@ -74,8 +74,8 @@ public partial class Controller : CreatureController, IController
 	{
 		if (_isOnSlope()) {
 			// Counter orthogonal slope movement seem faster on vertical (in top down view) slopes
-			if (CharacterData.Direction.Z != 0) {
-				CharacterData.VelocityMultiplier /= Mathf.Sqrt2;
+			if (CreatureData.Direction.Z != 0) {
+				CreatureData.VelocityMultiplier /= Mathf.Sqrt2;
 			}
 
 			FloorConstantSpeed = true;
@@ -99,11 +99,11 @@ public partial class Controller : CreatureController, IController
 			var collider = GetLastSlideCollision().GetCollider() as Node3D;
 
 			if (collider.IsInGroup("Stairs")) {
-				CharacterData.IsOnStairs = CharacterData.Node.IsOnStairs;
+				CreatureData.IsOnStairs = CreatureData.Node.IsOnStairs;
 			}
 		}
 
-		CharacterData.IsOnSlope = isOnSlope;
+		CreatureData.IsOnSlope = isOnSlope;
 
 		return isOnSlope;
 	}
@@ -114,15 +114,15 @@ public partial class Controller : CreatureController, IController
 		_actorData = charNode.CharacterData;
 		//_actorData.IsBoxed = IsBoxed;
 
-		CharacterData = _actorData;
-		CharacterData.Controller = this;
-		CharacterData.Parent = GetParent() as Node3D;
-		CharacterData.IsRunning = ToggleRun;
-		CharacterData.DefaultWalkSpeed = DefaultWalkSpeed;
-		CharacterData.DefaultRunSpeed = DefaultRunSpeed;
-		CharacterData.WalkSpeed = DefaultWalkSpeed;
-		CharacterData.RunSpeed = DefaultRunSpeed;
-		CharacterData.VelocityMultiplier = 0.0f;
+		CreatureData = _actorData;
+		CreatureData.Controller = this;
+		CreatureData.Parent = GetParent() as Node3D;
+		CreatureData.IsRunning = ToggleRun;
+		CreatureData.DefaultWalkSpeed = DefaultWalkSpeed;
+		CreatureData.DefaultRunSpeed = DefaultRunSpeed;
+		CreatureData.WalkSpeed = DefaultWalkSpeed;
+		CreatureData.RunSpeed = DefaultRunSpeed;
+		CreatureData.VelocityMultiplier = 0.0f;
 	}
 
 	private MoveState _stateIdle()

@@ -1,10 +1,7 @@
 using Godot;
 
-public partial class EdgeCheckComponent : Node
+public partial class EdgeCheckComponent : Component
 {
-	[Export]
-	public CharacterBody3D Controller { get; set; }
-
 	[Export]
 	public float BodyTestMargin { get; set; } = 0.17f;
 
@@ -16,20 +13,21 @@ public partial class EdgeCheckComponent : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
-		var characterData = (Controller as Controller).CharacterData as ActorData;
+		if (!IsInstanceValid(CreatureData)) {
+			return;
+		}
 
 		if (IsNearEdge()) {
-			characterData.CanMove = false;
+			CreatureData.CanMove = false;
 		}
 		else {
-			characterData.CanMove = true;
+			CreatureData.CanMove = true;
 		}
 	}
 
 	public bool IsNearEdge()
 	{
-		var characterData = (Controller as Controller).CharacterData as ActorData;
-		Vector3 facingDirection = characterData.FacingDirection;
+		Vector3 facingDirection = CreatureData.FacingDirection;
 		Transform3D globalTransform = Controller.GlobalTransform;
 
 		Vector3 forward = globalTransform.Origin + facingDirection * TestForwardDistance;

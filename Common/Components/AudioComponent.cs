@@ -18,7 +18,11 @@ public partial class AudioComponent : Component
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (Controller.CharacterData.CanMove) {
+		if (!IsInstanceValid(CreatureData)) {
+			return;
+		}
+
+		if (CreatureData.CanMove) {
 			_footstepTimer += delta;
 			if (_footstepTimer >= FootStepLoopInterval) {
 				PlayFootStepSound();
@@ -29,7 +33,7 @@ public partial class AudioComponent : Component
 
 	public void PlayFootStepSound()
 	{
-		if (Controller.CharacterData.Velocity == Vector3.Zero) {
+		if (CreatureData.Velocity == Vector3.Zero) {
 			return;
 		}
 
@@ -38,4 +42,3 @@ public partial class AudioComponent : Component
 		_footstepNode.Play(AudioLibrary.FootStepGeneric);
 	}
 }
-

@@ -25,7 +25,7 @@ public partial class CreatureController : CharacterBody3D
 	public float WalkSpeed;
 	public float RunSpeed;
 	public MoveState CurrentState { get; set; } = MoveState.IDLE;
-	public dynamic CharacterData { get; set; }
+	public CreatureData CreatureData { get; set; }
 
 	public float Gravity {
 		get { return (float)ProjectSettings.GetSetting("physics/3d/default_gravity"); }
@@ -39,6 +39,6 @@ public partial class CreatureController : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		CharacterData.IsOnFloor = IsOnFloor();
+		CreatureData.IsOnFloor = IsOnFloor();
 	}
 }

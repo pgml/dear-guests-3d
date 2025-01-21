@@ -12,7 +12,7 @@ public interface IController
 	public Node3D CharacterNode { get; set; }
 	public bool CanMove => true;
 	public MoveState CurrentState { get; }
-	public dynamic CharacterData { get; }
+	public CreatureData CreatureData { get; }
 
 	public void Movement(double delta);
 
@@ -27,4 +27,3 @@ public interface IController
 
 	//public bool IsCharacterBoxed();
 }
-

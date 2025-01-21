@@ -2,7 +2,7 @@ using Godot;
 //using System.Collections.Generic;
 using static IController;
 
-public partial class ActorData : Resource
+public partial class CreatureData : Resource
 {
 	public Node3D Parent = null;
 	public Actor Node = null;

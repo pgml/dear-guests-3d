@@ -253,8 +253,7 @@ AnimationTree = NodePath("../../AnimationTree")
 [node name="AudioComponent" parent="Components" instance=ExtResource("2_smncn")]
 FootStepLoopInterval = 0.34
 
-[node name="EdgeCheckComponent" parent="Components" node_paths=PackedStringArray("Controller") instance=ExtResource("3_fkfj1")]
-Controller = NodePath("../../Controller")
+[node name="EdgeCheckComponent" parent="Components" instance=ExtResource("3_fkfj1")]
 TestForwardDistance = 1.1
 
 [node name="OrthoCam" type="Camera3D" parent="." node_paths=PackedStringArray("Controller")]

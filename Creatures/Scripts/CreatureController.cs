@@ -17,7 +17,7 @@ public partial class CreatureController : CharacterBody3D
 	public float DefaultRunSpeed = 100.0f;
 
 	[Export]
-	public Vector2 StartingDirection = new Vector2(1, 0);
+	public Vector2 StartingDirection = Vector2.Down;
 
 	[Export]
 	public bool ToggleRun = false;

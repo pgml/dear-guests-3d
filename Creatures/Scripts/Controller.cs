@@ -57,6 +57,7 @@ public partial class Controller : CreatureController, IController
 			SlopeMovement();
 
 			Velocity = CreatureData.Direction * CreatureData.VelocityMultiplier;
+
 			CreatureData.Velocity = Velocity;
 
 			MoveAndSlide();

@@ -6,18 +6,19 @@ public partial class AnimationComponent : Component
 	[Export]
 	public AnimationTree AnimationTree;
 
-	[Export]
-	public Vector3 StartingDirection = Vector3.Down;
-
 	private AnimationNodeStateMachinePlayback _stateMachine;
 	private Vector3 _moveDirection;
+	private Vector2 _startingDirection = Vector2.Down;
 
-	public override void _Ready()
+	public async override void _Ready()
 	{
 		base._Ready();
 
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
 		_stateMachine = AnimationTree.Get("parameters/playback").Obj as AnimationNodeStateMachinePlayback;
-		SetInitialFacingDirection(StartingDirection);
+		_startingDirection = CreatureData.Controller.StartingDirection;
+		SetInitialFacingDirection();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -32,11 +33,10 @@ public partial class AnimationComponent : Component
 		_updateAnimationParameters(_moveDirection);
 	}
 
-	public void SetInitialFacingDirection(Vector3 direction)
+	public void SetInitialFacingDirection()
 	{
-		Vector2 dir = new Vector2(direction.X, direction.Z);
-		AnimationTree.Set("parameters/Idle/blend_position", dir);
-		AnimationTree.Set("parameters/BoxedIdle/blend_position", dir);
+		AnimationTree.Set("parameters/Idle/blend_position", _startingDirection);
+		AnimationTree.Set("parameters/BoxedIdle/blend_position", _startingDirection);
 	}
 
 	private void _updateAnimationParameters(Vector3 moveInput)
@@ -55,12 +55,14 @@ public partial class AnimationComponent : Component
 		var shouldIdle = CreatureData.VelocityMultiplier == 0;
 
 		if (!shouldIdle && _moveDirection != Vector3.Zero) {
-			//if (Controller.IsCharacterBoxed()) {
-			//	_stateMachine.Travel("BoxedWalk");
-			//}
-			//else {
+			if (CreatureData.IsOnFloor) {
+				//if (Controller.IsCharacterBoxed()) {
+				//	_stateMachine.Travel("BoxedWalk");
+				//}
+				//else {
 				_stateMachine.Travel("Walk");
-			//}
+				//}
+			}
 		}
 		else {
 			//if (Controller.IsCharacterBoxed()) {

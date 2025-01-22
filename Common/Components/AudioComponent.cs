@@ -22,7 +22,7 @@ public partial class AudioComponent : Component
 			return;
 		}
 
-		if (CreatureData.CanMove) {
+		if (CreatureData.CanMoveAndSlide) {
 			_footstepTimer += delta;
 			if (_footstepTimer >= FootStepLoopInterval) {
 				PlayFootStepSound();
@@ -33,7 +33,7 @@ public partial class AudioComponent : Component
 
 	public void PlayFootStepSound()
 	{
-		if (CreatureData.Velocity == Vector3.Zero) {
+		if (CreatureData.IsIdle) {
 			return;
 		}
 

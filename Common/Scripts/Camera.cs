@@ -40,6 +40,12 @@ public partial class Camera : Camera3D
 			playerZ + (Size * 2)
 		);
 
+		var controller = Controller as Controller;
+		//if (controller.CreatureData.IsJumping) {
+		//	_toPosition.Y = Position.Y;
+		//	_toPosition.Z = Position.Z;
+		//}
+
 		_limitCamera();
 
 		Position = _toPosition;

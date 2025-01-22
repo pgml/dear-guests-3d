@@ -17,15 +17,17 @@ public partial class EdgeCheckComponent : Component
 			return;
 		}
 
-		if (IsNearEdge()) {
-			CreatureData.CanMove = false;
+		if (IsFacingEdge() && CreatureData.IsOnFloor) {
+			CreatureData.CanMoveAndSlide = false;
+			CreatureData.CanJump = true;
 		}
 		else {
-			CreatureData.CanMove = true;
+			CreatureData.CanMoveAndSlide = true;
+			CreatureData.CanJump = false;
 		}
 	}
 
-	public bool IsNearEdge()
+	public bool IsFacingEdge()
 	{
 		Vector3 facingDirection = CreatureData.FacingDirection;
 		Transform3D globalTransform = Controller.GlobalTransform;

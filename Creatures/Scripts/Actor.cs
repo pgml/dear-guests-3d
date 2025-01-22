@@ -13,24 +13,20 @@ public partial class Actor : Node3D
 	[Export]
 	public Sprite3D SunShadowSprite { get; set; }
 
-	public CreatureData CharacterData { get; private set; }
+	public CreatureData CreatureData { get; private set; }
 	public Vector3 Direction { get; set; }
-	public bool IsOnStairs { get; set; }
 
 	public Dictionary<string, Component> Components {
 		get { return _components(); }
 	}
-
-	private CreatureData _characterData;
 
 	private World _world;
 	private DirectionalLight3D _sun;
 
 	public override void _Ready()
 	{
-		_characterData = Load<CreatureData>(Resources.ActorData);
-		_characterData.Node = this;
-		CharacterData = _characterData;
+		CreatureData = Load<CreatureData>(Resources.ActorData);
+		CreatureData.Node = this;
 
 		_world = GetTree().Root.GetNode<World>("Scene/World");
 		_sun = _world.Sun;
@@ -38,34 +34,22 @@ public partial class Actor : Node3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		//if (!_characterData.CanMoveAndTurn) {
-		//	return;
-		//}
-
-		_characterData.Node = this;
+		CreatureData.Node = this;
 
 		//SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);
 
 		if (Input.IsKeyPressed(Key.Shift)) {
-			_characterData.IsRunning = !_characterData.IsRunning;
+			CreatureData.IsRunning = !CreatureData.IsRunning;
 		}
 
 		Vector2 input = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		Vector3 direction = new();
-		direction.X = input.X;
-		direction.Z = input.Y * Mathf.Sqrt(1.58f);
+		Vector3 direction = new() {
+			X = input.X,
+			Y = 0,
+			Z = input.Y * Mathf.Sqrt(1.58f)
+		};
 
-		float gravity = _characterData.Controller.GravitySq;
-
-		if (!_characterData.IsOnFloor) {
-			direction.Y -= gravity * (float)delta;
-			direction.Y = Mathf.Clamp(direction.Y, -1200, 1200);
-		}
-
-		//if (_characterData.CanMove) {
-			_characterData.Direction = direction;
-		//}
-		_characterData.IsOnStairs = IsOnStairs;
+		CreatureData.Direction = direction;
 	}
 
 	private Dictionary<string, Component> _components()

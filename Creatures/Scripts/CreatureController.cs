@@ -8,7 +8,7 @@ public partial class CreatureController : CharacterBody3D
 
 	[ExportGroup("Movement")]
 	[Export]
-	public bool CanMove = true;
+	public bool CanMoveAndSlide = true;
 
 	[Export]
 	public float DefaultWalkSpeed = 50.0f;

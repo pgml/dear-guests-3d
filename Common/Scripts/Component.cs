@@ -21,22 +21,7 @@ public partial class Component : Node
 		//Quickbar = Load<QuickBar>(Resources.QuickBar);
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-		//Controller = _getController();
 		Controller = GetParent().GetParent().GetNode<CharacterBody3D>("Controller") as Controller;
 		CreatureData = Controller.CreatureData;
 	}
-
-	//private dynamic _getController()
-	//{
-	//	var controller = GetParent().GetParent().GetNode<CharacterBody3D>("Controller");
-
-	//	if (controller is Controller) {
-	//		controller = controller as Controller;
-	//	}
-	//	//else if (controller is AIController) {
-	//	//	controller = controller as AIController;
-	//	//}
-
-	//	return controller;
-	//}
 }

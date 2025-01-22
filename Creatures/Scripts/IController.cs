@@ -10,7 +10,7 @@ public interface IController
 	}
 
 	public Node3D CharacterNode { get; set; }
-	public bool CanMove => true;
+	public bool CanMoveAndSlide => true;
 	public MoveState CurrentState { get; }
 	public CreatureData CreatureData { get; }
 

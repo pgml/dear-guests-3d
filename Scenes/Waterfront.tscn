@@ -69,30 +69,30 @@ size = Vector3(1, 40, 65.4905)
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.3336, 19.0716, -34.9449)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.231, 21.419, -46.398)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_na5xp")
 
 [node name="Map" parent="NavigationRegion3D" instance=ExtResource("2_4mlve")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0.0197411, 0.0835114, -0.0832825)
 
 [node name="Trees_Bushes" type="Node3D" parent="NavigationRegion3D"]
 
 [node name="TreeSmallUnderground" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("9_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3785, 0.0023344, -7.74561)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3785, 0.0859679, -7.74561)
 
 [node name="TreeSmallUnderground2" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("9_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7741, 0.0184477, -8.00342)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7741, 0.101808, -8.00342)
 
 [node name="TreeTinySimmel" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("12_na5xp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.6631, 9.61694, -21.4392)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.6631, 9.58751, -21.4392)
 
 [node name="TreeTinySimmel2" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("12_na5xp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.8454, 9.50403, -21.7844)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.8454, 9.58751, -21.4538)
 
 [node name="TreeTinySimmel3" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("12_na5xp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.217, 9.50391, -21.9908)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.217, 9.58751, -21.9908)
 
 [node name="Stairs" type="Node3D" parent="NavigationRegion3D" groups=["Stairs"]]
 
@@ -137,7 +137,7 @@ shape = SubResource("BoxShape3D_g7s84")
 debug_color = Color(0, 0.640311, 0.356215, 1)
 
 [node name="StaticBody3D6" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
-transform = Transform3D(0.731354, -0.681998, 0, 0.681998, 0.731354, 0, 0, 0, 1, 67.4667, 13.6805, -36.9873)
+transform = Transform3D(0.731354, -0.681998, 0, 0.681998, 0.731354, 0, 0, 0, 1, 67.4667, 13.8009, -36.9873)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.192558, 3.36165, 0.111614)
@@ -179,31 +179,31 @@ debug_color = Color(3.99485e-06, 0.640077, 0.353703, 1)
 [node name="Lights" type="Node3D" parent="NavigationRegion3D"]
 
 [node name="StreetLight" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.78226, 0, -7.63299)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.78226, 0.0967025, -7.63299)
 
 [node name="StreetLight2" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.1049, 0.233521, -7.90526)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.1049, 0.112543, -7.90526)
 
 [node name="StreetLight3" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.5684, 0.177615, -7.89282)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.5684, 0.112542, -7.89282)
 
 [node name="StreetLight4" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8134, 9.56885, -20.1646)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8134, 9.6007, -20.1646)
 
 [node name="StreetLight5" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2229, 9.59644, -19.9425)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2229, 9.6007, -19.9425)
 
 [node name="StreetLight6" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1828, 21.4079, -58.1963)
 
 [node name="StreetLight7" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1706, 19.0868, -41.5509)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1706, 19.1047, -41.5509)
 
 [node name="StreetLight8" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8681, 19.0212, -41.5871)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8681, 19.1047, -41.5871)
 
 [node name="StreetLight9" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.7554, 0.16748, -13.871)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.7554, 0.0967025, -13.871)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="NavigationRegion3D/Lights"]
 transform = Transform3D(0.768893, -0.0399364, -0.638129, 0.080273, -0.984121, 0.158312, -0.634318, -0.17295, -0.753478, 63.6422, 14.8027, -27.8728)
@@ -221,61 +221,61 @@ spot_angle = 84.3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8561, 0.0347048, -8.06323)
 
 [node name="RubbishBin2" parent="NavigationRegion3D/Props" instance=ExtResource("8_211yt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.7759, 0.114295, -7.99133)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.7759, 0.0835114, -7.99133)
 
 [node name="RubbishBin3" parent="NavigationRegion3D/Props" instance=ExtResource("8_211yt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2128, 19.0081, -41.7281)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2128, 19.1074, -41.7281)
 
 [node name="RubbishBin4" parent="NavigationRegion3D/Props" instance=ExtResource("8_211yt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.92, 0, -14.5236)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.92, 0.0835114, -14.5236)
 
 [node name="RubbishContainer" parent="NavigationRegion3D/Props" instance=ExtResource("13_ffpni")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5858, 9.57788, -19.5137)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5858, 9.59686, -19.5137)
 
 [node name="RubbishContainer2" parent="NavigationRegion3D/Props" instance=ExtResource("13_ffpni")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7381, 9.50391, -19.6548)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7381, 9.59686, -19.6548)
 
 [node name="FlowerBoxHorizontal" parent="NavigationRegion3D/Props" instance=ExtResource("10_xxdpg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.9596, 9.73071, -15.8287)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.9596, 9.58751, -15.8287)
 
 [node name="FlowerBoxHorizontal2" parent="NavigationRegion3D/Props" instance=ExtResource("10_xxdpg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6637, 9.6084, -15.6356)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6637, 9.58751, -15.6356)
 
 [node name="FlowerBoxVertical" parent="NavigationRegion3D/Props" instance=ExtResource("11_ur2uv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.0918, 9.79262, -16.7153)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.0918, 9.56613, -16.7153)
 
 [node name="FlowerBoxVertical2" parent="NavigationRegion3D/Props" instance=ExtResource("11_ur2uv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.5332, 9.66127, -16.8042)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.5332, 9.55029, -16.8042)
 
 [node name="BenchFront" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83443, 0.0526123, -8.59753)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83443, 0.0835115, -8.59753)
 
 [node name="BenchFront2" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3081, 0, -8.91492)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3081, 0.0835114, -8.91492)
 
 [node name="BenchFront3" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6715, 0.0157471, -8.66748)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6715, 0.0993514, -8.66748)
 
 [node name="BenchFront4" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.1929, 0.0157471, -8.79114)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.1929, 0.0993514, -8.79114)
 
 [node name="BenchFront5" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.2174, 0.0217285, -15.1698)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.2174, 0.0835114, -15.1698)
 
 [node name="FoodStandWideOlive2" parent="NavigationRegion3D/Props" instance=ExtResource("12_ffpni")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.021, 19.0081, -39.2883)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.021, 19.0915, -39.2883)
 
 [node name="FoodstandWideOliveTilted" parent="NavigationRegion3D/Props" instance=ExtResource("14_qstua")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.172, 19.0006, -38.265)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.172, 19.1451, -38.265)
 
 [node name="FoodstantSmallBeige" parent="NavigationRegion3D/Props" instance=ExtResource("15_pdtos")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.8788, 19.1301, -29.4377)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.8788, 19.1074, -29.4377)
 
 [node name="FoodstandWideBlue" parent="NavigationRegion3D/Props" instance=ExtResource("16_ta7ea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7426, 19.0238, -29.4548)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7426, 19.1538, -29.4548)
 
 [node name="FoodstandWideBlue2" parent="NavigationRegion3D/Props" instance=ExtResource("16_ta7ea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.3753, 19.0078, -27.751)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.3753, 19.1538, -27.751)
 
 [node name="AdditionalCollisions" type="Node3D" parent="NavigationRegion3D"]
 

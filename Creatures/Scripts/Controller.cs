@@ -57,8 +57,7 @@ public partial class Controller : CreatureController, IController
 		// disallow only horizontal movement when character isn't allowed to move
 		// so that MoveAndSlide still recognises jump/climb actions
 		if (!CreatureData.CanMoveAndSlide) {
-			CreatureData.Velocity.X = 0;
-			CreatureData.Velocity.Z = 0;
+			_disableHorizontalMovement();
 		}
 
 		if (CreatureData.IsOnFloor) {
@@ -102,6 +101,8 @@ public partial class Controller : CreatureController, IController
 		}
 
 		if (CreatureData.IsJumping && CreatureData.JumpComponent.JumpLimitation) {
+			_disableHorizontalMovement();
+
 			float velocityMultiplier = CreatureData.VelocityMultiplier;
 			Vector3 facingDirection = CreatureData.FacingDirection;
 			Vector3 forward = CreatureData.JumpComponent.JumpTo;
@@ -132,6 +133,12 @@ public partial class Controller : CreatureController, IController
 		else {
 			FloorConstantSpeed = false;
 		}
+	}
+
+	private void _disableHorizontalMovement()
+	{
+		CreatureData.Velocity.X = 0;
+		CreatureData.Velocity.Z = 0;
 	}
 
 	private bool _isOnSlope()

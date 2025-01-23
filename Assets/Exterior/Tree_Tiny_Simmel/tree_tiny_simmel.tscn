@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3f85j5u3164f"]
+
+[ext_resource type="PackedScene" uid="uid://bfdsko50gwufn" path="res://Assets/Exterior/Tree_Platform_Simmel/tree_platform_simmel.tscn" id="1_3cpt6"]
+[ext_resource type="PackedScene" uid="uid://bro2h4rmcn3yd" path="res://Assets/Exterior/Tree_Tiny/tree_tiny.tscn" id="2_p02uv"]
+
+[node name="TreeTinySimmel" type="Node3D"]
+
+[node name="TreeTiny" parent="." instance=ExtResource("2_p02uv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67584, -2.16016)
+
+[node name="TreePlatformSimmel" parent="." instance=ExtResource("1_3cpt6")]

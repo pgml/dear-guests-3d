@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm4x23qunch1g"]
+
+[ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_mi3il"]
+[ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_l7s4w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mi3il"]
+size = Vector3(8.24756, 5.98752, 3.22672)
+
+[node name="FoodstandWideOliveTilted" type="Node3D"]
+script = ExtResource("1_mi3il")
+
+[node name="Mesh" parent="." instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Olive_Tilted/foodstand_wide_olive_tilted_mesh.tscn"]
+transform = Transform3D(1.1091, 0, -0.222677, 0, 1.584, 0, 0.155874, 0, 1.58443, 0, 0, 0)
+
+[node name="Billboard" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.987, 4.211)
+visible = false
+pixel_size = 0.07
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_l7s4w")
+region_enabled = true
+region_rect = Rect2(898, 1184, 124, 93)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(0.990268, 0, -0.139173, 0, 1, 0, 0.139173, 0, 0.990268, 0.0572091, -0.060464, -0.495134)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, -7.45058e-08, 0, 1, 0, 7.45058e-08, 0, 1, -0.296633, 3.01643, -1.55561)
+shape = SubResource("BoxShape3D_mi3il")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4ae121k1xcqc"]
+
+[ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_ia33m"]
+[ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_lo648"]
+
+[node name="FlowerBoxVertical" type="Node3D"]
+script = ExtResource("1_ia33m")
+
+[node name="Mesh" parent="." instance_placeholder="res://Assets/Exterior/FlowerBox_Vertical/flower_box_vertical_mesh.tscn"]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 1.62122, 0)
+
+[node name="Billboard" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.95, 0.2)
+visible = false
+pixel_size = 0.07
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_lo648")
+region_enabled = true
+region_rect = Rect2(164, 257, 24, 63)

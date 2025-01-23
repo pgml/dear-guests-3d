@@ -1,0 +1,119 @@
+[gd_scene load_steps=8 format=3 uid="uid://45ycp650ilsg"]
+
+[ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_5mxpe"]
+[ext_resource type="Script" uid="uid://dfihx054uf78g" path="res://UI/Scripts/UiLoading.cs" id="1_bmfdu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bmfdu"]
+font = ExtResource("1_5mxpe")
+font_size = 10
+
+[sub_resource type="Animation" id="Animation_bmfdu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5mxpe"]
+resource_name = "fade"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pscom"]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bmfdu"]
+_data = {
+&"RESET": SubResource("Animation_bmfdu"),
+&"fade": SubResource("Animation_5mxpe"),
+&"show": SubResource("Animation_pscom")
+}
+
+[node name="UiLoading" type="Control" node_paths=PackedStringArray("Label", "AnimationPlayer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bmfdu")
+Label = NodePath("Content/Control/Label")
+AnimationPlayer = NodePath("Background/AnimationPlayer")
+
+[node name="Content" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="Control" type="Control" parent="Content"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Content/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -86.473
+offset_top = -37.564
+offset_right = -10.473
+offset_bottom = -9.564
+grow_horizontal = 0
+grow_vertical = 0
+text = "LOADING..."
+label_settings = SubResource("LabelSettings_bmfdu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.113725, 0.113725, 0.113725, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
+root_node = NodePath("../ColorRect")
+libraries = {
+&"": SubResource("AnimationLibrary_bmfdu")
+}

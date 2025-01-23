@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c01cdiavnc8pt"]
+
+[ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_6uyms"]
+[ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_sem34"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dtlu"]
+size = Vector3(4.37527, 3.98294, 2.2327)
+
+[node name="RubbishContainer" type="Node3D"]
+script = ExtResource("1_6uyms")
+
+[node name="Mesh" parent="." instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container_mesh.tscn"]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+cast_shadow = 2
+
+[node name="Billboard" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.36, 0.2)
+visible = false
+pixel_size = 0.07
+billboard = 1
+texture_filter = 0
+texture = ExtResource("3_sem34")
+region_enabled = true
+region_rect = Rect2(0, 257, 64, 63)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.080719, 1.98557, -1.12843)
+shape = SubResource("BoxShape3D_8dtlu")

@@ -18,12 +18,21 @@ public partial class EdgeCheckComponent : Component
 		}
 
 		if (IsFacingEdge() && CreatureData.IsOnFloor) {
-			CreatureData.CanMoveAndSlide = false;
-			CreatureData.CanJump = true;
+			if (CreatureData.IsOnFloor) {
+				CreatureData.CanMoveAndSlide = false;
+				CreatureData.CanJump = true;
+				CreatureData.IsFacingEdge = true;
+			}
+			CreatureData.ShouldJumpForward = true;
 		}
 		else {
+			CreatureData.IsFacingEdge = false;
 			CreatureData.CanMoveAndSlide = true;
 			CreatureData.CanJump = false;
+		}
+
+		if (!IsFacingEdge() && !CreatureData.IsJumping) {
+			CreatureData.ShouldJumpForward = false;
 		}
 	}
 

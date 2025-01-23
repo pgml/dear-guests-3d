@@ -38,7 +38,7 @@ public partial class Actor : Node3D
 
 		//SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);
 
-		if (Input.IsKeyPressed(Key.Shift)) {
+		if (Input.IsPhysicalKeyPressed(Key.Shift)) {
 			CreatureData.IsRunning = !CreatureData.IsRunning;
 		}
 

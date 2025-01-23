@@ -12,7 +12,9 @@ public partial class CreatureData : Resource
 	// movement
 	public bool CanMoveAndSlide = true;
 	public bool CanJump = false;
+	public bool StartJump = false;
 	public bool ShouldJump = false;
+	public bool ShouldJumpForward = true;
 	public float WalkSpeed = 0;
 	public float RunSpeed = 0;
 	public float DefaultWalkSpeed = 0;
@@ -32,6 +34,7 @@ public partial class CreatureData : Resource
 	public bool IsIdle = false;
 	public bool IsOnStairs = false;
 	public bool IsOnSlope = false;
+	public bool IsFacingEdge = false;
 
 	// Component Helper
 	public EdgeCheckComponent EdgeCheck = new();

@@ -53,23 +53,35 @@ public partial class AnimationComponent : Component
 	{
 		var shouldIdle = CreatureData.VelocityMultiplier == 0;
 
-		if (!shouldIdle && _moveDirection != Vector3.Zero) {
-			if (CreatureData.IsOnFloor) {
+		if (CreatureData.StartJump && CreatureData.CanJump) {
+			// @todo - check why this doesn't work
+			_stateMachine.Travel("JumpBegin");
+		}
+		if (CreatureData.ShouldJump && CreatureData.CanJump) {
+			_stateMachine.Travel("Jump");
+		}
+		else if (CreatureData.IsJumping && !CreatureData.IsOnFloor && CreatureData.Velocity.Y < 0) {
+			_stateMachine.Travel("Fall");
+		}
+		else if (CreatureData.IsOnFloor) {
+			if (!shouldIdle && _moveDirection != Vector3.Zero) {
+				if (CreatureData.IsOnFloor) {
+					//if (Controller.IsCharacterBoxed()) {
+					//	_stateMachine.Travel("BoxedWalk");
+					//}
+					//else {
+					_stateMachine.Travel("Walk");
+					//}
+				}
+			}
+			else {
 				//if (Controller.IsCharacterBoxed()) {
-				//	_stateMachine.Travel("BoxedWalk");
+				//	_stateMachine.Travel("BoxedIdle");
 				//}
 				//else {
-				_stateMachine.Travel("Walk");
+					_stateMachine.Travel("Idle");
 				//}
 			}
-		}
-		else {
-			//if (Controller.IsCharacterBoxed()) {
-			//	_stateMachine.Travel("BoxedIdle");
-			//}
-			//else {
-				_stateMachine.Travel("Idle");
-			//}
 		}
 	}
 }

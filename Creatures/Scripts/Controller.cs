@@ -100,7 +100,7 @@ public partial class Controller : CreatureController, IController
 			CreatureData.Velocity.Y = CreatureData.JumpComponent.JumpImpulse;
 		}
 
-		if (CreatureData.IsJumping && CreatureData.JumpComponent.JumpLimitation) {
+		if (CreatureData.IsJumping && CreatureData.ShouldJumpForward) {
 			_disableHorizontalMovement();
 
 			float velocityMultiplier = CreatureData.VelocityMultiplier;
@@ -204,5 +204,10 @@ public partial class Controller : CreatureController, IController
 		//}
 
 		return currentState;
+	}
+
+	private MoveState _stateJump()
+	{
+		return MoveState.JUMP;
 	}
 }

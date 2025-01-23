@@ -28,7 +28,11 @@ public partial class JumpComponent : Component
 			return;
 		}
 
-		if (Input.IsActionJustPressed("action_jump") && CreatureData.IsOnFloor) {
+		if (Input.IsActionPressed("action_jump") && CreatureData.IsOnFloor) {
+			CreatureData.StartJump = true;
+		}
+		else if (Input.IsActionJustReleased("action_jump") && CreatureData.IsOnFloor) {
+			CreatureData.StartJump = true;
 			Vector3 globalPosition = CreatureData.Controller.GlobalPosition;
 			Vector3 facingDirection = CreatureData.FacingDirection;
 
@@ -38,6 +42,7 @@ public partial class JumpComponent : Component
 			CreatureData.ShouldJump = true;
 		}
 		else if (CreatureData.IsOnFloor) {
+			CreatureData.StartJump = false;
 			CreatureData.ShouldJump = false;
 		}
 	}

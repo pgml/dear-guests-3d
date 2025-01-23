@@ -5,6 +5,7 @@ public interface IController
 	public enum MoveState {
 		IDLE,
 		WALK,
+		JUMP,
 		BOXED_IDLE,
 		BOXED_WALK,
 	}

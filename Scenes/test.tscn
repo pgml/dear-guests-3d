@@ -1,46 +1,44 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnutg2mbomaxd"]
+[gd_scene load_steps=6 format=3 uid="uid://cnutg2mbomaxd"]
 
 [ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="1_8od7v"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_35xla"]
-[ext_resource type="Script" uid="uid://cwj3ewadx2rsh" path="res://Common/Scripts/main.gd" id="1_i3aeo"]
-[ext_resource type="PackedScene" uid="uid://yrmmist0esc6" path="res://Assets/Exterior/rubbish_bin.tscn" id="3_qc4db"]
-[ext_resource type="PackedScene" uid="uid://dofasu8kldusa" path="res://Assets/Exterior/street_light.tscn" id="5_35xla"]
 [ext_resource type="PackedScene" uid="uid://byufb06nwr5eo" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_i3aeo"]
-size = Vector3(4.02246, 0.826416, 8.55029)
+[sub_resource type="BoxShape3D" id="BoxShape3D_qc4db"]
+size = Vector3(4.46094, 17.2088, 0.12)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ys1qc"]
+size = Vector3(4.22754, 0.1, 6.72551)
 
 [node name="Scene" type="Node3D"]
-script = ExtResource("1_i3aeo")
-day_time = 0.2766
-sun_base_enegry = 1.5
-moon_base_enegry = 0.2
 
 [node name="Actor" parent="." instance=ExtResource("1_8od7v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.81673, 3.57949, -17.5098)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0348902, -1)
+
+[node name="World" parent="." instance=ExtResource("1_35xla")]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+
+[node name="Sun" parent="World" index="1"]
+transform = Transform3D(0.931061, -0.196571, 0.307378, -0.161154, 0.534265, 0.829812, -0.327338, -0.822144, 0.465755, 0, 0, 0)
 
 [node name="Map" parent="." instance=ExtResource("5_i3aeo")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 
-[node name="Stair" type="Area3D" parent="Map" groups=["Stairs"]]
-transform = Transform3D(1, 0, 0, 0, 0.707329, -0.706885, 0, 0.706885, 0.707329, 3.9665, 3.39023, -10.8711)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Stair"]
-transform = Transform3D(1, 0, 0, 0, 0.999997, 2.98023e-08, 0, 2.08616e-07, 1, 0.0232542, 0, 0.180908)
-shape = SubResource("BoxShape3D_i3aeo")
-debug_color = Color(0.961072, 0, 0.51244, 0.42)
-
 [node name="Props" type="Node" parent="."]
 
-[node name="RubbishBin" parent="Props" instance=ExtResource("3_qc4db")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.375, 1.002, -21.831)
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.71934, 0.694658, 0, -0.694658, 0.71934, 29.0885, 0.00283527, -6.19465)
 
-[node name="StreetLight2" parent="Props" node_paths=PackedStringArray("LightSources") instance=ExtResource("5_35xla")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.90087, 0, -12.2097)
-LightSources = []
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.10442, 2.86102e-06)
+shape = SubResource("BoxShape3D_qc4db")
+debug_color = Color(0, 0.6, 0.701961, 1)
 
-[node name="StreetLight" parent="Props" node_paths=PackedStringArray("LightSources") instance=ExtResource("5_35xla")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5951, -7.62939e-06, -21.3369)
-LightSources = []
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.996821, -0.079677, 0, 0.079677, 0.996821, 29.0239, 12.0795, -17.8518)
 
-[node name="World" parent="." instance=ExtResource("1_35xla")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0767918, 0.0630379, -3.32776)
+shape = SubResource("BoxShape3D_ys1qc")
+
+[editable path="World"]

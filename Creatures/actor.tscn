@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=71 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -139,7 +139,7 @@ tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.166667, 0.3),
+"times": PackedFloat32Array(0, 0.16, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [48, 49, 50]
@@ -213,16 +213,164 @@ tracks/0/keys = {
 "values": [30, 31, 32, 33, 34, 35]
 }
 
+[sub_resource type="Animation" id="Animation_2kvs5"]
+resource_name = "jump_begin_west"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [54]
+}
+
+[sub_resource type="Animation" id="Animation_t4p7i"]
+resource_name = "jump_west"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [54, 55, 56]
+}
+
+[sub_resource type="Animation" id="Animation_y2omn"]
+resource_name = "fall_west"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [57]
+}
+
+[sub_resource type="Animation" id="Animation_1rwgr"]
+resource_name = "fall_north"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [63]
+}
+
+[sub_resource type="Animation" id="Animation_dhulj"]
+resource_name = "jump_begin_north"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [60]
+}
+
+[sub_resource type="Animation" id="Animation_6qk7i"]
+resource_name = "jump_north"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [60, 61, 62]
+}
+
+[sub_resource type="Animation" id="Animation_1x1is"]
+resource_name = "fall_east"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [69]
+}
+
+[sub_resource type="Animation" id="Animation_gxvax"]
+resource_name = "jump_begin_east"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [66]
+}
+
+[sub_resource type="Animation" id="Animation_xhudt"]
+resource_name = "jump_east"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Controller/Character/CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [66, 67, 68]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ys1qc"]
 _data = {
 &"RESET": SubResource("Animation_qc4db"),
+&"fall_east": SubResource("Animation_1x1is"),
+&"fall_north": SubResource("Animation_1rwgr"),
 &"fall_south": SubResource("Animation_ejg33"),
+&"fall_west": SubResource("Animation_y2omn"),
 &"idle_down": SubResource("Animation_8od7v"),
 &"idle_left": SubResource("Animation_ys1qc"),
 &"idle_right": SubResource("Animation_35xla"),
 &"idle_up": SubResource("Animation_i3aeo"),
+&"jump_begin_east": SubResource("Animation_gxvax"),
+&"jump_begin_north": SubResource("Animation_dhulj"),
 &"jump_begin_south": SubResource("Animation_3eq32"),
+&"jump_begin_west": SubResource("Animation_2kvs5"),
+&"jump_east": SubResource("Animation_xhudt"),
+&"jump_north": SubResource("Animation_6qk7i"),
 &"jump_south": SubResource("Animation_ad0ix"),
+&"jump_west": SubResource("Animation_t4p7i"),
 &"walk_down": SubResource("Animation_5wyu1"),
 &"walk_left": SubResource("Animation_0c07c"),
 &"walk_right": SubResource("Animation_2cgwh"),
@@ -232,24 +380,24 @@ _data = {
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ad0ix"]
 animation = &"fall_south"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2kvs5"]
+animation = &"fall_west"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ejg33"]
-animation = &"fall_south"
+animation = &"fall_north"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3eq32"]
-animation = &"fall_south"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2kvs5"]
-animation = &"fall_south"
+animation = &"fall_east"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_t4p7i"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_ad0ix")
 blend_point_0/pos = Vector2(0, 1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_ejg33")
-blend_point_1/pos = Vector2(0, -1.1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_3eq32")
-blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_2kvs5")
-blend_point_3/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_2kvs5")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ejg33")
+blend_point_2/pos = Vector2(0, -1.1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_3eq32")
+blend_point_3/pos = Vector2(1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 
@@ -281,24 +429,24 @@ blend_mode = 1
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y2omn"]
 animation = &"jump_south"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6qk7i"]
+animation = &"jump_west"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1rwgr"]
-animation = &"jump_south"
+animation = &"jump_north"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dhulj"]
-animation = &"jump_south"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6qk7i"]
-animation = &"jump_south"
+animation = &"jump_east"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1x1is"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_y2omn")
 blend_point_0/pos = Vector2(0, 1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_1rwgr")
-blend_point_1/pos = Vector2(0, -1.1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_dhulj")
-blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_6qk7i")
-blend_point_3/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_6qk7i")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_1rwgr")
+blend_point_2/pos = Vector2(0, -1.1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_dhulj")
+blend_point_3/pos = Vector2(1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 blend_mode = 1
@@ -306,24 +454,24 @@ blend_mode = 1
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t4p7i"]
 animation = &"jump_begin_south"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xhudt"]
+animation = &"jump_begin_west"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1x1is"]
-animation = &"jump_begin_south"
+animation = &"jump_begin_north"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gxvax"]
-animation = &"jump_begin_south"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xhudt"]
-animation = &"jump_begin_south"
+animation = &"jump_begin_east"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_t4353"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_t4p7i")
 blend_point_0/pos = Vector2(0, 1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_1x1is")
-blend_point_1/pos = Vector2(0, -1.1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_gxvax")
-blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_xhudt")
-blend_point_3/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_xhudt")
+blend_point_1/pos = Vector2(-1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_1x1is")
+blend_point_2/pos = Vector2(0, -1.1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_gxvax")
+blend_point_3/pos = Vector2(1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 blend_mode = 1
@@ -451,7 +599,7 @@ alpha_cut = 2
 texture_filter = 4
 texture = ExtResource("4_p5kc0")
 hframes = 6
-vframes = 17
+vframes = 20
 
 [node name="SunShadowMesh" type="Sprite3D" parent="Controller/Character"]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, -0.5)
@@ -487,10 +635,10 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_8od7v")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Fall/blend_position = Vector2(0, 0)
+parameters/Fall/blend_position = Vector2(0.00368214, -1.07798)
 parameters/Idle/blend_position = Vector2(-0.290436, 0.10876)
-parameters/Jump/blend_position = Vector2(-0.000587463, 1.08376)
-parameters/JumpBegin/blend_position = Vector2(-0.550591, -0.877743)
+parameters/Jump/blend_position = Vector2(0.0940542, 0.931708)
+parameters/JumpBegin/blend_position = Vector2(0.961474, -0.163887)
 parameters/Walk/blend_position = Vector2(-0.139847, 0.628897)
 
 [node name="UI" type="Node3D" parent="."]

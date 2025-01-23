@@ -8,4 +8,8 @@ public partial class Resources : Node3D
 
 	// Scenes
 	public static readonly string AudioInstance = "res://Common/audio_instance.tscn";
+	public static readonly string SceneTransition = "res://Common/scene_transition.tscn";
+
+	// UI
+	public static readonly string UiLoading = "res://UI/ui_loading.tscn";
 }

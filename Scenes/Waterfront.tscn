@@ -1,23 +1,12 @@
-[gd_scene load_steps=33 format=3 uid="uid://b5v47rbkri3mb"]
+[gd_scene load_steps=23 format=3 uid="uid://blxmhwe5ji5w0"]
 
+[ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_4f71o"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_w3fsy"]
 [ext_resource type="PackedScene" uid="uid://f1inc7pl32n" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
 [ext_resource type="PackedScene" uid="uid://cfu2aqgdl0feg" path="res://Resources/Crocotile/Props.gltf" id="3_4f71o"]
 [ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="3_6g5e3"]
-[ext_resource type="PackedScene" uid="uid://dofasu8kldusa" path="res://Assets/Exterior/street_light.tscn" id="5_yg5ax"]
-[ext_resource type="PackedScene" uid="uid://do7dx6ksxoaf3" path="res://Assets/Exterior/bench_front.tscn" id="8_37uxm"]
-[ext_resource type="PackedScene" uid="uid://yrmmist0esc6" path="res://Assets/Exterior/rubbish_bin.tscn" id="8_211yt"]
-[ext_resource type="PackedScene" uid="uid://d1m8cxrfaqorg" path="res://Assets/Exterior/tree_small_underground.tscn" id="9_37uxm"]
-[ext_resource type="PackedScene" uid="uid://dg1vpe3nn8hrj" path="res://Assets/Exterior/flower_box_horizontal.tscn" id="10_xxdpg"]
-[ext_resource type="PackedScene" uid="uid://d4ae121k1xcqc" path="res://Assets/Exterior/flower_box_vertical.tscn" id="11_ur2uv"]
-[ext_resource type="PackedScene" uid="uid://ccsjl12hfi3lw" path="res://Assets/Exterior/foodstand_wide_olive.tscn" id="12_ffpni"]
-[ext_resource type="PackedScene" uid="uid://b3f85j5u3164f" path="res://Assets/Exterior/tree_tiny_simmel.tscn" id="12_na5xp"]
-[ext_resource type="PackedScene" uid="uid://c01cdiavnc8pt" path="res://Assets/Exterior/rubbish_container.tscn" id="13_ffpni"]
-[ext_resource type="PackedScene" uid="uid://cm4x23qunch1g" path="res://Assets/Exterior/foodstand_wide_olive_tilted.tscn" id="14_qstua"]
-[ext_resource type="PackedScene" uid="uid://75xtbr5fblcr" path="res://Assets/Exterior/foodstand_small_beige.tscn" id="15_pdtos"]
-[ext_resource type="PackedScene" uid="uid://cwheu41usd8uc" path="res://Assets/Exterior/foodstand_wide_blue.tscn" id="16_ta7ea"]
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_na5xp"]
+[ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="5_w3fsy"]
+[ext_resource type="PackedScene" uid="uid://cm4x23qunch1g" path="res://Assets/Exterior/Foodstand_Wide_Olive_Tilted/foodstand_wide_olive_tilted.tscn" id="12_851v1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ffpni"]
 size = Vector3(4.28656, 0.0332031, 13.7429)
@@ -65,147 +54,147 @@ size = Vector3(112.519, 40, 1)
 size = Vector3(1, 40, 65.4905)
 
 [node name="Scene" type="Node3D"]
+script = ExtResource("1_4f71o")
 
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.231, 21.419, -46.398)
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_na5xp")
+[node name="Map" parent="." instance=ExtResource("2_4mlve")]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 
-[node name="Map" parent="NavigationRegion3D" instance=ExtResource("2_4mlve")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0.0197411, 0.0835114, -0.0832825)
+[node name="Stairs" type="Node3D" parent="." groups=["Stairs"]]
 
-[node name="Trees_Bushes" type="Node3D" parent="NavigationRegion3D"]
-
-[node name="TreeSmallUnderground" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("9_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3785, 0.0859679, -7.74561)
-
-[node name="TreeSmallUnderground2" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("9_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7741, 0.101808, -8.00342)
-
-[node name="TreeTinySimmel" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("12_na5xp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.6631, 9.58751, -21.4392)
-
-[node name="TreeTinySimmel2" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("12_na5xp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.8454, 9.58751, -21.4538)
-
-[node name="TreeTinySimmel3" parent="NavigationRegion3D/Trees_Bushes" instance=ExtResource("12_na5xp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.217, 9.58751, -21.9908)
-
-[node name="Stairs" type="Node3D" parent="NavigationRegion3D" groups=["Stairs"]]
-
-[node name="StatidcBody3D" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StatidcBody3D" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.71934, -0.694659, 0, 0.694659, 0.71934, 3.24079, 4.78858, -14.6562)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StatidcBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StatidcBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, -0.015851, 0.126812)
 shape = SubResource("BoxShape3D_ffpni")
 debug_color = Color(0, 0.640995, 0.339575, 1)
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D2" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(0.677223, 0.735778, 0, -0.735778, 0.677223, 0, 0, 0, 1, 80.7419, 0.575433, -14.1557)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.03783, -0.481941, 0.640755)
 shape = SubResource("BoxShape3D_qstua")
 debug_color = Color(4.81308e-08, 0.637654, 0.392048, 1)
 
-[node name="StaticBody3D3" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D3" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.71934, -0.694659, 0, 0.694659, 0.71934, 31.1869, 10.5573, -17.2764)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0.163456, -0.352711, -5.68311)
 shape = SubResource("BoxShape3D_pdtos")
 debug_color = Color(0.172898, 0.64376, 0, 1)
 
-[node name="StaticBody3D4" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D4" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.71934, -0.694659, 0, 0.694659, 0.71934, 81.2733, 10.2588, -30.6938)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64514, -0.00339985, -1.34807)
 shape = SubResource("BoxShape3D_ta7ea")
 debug_color = Color(0, 0.637676, 0.385797, 1)
 
-[node name="StaticBody3D5" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D5" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 93.9029, 13.6233, -49.744)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00552368, -0.210823, -5.97221)
 shape = SubResource("BoxShape3D_g7s84")
 debug_color = Color(0, 0.640311, 0.356215, 1)
 
-[node name="StaticBody3D6" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D6" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(0.731354, -0.681998, 0, 0.681998, 0.731354, 0, 0, 0, 1, 67.4667, 13.8009, -36.9873)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.192558, 3.36165, 0.111614)
 shape = SubResource("BoxShape3D_g2emv")
 debug_color = Color(0, 0.642808, 0.313956, 1)
 
-[node name="StaticBody3D7" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D7" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.71934, -0.694659, 0, 0.694659, 0.71934, 53.675, 19.9005, -42.5661)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D7"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0802402, -0.338802)
 shape = SubResource("BoxShape3D_c0wxc")
 debug_color = Color(0, 0.641419, 0.330527, 1)
 
-[node name="StaticBody3D8" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D8" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.731354, -0.681999, 0, 0.681999, 0.731354, 17.8709, 20.2085, -42.9665)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D8"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0090332, 0.247456)
 shape = SubResource("BoxShape3D_c0wxc")
 debug_color = Color(0, 0.641419, 0.330527, 1)
 
-[node name="StaticBody3D9" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D9" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(0.731354, 0.681998, 0, -0.681998, 0.731354, 0, 0, 0, 1, 55.4517, 22.0023, -47.1701)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D9"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.465891, 2.38701, 0)
 shape = SubResource("BoxShape3D_6b5rd")
 debug_color = Color(7.21961e-07, 0.63959, 0.365541, 1)
 
-[node name="StaticBody3D10" type="StaticBody3D" parent="NavigationRegion3D/Stairs" groups=["Stairs"]]
+[node name="StaticBody3D10" type="StaticBody3D" parent="Stairs" groups=["Stairs"]]
 transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 20.8903, 22.2179, -53.6718)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Stairs/StaticBody3D10"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/StaticBody3D10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.462555, -0.636341, -3.62902)
 shape = SubResource("BoxShape3D_851v1")
 debug_color = Color(3.99485e-06, 0.640077, 0.353703, 1)
 
-[node name="Lights" type="Node3D" parent="NavigationRegion3D"]
+[node name="Trees_Bushes" type="Node3D" parent="."]
+script = ExtResource("5_w3fsy")
 
-[node name="StreetLight" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="TreeSmallUnderground" parent="Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Small_Underground_Stone/tree_small_underground.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3785, 0.0859679, -7.74561)
+
+[node name="TreeSmallUnderground2" parent="Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Small_Underground_Stone/tree_small_underground.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.7741, 0.101808, -7.87267)
+
+[node name="TreeTinySimmel" parent="Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Tiny_Simmel/tree_tiny_simmel.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.6631, 9.58751, -21.4392)
+
+[node name="TreeTinySimmel2" parent="Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Tiny_Simmel/tree_tiny_simmel.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.8454, 9.58751, -21.4538)
+
+[node name="TreeTinySimmel3" parent="Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Tiny_Simmel/tree_tiny_simmel.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.217, 9.58751, -21.9908)
+
+[node name="Lights" type="Node3D" parent="."]
+script = ExtResource("5_w3fsy")
+
+[node name="StreetLight" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.78226, 0.0967025, -7.63299)
 
-[node name="StreetLight2" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="StreetLight2" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.1049, 0.112543, -7.90526)
 
-[node name="StreetLight3" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="StreetLight3" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.5684, 0.112542, -7.89282)
 
-[node name="StreetLight4" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="StreetLight4" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8134, 9.6007, -20.1646)
 
-[node name="StreetLight5" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="StreetLight5" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.2229, 9.6007, -19.9425)
 
-[node name="StreetLight6" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="StreetLight6" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.1828, 21.4079, -58.1963)
 
-[node name="StreetLight7" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="StreetLight7" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.1706, 19.1047, -41.5509)
 
-[node name="StreetLight8" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="StreetLight8" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.8681, 19.1047, -41.5871)
 
-[node name="StreetLight9" parent="NavigationRegion3D/Lights" instance=ExtResource("5_yg5ax")]
+[node name="StreetLight9" parent="Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.7554, 0.0967025, -13.871)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="NavigationRegion3D/Lights"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
 transform = Transform3D(0.768893, -0.0399364, -0.638129, 0.080273, -0.984121, 0.158312, -0.634318, -0.17295, -0.753478, 63.6422, 14.8027, -27.8728)
 visible = false
 light_color = Color(1, 0.929412, 0.764706, 1)
@@ -215,123 +204,124 @@ shadow_enabled = true
 spot_range = 19.066
 spot_angle = 84.3
 
-[node name="Props" type="Node3D" parent="NavigationRegion3D"]
+[node name="Props" type="Node3D" parent="."]
+script = ExtResource("5_w3fsy")
 
-[node name="RubbishBin" parent="NavigationRegion3D/Props" instance=ExtResource("8_211yt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8561, 0.0347048, -8.06323)
+[node name="FlowerBoxHorizontal" parent="Props" instance_placeholder="res://Assets/Exterior/FlowerBox_Horizontal/flower_box_horizontal.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.979, 9.504, -15.8398)
 
-[node name="RubbishBin2" parent="NavigationRegion3D/Props" instance=ExtResource("8_211yt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.7759, 0.0835114, -7.99133)
+[node name="FlowerBoxHorizontal2" parent="Props" instance_placeholder="res://Assets/Exterior/FlowerBox_Horizontal/flower_box_horizontal.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.7688, 9.504, -15.7408)
 
-[node name="RubbishBin3" parent="NavigationRegion3D/Props" instance=ExtResource("8_211yt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2128, 19.1074, -41.7281)
+[node name="FlowerBoxVertical" parent="Props" instance_placeholder="res://Assets/Exterior/FlowerBox_Vertical/flower_box_vertical.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.7264, 9.46678, -17.0258)
 
-[node name="RubbishBin4" parent="NavigationRegion3D/Props" instance=ExtResource("8_211yt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.92, 0.0835114, -14.5236)
+[node name="FlowerBoxVertical2" parent="Props" instance_placeholder="res://Assets/Exterior/FlowerBox_Vertical/flower_box_vertical.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.0464, 9.46678, -17.0258)
 
-[node name="RubbishContainer" parent="NavigationRegion3D/Props" instance=ExtResource("13_ffpni")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5858, 9.59686, -19.5137)
+[node name="BenchFront" parent="Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8553, 0.0835115, -7.86606)
 
-[node name="RubbishContainer2" parent="NavigationRegion3D/Props" instance=ExtResource("13_ffpni")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7381, 9.59686, -19.6548)
+[node name="BenchFront2" parent="Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.329, 0.0835114, -7.94209)
 
-[node name="FlowerBoxHorizontal" parent="NavigationRegion3D/Props" instance=ExtResource("10_xxdpg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.9596, 9.58751, -15.8287)
+[node name="BenchFront3" parent="Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.6924, 0.0993514, -7.83549)
 
-[node name="FlowerBoxHorizontal2" parent="NavigationRegion3D/Props" instance=ExtResource("10_xxdpg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.6637, 9.58751, -15.6356)
+[node name="BenchFront4" parent="Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.2138, 0.0993514, -7.77804)
 
-[node name="FlowerBoxVertical" parent="NavigationRegion3D/Props" instance=ExtResource("11_ur2uv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.0918, 9.56613, -16.7153)
+[node name="BenchFront5" parent="Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.2383, 0.0835114, -14.3378)
 
-[node name="FlowerBoxVertical2" parent="NavigationRegion3D/Props" instance=ExtResource("11_ur2uv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.5332, 9.55029, -16.8042)
+[node name="FoodstantSmallBeige" parent="Props" instance_placeholder="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7601, 19.0238, -38.0629)
 
-[node name="BenchFront" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83443, 0.0835115, -8.59753)
+[node name="FoodstandWideBlue" parent="Props" instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Blue/foodstand_wide_blue.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.524, 19.0238, -27.3354)
 
-[node name="BenchFront2" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3081, 0.0835114, -8.91492)
+[node name="FoodstandWideOliveTilted" parent="Props" instance=ExtResource("12_851v1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.2794, 19.0616, -38.2096)
 
-[node name="BenchFront3" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.6715, 0.0993514, -8.66748)
+[node name="FoodstantSmallBeige2" parent="Props" instance_placeholder="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.1222, 19.0238, -28.2847)
 
-[node name="BenchFront4" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.1929, 0.0993514, -8.79114)
+[node name="FoodStandWideOlive" parent="Props" instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Olive/foodstand_wide_olive.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.3284, 19.0238, -38.3475)
 
-[node name="BenchFront5" parent="NavigationRegion3D/Props" instance=ExtResource("8_37uxm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 94.2174, 0.0835114, -15.1698)
+[node name="RubbishBin" parent="Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.2165, 1.52588e-05, -8.13454)
 
-[node name="FoodStandWideOlive2" parent="NavigationRegion3D/Props" instance=ExtResource("12_ffpni")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.021, 19.0915, -39.2883)
+[node name="RubbishBin2" parent="Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.7484, -7.62939e-06, -8.14867)
 
-[node name="FoodstandWideOliveTilted" parent="NavigationRegion3D/Props" instance=ExtResource("14_qstua")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.172, 19.1451, -38.265)
+[node name="RubbishBin3" parent="Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.756, 7.62939e-06, -14.4893)
 
-[node name="FoodstantSmallBeige" parent="NavigationRegion3D/Props" instance=ExtResource("15_pdtos")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.8788, 19.1074, -29.4377)
+[node name="RubbishBin4" parent="Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2734, 19.0238, -41.9536)
 
-[node name="FoodstandWideBlue" parent="NavigationRegion3D/Props" instance=ExtResource("16_ta7ea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.7426, 19.1538, -29.4548)
+[node name="RubbishContainer" parent="Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7216, 9.50401, -19.265)
 
-[node name="FoodstandWideBlue2" parent="NavigationRegion3D/Props" instance=ExtResource("16_ta7ea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.3753, 19.1538, -27.751)
+[node name="RubbishContainer2" parent="Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5601, 9.504, -19.5425)
 
-[node name="AdditionalCollisions" type="Node3D" parent="NavigationRegion3D"]
+[node name="AdditionalCollisions" type="Node3D" parent="."]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/AdditionalCollisions"]
+[node name="StaticBody3D" type="StaticBody3D" parent="AdditionalCollisions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9473, 0, -10.0546)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/AdditionalCollisions/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AdditionalCollisions/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.47729, -25.4002)
 shape = SubResource("BoxShape3D_svxe0")
 debug_color = Color(0.599, 0.18, 0, 1)
 
-[node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D/AdditionalCollisions"]
+[node name="StaticBody3D2" type="StaticBody3D" parent="AdditionalCollisions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.8749, 9.95067, -22.1192)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/AdditionalCollisions/StaticBody3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AdditionalCollisions/StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.24948, -19.2814)
 shape = SubResource("BoxShape3D_eldlo")
 debug_color = Color(0.672, 0, 0.02, 1)
 
-[node name="StaticBody3D3" type="StaticBody3D" parent="NavigationRegion3D/AdditionalCollisions"]
+[node name="StaticBody3D3" type="StaticBody3D" parent="AdditionalCollisions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.5957, 16.062, -49.015)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/AdditionalCollisions/StaticBody3D3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AdditionalCollisions/StaticBody3D3"]
 shape = SubResource("BoxShape3D_psgro")
 debug_color = Color(0.659, 0, 0.01, 1)
 
-[node name="StaticBody3D4" type="StaticBody3D" parent="NavigationRegion3D/AdditionalCollisions"]
+[node name="StaticBody3D4" type="StaticBody3D" parent="AdditionalCollisions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.6801, 9.51921, -30.4304)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/AdditionalCollisions/StaticBody3D4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AdditionalCollisions/StaticBody3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 4.48561, -1.64124)
 shape = SubResource("BoxShape3D_gxk6y")
 debug_color = Color(0.698039, 0, 0.0117647, 1)
 
-[node name="MapBounds" type="Node3D" parent="NavigationRegion3D"]
+[node name="MapBounds" type="Node3D" parent="."]
 
-[node name="Top" type="StaticBody3D" parent="NavigationRegion3D/MapBounds"]
+[node name="Top" type="StaticBody3D" parent="MapBounds"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.7262, 10, -61.992)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MapBounds/Top"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MapBounds/Top"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.54333)
 shape = SubResource("BoxShape3D_na5xp")
 debug_color = Color(0.833, 0.105, 0, 1)
 
-[node name="Top" type="VisibleOnScreenNotifier3D" parent="NavigationRegion3D/MapBounds/Top" groups=["MapBounds"]]
+[node name="Top" type="VisibleOnScreenNotifier3D" parent="MapBounds/Top" groups=["MapBounds"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.2688, 16.4918, -0.11562)
 aabb = AABB(0, 0, 0, 100, 2.845, 1)
 
-[node name="Right" type="StaticBody3D" parent="NavigationRegion3D/MapBounds"]
+[node name="Right" type="StaticBody3D" parent="MapBounds"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 101.095, 10, -27.474)
 
-[node name="Right" type="VisibleOnScreenNotifier3D" parent="NavigationRegion3D/MapBounds/Right" groups=["MapBounds"]]
+[node name="Right" type="VisibleOnScreenNotifier3D" parent="MapBounds/Right" groups=["MapBounds"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.443748, 12.54, -46.3692)
 aabb = AABB(-0.152024, -8.78915, -23.12, 2.30405, 19.5783, 96.3924)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MapBounds/Right"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MapBounds/Right"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.85875)
 shape = SubResource("BoxShape3D_e0om7")
 debug_color = Color(0.722, 0.056, 0.092, 1)

@@ -44,6 +44,9 @@ public partial class AnimationComponent : Component
 			Vector2 dir = new Vector2(moveInput.X, moveInput.Z);
 			AnimationTree.Set("parameters/Idle/blend_position", dir);
 			AnimationTree.Set("parameters/Walk/blend_position", dir);
+			AnimationTree.Set("parameters/JumpBegin/blend_position", dir);
+			AnimationTree.Set("parameters/Jump/blend_position", dir);
+			AnimationTree.Set("parameters/Fall/blend_position", dir);
 			AnimationTree.Set("parameters/BoxedIdle/blend_position", dir);
 			AnimationTree.Set("parameters/BoxedWalk/blend_position", dir);
 		}

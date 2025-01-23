@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://blxmhwe5ji5w0"]
+[gd_scene load_steps=22 format=3 uid="uid://blxmhwe5ji5w0"]
 
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_4f71o"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_w3fsy"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cfu2aqgdl0feg" path="res://Resources/Crocotile/Props.gltf" id="3_4f71o"]
 [ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="3_6g5e3"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="5_w3fsy"]
-[ext_resource type="PackedScene" uid="uid://cm4x23qunch1g" path="res://Assets/Exterior/Foodstand_Wide_Olive_Tilted/foodstand_wide_olive_tilted.tscn" id="12_851v1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ffpni"]
 size = Vector3(4.28656, 0.0332031, 13.7429)
@@ -240,7 +239,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.7601, 19.0238, -38.0629)
 [node name="FoodstandWideBlue" parent="Props" instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Blue/foodstand_wide_blue.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.524, 19.0238, -27.3354)
 
-[node name="FoodstandWideOliveTilted" parent="Props" instance=ExtResource("12_851v1")]
+[node name="FoodstandWideOliveTilted" parent="Props" instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Olive_Tilted/foodstand_wide_olive_tilted.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.2794, 19.0616, -38.2096)
 
 [node name="FoodstantSmallBeige2" parent="Props" instance_placeholder="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige.tscn"]

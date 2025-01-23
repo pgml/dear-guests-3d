@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnutg2mbomaxd"]
+[gd_scene load_steps=7 format=3 uid="uid://cnutg2mbomaxd"]
 
 [ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="1_8od7v"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_35xla"]
+[ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_ys1qc"]
 [ext_resource type="PackedScene" uid="uid://byufb06nwr5eo" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qc4db"]
@@ -11,6 +12,7 @@ size = Vector3(4.46094, 17.2088, 0.12)
 size = Vector3(4.22754, 0.1, 6.72551)
 
 [node name="Scene" type="Node3D"]
+script = ExtResource("1_ys1qc")
 
 [node name="Actor" parent="." instance=ExtResource("1_8od7v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.0348902, -1)

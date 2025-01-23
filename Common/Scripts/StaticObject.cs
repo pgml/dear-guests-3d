@@ -51,8 +51,6 @@ public partial class StaticObject : Node3D
 
 	public override void _Ready()
 	{
-		ReplacePlaceholderWithMesh();
-
 		if (!Engine.IsEditorHint()) {
 			World = GetTree().Root.GetNode<World>("Scene/World");
 
@@ -60,6 +58,8 @@ public partial class StaticObject : Node3D
 				Sun = World.Sun;
 			}
 		}
+
+		ReplacePlaceholderWithMesh();
 	}
 
 	public override void _Process(double delta)
@@ -75,7 +75,7 @@ public partial class StaticObject : Node3D
 
 	public async void ReplacePlaceholderWithMesh()
 	{
-		if (Engine.IsEditorHint()) {
+		if (Engine.IsEditorHint() || Mesh is not InstancePlaceholder) {
 			return;
 		}
 
@@ -84,11 +84,8 @@ public partial class StaticObject : Node3D
 		}
 
 		var meshNode = GetNode(_meshNodeName);
-		if (meshNode is not InstancePlaceholder) {
-			return;
-		}
-
 		var placeholder = (InstancePlaceholder)meshNode;
+
 		string path = placeholder.GetInstancePath();
 
 		await AsyncLoader.LoadResource<Resource>(path, "", true);
@@ -120,9 +117,7 @@ public partial class StaticObject : Node3D
 				meshInstance.Scale = TopDownScale;
 			}
 
-			if (Mesh is not InstancePlaceholder) {
-				Mesh.SetSceneInstanceLoadPlaceholder(true);
-			}
+			Mesh.SetSceneInstanceLoadPlaceholder(true);
 		}
 
 		_renameBillboard();

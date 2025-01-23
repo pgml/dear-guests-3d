@@ -13,16 +13,15 @@ public partial class Scene : Node3D
 	{
 		_instancePlaceholders = GetTree().GetNodesInGroup("InstancePlaceholder");
 
-		_uiLoading = GD.Load<PackedScene>(Resources.UiLoading)
-			.Instantiate<UiLoading>();
+		if (_instancePlaceholders.Count > 0) {
+			_uiLoading = GD.Load<PackedScene>(Resources.UiLoading)
+				.Instantiate<UiLoading>();
 
-		CallDeferred("add_child", _uiLoading);
-
-		_uiLoading.Show();
-
-		_loadPlaceholders();
-
-		SceneLoaded += _onSceneLoaded;
+			CallDeferred("add_child", _uiLoading);
+			_uiLoading.Show();
+			_loadPlaceholders();
+			SceneLoaded += _onSceneLoaded;
+		}
 	}
 
 	private async void _loadPlaceholders()
@@ -57,6 +56,7 @@ public partial class Scene : Node3D
 
 	private void _onSceneLoaded()
 	{
+		GD.Print("asdasd");
 		_uiLoading.FadeOut();
 		_uiLoading.QueueFree();
 	}

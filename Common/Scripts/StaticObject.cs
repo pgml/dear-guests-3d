@@ -117,7 +117,8 @@ public partial class StaticObject : Node3D
 				meshInstance.Scale = TopDownScale;
 			}
 
-			Mesh.SetSceneInstanceLoadPlaceholder(true);
+			//Mesh.SetSceneInstanceLoadPlaceholder(true);
+			Mesh.SetSceneInstanceLoadPlaceholder(false);
 		}
 
 		_renameBillboard();

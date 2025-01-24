@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c01cdiavnc8pt"]
+[gd_scene load_steps=5 format=3 uid="uid://c01cdiavnc8pt"]
 
 [ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_6uyms"]
+[ext_resource type="PackedScene" uid="uid://cnm75h6daik0l" path="res://Assets/Exterior/Rubbish_Container/rubbish_container_mesh.tscn" id="2_sem34"]
 [ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_sem34"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8dtlu"]
@@ -9,7 +10,7 @@ size = Vector3(4.37527, 3.98294, 2.2327)
 [node name="RubbishContainer" type="Node3D"]
 script = ExtResource("1_6uyms")
 
-[node name="Mesh" parent="." instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container_mesh.tscn"]
+[node name="Mesh" parent="." instance=ExtResource("2_sem34")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 cast_shadow = 2
 

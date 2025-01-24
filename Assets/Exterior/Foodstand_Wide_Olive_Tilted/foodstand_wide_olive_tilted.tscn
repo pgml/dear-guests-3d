@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cm4x23qunch1g"]
+[gd_scene load_steps=5 format=3 uid="uid://cm4x23qunch1g"]
 
 [ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_mi3il"]
+[ext_resource type="PackedScene" uid="uid://5gghx3ap3vlw" path="res://Assets/Exterior/Foodstand_Wide_Olive_Tilted/foodstand_wide_olive_tilted_mesh.tscn" id="2_w1rpd"]
 [ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_l7s4w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mi3il"]
@@ -9,7 +10,7 @@ size = Vector3(8.24756, 5.98752, 3.22672)
 [node name="FoodstandWideOliveTilted" type="Node3D"]
 script = ExtResource("1_mi3il")
 
-[node name="Mesh" parent="." instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Olive_Tilted/foodstand_wide_olive_tilted_mesh.tscn"]
+[node name="Mesh" parent="." instance=ExtResource("2_w1rpd")]
 transform = Transform3D(1.1091, 0, -0.222677, 0, 1.584, 0, 0.155874, 0, 1.58443, 0, 0, 0)
 
 [node name="Billboard" type="Sprite3D" parent="."]

@@ -3,6 +3,15 @@ using static IController;
 
 public partial class Controller : CreatureController, IController
 {
+	[Export]
+	public CollisionShape3D CharacterCollider { get; set; }
+
+	public RayCast3D RayCastFront {
+		get {
+			return CharacterCollider.GetChild<RayCast3D>(0);
+		}
+	}
+
 	private AnimationNodeStateMachinePlayback _stateMachine;
 
 	public override void _Ready()
@@ -16,6 +25,7 @@ public partial class Controller : CreatureController, IController
 		if (CreatureData is not null) {
 			base._PhysicsProcess(delta);
 			Movement(delta);
+			RayCastFront.TargetPosition = CreatureData.FacingDirection * 2;
 		}
 	}
 
@@ -65,6 +75,7 @@ public partial class Controller : CreatureController, IController
 		}
 
 		Jumping();
+		Climbing();
 
 		Velocity = CreatureData.Velocity;
 
@@ -116,6 +127,27 @@ public partial class Controller : CreatureController, IController
 				CreatureData.Velocity.X = facingDirection.X * velocityMultiplier;
 				CreatureData.Velocity.Z = facingDirection.Z * velocityMultiplier;
 			}
+		}
+	}
+
+	public void Climbing()
+	{
+		if (CreatureData.IsClimbing && IsOnFloor()) {
+			CreatureData.IsClimbing = false;
+		}
+
+		if (CreatureData.ShouldClimb && CreatureData.CanClimb) {
+			CreatureData.IsClimbing = true;
+			GD.Print(CreatureData.ClimbComponent.ClimbTo.Y);
+			CreatureData.Velocity.Y = CreatureData.ClimbComponent.ClimbTo.Y;
+		}
+
+		if (CreatureData.IsClimbing) {
+			_disableHorizontalMovement();
+			float velocityMultiplier = CreatureData.VelocityMultiplier;
+			Vector3 facingDirection = CreatureData.FacingDirection;
+			CreatureData.Velocity.X = facingDirection.X * velocityMultiplier / 2;
+			CreatureData.Velocity.Z = facingDirection.Z * velocityMultiplier / 2;
 		}
 	}
 

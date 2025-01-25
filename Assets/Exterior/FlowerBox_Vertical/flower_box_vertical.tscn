@@ -7,7 +7,7 @@
 [node name="FlowerBoxVertical" type="Node3D"]
 script = ExtResource("1_ia33m")
 
-[node name="Mesh" parent="." instance=ExtResource("2_hfxbf")]
+[node name="Mesh" parent="." groups=["Climbable"] instance=ExtResource("2_hfxbf")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 1.62122, 0)
 
 [node name="Billboard" type="Sprite3D" parent="."]

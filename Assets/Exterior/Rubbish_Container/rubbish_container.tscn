@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://cnm75h6daik0l" path="res://Assets/Exterior/Rubbish_Container/rubbish_container_mesh.tscn" id="2_sem34"]
 [ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_sem34"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8dtlu"]
-size = Vector3(4.37527, 3.98294, 2.2327)
+[sub_resource type="BoxShape3D" id="BoxShape3D_sem34"]
+size = Vector3(4.18384, 3.75886, 2.25)
 
-[node name="RubbishContainer" type="Node3D"]
+[node name="RubbishContainer" type="Node3D" groups=["Climbable"]]
 script = ExtResource("1_6uyms")
 
 [node name="Mesh" parent="." instance=ExtResource("2_sem34")]
@@ -25,7 +25,8 @@ region_enabled = true
 region_rect = Rect2(0, 257, 64, 63)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.427463)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.080719, 1.98557, -1.12843)
-shape = SubResource("BoxShape3D_8dtlu")
+transform = Transform3D(1, 0, 0, 0, 0.985603, -0.169074, 0, 0.169074, 0.985603, -0.080719, 1.98067, -0.992169)
+shape = SubResource("BoxShape3D_sem34")

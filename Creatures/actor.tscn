@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=72 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://pei1hfk7hybs" path="res://Common/Components/JumpComponent.tscn" id="4_ad0ix"]
 [ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_i7mqa"]
 [ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="4_p5kc0"]
+[ext_resource type="PackedScene" uid="uid://cbpvyb7u8275d" path="res://Common/Components/ClimbComponent.tscn" id="5_ejg33"]
 [ext_resource type="Texture2D" uid="uid://dibopwl34gxtd" path="res://Assets/Sprites/shadow.png" id="6_i7mqa"]
 [ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
 
@@ -554,6 +555,8 @@ TestForwardDistance = 1.1
 
 [node name="JumpComponent" parent="Components" instance=ExtResource("4_ad0ix")]
 
+[node name="ClimbComponent" parent="Components" instance=ExtResource("5_ejg33")]
+
 [node name="OrthoCam" type="Camera3D" parent="." node_paths=PackedStringArray("Controller")]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)
 projection = 1
@@ -563,11 +566,12 @@ far = 110.0
 script = ExtResource("4_i7mqa")
 Controller = NodePath("../Controller")
 
-[node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterNode")]
+[node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterCollider", "CharacterNode")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.543, 0)
 floor_max_angle = 1.39626
 floor_snap_length = 1.0
 script = ExtResource("2_6neyu")
+CharacterCollider = NodePath("CharacterCollision")
 CharacterNode = NodePath("Character")
 DefaultWalkSpeed = 10.0
 DefaultRunSpeed = 14.0
@@ -578,17 +582,6 @@ script = ExtResource("3_ew7kk")
 Parent = NodePath("../..")
 ComponentsParent = NodePath("../../Components")
 SunShadowSprite = NodePath("SunShadowMesh")
-
-[node name="PerspectiveCam" type="Camera3D" parent="Controller/Character"]
-transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 120, 120)
-visible = false
-fov = 7.0
-size = 24.0
-far = 200.0
-
-[node name="FPSCamera" type="Camera3D" parent="Controller/Character"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.805908, 0.041748)
-visible = false
 
 [node name="CharacterSprite" type="Sprite3D" parent="Controller/Character"]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
@@ -618,6 +611,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00414348, -1.07789, -0.5840
 shape = SubResource("CapsuleShape3D_y1pvj")
 debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
 
+[node name="FrontCast" type="RayCast3D" parent="Controller/CharacterCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.42898, -0.00813293)
+target_position = Vector3(0, 0, 2)
+debug_shape_thickness = 4
+
 [node name="Shadow" type="Sprite3D" parent="Controller"]
 transform = Transform3D(0.35, 0, 0, 0, 0.0642826, 0.352443, 0, -0.28996, 0.0781348, 0, -3.33476, -0.159)
 visible = false
@@ -636,7 +634,7 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_8od7v")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Fall/blend_position = Vector2(0.00368214, -1.07798)
-parameters/Idle/blend_position = Vector2(-0.290436, 0.10876)
+parameters/Idle/blend_position = Vector2(-0.0321911, 1.27383)
 parameters/Jump/blend_position = Vector2(0.0940542, 0.931708)
 parameters/JumpBegin/blend_position = Vector2(0.961474, -0.163887)
 parameters/Walk/blend_position = Vector2(-0.139847, 0.628897)

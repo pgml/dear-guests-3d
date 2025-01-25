@@ -15,6 +15,9 @@ public partial class CreatureData : Resource
 	public bool StartJump = false;
 	public bool ShouldJump = false;
 	public bool ShouldJumpForward = true;
+	public bool CanClimb = false;
+	public bool StartClimb = false;
+	public bool ShouldClimb = false;
 	public float WalkSpeed = 0;
 	public float RunSpeed = 0;
 	public float DefaultWalkSpeed = 0;
@@ -30,6 +33,7 @@ public partial class CreatureData : Resource
 	public MoveState CurrentState = MoveState.IDLE;
 	public bool IsOnFloor = true;
 	public bool IsJumping = false;
+	public bool IsClimbing = false;
 	public bool IsRunning = false;
 	public bool IsIdle = false;
 	public bool IsOnStairs = false;
@@ -39,4 +43,5 @@ public partial class CreatureData : Resource
 	// Component Helper
 	public EdgeCheckComponent EdgeCheck = new();
 	public JumpComponent JumpComponent = new();
+	public ClimbComponent ClimbComponent = new();
 }

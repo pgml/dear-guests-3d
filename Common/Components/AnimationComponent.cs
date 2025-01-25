@@ -66,6 +66,14 @@ public partial class AnimationComponent : Component
 		else if (CreatureData.IsJumping && !CreatureData.IsOnFloor && CreatureData.Velocity.Y < 0) {
 			_stateMachine.Travel("Fall");
 		}
+		// @todo replace with climbing animation
+		else if (CreatureData.ShouldClimb && CreatureData.CanClimb) {
+			_stateMachine.Travel("Jump");
+		}
+		// @todo replace with climbing animation
+		else if (CreatureData.IsClimbing && !CreatureData.IsOnFloor) {
+			_stateMachine.Travel("Fall");
+		}
 		else if (CreatureData.IsOnFloor) {
 			if (!shouldIdle && _moveDirection != Vector3.Zero) {
 				if (CreatureData.IsOnFloor) {

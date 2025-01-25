@@ -28,6 +28,8 @@ public partial class JumpComponent : Component
 			return;
 		}
 
+		CreatureData.JumpImpulse = JumpImpulse;
+
 		if (Input.IsActionPressed("action_jump") && CreatureData.IsOnFloor) {
 			CreatureData.StartJump = true;
 		}

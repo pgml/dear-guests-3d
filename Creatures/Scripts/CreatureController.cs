@@ -1,6 +1,7 @@
 using Godot;
 using static IController;
 
+// Might be merge with Controller.cs
 public partial class CreatureController : CharacterBody3D
 {
 	[Export]

@@ -23,7 +23,7 @@ size = Vector3(8.815, 6.5, 12.75)
 script = ExtResource("1_ys1qc")
 
 [node name="Actor" parent="." instance=ExtResource("1_8od7v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.3447, 0.0348907, -5.5815)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5835, 0.0348902, -7.50026)
 
 [node name="World" parent="." instance=ExtResource("1_35xla")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)

@@ -611,11 +611,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00414348, -1.07789, -0.5840
 shape = SubResource("CapsuleShape3D_y1pvj")
 debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
 
-[node name="FrontCast" type="RayCast3D" parent="Controller/CharacterCollision"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.42898, -0.00813293)
-target_position = Vector3(0, 0, 2)
-debug_shape_thickness = 4
-
 [node name="Shadow" type="Sprite3D" parent="Controller"]
 transform = Transform3D(0.35, 0, 0, 0, 0.0642826, 0.352443, 0, -0.28996, 0.0781348, 0, -3.33476, -0.159)
 visible = false

@@ -1,16 +1,11 @@
 using Godot;
+using System;
 using static IController;
 
 public partial class Controller : CreatureController, IController
 {
 	[Export]
 	public CollisionShape3D CharacterCollider { get; set; }
-
-	public RayCast3D RayCastFront {
-		get {
-			return CharacterCollider.GetChild<RayCast3D>(0);
-		}
-	}
 
 	private AnimationNodeStateMachinePlayback _stateMachine;
 
@@ -25,10 +20,6 @@ public partial class Controller : CreatureController, IController
 		if (CreatureData is not null) {
 			base._PhysicsProcess(delta);
 			Movement(delta);
-
-			if (IsInstanceValid(RayCastFront)) {
-				RayCastFront.TargetPosition = CreatureData.FacingDirection * 2;
-			}
 		}
 	}
 
@@ -168,6 +159,27 @@ public partial class Controller : CreatureController, IController
 		else {
 			FloorConstantSpeed = false;
 		}
+	}
+
+	/// <summary>
+	/// Get the real elevation of a character<br />
+	/// Due to different things like scaling and pixel size, position.Y
+	/// doesn't not correctly represent the characters y position
+	/// </summary>
+	public double CharacterElevation(bool inTileSize = false)
+	{
+		var sprite = CreatureData.Node.FindChild("CharacterSprite") as Sprite3D;
+		var tileSize = 32;
+		float spritePosY = tileSize * sprite.PixelSize * sprite.Scale.Y;
+
+		double elevation = Math.Round(Position.Y - spritePosY, 1);
+
+		if (inTileSize) {
+			float tileScale = sprite.Scale.Y + sprite.Scale.Z;
+			elevation /= tileScale;
+		}
+
+		return elevation;
 	}
 
 	private void _disableHorizontalMovement()

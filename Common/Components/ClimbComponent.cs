@@ -32,17 +32,11 @@ public partial class ClimbComponent : Component
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!IsInstanceValid(CreatureData)) {
+		if (!IsInstanceValid(CreatureData) || !_canClimb()) {
 			return;
 		}
 
-		if (!_canClimb()) {
-			return;
-		}
-
-		//GD.Print(ColliderHeight(), " - ", ColliderHeight(true));
-
-		if (Controller.RayCastFront.IsColliding() && CreatureData.IsOnFloor) {
+		if (_collider().Body is not null && CreatureData.IsOnFloor) {
 			CreatureData.CanClimb = true;
 		}
 
@@ -73,31 +67,26 @@ public partial class ClimbComponent : Component
 
 	public float ColliderHeight(bool returnTileSize = false)
 	{
-		if (!Controller.RayCastFront.IsColliding() || _collider().Body is null) {
+		if (_collider().Body is null) {
 			return 0;
 		}
 
 		StaticBody3D staticBody = _collider().Body;
 		Node parent = staticBody.GetParent();
-
-		float colliderHeight = 0;
-		var sprite = CreatureData.Node.FindChild("CharacterSprite") as Sprite3D;
-		float spritePosY = 32 * sprite.PixelSize * sprite.Scale.Y;
-		float characterPosY = Controller.Position.Y - spritePosY;
+		double characterElevation = Controller.CharacterElevation();
+		double colliderHeight = 0;
 
 		if (parent is MeshInstance3D)	{
 			var mesh = parent as MeshInstance3D;
 			Aabb aabb = mesh.Mesh.GetAabb();
-			float meshHeight = aabb.Size.Y - characterPosY;
-			//GD.Print(meshHeight, " ", aabb.Size.Y, " ", aabb, " ", characterPosY);
+
+			colliderHeight = (aabb * mesh.GlobalTransform).Size.Y - characterElevation;
+
 			if (returnTileSize) {
-				colliderHeight = meshHeight / 2;
-			}
-			else {
-				colliderHeight = (aabb * mesh.GlobalTransform).Size.Y - characterPosY;
+				colliderHeight = aabb.Size.Y / 2 - Controller.CharacterElevation(true);
 			}
 		}
-		else if (parent is StaticBody3D || staticBody is not null){
+		else if (parent is StaticBody3D || IsInstanceValid(staticBody)) {
 			var child = staticBody.GetChild<CollisionShape3D>(0);
 			float childHeight = child.GlobalTransform.Origin.Y;
 
@@ -105,9 +94,8 @@ public partial class ClimbComponent : Component
 				BoxShape3D => (child.Shape as BoxShape3D).Size.Y,
 				CapsuleShape3D => (child.Shape as CapsuleShape3D).Height,
 				_ => 0
-			} - characterPosY;
+			} - characterElevation;
 
-			//GD.Print("colliderHeight: ", colliderHeight, ", childHeight: ", childHeight);
 			if (returnTileSize) {
 				colliderHeight /= childHeight;
 			}
@@ -118,18 +106,38 @@ public partial class ClimbComponent : Component
 
 	private (StaticBody3D Body, bool IsClimbable) _collider()
 	{
-		var collider = Controller.RayCastFront.GetCollider();
+		PhysicsTestMotionResult3D testMotionResult = new();
+		PhysicsTestMotionParameters3D testMotionParams = new() {
+			From = new Transform3D(Basis.Identity, Controller.GlobalTransform.Origin + new Vector3(0, 2, 0)),
+			Motion = CreatureData.FacingDirection,
+		};
 
-		if (collider is StaticBody3D) {
-			var staticBody = collider as StaticBody3D;
-			Node parent = staticBody.GetParent();
-			bool isClimbable = parent.GetParent().IsInGroup("Climbable")
-				|| parent.IsInGroup("Climbable");
+		bool wouldCollide = PhysicsServer3D.BodyTestMotion(
+			Controller.GetRid(),
+			testMotionParams,
+			testMotionResult
+		);
 
-			return (staticBody, isClimbable);
+		if (wouldCollide) {
+			var collider = testMotionResult.GetCollider();
+
+			if (collider is StaticBody3D) {
+				var staticBody = collider as StaticBody3D;
+				return (staticBody, _bodyIsClimbable(staticBody));
+			}
 		}
 
 		return (null, false);
+	}
+
+	/// <summary>
+	/// checks if a StaticBody3D is climbable by checking its parent or
+	/// their parent is in the Climbable group<br />
+	/// </summary>
+	private bool _bodyIsClimbable(StaticBody3D body)
+	{
+		return body.GetParent().IsInGroup("Climbable")
+			|| body.GetParent().GetParent().IsInGroup("Climbable");
 	}
 
 	private bool _canClimb()

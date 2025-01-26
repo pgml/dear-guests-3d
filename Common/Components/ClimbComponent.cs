@@ -32,7 +32,11 @@ public partial class ClimbComponent : Component
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!IsInstanceValid(CreatureData) || !_canClimb()) {
+		if (!IsInstanceValid(CreatureData)) {
+			return;
+		}
+
+		if (!_canClimb()) {
 			return;
 		}
 
@@ -73,17 +77,19 @@ public partial class ClimbComponent : Component
 
 		StaticBody3D staticBody = _collider().Body;
 		Node parent = staticBody.GetParent();
-		double characterElevation = Controller.CharacterElevation();
+		//double characterElevation = Controller.CharacterElevation();
 		double colliderHeight = 0;
 
 		if (parent is MeshInstance3D)	{
 			var mesh = parent as MeshInstance3D;
 			Aabb aabb = mesh.Mesh.GetAabb();
+			double meshElevation = mesh.Position.Y;
+			double elevation = Controller.DistanceToFloor();
 
-			colliderHeight = (aabb * mesh.GlobalTransform).Size.Y - characterElevation;
+			colliderHeight = (aabb * mesh.GlobalTransform).Size.Y - elevation;
 
 			if (returnTileSize) {
-				colliderHeight = aabb.Size.Y / 2 - Controller.CharacterElevation(true);
+				colliderHeight = aabb.Size.Y / 2 - Controller.DistanceToFloor(true);
 			}
 		}
 		else if (parent is StaticBody3D || IsInstanceValid(staticBody)) {
@@ -94,7 +100,7 @@ public partial class ClimbComponent : Component
 				BoxShape3D => (child.Shape as BoxShape3D).Size.Y,
 				CapsuleShape3D => (child.Shape as CapsuleShape3D).Height,
 				_ => 0
-			} - characterElevation;
+			};
 
 			if (returnTileSize) {
 				colliderHeight /= childHeight;

@@ -44,15 +44,13 @@ public partial class EdgeCheckComponent : Component
 		Vector3 forward = globalTransform.Origin + facingDirection * TestForwardDistance;
 		Vector3 testPosition = forward + TestDownDistance;
 
-		PhysicsTestMotionParameters3D bodyTestParams = new() {
-			From = new Transform3D(Basis.Identity, testPosition),
-			Motion = Vector3.Down,
-			Margin = BodyTestMargin
-		};
-
-		return !PhysicsServer3D.BodyTestMotion(
+		TestMotion testMotion = new(
 			Controller.GetRid(),
-			bodyTestParams
+			new Transform3D(Basis.Identity, testPosition),
+			Vector3.Down,
+			BodyTestMargin
 		);
+
+		return !testMotion.IsColliding;
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://blxmhwe5ji5w0"]
+[gd_scene load_steps=35 format=3 uid="uid://blxmhwe5ji5w0"]
 
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_4f71o"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_w3fsy"]
@@ -58,6 +58,9 @@ size = Vector3(1, 6.08289, 19.5757)
 [sub_resource type="BoxShape3D" id="BoxShape3D_gxk6y"]
 size = Vector3(1, 9.99734, 4.30859)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ayy6q"]
+size = Vector3(5.87982, 5, 0.242188)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_na5xp"]
 size = Vector3(112.519, 40, 1)
 
@@ -70,7 +73,7 @@ script = ExtResource("1_4f71o")
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.231, 21.419, -46.398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.231, 26.854, -46.398)
 
 [node name="Map" parent="." groups=["Climbable"] instance=ExtResource("2_4mlve")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
@@ -276,7 +279,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2734, 19.0238, -41.9536)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.7216, 9.50401, -19.265)
 
 [node name="RubbishContainer2" parent="Props" instance=ExtResource("17_vyh1s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5601, 9.504, -19.5425)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5601, 9.504, -19.2827)
 
 [node name="AdditionalCollisions" type="Node3D" parent="."]
 
@@ -310,6 +313,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.6801, 9.51921, -30.4304)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62939e-06, 4.48561, -1.64124)
 shape = SubResource("BoxShape3D_gxk6y")
 debug_color = Color(0.698039, 0, 0.0117647, 1)
+
+[node name="ClimbPrevention" type="StaticBody3D" parent="AdditionalCollisions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.7205, 14.478, -21.1669)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AdditionalCollisions/ClimbPrevention"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67813, 2, -0.378906)
+shape = SubResource("BoxShape3D_ayy6q")
+debug_color = Color(1, 0.203716, 0.0299185, 1)
 
 [node name="MapBounds" type="Node3D" parent="."]
 

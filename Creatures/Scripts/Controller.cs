@@ -75,6 +75,15 @@ public partial class Controller : CreatureController, IController
 
 		MoveAndSlide();
 
+		//GD.Print(Position, " ", System.Math.Abs(Position.Y));
+		var parentPosition = GetParent<Node3D>().Position;
+		GetParent<Node3D>().Position = new Vector3(
+			parentPosition.X + Position.X,
+			parentPosition.Y + Position.Y,
+			parentPosition.Z + Position.Z
+		);
+		Position = Vector3.Zero;
+
 		if (CreatureData.Direction != Vector3.Zero) {
 			CreatureData.FacingDirection = CreatureData.Direction;
 		}
@@ -132,7 +141,6 @@ public partial class Controller : CreatureController, IController
 
 		if (CreatureData.ShouldClimb && CreatureData.CanClimb) {
 			CreatureData.IsClimbing = true;
-			GD.Print(CreatureData.ClimbComponent.ClimbTo.Y);
 			CreatureData.Velocity.Y = CreatureData.ClimbComponent.ClimbTo.Y;
 		}
 
@@ -171,8 +179,8 @@ public partial class Controller : CreatureController, IController
 		var sprite = CreatureData.Node.FindChild("CharacterSprite") as Sprite3D;
 		var tileSize = 32;
 		float spritePosY = tileSize * sprite.PixelSize * sprite.Scale.Y;
-
-		double elevation = Math.Round(Position.Y - spritePosY, 1);
+		float parentPosY = GetParent<Node3D>().Position.Y;
+		double elevation = Math.Round(parentPosY - spritePosY, 1);
 
 		if (inTileSize) {
 			float tileScale = sprite.Scale.Y + sprite.Scale.Z;
@@ -180,6 +188,32 @@ public partial class Controller : CreatureController, IController
 		}
 
 		return elevation;
+	}
+
+	public double DistanceToFloor(bool inTileSize = false)
+	{
+		TestMotion testMotion = new(GetRid(), GlobalTransform, Vector3.Down);
+
+		double distanceToFloor = 0;
+
+		if (testMotion.IsColliding) {
+			var collider = testMotion.Collider<StaticBody3D>();
+
+			if (collider is not null) {
+				var staticBody = collider.GetParent().GetParent() as Node3D;
+				if (staticBody is StaticObject) {
+					distanceToFloor = CharacterElevation() - staticBody.Position.Y;
+				}
+			}
+		}
+
+		if (inTileSize) {
+			var sprite = CreatureData.Node.FindChild("CharacterSprite") as Sprite3D;
+			float tileScale = sprite.Scale.Y + sprite.Scale.Z;
+			distanceToFloor /= tileScale;
+		}
+
+		return distanceToFloor;
 	}
 
 	private void _disableHorizontalMovement()

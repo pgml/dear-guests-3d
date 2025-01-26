@@ -577,7 +577,7 @@ DefaultWalkSpeed = 10.0
 DefaultRunSpeed = 14.0
 
 [node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent", "SunShadowSprite")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0388203, -0.215917, 0.000488281)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0)
 script = ExtResource("3_ew7kk")
 Parent = NodePath("../..")
 ComponentsParent = NodePath("../../Components")
@@ -607,7 +607,7 @@ hframes = 6
 vframes = 16
 
 [node name="CharacterCollision" type="CollisionShape3D" parent="Controller"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00414348, -1.07789, -0.58403)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.043, 0)
 shape = SubResource("CapsuleShape3D_y1pvj")
 debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
 

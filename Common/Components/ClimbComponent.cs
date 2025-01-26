@@ -40,7 +40,7 @@ public partial class ClimbComponent : Component
 			return;
 		}
 
-		GD.Print(ColliderHeight(), " - ", ColliderHeight(true));
+		//GD.Print(ColliderHeight(), " - ", ColliderHeight(true));
 
 		if (Controller.RayCastFront.IsColliding() && CreatureData.IsOnFloor) {
 			CreatureData.CanClimb = true;
@@ -53,13 +53,12 @@ public partial class ClimbComponent : Component
 		if (Input.IsActionPressed("action_climb") && CreatureData.IsOnFloor) {
 			CreatureData.StartClimb = true;
 		}
-		else if (Input.IsActionJustReleased("action_jump") && CreatureData.IsOnFloor) {
+		else if (Input.IsActionJustReleased("action_climb") && CreatureData.IsOnFloor) {
 			CreatureData.StartClimb = true;
 			Vector3 globalPosition = CreatureData.Controller.GlobalPosition;
 			Vector3 facingDirection = CreatureData.FacingDirection;
 
 			globalPosition.Y = JumpImpulseTile + (ColliderHeight(true) - 1) * JumpTileAdditive;
-			//globalPosition.Y = ColliderHeight() + CreatureData.JumpImpulse + JumpTileAdditive;
 
 			ClimbOrigin = globalPosition;
 			ClimbTo = globalPosition + facingDirection * ClimbTestForwardDistance;
@@ -90,7 +89,7 @@ public partial class ClimbComponent : Component
 			var mesh = parent as MeshInstance3D;
 			Aabb aabb = mesh.Mesh.GetAabb();
 			float meshHeight = aabb.Size.Y - characterPosY;
-			GD.Print(meshHeight, " ", aabb.Size.Y);
+			//GD.Print(meshHeight, " ", aabb.Size.Y, " ", aabb, " ", characterPosY);
 			if (returnTileSize) {
 				colliderHeight = meshHeight / 2;
 			}
@@ -98,7 +97,7 @@ public partial class ClimbComponent : Component
 				colliderHeight = (aabb * mesh.GlobalTransform).Size.Y - characterPosY;
 			}
 		}
-		else if (parent is StaticObject){
+		else if (parent is StaticBody3D || staticBody is not null){
 			var child = staticBody.GetChild<CollisionShape3D>(0);
 			float childHeight = child.GlobalTransform.Origin.Y;
 
@@ -108,12 +107,11 @@ public partial class ClimbComponent : Component
 				_ => 0
 			} - characterPosY;
 
-			GD.Print("colliderHeight: ", colliderHeight, ", childHeight: ", childHeight);
+			//GD.Print("colliderHeight: ", colliderHeight, ", childHeight: ", childHeight);
 			if (returnTileSize) {
 				colliderHeight /= childHeight;
 			}
 		}
-
 
 		return (float)System.Math.Round(colliderHeight, 1);
 	}

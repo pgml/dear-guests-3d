@@ -25,7 +25,10 @@ public partial class Controller : CreatureController, IController
 		if (CreatureData is not null) {
 			base._PhysicsProcess(delta);
 			Movement(delta);
-			RayCastFront.TargetPosition = CreatureData.FacingDirection * 2;
+
+			if (IsInstanceValid(RayCastFront)) {
+				RayCastFront.TargetPosition = CreatureData.FacingDirection * 2;
+			}
 		}
 	}
 

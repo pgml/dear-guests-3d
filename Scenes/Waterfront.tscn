@@ -73,7 +73,7 @@ script = ExtResource("1_4f71o")
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.231, 26.854, -46.398)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.231, 21.384, -46.398)
 
 [node name="Map" parent="." groups=["Climbable"] instance=ExtResource("2_4mlve")]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)

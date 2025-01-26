@@ -28,17 +28,11 @@ public partial class Controller : CreatureController, IController
 		CreatureData.CurrentState = CurrentState;
 		CreatureData.Position = Position;
 
-		// Set velocity to zero to make animations stop when
-		// movement is forced
-		//if (CreatureData.VelocityMultiplier == 0.0f) {
-		//	Velocity = Vector3.Zero;
-		//}
-		//else {
-			CurrentState = _stateIdle();
-		//}
-
 		if (Velocity != Vector3.Zero)	{
 			CurrentState = _stateWalk();
+		}
+		else {
+			CurrentState = _stateIdle();
 		}
 
 		CreatureData.CurrentState = CurrentState;
@@ -74,15 +68,7 @@ public partial class Controller : CreatureController, IController
 		Velocity = CreatureData.Velocity;
 
 		MoveAndSlide();
-
-		//GD.Print(Position, " ", System.Math.Abs(Position.Y));
-		var parentPosition = GetParent<Node3D>().Position;
-		GetParent<Node3D>().Position = new Vector3(
-			parentPosition.X + Position.X,
-			parentPosition.Y + Position.Y,
-			parentPosition.Z + Position.Z
-		);
-		Position = Vector3.Zero;
+		_updatePositionToParent();
 
 		if (CreatureData.Direction != Vector3.Zero) {
 			CreatureData.FacingDirection = CreatureData.Direction;
@@ -193,7 +179,6 @@ public partial class Controller : CreatureController, IController
 	public double DistanceToFloor(bool inTileSize = false)
 	{
 		TestMotion testMotion = new(GetRid(), GlobalTransform, Vector3.Down);
-
 		double distanceToFloor = 0;
 
 		if (testMotion.IsColliding) {
@@ -201,6 +186,7 @@ public partial class Controller : CreatureController, IController
 
 			if (collider is not null) {
 				var staticBody = collider.GetParent().GetParent() as Node3D;
+
 				if (staticBody is StaticObject) {
 					distanceToFloor = CharacterElevation() - staticBody.Position.Y;
 				}
@@ -214,6 +200,22 @@ public partial class Controller : CreatureController, IController
 		}
 
 		return distanceToFloor;
+	}
+
+	/// <summary>
+	/// Transfers the CharacterBody3D's position to the characters root node<br />
+	/// Since the CharacterBody3D is not the root node we move the position
+	/// to the actual root which makes it easier to handle
+	/// </summary>
+	private void _updatePositionToParent()
+	{
+		var parentPosition = GetParent<Node3D>().Position;
+		GetParent<Node3D>().Position = new Vector3(
+			parentPosition.X + Position.X,
+			parentPosition.Y + Position.Y,
+			parentPosition.Z + Position.Z
+		);
+		Position = Vector3.Zero;
 	}
 
 	private void _disableHorizontalMovement()
@@ -234,7 +236,6 @@ public partial class Controller : CreatureController, IController
 
 		if (GetSlideCollisionCount() > 0) {
 			var collider = GetLastSlideCollision().GetCollider() as Node3D;
-
 			if (collider.IsInGroup("Stairs")) {
 				CreatureData.IsOnStairs = true;
 			}
@@ -251,10 +252,6 @@ public partial class Controller : CreatureController, IController
 			var characterNode = CharacterNode as Actor;
 			CreatureData = characterNode.CreatureData;
 		}
-		//else if (CharacterNode is AI) {
-		//	var characterNode = CharacterNode as AI;
-		//	CreatureData = characterNode.CreatureData;
-		//}
 
 		CreatureData.Controller = this;
 		CreatureData.Parent = GetParent() as Node3D;

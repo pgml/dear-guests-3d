@@ -40,17 +40,15 @@ public partial class EdgeCheckComponent : Component
 	{
 		Vector3 facingDirection = CreatureData.FacingDirection;
 		Transform3D globalTransform = Controller.GlobalTransform;
-
 		Vector3 forward = globalTransform.Origin + facingDirection * TestForwardDistance;
 		Vector3 testPosition = forward + TestDownDistance;
 
-		TestMotion testMotion = new(
-			Controller.GetRid(),
-			new Transform3D(Basis.Identity, testPosition),
-			Vector3.Down,
-			BodyTestMargin
-		);
+		PhysicsTestMotionParameters3D bodyTestParams = new() {
+			From = new Transform3D(Basis.Identity, testPosition),
+			Motion = Vector3.Down,
+			Margin = BodyTestMargin
+		};
 
-		return !testMotion.IsColliding;
+		return !PhysicsServer3D.BodyTestMotion(Controller.GetRid(), bodyTestParams);
 	}
 }

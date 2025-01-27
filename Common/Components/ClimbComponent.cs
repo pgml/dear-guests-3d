@@ -19,8 +19,8 @@ public partial class ClimbComponent : Component
 	public Vector3 ClimbTo { get; set; }
 
 	// @temporary
-	public float JumpImpulseTile = 30;
-	public float JumpTileAdditive = 6;
+	public float InitialJumpImpulseTile = 30;
+	public float JumpImpulsePerTile = 6;
 
 	public async override void _Ready()
 	{
@@ -51,12 +51,16 @@ public partial class ClimbComponent : Component
 		if (Input.IsActionPressed("action_climb") && CreatureData.IsOnFloor) {
 			CreatureData.StartClimb = true;
 		}
-		else if (Input.IsActionJustReleased("action_climb") && CreatureData.IsOnFloor) {
+		else if (
+			Input.IsActionJustReleased("action_climb")
+			&& CreatureData.IsOnFloor
+		) {
 			CreatureData.StartClimb = true;
 			Vector3 globalPosition = CreatureData.Controller.GlobalPosition;
 			Vector3 facingDirection = CreatureData.FacingDirection;
 
-			globalPosition.Y = JumpImpulseTile + (ColliderHeight(true) - 1) * JumpTileAdditive;
+			globalPosition.Y = InitialJumpImpulseTile
+				+ (ColliderHeight(true) - 1) * JumpImpulsePerTile;
 
 			ClimbOrigin = globalPosition;
 			ClimbTo = globalPosition + facingDirection * ClimbTestForwardDistance;
@@ -77,7 +81,6 @@ public partial class ClimbComponent : Component
 
 		StaticBody3D staticBody = _collider().Body;
 		Node parent = staticBody.GetParent();
-		//double characterElevation = Controller.CharacterElevation();
 		double colliderHeight = 0;
 
 		if (parent is MeshInstance3D)	{
@@ -112,25 +115,18 @@ public partial class ClimbComponent : Component
 
 	private (StaticBody3D Body, bool IsClimbable) _collider()
 	{
-		PhysicsTestMotionResult3D testMotionResult = new();
-		PhysicsTestMotionParameters3D testMotionParams = new() {
-			From = new Transform3D(Basis.Identity, Controller.GlobalTransform.Origin + new Vector3(0, 2, 0)),
-			Motion = CreatureData.FacingDirection,
-		};
-
-		bool wouldCollide = PhysicsServer3D.BodyTestMotion(
+		TestMotion testMotion = new(
 			Controller.GetRid(),
-			testMotionParams,
-			testMotionResult
+			new Transform3D(
+				Basis.Identity,
+				Controller.GlobalTransform.Origin + new Vector3(0, 2, 0)
+			),
+			CreatureData.FacingDirection
 		);
 
-		if (wouldCollide) {
-			var collider = testMotionResult.GetCollider();
-
-			if (collider is StaticBody3D) {
-				var staticBody = collider as StaticBody3D;
-				return (staticBody, _bodyIsClimbable(staticBody));
-			}
+		if (testMotion.IsColliding) {
+			var collider = testMotion.Collider<StaticBody3D>();
+			return (collider, _bodyIsClimbable(collider));
 		}
 
 		return (null, false);

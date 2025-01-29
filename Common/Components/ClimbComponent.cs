@@ -138,6 +138,10 @@ public partial class ClimbComponent : Component
 	/// </summary>
 	private bool _bodyIsClimbable(StaticBody3D body)
 	{
+		if (!IsInstanceValid(body)) {
+			return false;
+		}
+
 		return body.GetParent().IsInGroup("Climbable")
 			|| body.GetParent().GetParent().IsInGroup("Climbable");
 	}

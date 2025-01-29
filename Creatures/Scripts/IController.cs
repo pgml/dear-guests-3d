@@ -1,5 +1,3 @@
-using Godot;
-
 public interface IController
 {
 	public enum MoveState {
@@ -10,10 +8,8 @@ public interface IController
 		BOXED_WALK,
 	}
 
-	public Node3D CharacterNode { get; set; }
 	public bool CanMoveAndSlide => true;
 	public MoveState CurrentState { get; }
-	public CreatureData CreatureData { get; }
 
 	public void Movement(double delta);
 

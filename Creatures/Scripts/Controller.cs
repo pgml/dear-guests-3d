@@ -7,11 +7,14 @@ public partial class Controller : CreatureController, IController
 	[Export]
 	public CollisionShape3D CharacterCollider { get; set; }
 
+	public CreatureData CreatureData { get; private set; }
+
 	private AnimationNodeStateMachinePlayback _stateMachine;
 
 	public override void _Ready()
 	{
 		_setCharacterData();
+
 		base._Ready();
 	}
 
@@ -25,6 +28,7 @@ public partial class Controller : CreatureController, IController
 
 	public void Movement(double delta)
 	{
+		CreatureData.IsOnFloor = IsOnFloor();
 		CreatureData.CurrentState = CurrentState;
 		CreatureData.Position = Position;
 
@@ -248,18 +252,28 @@ public partial class Controller : CreatureController, IController
 
 	private void _setCharacterData()
 	{
-		if (CharacterNode is Actor) {
-			var characterNode = CharacterNode as Actor;
-			CreatureData = characterNode.CreatureData;
+		CreatureData = _creatureData();
+
+		if (IsInstanceValid(CreatureData)) {
+			CreatureData.Controller = this;
+			CreatureData.Parent = GetParent() as Node3D;
+			CreatureData.IsRunning = ToggleRun;
+			CreatureData.DefaultWalkSpeed = DefaultWalkSpeed;
+			CreatureData.DefaultRunSpeed = DefaultRunSpeed;
+			CreatureData.WalkSpeed = DefaultWalkSpeed;
+			CreatureData.RunSpeed = DefaultRunSpeed;
+		}
+	}
+
+	private CreatureData _creatureData()
+	{
+		var characterNode = FindChild("Character");
+
+		if (characterNode is AI) {
+			return (characterNode as AI).CreatureData;
 		}
 
-		CreatureData.Controller = this;
-		CreatureData.Parent = GetParent() as Node3D;
-		CreatureData.IsRunning = ToggleRun;
-		CreatureData.DefaultWalkSpeed = DefaultWalkSpeed;
-		CreatureData.DefaultRunSpeed = DefaultRunSpeed;
-		CreatureData.WalkSpeed = DefaultWalkSpeed;
-		CreatureData.RunSpeed = DefaultRunSpeed;
+		return (characterNode as Actor).CreatureData;
 	}
 
 	private MoveState _stateIdle()

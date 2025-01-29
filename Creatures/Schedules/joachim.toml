@@ -1,0 +1,5 @@
+[[task]]
+action = "go_to"
+time = 710
+location = { type = "marker", name = "p1" }
+priority = 0.1

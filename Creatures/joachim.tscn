@@ -1,19 +1,16 @@
-[gd_scene load_steps=73 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=70 format=3 uid="uid://camul2t8tfgtn"]
 
-[ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
-[ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
-[ext_resource type="PackedScene" uid="uid://cpbx1tdodifxd" path="res://Common/Components/AudioComponent.tscn" id="2_smncn"]
-[ext_resource type="Script" uid="uid://befclxu225ee8" path="res://Creatures/Scripts/Actor.cs" id="3_ew7kk"]
-[ext_resource type="PackedScene" uid="uid://dn4xwcolx2qbo" path="res://Common/Components/EdgeCheckComponent.tscn" id="3_fkfj1"]
-[ext_resource type="PackedScene" uid="uid://pei1hfk7hybs" path="res://Common/Components/JumpComponent.tscn" id="4_ad0ix"]
-[ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_i7mqa"]
-[ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="4_p5kc0"]
-[ext_resource type="PackedScene" uid="uid://cbpvyb7u8275d" path="res://Common/Components/ClimbComponent.tscn" id="5_ejg33"]
-[ext_resource type="Texture2D" uid="uid://dibopwl34gxtd" path="res://Assets/Sprites/shadow.png" id="6_i7mqa"]
-[ext_resource type="Resource" uid="uid://brw1tt2r2vtxh" path="res://Creatures/actor_data.tres" id="8_3eq32"]
-[ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
+[ext_resource type="PackedScene" uid="uid://ckik2qvon36u3" path="res://AI/Actions/GoTo.tscn" id="1_2yh3m"]
+[ext_resource type="Script" uid="uid://bj4cuma36e1n3" path="res://Creatures/Scripts/AIController.cs" id="1_jmxrq"]
+[ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_yotvh"]
+[ext_resource type="PackedScene" uid="uid://cpbx1tdodifxd" path="res://Common/Components/AudioComponent.tscn" id="2_2yh3m"]
+[ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="2_6av75"]
+[ext_resource type="Script" uid="uid://y38xnp1vvkl" path="res://Creatures/Scripts/AI.cs" id="2_jmxrq"]
+[ext_resource type="PackedScene" uid="uid://dn4xwcolx2qbo" path="res://Common/Components/EdgeCheckComponent.tscn" id="3_n14qi"]
+[ext_resource type="PackedScene" uid="uid://bfr53fg3y460k" path="res://AI/agent.tscn" id="4_7ua6r"]
+[ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="4_o1huj"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1pvj"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mu6n7"]
 radius = 0.8
 height = 5.0
 
@@ -379,125 +376,125 @@ _data = {
 &"walk_up": SubResource("Animation_iaow0")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ad0ix"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6av75"]
 animation = &"fall_south"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2kvs5"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jmxrq"]
 animation = &"fall_west"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ejg33"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o1huj"]
 animation = &"fall_north"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3eq32"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7ua6r"]
 animation = &"fall_east"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_t4p7i"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_ad0ix")
+blend_point_0/node = SubResource("AnimationNodeAnimation_6av75")
 blend_point_0/pos = Vector2(0, 1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_2kvs5")
+blend_point_1/node = SubResource("AnimationNodeAnimation_jmxrq")
 blend_point_1/pos = Vector2(-1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_ejg33")
+blend_point_2/node = SubResource("AnimationNodeAnimation_o1huj")
 blend_point_2/pos = Vector2(0, -1.1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_3eq32")
+blend_point_3/node = SubResource("AnimationNodeAnimation_7ua6r")
 blend_point_3/pos = Vector2(1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8od7v"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bi4vo"]
 animation = &"idle_down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qc4db"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7by3j"]
 animation = &"idle_up"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ys1qc"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yotvh"]
 animation = &"idle_right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_35xla"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2yh3m"]
 animation = &"idle_left"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_8od7v"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_8od7v")
+blend_point_0/node = SubResource("AnimationNodeAnimation_bi4vo")
 blend_point_0/pos = Vector2(0, 1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_qc4db")
+blend_point_1/node = SubResource("AnimationNodeAnimation_7by3j")
 blend_point_1/pos = Vector2(0, -1.1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_ys1qc")
+blend_point_2/node = SubResource("AnimationNodeAnimation_yotvh")
 blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_35xla")
+blend_point_3/node = SubResource("AnimationNodeAnimation_2yh3m")
 blend_point_3/pos = Vector2(-1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y2omn"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n14qi"]
 animation = &"jump_south"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6qk7i"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1gka0"]
 animation = &"jump_west"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1rwgr"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vf1id"]
 animation = &"jump_north"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dhulj"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rj3wl"]
 animation = &"jump_east"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1x1is"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_y2omn")
+blend_point_0/node = SubResource("AnimationNodeAnimation_n14qi")
 blend_point_0/pos = Vector2(0, 1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_6qk7i")
+blend_point_1/node = SubResource("AnimationNodeAnimation_1gka0")
 blend_point_1/pos = Vector2(-1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_1rwgr")
+blend_point_2/node = SubResource("AnimationNodeAnimation_vf1id")
 blend_point_2/pos = Vector2(0, -1.1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_dhulj")
+blend_point_3/node = SubResource("AnimationNodeAnimation_rj3wl")
 blend_point_3/pos = Vector2(1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t4p7i"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_45c62"]
 animation = &"jump_begin_south"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xhudt"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e0d2d"]
 animation = &"jump_begin_west"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1x1is"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4fy42"]
 animation = &"jump_begin_north"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gxvax"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l1i61"]
 animation = &"jump_begin_east"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_t4353"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_t4p7i")
+blend_point_0/node = SubResource("AnimationNodeAnimation_45c62")
 blend_point_0/pos = Vector2(0, 1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_xhudt")
+blend_point_1/node = SubResource("AnimationNodeAnimation_e0d2d")
 blend_point_1/pos = Vector2(-1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_1x1is")
+blend_point_2/node = SubResource("AnimationNodeAnimation_4fy42")
 blend_point_2/pos = Vector2(0, -1.1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_gxvax")
+blend_point_3/node = SubResource("AnimationNodeAnimation_l1i61")
 blend_point_3/pos = Vector2(1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i3aeo"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w8wrk"]
 animation = &"walk_down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5wyu1"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yraci"]
 animation = &"walk_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0c07c"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cqdop"]
 animation = &"walk_up"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2cgwh"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ys22v"]
 animation = &"walk_right"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_qc4db"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_i3aeo")
+blend_point_0/node = SubResource("AnimationNodeAnimation_w8wrk")
 blend_point_0/pos = Vector2(0, 1.1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_5wyu1")
+blend_point_1/node = SubResource("AnimationNodeAnimation_yraci")
 blend_point_1/pos = Vector2(-1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_0c07c")
+blend_point_2/node = SubResource("AnimationNodeAnimation_cqdop")
 blend_point_2/pos = Vector2(0, -1.1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_2cgwh")
+blend_point_3/node = SubResource("AnimationNodeAnimation_ys22v")
 blend_point_3/pos = Vector2(1, 0)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
@@ -526,7 +523,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ad0ix"]
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8od7v"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_su5lp"]
 states/Fall/node = SubResource("AnimationNodeBlendSpace2D_t4p7i")
 states/Fall/position = Vector2(525.388, 251.84)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_8od7v")
@@ -541,83 +538,58 @@ states/Walk/position = Vector2(471.445, 108.805)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_8od7v"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_ys1qc"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_qc4db"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_t4353"), "Fall", "Jump", SubResource("AnimationNodeStateMachineTransition_7g6e0"), "Fall", "Idle", SubResource("AnimationNodeStateMachineTransition_i67b2"), "Fall", "Walk", SubResource("AnimationNodeStateMachineTransition_jim30"), "JumpBegin", "Jump", SubResource("AnimationNodeStateMachineTransition_3eq32"), "Jump", "JumpBegin", SubResource("AnimationNodeStateMachineTransition_2kvs5"), "Walk", "JumpBegin", SubResource("AnimationNodeStateMachineTransition_t4p7i"), "Idle", "JumpBegin", SubResource("AnimationNodeStateMachineTransition_ad0ix")]
 graph_offset = Vector2(-81.9453, 56.3867)
 
-[node name="Actor" type="Node3D"]
+[node name="Joachim" type="Node3D"]
+
+[node name="Actions" type="Node" parent="."]
+
+[node name="GoTo" parent="Actions" instance=ExtResource("1_2yh3m")]
+ActionName = "go_to"
 
 [node name="Components" type="Node" parent="."]
 
-[node name="AnimationComponent" parent="Components" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y1pvj")]
+[node name="AnimationComponent" parent="Components" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_yotvh")]
 AnimationTree = NodePath("../../AnimationTree")
 
-[node name="AudioComponent" parent="Components" instance=ExtResource("2_smncn")]
+[node name="AudioComponent" parent="Components" instance=ExtResource("2_2yh3m")]
 FootStepLoopInterval = 0.34
 
-[node name="EdgeCheckComponent" parent="Components" instance=ExtResource("3_fkfj1")]
+[node name="EdgeCheckComponent" parent="Components" instance=ExtResource("3_n14qi")]
 
-[node name="JumpComponent" parent="Components" instance=ExtResource("4_ad0ix")]
-
-[node name="ClimbComponent" parent="Components" instance=ExtResource("5_ejg33")]
-
-[node name="OrthoCam" type="Camera3D" parent="." node_paths=PackedStringArray("Controller")]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)
-projection = 1
-current = true
-size = 21.844
-far = 110.0
-script = ExtResource("4_i7mqa")
-Controller = NodePath("../Controller")
-
-[node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterCollider")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.543, 0)
-floor_max_angle = 1.39626
-floor_snap_length = 1.0
-script = ExtResource("2_6neyu")
+[node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("NavigationAgent", "CharacterCollider")]
+floor_max_angle = 2.36492
+floor_snap_length = 5.0
+script = ExtResource("1_jmxrq")
+NavigationAgent = NodePath("../Agent")
 CharacterCollider = NodePath("CharacterCollision")
 
-[node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent", "CharacterSprite", "SunShadowSprite")]
+[node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("ActionsParent", "Parent", "ComponentsParent", "CharacterSprite")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0)
-script = ExtResource("3_ew7kk")
-CreatureData = ExtResource("8_3eq32")
+script = ExtResource("2_jmxrq")
+CharacterName = "Joachim"
+ActionsParent = NodePath("../../Actions")
 Parent = NodePath("../..")
 ComponentsParent = NodePath("../../Components")
 CharacterSprite = NodePath("CharacterSprite")
-SunShadowSprite = NodePath("SunShadowMesh")
 
 [node name="CharacterSprite" type="Sprite3D" parent="Controller/Character"]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 3.543, 0)
 cast_shadow = 2
 pixel_size = 0.07
 shaded = true
 alpha_cut = 2
 texture_filter = 4
-texture = ExtResource("4_p5kc0")
+texture = ExtResource("2_6av75")
 hframes = 6
 vframes = 20
 
-[node name="SunShadowMesh" type="Sprite3D" parent="Controller/Character"]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, -0.5)
-visible = false
-cast_shadow = 3
-pixel_size = 0.07
-shaded = true
-alpha_cut = 2
-texture_filter = 0
-texture = ExtResource("4_p5kc0")
-hframes = 6
-vframes = 16
-
 [node name="CharacterCollision" type="CollisionShape3D" parent="Controller"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.043, 0)
-shape = SubResource("CapsuleShape3D_y1pvj")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.55765, 0)
+shape = SubResource("CapsuleShape3D_mu6n7")
 debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
 
-[node name="Shadow" type="Sprite3D" parent="Controller"]
-transform = Transform3D(0.35, 0, 0, 0, 0.0642826, 0.352443, 0, -0.28996, 0.0781348, 0, -3.33476, -0.159)
-visible = false
-cast_shadow = 3
-shaded = true
-alpha_cut = 2
-texture_filter = 0
-texture = ExtResource("6_i7mqa")
+[node name="Agent" parent="." instance=ExtResource("4_7ua6r")]
+debug_enabled = true
+Schedule = "res://Creatures/Schedules/joachim.toml"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -625,7 +597,7 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_8od7v")
+tree_root = SubResource("AnimationNodeStateMachine_su5lp")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Fall/blend_position = Vector2(0.00368214, -1.07798)
 parameters/Idle/blend_position = Vector2(-0.0321911, 1.27383)
@@ -633,6 +605,13 @@ parameters/Jump/blend_position = Vector2(0.0940542, 0.931708)
 parameters/JumpBegin/blend_position = Vector2(0.961474, -0.163887)
 parameters/Walk/blend_position = Vector2(-0.139847, 0.628897)
 
-[node name="UI" type="Node3D" parent="."]
-
-[node name="Cursor" parent="UI" instance=ExtResource("8_xua5t")]
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.92181, 0)
+billboard = 1
+shaded = true
+text = "Joachim
+"
+font = ExtResource("4_o1huj")
+font_size = 76
+outline_size = 64
+uppercase = true

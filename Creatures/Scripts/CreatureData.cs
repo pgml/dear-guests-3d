@@ -1,11 +1,10 @@
 using Godot;
-//using System.Collections.Generic;
 using static IController;
 
 public partial class CreatureData : Resource
 {
 	public Node3D Parent = null;
-	public Actor Node = null;
+	public dynamic Node = null;
 	public Controller Controller = null;
 	//public RectangleShape2D CollisionShape = null;
 
@@ -44,4 +43,11 @@ public partial class CreatureData : Resource
 	public EdgeCheckComponent EdgeCheck = new();
 	public JumpComponent JumpComponent = new();
 	public ClimbComponent ClimbComponent = new();
+
+	public T Character<T>() where T : class
+	{
+		return Node is T value
+			? value
+			: default(T);
+	}
 }

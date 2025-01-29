@@ -1,32 +1,16 @@
 using Godot;
-using static Godot.GD;
-using System.Collections.Generic;
 
-public partial class Actor : Node3D
+public partial class Actor : Creature
 {
 	[Export]
-	public Node3D Parent { get; set; }
-
-	[Export]
-	public Node ComponentsParent { get; set; }
-
-	[Export]
-	public Sprite3D SunShadowSprite { get; set; }
-
-	public CreatureData CreatureData { get; private set; }
-	public Vector3 Direction { get; set; }
-
-	public Dictionary<string, Component> Components {
-		get { return _components(); }
-	}
+	public new CreatureData CreatureData { get; private set; }
 
 	private World _world;
 	private DirectionalLight3D _sun;
 
 	public override void _Ready()
 	{
-		CreatureData = Load<CreatureData>(Resources.ActorData);
-		CreatureData.Node = this;
+		base._Ready();
 
 		_world = GetTree().Root.GetNode<World>("Scene/World");
 		_sun = _world.Sun;
@@ -34,8 +18,6 @@ public partial class Actor : Node3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		CreatureData.Node = this;
-
 		//SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);
 
 		if (Input.IsPhysicalKeyPressed(Key.Shift)) {
@@ -50,14 +32,5 @@ public partial class Actor : Node3D
 		};
 
 		CreatureData.Direction = direction;
-	}
-
-	private Dictionary<string, Component> _components()
-	{
-		Dictionary<string, Component> components = new();
-		foreach (Component component in ComponentsParent.GetChildren()) {
-			components.Add(component.Name, component);
-		}
-		return components;
 	}
 }

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfr53fg3y460k"]
+
+[ext_resource type="Script" uid="uid://kl3n0kyh20g4" path="res://AI/Scripts/Agent.cs" id="1_ao4ve"]
+
+[node name="Agent" type="NavigationAgent3D"]
+script = ExtResource("1_ao4ve")

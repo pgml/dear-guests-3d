@@ -415,8 +415,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.6815, 19.008, -42.9472)
 LocationName = "artifact_factory"
 
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
-PauseTime = true
-DayTime = 10.0
 DayOfYear = 160
 Latitude = 32.0
 

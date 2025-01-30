@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 /**
  * Simplified C# port of https://github.com/krzmig/godot-simple-sky-project
@@ -23,24 +24,37 @@ public partial class World : Node
 	[Export]
 	public bool PauseTime { get; set; } = false;
 
+	/// <summary>
+	/// If set to true directional light transform won't be affected
+	/// </summary>
+	[Export]
+	public bool TimeOnly { get; set; } = false;
+
 	// For simplify, a local time, I skip totally a longitude
-	private double _dayTime;
+	private double _dayTimeHours;
 	[Export(PropertyHint.Range, "0.0, 24, 0.0001")]
-	public double DayTime {
-		get => _dayTime;
+	public double DayTimeHours {
+		get => _dayTimeHours;
 		set {
-			_dayTime = value;
-			if (DayTime < 0.0) {
-				_dayTime += HoursInDay;
+			_dayTimeHours = value;
+			if (DayTimeHours < 0.0) {
+				_dayTimeHours += HoursInDay;
 				_dayOfYear -= 1;
 			}
-			else if (DayTime > HoursInDay) {
-				_dayTime -= HoursInDay;
+			else if (DayTimeHours > HoursInDay) {
+				_dayTimeHours -= HoursInDay;
 				_dayOfYear += 1;
 			}
 			_update();
 		}
 	}
+
+	public (int Hour, int Minute, string Formatted) DayTime { get {
+		int h = (int)DayTimeHours;
+		int m = (int)((DayTimeHours - h) * 60);
+		int[] dt = {h, m};
+		return (h, m, $"{h:D2}:{m:D2}");
+	}}
 
 	/// <summary>
 	/// Day of year. In game, if you reach DAYS_IN_YEAR, don't set 0
@@ -181,7 +195,8 @@ public partial class World : Node
 	public override void _Process(double delta)
 	{
 		if (!Engine.IsEditorHint() && !PauseTime) {
-			DayTime += delta * TimeScale;
+			DayTimeHours += delta * TimeScale;
+			GD.PrintS(DayTime.Hour, DayTime.Minute, DayTime.Formatted);
 		}
 	}
 
@@ -193,42 +208,53 @@ public partial class World : Node
 
 	private void _updateSun()
  	{
-		if (IsInstanceValid(Sun)) {
-			double dayProgress = DayTime / HoursInDay;
-			// 193 is the number of days from the summer solstice to the end of the year.
-			// Here we want 0 for the summer solstice and 1 for the winter solstice.
-			double earthOrbitProgress = (DayOfYear + 193 + dayProgress) / DaysInYear;
-			Sun.Rotation = new Vector3(
-				// Sunset and sunrise
-				(float)(dayProgress * 2.0 - 0.5) * -Mathf.Pi,
-				// Rotation to the deviation of the axis of rotation from the orbit.
-				// This gives us shorter days in winter and longer days in summer.
-				(float)Mathf.DegToRad(Mathf.Cos(earthOrbitProgress * Mathf.Pi * 2) * PlanetAxialTilt),
-				Mathf.DegToRad(Latitude)
-			);
+		if (!IsInstanceValid(Sun)) {
+			return;
+		}
 
-			if (IsInsideTree()) {
-				// Disabling light under the horizon
-				Vector3 sunDirection = Sun.ToGlobal(Vector3.Back).Normalized();
-				Sun.LightEnergy = (float)Mathf.SmoothStep(
-					-0.05,
-					0.1,
-					sunDirection.Y
-				) * (float)SunBaseEnergy;
+		double dayProgress = DayTimeHours / HoursInDay;
 
-				Vector3 AnomalySunDirection = Sun.ToGlobal(Vector3.Back).Normalized();
-				AnomalySun.LightEnergy = (float)Mathf.SmoothStep(
-					-0.05,
-					0.1,
-					AnomalySunDirection.Y
-				) * (float)AnomalySunBaseEnergy;
-			}
+		if (TimeOnly) {
+			dayProgress = 10 / HoursInDay;
+		}
+
+		// 193 is the number of days from the summer solstice to the end of the year.
+		// Here we want 0 for the summer solstice and 1 for the winter solstice.
+		double earthOrbitProgress = (DayOfYear + 193 + dayProgress) / DaysInYear;
+		Sun.Rotation = new Vector3(
+			// Sunset and sunrise
+			(float)(dayProgress * 2.0 - 0.5) * -Mathf.Pi,
+			// Rotation to the deviation of the axis of rotation from the orbit.
+			// This gives us shorter days in winter and longer days in summer.
+			(float)Mathf.DegToRad(Mathf.Cos(earthOrbitProgress * Mathf.Pi * 2) * PlanetAxialTilt),
+			Mathf.DegToRad(Latitude)
+		);
+
+		if (IsInsideTree()) {
+			// Disabling light under the horizon
+			Vector3 sunDirection = Sun.ToGlobal(Vector3.Back).Normalized();
+			Sun.LightEnergy = (float)Mathf.SmoothStep(
+				-0.05,
+				0.1,
+				sunDirection.Y
+			) * (float)SunBaseEnergy;
+
+			Vector3 AnomalySunDirection = Sun.ToGlobal(Vector3.Back).Normalized();
+			AnomalySun.LightEnergy = (float)Mathf.SmoothStep(
+				-0.05,
+				0.1,
+				AnomalySunDirection.Y
+			) * (float)AnomalySunBaseEnergy;
 		}
 	}
 
 	private void _updateMoon()
  	{
-		double dayProgress = DayTime / HoursInDay;
+		if (TimeOnly) {
+			return;
+		}
+
+		double dayProgress = DayTimeHours / HoursInDay;
 
 		if (IsInstanceValid(Moon)) {
 			// Progress of the moon's orbital rotation in days
@@ -245,7 +271,6 @@ public partial class World : Node
 			if (IsInsideTree()) {
 				// Disabling light under the horizon
 				Vector3 moonDirection = Moon.ToGlobal(Vector3.Back).Normalized();
-				GD.PrintS(MoonBaseEnergy, Moon.LightEnergy);
 				Moon.LightEnergy = (float)Mathf.SmoothStep(
 					-0.05f,
 					0.1f,

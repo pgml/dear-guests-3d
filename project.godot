@@ -45,6 +45,7 @@ Climbable=""
 
 scene={
 &"gltf/embedded_image_handling": 3,
+&"import_script/path": "uid://c3e3ye80f025p",
 &"meshes/force_disable_compression": true
 }
 3d_texture={
@@ -99,6 +100,11 @@ action_climb={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_render/layer_1="Normal"
+3d_render/layer_2="ShadowAnomaly"
 
 [physics]
 

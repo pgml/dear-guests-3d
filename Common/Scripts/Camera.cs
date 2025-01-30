@@ -24,7 +24,9 @@ public partial class Camera : Camera3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		_followPlayer();
+		if (_creatureData is not null) {
+			_followPlayer();
+		}
 	}
 
 	/**

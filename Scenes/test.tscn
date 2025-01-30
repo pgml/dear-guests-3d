@@ -82,14 +82,9 @@ transform = Transform3D(0.999998, 0, 0.00190241, 0, 1, 0, -0.00190241, 0, 0.9999
 LocationName = "P1"
 
 [node name="World" parent="." instance=ExtResource("1_35xla")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.931061, -0.196571, 0.307377, -0.161154, 0.534265, 0.829812, -0.327338, -0.822144, 0.465755, 0, 0, 0)
-
-[node name="AlternateSun" parent="World" index="2"]
-transform = Transform3D(0.974051, -0.0104691, -0.226088, 0.196571, 0.534265, 0.822144, 0.112184, -0.845252, 0.522459, 0, 0, 0)
-light_cull_mask = 4294967295
+transform = Transform3D(0.931297, -0.19883, 0.3052, -0.177182, 0.484797, 0.856491, -0.318255, -0.851727, 0.416261, 0, 0, 0)
 
 [node name="default" parent="." instance=ExtResource("5_5wyu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.4121, 0, 0)

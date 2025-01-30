@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsca8xc1cojae"]
+[gd_scene load_steps=5 format=3 uid="uid://dsca8xc1cojae"]
 
 [ext_resource type="Script" uid="uid://ktebfg07t4i7" path="res://Common/Scripts/World.cs" id="1_iaoyc"]
 [ext_resource type="Environment" uid="uid://jff1p13xc4bx" path="res://Resources/default_environment.tres" id="2_f76b8"]
 [ext_resource type="Texture2D" uid="uid://drjt0uhsjl4jk" path="res://Resources/Tiled/Waterfront/Waterfront.png" id="2_iaoyc"]
+[ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_f76b8"]
 
 [node name="World" type="Node3D" node_paths=PackedStringArray("Sun")]
 script = ExtResource("1_iaoyc")
@@ -15,15 +16,26 @@ environment = ExtResource("2_f76b8")
 transform = Transform3D(0.970254, 0.133643, -0.201845, 0.0744243, 0.628741, 0.774044, 0.230354, -0.766044, 0.600093, 0, 0, 0)
 rotation_order = 4
 light_color = Color(0.964706, 0.952941, 0.901961, 1)
-light_energy = 1.8
 shadow_enabled = true
 shadow_bias = 0.01
 shadow_normal_bias = 2.5
-shadow_opacity = 0.6
+shadow_caster_mask = 4294967293
 directional_shadow_mode = 1
 directional_shadow_split_1 = 0.527
 directional_shadow_split_2 = 0.497
 directional_shadow_split_3 = 0.563
+
+[node name="AlternateSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.970326, 0.132868, -0.202023, 0.0749948, 0.628925, 0.77384, 0.229876, -0.766028, 0.600298, 0, 0, 0)
+light_color = Color(0.964706, 0.952941, 0.901961, 1)
+light_energy = 0.8
+light_cull_mask = 4294967293
+shadow_enabled = true
+shadow_bias = 0.01
+shadow_normal_bias = 2.5
+shadow_caster_mask = 4293918722
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.527
 
 [node name="Moon" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.995979, 0.0895897, -3.91609e-09, 0, -4.37114e-08, -1, -0.0895897, 0.995979, -4.35356e-08, 0, 0, 0)
@@ -77,3 +89,11 @@ texture_filter = 0
 texture = ExtResource("2_iaoyc")
 region_enabled = true
 region_rect = Rect2(201, 842, 54, 101)
+
+[node name="OrthoCam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)
+projection = 1
+current = true
+size = 21.844
+far = 110.0
+script = ExtResource("4_f76b8")

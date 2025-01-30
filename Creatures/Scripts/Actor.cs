@@ -14,8 +14,8 @@ public partial class Actor : Creature
 
 		CreatureData.Node = this;
 
-		_world = GetTree().Root.GetNode<World>("Scene/World");
-		_sun = _world.Sun;
+		//_world = GetTree().Root.GetNode<World>("Scene/World");
+		//_sun = _world.Sun;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -33,6 +33,11 @@ public partial class Actor : Creature
 			Z = input.Y * Mathf.Sqrt(1.58f)
 		};
 
-		CreatureData.Direction = direction;
+		if (CreatureData is not null) {
+			CreatureData.Direction = direction;
+		}
+		else {
+			GD.PrintErr("DG: ActorData Resource not set");
+		}
 	}
 }

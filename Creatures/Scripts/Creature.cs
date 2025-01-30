@@ -22,6 +22,18 @@ public partial class Creature : Node3D
 	public override void _Ready()
 	{
 		Components = _components();
+
+		if (ComponentsParent is null) {
+			GD.PrintErr("DG: Parent not set");
+		}
+
+		if (ComponentsParent is null) {
+			GD.PrintErr("DG: ComponentsParent not set");
+		}
+
+		if (CharacterSprite is null) {
+			GD.PrintErr("DG: Character Sprite not set");
+		}
 	}
 
 	private Dictionary<string, Component> _components()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnutg2mbomaxd"]
+[gd_scene load_steps=13 format=3 uid="uid://cnutg2mbomaxd"]
 
 [ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="1_8od7v"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_35xla"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cfu2aqgdl0feg" path="res://Resources/Crocotile/Props.gltf" id="5_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://c01cdiavnc8pt" path="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn" id="5_35xla"]
 [ext_resource type="PackedScene" uid="uid://byufb06nwr5eo" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
-[ext_resource type="Script" uid="uid://bgs2j6xtui381" path="res://Anomalies/Scripts/ShadowAnomaly.cs" id="7_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://ce42ff5dpv77b" path="res://Common/Tools/poi.tscn" id="7_iaow0"]
 [ext_resource type="Script" uid="uid://ltqhvqcgr87p" path="res://Common/Scripts/Locations.cs" id="8_qpfo2"]
 [ext_resource type="PackedScene" uid="uid://camul2t8tfgtn" path="res://Creatures/joachim.tscn" id="9_2cgwh"]
@@ -56,7 +55,6 @@ skeleton = NodePath("")
 
 [node name="Area3D" type="Area3D" parent="Content/Anomalies"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.9506, 0, -19)
-script = ExtResource("7_5wyu1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Content/Anomalies/Area3D"]
 shape = SubResource("BoxShape3D_0c07c")
@@ -70,18 +68,18 @@ transform = Transform3D(0.999998, 0, 0.00190241, 0, 1, 0, -0.00190241, 0, 0.9999
 LocationName = "P1"
 
 [node name="World" parent="." instance=ExtResource("1_35xla")]
+DayTimeHours = 10.0
 DayOfYear = 160
-Latitude = 7.85
-AnomalySunBaseEnergy = 0.2
+Latitude = 37.06
+TimeScale = 0.00666
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.957925, -0.0682901, 0.278765, -0.209995, 0.495315, 0.842949, -0.195641, -0.866026, 0.460134, 0, 0, 0)
-light_energy = 1.0
+transform = Transform3D(0.938592, -0.301326, -0.168053, 0.284188, 0.399003, 0.871797, -0.195641, -0.866026, 0.460134, 0, 0, 0)
 
 [node name="AnomalySun" parent="World" index="2"]
 transform = Transform3D(0.961262, 0, -0.275637, 0.217205, 0.615662, 0.757484, 0.169699, -0.788011, 0.591812, 0, 0, 0)
 rotation_order = 4
-light_energy = 0.0
+light_energy = 0.8
 
 [node name="Moon" parent="World" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

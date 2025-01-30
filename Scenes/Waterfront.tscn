@@ -415,8 +415,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.6815, 19.008, -42.9472)
 LocationName = "artifact_factory"
 
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
+DayTimeHours = 10.0
 DayOfYear = 160
-Latitude = 32.0
+Latitude = 33.009
+TimeScale = 0.00666
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.9174, 13.068, -43.4086)

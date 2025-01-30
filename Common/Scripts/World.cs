@@ -1,8 +1,7 @@
 using Godot;
-using System;
 
 /**
- * Simplified C# port of https://github.com/krzmig/godot-simple-sky-project
+ * modified C# port of https://github.com/krzmig/godot-simple-sky-project
  * with clouds and shader support removed since you wont see it here anyway
  */
 
@@ -196,7 +195,6 @@ public partial class World : Node
 	{
 		if (!Engine.IsEditorHint() && !PauseTime) {
 			DayTimeHours += delta * TimeScale;
-			GD.PrintS(DayTime.Hour, DayTime.Minute, DayTime.Formatted);
 		}
 	}
 

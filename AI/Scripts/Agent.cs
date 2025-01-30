@@ -22,7 +22,6 @@ public partial class Agent : NavigationAgent3D
 	{
 		var aiData = GD.Load<AiData>(Resources.AiData);
 		_creatureData = aiData.CreatureData[GetParent().Name];
-
 		VelocityComputed += _onVelocityComputed;
 	}
 
@@ -38,7 +37,6 @@ public partial class Agent : NavigationAgent3D
 	public void Initialise()
 	{
 		Tasks = (new TaskList()).Fetch(Schedule);
-
 		SetGoals();
 	}
 
@@ -91,7 +89,6 @@ public partial class Agent : NavigationAgent3D
 		}
 	}
 
-
 	public void SetTargetPosition()
 	{
 		if (TargetLocation.Type == "area" && TargetPosition == Vector3.Inf) {
@@ -105,8 +102,8 @@ public partial class Agent : NavigationAgent3D
 			var markers = Locations.LocationMarkers;
 
 			if (TargetLocation.Name == "random") {
-				var random = new Random();
-				var keys = new List<string>(markers.Keys);
+				Random random = new();
+				List<string> keys = new(markers.Keys);
 				string randomLocationName = keys[random.Next(keys.Count)];
 				TargetLocation = Locations.LocationMarkers[randomLocationName];
 				TargetPosition = TargetLocation.GlobalPosition;
@@ -127,7 +124,7 @@ public partial class Agent : NavigationAgent3D
 		Vector3 newVelocity = globalPosition.DirectionTo(nextPathPosition);
 
 		if (AvoidanceEnabled) {
-			SetVelocityForced(newVelocity);
+			Velocity = newVelocity;
 		}
 		else {
 			_onVelocityComputed(newVelocity);
@@ -150,6 +147,6 @@ public partial class Agent : NavigationAgent3D
 
 	private void _onVelocityComputed(Vector3 safeVelocity)
 	{
-		Velocity = safeVelocity;
+		_creatureData.Direction = safeVelocity;
 	}
 }

@@ -398,7 +398,7 @@ LocationName = "rubbish_containers"
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
 
 [node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.8904, 13.068, -43.2122)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.9174, 13.068, -43.4086)
 
 [node name="AI" type="Node3D" parent="."]
 

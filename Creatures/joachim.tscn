@@ -540,12 +540,12 @@ graph_offset = Vector2(-81.9453, 56.3867)
 
 [node name="Joachim" type="Node3D"]
 
-[node name="Actions" type="Node" parent="."]
+[node name="Actions" type="Node3D" parent="."]
 
 [node name="GoTo" parent="Actions" instance=ExtResource("1_2yh3m")]
 ActionName = "go_to"
 
-[node name="Components" type="Node" parent="."]
+[node name="Components" type="Node3D" parent="."]
 
 [node name="AnimationComponent" parent="Components" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_yotvh")]
 AnimationTree = NodePath("../../AnimationTree")
@@ -561,6 +561,8 @@ floor_snap_length = 5.0
 script = ExtResource("1_jmxrq")
 NavigationAgent = NodePath("../Agent")
 CharacterCollider = NodePath("CharacterCollision")
+DefaultWalkSpeed = 8.0
+DefaultRunSpeed = 12.0
 
 [node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("ActionsParent", "Parent", "ComponentsParent", "CharacterSprite")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0)
@@ -588,6 +590,7 @@ shape = SubResource("CapsuleShape3D_mu6n7")
 debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
 
 [node name="Agent" parent="." instance=ExtResource("4_7ua6r")]
+path_height_offset = 0.1
 debug_enabled = true
 Schedule = "res://Creatures/Schedules/joachim.toml"
 

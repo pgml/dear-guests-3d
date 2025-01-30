@@ -543,7 +543,7 @@ graph_offset = Vector2(-81.9453, 56.3867)
 
 [node name="Actor" type="Node3D"]
 
-[node name="Components" type="Node" parent="."]
+[node name="Components" type="Node3D" parent="."]
 
 [node name="AnimationComponent" parent="Components" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y1pvj")]
 AnimationTree = NodePath("../../AnimationTree")

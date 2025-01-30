@@ -74,6 +74,15 @@ public partial class Controller : CreatureController, IController
 		MoveAndSlide();
 		_updatePositionToParent();
 
+		if (CreatureData.IsClimbing
+			&& DistanceToFloor() > CreatureData.ClimbComponent.SafeThreshold
+		) {
+			CreatureData.CanClimb = false;
+			CreatureData.ShouldClimb = false;
+			GD.Print("STAAWWWP");
+			return;
+		}
+
 		if (CreatureData.Direction != Vector3.Zero) {
 			CreatureData.FacingDirection = CreatureData.Direction;
 		}
@@ -166,7 +175,7 @@ public partial class Controller : CreatureController, IController
 	/// </summary>
 	public double CharacterElevation(bool inTileSize = false)
 	{
-		var sprite = CreatureData.Node.FindChild("CharacterSprite") as Sprite3D;
+		Sprite3D sprite = CreatureData.CharacterSprite();
 		var tileSize = 32;
 		float spritePosY = tileSize * sprite.PixelSize * sprite.Scale.Y;
 		float parentPosY = GetParent<Node3D>().Position.Y;
@@ -182,23 +191,30 @@ public partial class Controller : CreatureController, IController
 
 	public double DistanceToFloor(bool inTileSize = false)
 	{
-		TestMotion testMotion = new(GetRid(), GlobalTransform, Vector3.Down);
+		TestMotion testMotion = new(
+			GetRid(),
+			GetParent<Node3D>().GlobalTransform,
+			Vector3.Down
+		);
 		double distanceToFloor = 0;
 
 		if (testMotion.IsColliding) {
 			var collider = testMotion.Collider<StaticBody3D>();
 
 			if (collider is not null) {
-				var staticBody = collider.GetParent().GetParent() as Node3D;
+				var staticBody = collider.GetParent().GetParent<Node3D>();
 
 				if (staticBody is StaticObject) {
 					distanceToFloor = CharacterElevation() - staticBody.Position.Y;
 				}
 			}
 		}
+		else {
+			distanceToFloor = CharacterElevation();
+		}
 
 		if (inTileSize) {
-			var sprite = CreatureData.Node.FindChild("CharacterSprite") as Sprite3D;
+			Sprite3D sprite = CreatureData.CharacterSprite();
 			float tileScale = sprite.Scale.Y + sprite.Scale.Z;
 			distanceToFloor /= tileScale;
 		}

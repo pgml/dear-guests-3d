@@ -14,6 +14,17 @@ public partial class ClimbComponent : Component
 	[Export]
 	public float MaxClimbHeight { get; set; } = 6.5f;
 
+	// For yet unknown reasons in some occasions the character bolts
+	// to the sky never to be seen again
+	// this threshold ensures that the character is forced to the ground
+	// when exceeded
+	/// <summary>
+	/// When DistanceToFloor() exceeds this threshold the character
+	/// is forced to the ground
+	/// </summary>
+	[Export]
+	public float SafeThreshold { get; set; } = 25;
+
 	public float ClimbTestForwardDistance { get; set; } = 1f;
 	public Vector3 ClimbOrigin { get; set; }
 	public Vector3 ClimbTo { get; set; }
@@ -25,20 +36,27 @@ public partial class ClimbComponent : Component
 	public async override void _Ready()
 	{
 		base._Ready();
-
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		CreatureData.ClimbComponent = this;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!IsInstanceValid(CreatureData)) {
+		if (CreatureData is null) {
 			return;
 		}
+
+		//GD.Print(
+		//	"ColliderHeight: ", ColliderHeight(), " ",
+		//	"TileHeight: ", ColliderHeight(true), " ",
+		//	"DistanceToFloor: ", CreatureData.Controller.DistanceToFloor(), " ",
+		//	"TileDistanceToFloor: ", CreatureData.Controller.DistanceToFloor(true)
+		//);
 
 		if (!_canClimb()) {
 			return;
 		}
+
 
 		if (_collider().Body is not null && CreatureData.IsOnFloor) {
 			CreatureData.CanClimb = true;

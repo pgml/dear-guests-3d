@@ -50,4 +50,18 @@ public partial class CreatureData : Resource
 			? value
 			: default(T);
 	}
+
+	public Sprite3D CharacterSprite()
+	{
+		if (Node is null) {
+			return null;
+		}
+
+		Sprite3D sprite = (Node as Actor).CharacterSprite;
+		if (Node is AI) {
+			sprite = (Node as AI).CharacterSprite;
+		}
+
+		return sprite;
+	}
 }

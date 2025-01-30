@@ -12,6 +12,8 @@ public partial class Actor : Creature
 	{
 		base._Ready();
 
+		CreatureData.Node = this;
+
 		_world = GetTree().Root.GetNode<World>("Scene/World");
 		_sun = _world.Sun;
 	}

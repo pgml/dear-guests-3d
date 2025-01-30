@@ -19,3 +19,9 @@ texture_filter = 0
 texture = ExtResource("3_7fmu6")
 region_enabled = true
 region_rect = Rect2(903, 1070, 115, 82)
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 6.5
+vertices = PackedVector3Array(-5.33986, 0, -4.23015, -5.29177, 0, 1.25133, 4.82618, 0, 1.19232, 4.65359, 0, -4.29184)
+affect_navigation_mesh = true
+avoidance_enabled = false

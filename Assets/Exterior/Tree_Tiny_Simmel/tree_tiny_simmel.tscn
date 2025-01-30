@@ -9,3 +9,8 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67584, -2.16016)
 
 [node name="TreePlatformSimmel" parent="." instance=ExtResource("1_3cpt6")]
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 2.0
+vertices = PackedVector3Array(-4.00133, 0, 0.992242, -3.97965, 0, -6.09636, 3.99416, 0, -6.02006, 4.00179, 0, 0.958211)
+affect_navigation_mesh = true

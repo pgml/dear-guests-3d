@@ -29,3 +29,9 @@ region_rect = Rect2(832, 1071, 63, 81)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0533447, 2.69109, -1.4621)
 shape = SubResource("BoxShape3D_dhn3y")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 6.5
+vertices = PackedVector3Array(-3.03174, 0, -3.99111, -3.03567, 0, 0.957184, 2.83167, 0, 0.932976, 2.97243, 0, -3.96675)
+affect_navigation_mesh = true
+avoidance_enabled = false

@@ -39,7 +39,7 @@ transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 [node name="Props" type="Node3D" parent="Content"]
 
 [node name="RubbishContainer" parent="Content/Props" instance=ExtResource("5_35xla")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0729, 0.0619106, 9.57732)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5441, 9.56591, -18.2197)
 
 [node name="RubbishContainer2" parent="Content/Props" instance=ExtResource("5_35xla")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.3294, 0.0619182, -9.23759)
@@ -70,9 +70,24 @@ transform = Transform3D(0.999998, 0, 0.00190241, 0, 1, 0, -0.00190241, 0, 0.9999
 LocationName = "P1"
 
 [node name="World" parent="." instance=ExtResource("1_35xla")]
+PauseTime = true
+DayTime = 10.0
+DayOfYear = 160
+Latitude = 7.85
+AnomalySunBaseEnergy = 0.2
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.931297, -0.19883, 0.3052, -0.177182, 0.484797, 0.856491, -0.318255, -0.851727, 0.416261, 0, 0, 0)
+transform = Transform3D(0.957925, -0.0682901, 0.278765, -0.209995, 0.495315, 0.842949, -0.195641, -0.866026, 0.460134, 0, 0, 0)
+light_energy = 1.0
+
+[node name="AnomalySun" parent="World" index="2"]
+transform = Transform3D(0.961262, 0, -0.275637, 0.217205, 0.615662, 0.757484, 0.169699, -0.788011, 0.591812, 0, 0, 0)
+rotation_order = 4
+light_energy = 0.2
+
+[node name="Moon" parent="World" index="3"]
+transform = Transform3D(0.986131, 0.135372, -0.0960247, 0.120537, -0.981865, -0.14633, -0.114092, 0.132725, -0.984565, 0, 0, 0)
+light_energy = 0.0
 
 [node name="default" parent="." instance=ExtResource("5_5wyu1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.4121, 0, 0)

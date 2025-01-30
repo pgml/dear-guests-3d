@@ -5,17 +5,31 @@
 [ext_resource type="Texture2D" uid="uid://drjt0uhsjl4jk" path="res://Resources/Tiled/Waterfront/Waterfront.png" id="2_iaoyc"]
 [ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_f76b8"]
 
-[node name="World" type="Node3D" node_paths=PackedStringArray("Sun")]
+[node name="World" type="Node3D" node_paths=PackedStringArray("Sun", "AnomalySun", "Moon", "Environment")]
 script = ExtResource("1_iaoyc")
 Sun = NodePath("Sun")
+AnomalySun = NodePath("AnomalySun")
+Moon = NodePath("Moon")
+Environment = NodePath("WorldEnvironment")
+DayTime = 8.0
+DayOfYear = 1
+Latitude = 51.05
+PlanetAxialTilt = 23.5
+MoonOrbitalInclination = 5.14
+MoonOrbitalPeriod = 29.5
+TimeScale = 0.007
+SunBaseEnergy = 1.0
+AnomalySunBaseEnergy = 0.8
+MoonBaseEnergy = 0.2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_f76b8")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.970254, 0.133643, -0.201845, 0.0744243, 0.628741, 0.774044, 0.230354, -0.766044, 0.600093, 0, 0, 0)
+transform = Transform3D(0.426583, -0.673503, -0.60367, 0.838681, 0.54442, -0.0147424, 0.338579, -0.5, 0.797096, 0, 0, 0)
 rotation_order = 4
 light_color = Color(0.964706, 0.952941, 0.901961, 1)
+light_energy = 0.139774
 shadow_enabled = true
 shadow_bias = 0.01
 shadow_normal_bias = 2.5
@@ -25,10 +39,10 @@ directional_shadow_split_1 = 0.527
 directional_shadow_split_2 = 0.497
 directional_shadow_split_3 = 0.563
 
-[node name="AlternateSun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.970326, 0.132868, -0.202023, 0.0749948, 0.628925, 0.77384, 0.229876, -0.766028, 0.600298, 0, 0, 0)
+[node name="AnomalySun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.961262, 0.217205, -0.169699, 0, 0.615661, 0.78801, 0.275637, -0.757484, 0.591812, 0, 0, 0)
 light_color = Color(0.964706, 0.952941, 0.901961, 1)
-light_energy = 0.8
+light_energy = 0.111819
 light_cull_mask = 4294967293
 shadow_enabled = true
 shadow_bias = 0.01
@@ -38,17 +52,19 @@ directional_shadow_mode = 1
 directional_shadow_split_1 = 0.527
 
 [node name="Moon" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.995979, 0.0895897, -3.91609e-09, 0, -4.37114e-08, -1, -0.0895897, 0.995979, -4.35356e-08, 0, 0, 0)
-visible = false
-light_energy = 0.0
+transform = Transform3D(0.408391, -0.184568, -0.893953, 0.910681, 0.149193, 0.385231, 0.0622708, -0.97143, 0.229012, 0, 0, 0)
+rotation_order = 4
+light_energy = 0.2
 shadow_enabled = true
 shadow_bias = 0.01
 shadow_normal_bias = 2.5
-shadow_opacity = 0.6
-shadow_blur = 10.0
-directional_shadow_split_1 = 0.349
+shadow_opacity = 0.25
+shadow_caster_mask = 4294967293
+directional_shadow_mode = 1
+directional_shadow_split_1 = 0.527
 directional_shadow_split_2 = 0.497
 directional_shadow_split_3 = 0.563
+directional_shadow_fade_start = 0.1
 
 [node name="EditorAngleRef" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.74206, 0, 0)

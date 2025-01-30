@@ -7,7 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_mi3il"]
 size = Vector3(8.24756, 5.98752, 3.22672)
 
-[node name="FoodstandWideOliveTilted" type="Node3D"]
+[node name="FoodstandWideOliveTilted" type="Node3D" groups=["Climbable"]]
 script = ExtResource("1_mi3il")
 
 [node name="Mesh" parent="." instance=ExtResource("2_w1rpd")]

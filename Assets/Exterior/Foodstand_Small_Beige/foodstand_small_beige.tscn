@@ -7,7 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_dhn3y"]
 size = Vector3(4.24829, 5.35426, 3.15686)
 
-[node name="FoodstantSmallBeige" type="Node3D"]
+[node name="FoodstantSmallBeige" type="Node3D" groups=["Climbable"]]
 script = ExtResource("1_dhn3y")
 
 [node name="Mesh" parent="." instance=ExtResource("2_vrs0h")]

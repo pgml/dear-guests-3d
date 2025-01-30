@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://h4ntrgyr8v8" path="res://Assets/Exterior/Foodstand_Wide_Olive/foodstand_wide_olive_mesh.tscn" id="2_nrjn6"]
 [ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="2_q0qjf"]
 
-[node name="FoodStandWideOlive" type="Node3D"]
+[node name="FoodStandWideOlive" type="Node3D" groups=["Climbable"]]
 script = ExtResource("1_gr6vt")
 
 [node name="Mesh" parent="." instance=ExtResource("2_nrjn6")]

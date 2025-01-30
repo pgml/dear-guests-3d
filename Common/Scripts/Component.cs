@@ -1,7 +1,7 @@
 using Godot;
 using static Godot.GD;
 
-public partial class Component : Node
+public partial class Component : Node3D
 {
 	// resources
 	protected CreatureData ActorData;

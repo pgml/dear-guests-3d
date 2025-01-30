@@ -7,7 +7,7 @@ public partial class Creature : Node3D
 	public Node3D Parent { get; set; }
 
 	[Export]
-	public Node ComponentsParent { get; set; }
+	public Node3D ComponentsParent { get; set; }
 
 	[Export]
 	public Sprite3D CharacterSprite { get; set; }

@@ -166,7 +166,9 @@ public partial class World : Node
 
 	public override void _Ready()
 	{
-		DateTime = GD.Load<DateTime>(Resources.DateTime);
+		if (!Engine.IsEditorHint()) {
+			DateTime = GD.Load<DateTime>(Resources.DateTime);
+		}
 
 		if (IsInstanceValid(Sun)) {
 			Sun.Position = Vector3.Zero;

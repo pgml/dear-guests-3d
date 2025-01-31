@@ -8,6 +8,8 @@ public partial class Agent : NavigationAgent3D
 	[Export(PropertyHint.File, "*.toml")]
 	public string Schedule { get; set; }
 
+	public DateTime DateTime { get; private set; }
+
 	public List<Task> Tasks { get; private set; } = new();
 	public Task ActiveTask { get; set; } = new();
 	public Goal CurrentGoal { get; set; } = null;
@@ -20,9 +22,12 @@ public partial class Agent : NavigationAgent3D
 
 	public override void _Ready()
 	{
+		DateTime = GD.Load<DateTime>(Resources.DateTime);
 		var aiData = GD.Load<AiData>(Resources.AiData);
 		_creatureData = aiData.CreatureData[GetParent().Name];
 		VelocityComputed += _onVelocityComputed;
+
+		DateTime.DateTimeUpdated += EvaluateGoals;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -30,8 +35,6 @@ public partial class Agent : NavigationAgent3D
 		if (_creatureData is not null) {
 			_creatureData.Direction = Velocity;
 		}
-
-		EvaluateGoals();
 	}
 
 	public void Initialise()
@@ -61,9 +64,8 @@ public partial class Agent : NavigationAgent3D
 		_actions.Add(action);
 	}
 
-	public void EvaluateGoals()
+	public void EvaluateGoals(double dateTimeHours, int dayOfYear, int year)
 	{
-		//GD.Print(Goals().Count());
 		if (Goals().Count() == 0) {
 			return;
 		}
@@ -83,8 +85,10 @@ public partial class Agent : NavigationAgent3D
 	{
 		lock (_lock) {
 			List<Goal> goalsList = new(_currentGoals);
+			//IOrderedEnumerable<Goal> goals = goalsList
+			//	.OrderByDescending(goal => goal.Priority);
 			IOrderedEnumerable<Goal> goals = goalsList
-				.OrderByDescending(goal => goal.Priority);
+				.OrderByDescending(goal => goal.Time);
 			return goals;
 		}
 	}

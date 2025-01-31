@@ -1,5 +1,11 @@
 [[task]]
 action = "go_to"
-time = 710
+time = 705
 location = { type = "marker", name = "rubbish_containers" }
+priority = 0.1
+
+[[task]]
+action = "go_to"
+time = 1002
+location = { type = "marker", name = "p1" }
 priority = 0.1

@@ -2,9 +2,11 @@ using Godot;
 
 public class Task
 {
+	public DateTime DateTime { get; private set; }
+
 	public string Action { get; set; }
 	public double Priority { get; set; }
-	public long Time { get; set; }
+	public int Time { get; set; }
 	public TaskLocation Location { get; set; }
 
 	/// <summary>
@@ -15,14 +17,14 @@ public class Task
 		get => _canExecute();
 	}
 
+	public Task()
+	{
+		DateTime = GD.Load<DateTime>(Resources.DateTime);
+	}
+
 	private bool _canExecute()
 	{
-		//var dateTime = GD.Load<DateTime>(Resources.DateTime);
 		//int currentTime = dateTime.Time(false, true).ToInt();
-
-		////if (IsActive) {
-		////	return true;
-		////}
 
 		//if (!Recurring) {
 		//	if (DateTime.ToTimestamp(Date) == dateTime.Timestamp(true)) {
@@ -38,13 +40,11 @@ public class Task
 		//	}
 		//}
 		//else {
-		//	if (currentTime > Time) {
-		//		return true;
-		//	}
+			if (DateTime.TwentyFour() >= Time) {
+				return true;
+			}
 		//}
 
-		//return false;
-
-		return true;
+		return false;
 	}
 }

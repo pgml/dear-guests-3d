@@ -36,7 +36,7 @@ public class TaskList
 		foreach (TomlTable table in (TomlTableArray)taskTables) {
 			var task = new Task {
 				Action = table["action"].ToString(),
-				Time = (long)table["time"],
+				Time = System.Convert.ToInt32(table["time"]),
 				Location = _taskLocation(table),
 				Priority = (double)table["priority"]
 			};

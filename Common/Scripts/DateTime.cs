@@ -21,7 +21,7 @@ public partial class DateTime : Resource
 		DateTimeHours = dateTimeHours;
 		DayOfYear = dayOfYear;
 		Year = year;
-		EmitSignal(SignalName.DateTimeUpdated, DateTimeHours);
+		EmitSignal(SignalName.DateTimeUpdated, DateTimeHours, DayOfYear, Year);
 	}
 
 	public int Hours()
@@ -32,6 +32,11 @@ public partial class DateTime : Resource
 	public int Minutes()
 	{
 		return (int)((DateTimeHours - Hours()) * 60);
+	}
+
+	public int TwentyFour()
+	{
+		return System.Convert.ToInt32(Formatted().Replace(":", ""));
 	}
 
 	public string Formatted()

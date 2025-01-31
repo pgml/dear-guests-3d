@@ -48,13 +48,6 @@ public partial class World : Node
 		}
 	}
 
-	public (int Hour, int Minute, string Formatted) DayTime { get {
-		int h = (int)DayTimeHours;
-		int m = (int)((DayTimeHours - h) * 60);
-		int[] dt = {h, m};
-		return (h, m, $"{h:D2}:{m:D2}");
-	}}
-
 	/// <summary>
 	/// Day of year. In game, if you reach DAYS_IN_YEAR, don't set 0
 	/// to keep correct position of the moon
@@ -81,9 +74,6 @@ public partial class World : Node
 			_update();
 		}
 	}
-
-	[Export(PropertyHint.Enum, "dd. MMM,MMM dd")]
-	public string DateFormat { get; set; } = "dd. MMM";
 
 	// For simplify, a local time, I skip totally a longitude
 	private float _latitude;
@@ -172,8 +162,12 @@ public partial class World : Node
 	public static double HoursInDay { get; } = 24;
 	public static double DaysInYear { get; } = 365;
 
+	public DateTime DateTime;
+
 	public override void _Ready()
 	{
+		DateTime = GD.Load<DateTime>(Resources.DateTime);
+
 		if (IsInstanceValid(Sun)) {
 			Sun.Position = Vector3.Zero;
 			Sun.Rotation = Vector3.Zero;
@@ -211,6 +205,7 @@ public partial class World : Node
 	{
 		if (!Engine.IsEditorHint() && !PauseTime) {
 			DayTimeHours += delta * TimeScale;
+			DateTime.UpdateDateTime(DayTimeHours, DayOfYear, Year);
 		}
 	}
 

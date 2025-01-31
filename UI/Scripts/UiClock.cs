@@ -1,22 +1,21 @@
 using Godot;
-using System;
 
 public partial class UiClock : Control
 {
-	[Export]
-	public World World { get; set; }
-
 	[Export]
 	public Label Date { get; set; }
 
 	[Export]
 	public Label Time { get; set; }
 
+	public DateTime DateTime { get; private set; }
+
 	public override void _Ready()
 	{
-		Tools.CheckAssigned(World, "World node is not assigned", GetType().Name);
 		Tools.CheckAssigned(Date, "Date label is not assigned", GetType().Name);
 		Tools.CheckAssigned(Time, "Time label is not assigned", GetType().Name);
+
+		DateTime = GD.Load<DateTime>(Resources.DateTime);
 	}
 
 	public override void _Process(double delta)
@@ -27,15 +26,13 @@ public partial class UiClock : Control
 
 	private void _setDate()
 	{
-		DateTime startOfYear = new(World.Year, 1, 1);
-		DateTime date = startOfYear.AddDays(World.DayOfYear - 1);
-		Date.Text = date.ToString(World.DateFormat);
+		Date.Text = DateTime.CurrentDate();
 	}
 
 	private void _setTime()
 	{
-		if (World.DayTime.Minute % 10 == 0) {
-			Time.Text = World.DayTime.Formatted;
+		if (DateTime.Minutes() % 10 == 0) {
+			Time.Text = DateTime.Formatted();
 		}
 	}
 }

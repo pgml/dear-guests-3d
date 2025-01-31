@@ -117,5 +117,4 @@ script = ExtResource("4_f76b8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Clock" parent="CanvasLayer" node_paths=PackedStringArray("World") instance=ExtResource("5_meh0u")]
-World = NodePath("../..")
+[node name="Clock" parent="CanvasLayer" instance=ExtResource("5_meh0u")]

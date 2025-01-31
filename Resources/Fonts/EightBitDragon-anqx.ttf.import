@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://b3y0h16iwom86"
-path="res://.godot/imported/Pixeled.ttf-e6c81ed801ba6b5e707d33a77f986e39.fontdata"
+uid="uid://deud5ibjki4n6"
+path="res://.godot/imported/EightBitDragon-anqx.ttf-1af50c646ea6cc0f4698a2234a4ada74.fontdata"
 
 [deps]
 
-source_file="res://Resources/Fonts/Pixeled.ttf"
-dest_files=["res://.godot/imported/Pixeled.ttf-e6c81ed801ba6b5e707d33a77f986e39.fontdata"]
+source_file="res://Resources/Fonts/EightBitDragon-anqx.ttf"
+dest_files=["res://.godot/imported/EightBitDragon-anqx.ttf-1af50c646ea6cc0f4698a2234a4ada74.fontdata"]
 
 [params]
 

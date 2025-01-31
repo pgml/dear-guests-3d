@@ -12,9 +12,9 @@ public partial class DateTime : Resource
 	[Export(PropertyHint.Enum, "dd. MMM,MMM dd")]
 	public string DateFormat { get; set; } = "dd. MMM";
 
-	public double DateTimeHours;
-	public int DayOfYear;
-	public int Year;
+	public double DateTimeHours = 0;
+	public int DayOfYear = 1;
+	public int Year = 1;
 
 	public void UpdateDateTime(double dateTimeHours, int dayOfYear, int year)
 	{
@@ -46,6 +46,7 @@ public partial class DateTime : Resource
 
 	public string CurrentDate()
 	{
+
 		System.DateTime startOfYear = new(Year, 1, 1);
 		System.DateTime date = startOfYear.AddDays(DayOfYear - 1);
 		return date.ToString(DateFormat);

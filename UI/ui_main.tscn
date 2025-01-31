@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcjimqhc3n5ye"]
+
+[ext_resource type="PackedScene" uid="uid://bid37ltc5t4se" path="res://UI/ui_clock.tscn" id="1_hvcg1"]
+[ext_resource type="PackedScene" uid="uid://wdvffohf5vt3" path="res://UI/ui_inventory.tscn" id="1_psx24"]
+
+[node name="MainUi" type="CanvasLayer"]
+
+[node name="Inventory" parent="." instance=ExtResource("1_psx24")]
+
+[node name="Clock" parent="." instance=ExtResource("1_hvcg1")]

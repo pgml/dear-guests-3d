@@ -4,6 +4,7 @@ public partial class Resources : Node3D
 {
 	// Godot resources
 	public static readonly string ActorData = "res://Creatures/actor_data.tres";
+	public static readonly string ActorInventory = "res://Creatures/actor_inventory.tres";
 	public static readonly string AiData = "res://Creatures/ai_data.tres";
 	public static readonly string AudioLibrary = "res://Common/Tools/audio_library.tres";
 	public static readonly string DateTime = "res://Common/date_time.tres";

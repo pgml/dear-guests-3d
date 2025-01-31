@@ -1,0 +1,70 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dgsbiabr6dh8c"]
+
+[ext_resource type="FontFile" uid="uid://deud5ibjki4n6" path="res://Resources/Fonts/EightBitDragon-anqx.ttf" id="1_vkowj"]
+[ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_dwevv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pp6k1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t35q2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pp6k1"]
+bg_color = Color(0.823529, 0.67451, 0.0862745, 0.117647)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b20gn"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wttk"]
+bg_color = Color(0.847059, 0.792157, 0.533333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.858335, 0.805897, 0.553944, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 3
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rqtoc"]
+content_margin_left = 0.0
+content_margin_bottom = 15.0
+bg_color = Color(0.933333, 0.901961, 0.74902, 0)
+border_width_bottom = 5
+border_color = Color(0.886275, 0.839216, 0.611765, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+expand_margin_left = 18.0
+expand_margin_right = 18.0
+
+[resource]
+Tree/colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+Tree/colors/font_hovered_color = Color(0.239216, 0, 0.0235294, 1)
+Tree/colors/guide_color = Color(0.847059, 0.792157, 0.533333, 1)
+Tree/colors/title_button_color = Color(0.239216, 0, 0.0235294, 1)
+Tree/constants/button_margin = 0
+Tree/constants/h_separation = 0
+Tree/constants/inner_item_margin_left = 2
+Tree/constants/inner_item_margin_right = 2
+Tree/constants/inner_item_margin_top = 2
+Tree/constants/item_margin = 0
+Tree/constants/v_separation = 3
+Tree/font_sizes/font_size = 5
+Tree/font_sizes/title_button_font_size = 3
+Tree/fonts/font = ExtResource("1_vkowj")
+Tree/fonts/title_button_font = ExtResource("2_dwevv")
+Tree/styles/custom_button = SubResource("StyleBoxEmpty_pp6k1")
+Tree/styles/focus = SubResource("StyleBoxEmpty_t35q2")
+Tree/styles/hovered = SubResource("StyleBoxFlat_pp6k1")
+Tree/styles/panel = SubResource("StyleBoxFlat_b20gn")
+Tree/styles/selected_focus = SubResource("StyleBoxFlat_3wttk")
+Tree/styles/title_button_hover = SubResource("StyleBoxFlat_rqtoc")
+Tree/styles/title_button_normal = SubResource("StyleBoxFlat_rqtoc")
+Tree/styles/title_button_pressed = SubResource("StyleBoxFlat_rqtoc")

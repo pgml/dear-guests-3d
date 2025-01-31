@@ -21,19 +21,11 @@ public partial class Creature : Node3D
 
 	public override void _Ready()
 	{
+		Tools.CheckAssigned(Parent, "Parent is not assigned", GetType().Name);
+		Tools.CheckAssigned(ComponentsParent, "ComponentsParent is not assigned", GetType().Name);
+		Tools.CheckAssigned(CharacterSprite, "CharacterSprite is not assigned", GetType().Name);
+
 		Components = _components();
-
-		if (ComponentsParent is null) {
-			GD.PrintErr("DG: Parent not set");
-		}
-
-		if (ComponentsParent is null) {
-			GD.PrintErr("DG: ComponentsParent not set");
-		}
-
-		if (CharacterSprite is null) {
-			GD.PrintErr("DG: Character Sprite not set");
-		}
 	}
 
 	private Dictionary<string, Component> _components()

@@ -10,6 +10,8 @@ public partial class Actor : Creature
 
 	public override void _Ready()
 	{
+		Tools.CheckAssigned(CreatureData, "ActorData is not assigned", GetType().Name);
+
 		base._Ready();
 
 		CreatureData.Node = this;
@@ -35,9 +37,6 @@ public partial class Actor : Creature
 
 		if (CreatureData is not null) {
 			CreatureData.Direction = direction;
-		}
-		else {
-			GD.PrintErr("DG: ActorData Resource not set");
 		}
 	}
 }

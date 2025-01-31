@@ -69,6 +69,22 @@ public partial class World : Node
 		}
 	}
 
+	/// <summary>
+	/// In game year.
+	/// </summary>
+	private int _year;
+	[Export]
+	public int Year {
+		get => _year == 0 ? 1 : _year;
+		set {
+			_year = value;
+			_update();
+		}
+	}
+
+	[Export(PropertyHint.Enum, "dd. MMM,MMM dd")]
+	public string DateFormat { get; set; } = "dd. MMM";
+
 	// For simplify, a local time, I skip totally a longitude
 	private float _latitude;
 	[Export(PropertyHint.Range, "-90, 90, 0.000001")]

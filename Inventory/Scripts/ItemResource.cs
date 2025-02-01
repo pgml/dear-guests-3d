@@ -9,10 +9,10 @@ public partial class ItemResource : Resource
 	public string Name { get; set; }
 
 	[Export]
-	public string Weight { get; set; }
+	public float Weight { get; set; }
 
 	[Export]
-	public string Value { get; set; }
+	public int Value { get; set; }
 
 	private static readonly string _itemResourceDir = "res://Items/";
 

@@ -39,7 +39,7 @@ public partial class Inventory : Resource
 
 		if (ItemResource.Exists(itemPath)) {
 			ItemResource item = ItemResource.Get(itemPath);
-			AddItem(item, 1);
+			AddItem(item, amount.ToInt());
 			return true;
 		}
 

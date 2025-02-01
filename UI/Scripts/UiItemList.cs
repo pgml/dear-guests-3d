@@ -66,8 +66,8 @@ public partial class UiItemList : Tree
 				: "";
 
 			row.SetText(0, $"{item.Name}{amount}");
-			row.SetText(1, item.Weight);
-			row.SetText(2, item.Value);
+			row.SetText(1, item.Weight.ToString());
+			row.SetText(2, item.Value.ToString());
 			row.SetTextAlignment(1, HorizontalAlignment.Right);
 			row.SetTextAlignment(2, HorizontalAlignment.Right);
 		}

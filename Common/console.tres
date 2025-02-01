@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b33npg5kj0yoc"]
+
+[ext_resource type="Script" uid="uid://btok0ggjfqi7y" path="res://Common/Scripts/Console.cs" id="1_b3lwj"]
+
+[resource]
+script = ExtResource("1_b3lwj")

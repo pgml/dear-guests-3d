@@ -8,6 +8,15 @@ public partial class Inventory : Resource
 	[Export]
 	public Godot.Collections.Array<InventoryItemResource> Items { get; set; } = new();
 
+	public Console Console { get {
+		return GD.Load<Console>(Resources.Console);
+	}}
+
+	public Inventory()
+	{
+		Console.AddCommands((object)this);
+	}
+
 	public void AddItem(ItemResource item, int amount)
 	{
 		Items.Add(
@@ -20,7 +29,7 @@ public partial class Inventory : Resource
 		EmitSignal(SignalName.InventoryUpdated);
 	}
 
-	[ConsoleCommand]
+	[ConsoleCommand("add_item")]
 	public bool AddItemByString(string type, string name, string amount)
 	{
 		var itemPath = type switch {

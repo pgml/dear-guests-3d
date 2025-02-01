@@ -1,0 +1,84 @@
+using Godot;
+using System;
+using System.Linq;
+
+public partial class UiConsole : Control
+{
+	[Export]
+	public TextEdit CmdOutput { get; set; }
+
+	[Export]
+	public LineEdit CmdInput { get; set; }
+
+	private Console Console { get {
+		return GD.Load<Console>(Resources.Console);
+	}}
+
+	public bool IsOpen { get; set; } = false;
+	private Tween _tween;
+
+	public override void _Ready()
+	{
+		CmdInput.GrabFocus();
+		CmdInput.TextSubmitted += _onTextSubmitted;
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("toggle_console")) {
+			_toggleConsole();
+		}
+	}
+
+	private void _onTextSubmitted(string input)
+	{
+		string[] cmdInput = input.Split(" ");
+		string methodName = cmdInput[0];
+
+		if (!Console.Commands.ContainsKey(methodName)) {
+			input = $"Error: command `{cmdInput[0]}` not found";
+		}
+		else {
+			var cmd = Console.Commands[methodName];
+
+			try {
+				Console.ExecuteCommand(
+					cmd.ClassName,
+					cmd.MethodInfo.Name,
+					cmdInput.Skip(1).ToArray()
+				);
+			}
+			catch (ConsoleException e) {
+				input = e.Message;
+			}
+		}
+
+		CmdOutput.Text += $"> {input}\n";
+		CmdInput.Text = "";
+		CmdInput.GrabFocus();
+	}
+
+	private async void _toggleConsole()
+	{
+		_tween = CreateTween();
+
+		float posY = !IsOpen ? 0 : -Math.Abs(CustomMinimumSize.Y);
+
+		_tween.TweenProperty(this, "position", new Vector2(
+			Position.X,
+			posY
+		), 0.1);
+
+		IsOpen = !IsOpen;
+		CmdInput.Editable = IsOpen;
+
+		if (!IsOpen) {
+			CmdInput.Text = "";
+		}
+
+		await ToSignal(_tween, Tween.SignalName.Finished);
+		CallDeferred("grab_focus");
+		CmdInput.CallDeferred("grab_focus");
+		_tween.IsQueuedForDeletion();
+	}
+}

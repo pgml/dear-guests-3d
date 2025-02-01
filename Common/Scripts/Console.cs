@@ -1,6 +1,6 @@
 using Godot;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Reflection;
 
 class ConsoleException : Exception
@@ -14,36 +14,27 @@ class ConsoleException : Exception
 		: base($"Error: {message}", inner) {}
 }
 
-public partial class Console : Control
+public struct ConsoleCommandInfo
 {
-	[Export]
-	public TextEdit CmdOutput { get; set; }
+	public object ClassName;
+	public MethodInfo MethodInfo;
 
-	[Export]
-	public LineEdit CmdInput { get; set; }
+	public ConsoleCommandInfo(object className, MethodInfo methodInfo)
+	{
+		ClassName = className;
+		MethodInfo = methodInfo;
+	}
+}
 
+public partial class Console : Resource
+{
 	public Inventory ActorInventory { get {
 		return !Engine.IsEditorHint()
 			? GD.Load<Inventory>(Resources.ActorInventory)
 			: new();
 	}}
 
-	public bool IsOpen { get; set; } = false;
-
-	private Tween _tween;
-
-	public override void _Ready()
-	{
-		CmdInput.GrabFocus();
-		CmdInput.TextSubmitted += _onTextSubmitted;
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (@event.IsActionPressed("toggle_console")) {
-			_toggleConsole();
-		}
-	}
+	public Dictionary<string, ConsoleCommandInfo> Commands = new();
 
 	public void ExecuteCommand(object controller, string methodName, string[] args)
 	{
@@ -70,52 +61,22 @@ public partial class Console : Control
 		var result = method?.Invoke(controller, args);
 	}
 
-	private void _onTextSubmitted(string input)
+	public void AddCommands(object controller)
 	{
-		string[] cmdInput = input.Split(" ");
+		MethodInfo[] methods = controller.GetType().GetMethods(
+			BindingFlags.Instance |
+			BindingFlags.Public |
+			BindingFlags.NonPublic
+		);
 
-		var method = cmdInput[0] switch {
-			"add_item" => nameof(Inventory.AddItemByString),
-			_ => null
-		};
-
-		if (method is null) {
-			input = $"Error: command `{cmdInput[0]}` not found";
+		foreach (MethodInfo method in methods) {
+			var attribute = method.GetCustomAttribute<ConsoleCommandAttribute>();
+			if (attribute is not null) {
+				Commands.Add(
+					attribute.CmdName,
+					new ConsoleCommandInfo(controller, method)
+				);
+			}
 		}
-
-		try {
-			ExecuteCommand(ActorInventory, method, cmdInput.Skip(1).ToArray());
-		}
-		catch (ConsoleException e) {
-			input = e.Message;
-		}
-
-		CmdOutput.Text += $"> {input}\n";
-		CmdInput.Text = "";
-		CmdInput.GrabFocus();
-	}
-
-	private async void _toggleConsole()
-	{
-		_tween = CreateTween();
-
-		float posY = !IsOpen ? 0 : -Math.Abs(CustomMinimumSize.Y);
-
-		_tween.TweenProperty(this, "position", new Vector2(
-			Position.X,
-			posY
-		), 0.1);
-
-		IsOpen = !IsOpen;
-		CmdInput.Editable = IsOpen;
-
-		if (!IsOpen) {
-			CmdInput.Text = "";
-		}
-
-		await ToSignal(_tween, Tween.SignalName.Finished);
-		CallDeferred("grab_focus");
-		CmdInput.CallDeferred("grab_focus");
-		_tween.IsQueuedForDeletion();
 	}
 }

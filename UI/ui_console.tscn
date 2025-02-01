@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bjrg204p4cqun"]
 
-[ext_resource type="Script" uid="uid://btok0ggjfqi7y" path="res://Common/Scripts/Console.cs" id="1_a2yvf"]
+[ext_resource type="Script" uid="uid://8mwbjfvo4wdj" path="res://UI/Scripts/UiConsole.cs" id="1_a2yvf"]
 [ext_resource type="FontFile" uid="uid://bgfahahnwmdfd" path="res://Resources/Fonts/VictorMono_Medium.ttf" id="2_lshn0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psx24"]
@@ -28,7 +28,7 @@ offset_top = -100.0
 grow_horizontal = 2
 script = ExtResource("1_a2yvf")
 CmdOutput = NodePath("Panel/VBoxContainer/CmdOutput")
-CmdInput = NodePath("Panel/VBoxContainer/Cmd")
+CmdInput = NodePath("Panel/VBoxContainer/CmdInput")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -78,7 +78,7 @@ emoji_menu_enabled = false
 drag_and_drop_selection_enabled = false
 virtual_keyboard_enabled = false
 
-[node name="Cmd" type="LineEdit" parent="Panel/VBoxContainer"]
+[node name="CmdInput" type="LineEdit" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(640, 15)
 layout_direction = 4
 layout_mode = 2

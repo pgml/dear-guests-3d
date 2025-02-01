@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://bjrg204p4cqun"]
+
+[ext_resource type="Script" uid="uid://btok0ggjfqi7y" path="res://Common/Scripts/Console.cs" id="1_a2yvf"]
+[ext_resource type="FontFile" uid="uid://bgfahahnwmdfd" path="res://Resources/Fonts/VictorMono_Medium.ttf" id="2_lshn0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psx24"]
+bg_color = Color(0, 0, 0, 0.784314)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqtoc"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pp6k1"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_psx24"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+color = Color(0.530723, 0.530723, 0.530723, 1)
+
+[node name="Console" type="Control" node_paths=PackedStringArray("CmdOutput", "CmdInput")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+script = ExtResource("1_a2yvf")
+CmdOutput = NodePath("Panel/VBoxContainer/CmdOutput")
+CmdInput = NodePath("Panel/VBoxContainer/Cmd")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_psx24")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -15.0
+offset_right = 14.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_lshn0")
+theme_override_font_sizes/font_size = 5
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CmdOutput" type="TextEdit" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 81)
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_lshn0")
+theme_override_font_sizes/font_size = 5
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rqtoc")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rqtoc")
+editable = false
+context_menu_enabled = false
+emoji_menu_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+
+[node name="Cmd" type="LineEdit" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(640, 15)
+layout_direction = 4
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_lshn0")
+theme_override_font_sizes/font_size = 5
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pp6k1")
+theme_override_styles/normal = SubResource("StyleBoxLine_psx24")
+editable = false
+context_menu_enabled = false
+emoji_menu_enabled = false
+virtual_keyboard_enabled = false
+drag_and_drop_selection_enabled = false
+caret_blink = true

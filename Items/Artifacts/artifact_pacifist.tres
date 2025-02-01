@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dgfy5kgja7dvl"]
+
+[ext_resource type="Script" uid="uid://ces7ytnbgkr4x" path="res://Inventory/Scripts/ItemResource.cs" id="1_0lkjl"]
+
+[resource]
+script = ExtResource("1_0lkjl")
+Type = 0
+Name = "Pacifist"
+Weight = "0.5"
+Value = "10000"

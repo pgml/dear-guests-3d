@@ -29,11 +29,16 @@ public partial class UiItemList : Tree
 	}}
 
 	private List<TreeItem> _columns = new();
+	private TreeItem _root;
 
 	public override void _Ready()
 	{
+		_root = CreateItem();
+
 		_buildTitleRow();
 		_populateList();
+
+		ActorInventory.InventoryUpdated += _updateList;
 	}
 
 	private void _buildTitleRow()
@@ -53,10 +58,9 @@ public partial class UiItemList : Tree
 			return;
 		}
 
-		TreeItem root = CreateItem();
 		foreach (var inventoryItem in ActorInventory.Items) {
 			ItemResource item = inventoryItem.ItemResource;
-			TreeItem row = CreateItem(root);
+			TreeItem row = CreateItem(_root);
 			string amount = inventoryItem.Amount > 0
 				? $" ({inventoryItem.Amount.ToString()})"
 				: "";
@@ -64,9 +68,28 @@ public partial class UiItemList : Tree
 			row.SetText(0, $"{item.Name}{amount}");
 			row.SetText(1, item.Weight);
 			row.SetText(2, item.Value);
-
 			row.SetTextAlignment(1, HorizontalAlignment.Right);
 			row.SetTextAlignment(2, HorizontalAlignment.Right);
 		}
+	}
+
+	private void _updateList()
+	{
+		if (ActorInventory.Items is null) {
+			return;
+		}
+
+		InventoryItemResource inventoryItem = ActorInventory.Items[^1];
+		ItemResource item = inventoryItem.ItemResource;
+		TreeItem row = CreateItem(_root);
+		string amount = inventoryItem.Amount > 0
+			? $" ({inventoryItem.Amount.ToString()})"
+			: "";
+
+		row.SetText(0, $"{item.Name}{amount}");
+		row.SetText(1, item.Weight);
+		row.SetText(2, item.Value);
+		row.SetTextAlignment(1, HorizontalAlignment.Right);
+		row.SetTextAlignment(2, HorizontalAlignment.Right);
 	}
 }

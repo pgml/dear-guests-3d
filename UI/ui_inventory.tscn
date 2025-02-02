@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://wdvffohf5vt3"]
+[gd_scene load_steps=17 format=3 uid="uid://wdvffohf5vt3"]
 
+[ext_resource type="Script" uid="uid://dgep2ce7cdd4n" path="res://UI/Scripts/UiInventory.cs" id="1_jsd1q"]
 [ext_resource type="FontFile" uid="uid://deud5ibjki4n6" path="res://Resources/Fonts/EightBitDragon-anqx.ttf" id="1_unlxm"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_cmt26"]
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="3_cmt26"]
@@ -24,13 +25,14 @@ anti_aliasing = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp6k1"]
 font = ExtResource("1_unlxm")
-font_size = 10
+font_size = 8
 font_color = Color(0.239216, 0, 0.0235294, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_kkye7"]
-font = ExtResource("2_cmt26")
-font_size = 5
-shadow_color = Color(0, 0, 0, 0.529412)
+font = ExtResource("1_unlxm")
+font_size = 6
+font_color = Color(0.239216, 0, 0.0235294, 1)
+shadow_size = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_rqtoc"]
 font = ExtResource("2_cmt26")
@@ -41,6 +43,20 @@ bg_color = Color(0.933333, 0.901961, 0.74902, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 
+[sub_resource type="LabelSettings" id="LabelSettings_jsd1q"]
+font = ExtResource("1_unlxm")
+font_size = 6
+font_color = Color(0.239216, 0, 0.0235294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jsd1q"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jsd1q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_82nfj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w35yh"]
+
 [node name="Inventory" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -48,6 +64,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jsd1q")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -79,7 +96,7 @@ size_flags_horizontal = 3
 
 [node name="Info" type="Panel" parent="GridContainer/VBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(0, 22)
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kkye7")
 
@@ -89,44 +106,46 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
-offset_top = -4.0
-offset_right = -3.995
-offset_bottom = 2.0
+offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer4" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-visible = false
+[node name="Label" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer/VBoxContainer4"]
-layout_mode = 2
-text = "BACKPACK"
+size_flags_horizontal = 3
+text = "Backpack"
 label_settings = SubResource("LabelSettings_pp6k1")
-horizontal_alignment = 1
-vertical_alignment = 1
+uppercase = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-custom_minimum_size = Vector2(114.58, 0)
+[node name="Weight" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = -5
-
-[node name="Weight" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 1
 text = "W: 69 / 138"
 label_settings = SubResource("LabelSettings_kkye7")
+horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Money" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer/VBoxContainer"]
+[node name="Money" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
 layout_mode = 2
 text = "$ 16796"
 label_settings = SubResource("LabelSettings_kkye7")
+horizontal_alignment = 2
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = -5
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -138,6 +157,7 @@ label_settings = SubResource("LabelSettings_rqtoc")
 vertical_alignment = 1
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
@@ -157,8 +177,8 @@ label_settings = SubResource("LabelSettings_kkye7")
 horizontal_alignment = 2
 
 [node name="Backpack" type="Panel" parent="GridContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_kkye7")
 
 [node name="TitleBackground" type="Panel" parent="GridContainer/VBoxContainer/Backpack"]
@@ -188,3 +208,60 @@ select_mode = 1
 scroll_horizontal_enabled = false
 auto_tooltip = false
 script = ExtResource("3_jsd1q")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="GridContainer"]
+visible = false
+custom_minimum_size = Vector2(80, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Panel" type="Panel" parent="GridContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_kkye7")
+
+[node name="TitleBackground" type="Panel" parent="GridContainer/VBoxContainer2/Panel"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 15.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5q2q3")
+
+[node name="Label" type="Label" parent="GridContainer/VBoxContainer2/Panel/TitleBackground"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 3.0
+offset_top = -4.5
+offset_right = 25.0
+offset_bottom = 4.5
+grow_vertical = 2
+text = "Belt"
+label_settings = SubResource("LabelSettings_jsd1q")
+vertical_alignment = 1
+uppercase = true
+
+[node name="Belt" type="Tree" parent="GridContainer/VBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.53
+offset_bottom = 16.53
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_cmt26")
+theme_override_styles/panel = SubResource("StyleBoxFlat_jsd1q")
+theme_override_styles/hovered = SubResource("StyleBoxEmpty_jsd1q")
+theme_override_styles/selected = SubResource("StyleBoxEmpty_82nfj")
+theme_override_styles/selected_focus = SubResource("StyleBoxEmpty_w35yh")
+allow_search = false
+hide_folding = true
+enable_recursive_folding = false
+hide_root = true
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
+auto_tooltip = false

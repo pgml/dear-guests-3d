@@ -7,6 +7,8 @@
 [node name="MainUi" type="CanvasLayer"]
 
 [node name="Inventory" parent="." instance=ExtResource("1_psx24")]
+offset_top = 360.0
+offset_bottom = 360.0
 
 [node name="Clock" parent="." instance=ExtResource("1_hvcg1")]
 

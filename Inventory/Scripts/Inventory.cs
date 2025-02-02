@@ -16,11 +16,14 @@ public partial class Inventory : Resource
 		Console.AddCommands((object)this);
 	}
 
-	public void AddItem(ItemResource item, int amount)
+	public bool AddItem(ItemResource item, int amount)
 	{
+		bool wasAdded = false;
 		if (IsInInventory(item)) {
 			int resourceIndex = GetResourceIndex(item);
-			UpdateItem(resourceIndex, item, amount);
+			if (UpdateItem(resourceIndex, item, amount)) {
+				wasAdded = true;
+			}
 		}
 		else {
 			Items.Add(
@@ -29,15 +32,20 @@ public partial class Inventory : Resource
 					Amount = amount
 				}
 			);
+			wasAdded = true;
 		}
 
-		EmitSignal(SignalName.InventoryUpdated);
+		if (wasAdded) {
+			EmitSignal(SignalName.InventoryUpdated);
+		}
+
+		return wasAdded;
 	}
 
-	public void UpdateItem(int resourceIndex, ItemResource item, int amount)
+	public bool UpdateItem(int resourceIndex, ItemResource item, int amount)
 	{
 		if (!IsInInventory(item) || resourceIndex < 0) {
-			return;
+			return false;
 		}
 
 		if (Items[resourceIndex].ItemResource == item) {
@@ -47,6 +55,32 @@ public partial class Inventory : Resource
 			Items[resourceIndex].ItemResource = item;
 			Items[resourceIndex].Amount = amount;
 		}
+
+		return true;
+	}
+
+	/// <summary>
+	/// Removes an item at `resourceIndex`<br />
+	/// `amount` = -1 remove whole item otherwise the amount
+	/// </summary>
+	public bool RemoveItem(int resourceIndex, int removeByAmount = -1)
+	{
+		if (resourceIndex < 0) {
+			return false;
+		}
+
+		// remove whole item
+		if (removeByAmount < 0) {
+			Items.RemoveAt(resourceIndex);
+		}
+		else {
+			Items[resourceIndex].Amount -= removeByAmount;
+			if (Items[resourceIndex].Amount <= 0) {
+				Items.RemoveAt(resourceIndex);
+			}
+		}
+		EmitSignal(SignalName.InventoryUpdated);
+		return true;
 	}
 
 	public int GetResourceIndex(ItemResource item)
@@ -71,7 +105,7 @@ public partial class Inventory : Resource
 	}
 
 	[ConsoleCommand("add_item")]
-	public bool AddItemByString(string type, string name, string amount)
+	public bool ConsoleAddItem(string type, string name, string amount)
 	{
 		var itemPath = type switch {
 			"artifact" => $"Artifacts/artifact_{name}.tres",
@@ -89,5 +123,13 @@ public partial class Inventory : Resource
 		}
 
 		return false;
+	}
+
+	[ConsoleCommand("remove_item")]
+	public bool ConsoleRemoveItem(string resourceIndex, string removeByAmount = "-1")
+	{
+		int index = resourceIndex.ToInt();
+		int amount = removeByAmount.ToInt();
+		return RemoveItem(index, amount);
 	}
 }

@@ -57,6 +57,11 @@ public partial class Console : Resource
 		//	}
 		//}
 
+		//GD.PrintS(methodName);
+		//foreach (var arg in args) {
+		//	GD.PrintS("arg:", arg);
+		//}
+
 		var method = controller.GetType().GetMethod(methodName);
 		var attribute = method?.GetCustomAttribute<ConsoleCommandAttribute>();
 		var result = method?.Invoke(controller, args);

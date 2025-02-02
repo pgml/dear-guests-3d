@@ -14,7 +14,6 @@ public struct TitleProperties
 	}
 }
 
-[Tool]
 public partial class UiItemList : Tree
 {
 	public Dictionary<string, TitleProperties> ColumnTitles { get; set; } = new() {

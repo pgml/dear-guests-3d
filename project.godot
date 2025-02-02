@@ -30,6 +30,21 @@ project/assembly_name="Dear Guests 3D"
 
 enabled=PackedStringArray()
 
+[file_customization]
+
+folder_colors={
+"res://Anomalies/": "orange",
+"res://Assets/": "red",
+"res://Common/": "green",
+"res://Creatures/": "yellow",
+"res://Inventory/": "teal",
+"res://Items/": "blue",
+"res://Resources/": "blue",
+"res://Scenes/": "purple",
+"res://Shaders/": "pink",
+"res://UI/": "gray"
+}
+
 [filesystem]
 
 import/blender/enabled=false

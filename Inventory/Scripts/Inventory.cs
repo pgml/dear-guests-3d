@@ -8,12 +8,11 @@ public partial class Inventory : Resource
 	[Export]
 	public Godot.Collections.Array<InventoryItemResource> Items { get; set; } = new();
 
-	public Console Console { get {
-		return GD.Load<Console>(Resources.Console);
-	}}
+	public Console Console { get; set; }
 
 	public Inventory()
 	{
+		Console = GD.Load<Console>(Resources.Console);
 		Console.AddCommands((object)this);
 	}
 

@@ -30,7 +30,7 @@ public partial class UiConsole : Control
 			_toggleConsole();
 		}
 
-		if (@event is InputEventKey e && @event.IsReleased()) {
+		if (@event is InputEventKey e && @event.IsReleased() && IsOpen) {
 			if (e.Keycode == Key.Up) {
 				if (_currHistoryCommandIndex > 0) {
 					_currHistoryCommandIndex--;

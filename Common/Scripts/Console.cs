@@ -36,6 +36,7 @@ public partial class Console : Resource
 
 	public Dictionary<string, ConsoleCommandInfo> Commands { get; private set; } = new();
 	public bool IsOpen { get; set; } = false;
+	public List<string> CommandHistory { get; set; } = new();
 
 	public void ExecuteCommand(object controller, string methodName, string[] args)
 	{

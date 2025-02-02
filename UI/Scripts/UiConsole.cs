@@ -16,6 +16,7 @@ public partial class UiConsole : Control
 
 	public bool IsOpen { get; set; } = false;
 	private Tween _tween;
+	private int _currHistoryCommandIndex = -1;
 
 	public override void _Ready()
 	{
@@ -28,12 +29,30 @@ public partial class UiConsole : Control
 		if (@event.IsActionPressed("toggle_console")) {
 			_toggleConsole();
 		}
+
+		if (@event is InputEventKey e && @event.IsReleased()) {
+			if (e.Keycode == Key.Up) {
+				if (_currHistoryCommandIndex > 0) {
+					_currHistoryCommandIndex--;
+				}
+				CmdInput.Text = Console.CommandHistory[_currHistoryCommandIndex];
+			}
+			if (e.Keycode == Key.Down) {
+				if (_currHistoryCommandIndex < Console.CommandHistory.Count) {
+					_currHistoryCommandIndex++;
+				}
+				CmdInput.Text = Console.CommandHistory[_currHistoryCommandIndex];
+			}
+		}
 	}
 
 	private void _onTextSubmitted(string input)
 	{
 		string[] cmdInput = input.Split(" ");
 		string methodName = cmdInput[0];
+
+		Console.CommandHistory.Add(input);
+		_currHistoryCommandIndex++;
 
 		if (!Console.Commands.ContainsKey(methodName)) {
 			input = $"Error: command `{methodName}` not found";

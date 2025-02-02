@@ -36,7 +36,7 @@ public partial class UiConsole : Control
 		string methodName = cmdInput[0];
 
 		if (!Console.Commands.ContainsKey(methodName)) {
-			input = $"Error: command `{cmdInput[0]}` not found";
+			input = $"Error: command `{methodName}` not found";
 		}
 		else {
 			var cmd = Console.Commands[methodName];
@@ -75,6 +75,8 @@ public partial class UiConsole : Control
 		if (!IsOpen) {
 			CmdInput.Text = "";
 		}
+
+		Console.IsOpen = IsOpen;
 
 		await ToSignal(_tween, Tween.SignalName.Finished);
 		CallDeferred("grab_focus");

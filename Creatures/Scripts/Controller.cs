@@ -10,11 +10,13 @@ public partial class Controller : CreatureController, IController
 	public CreatureData CreatureData { get; private set; }
 
 	private AnimationNodeStateMachinePlayback _stateMachine;
+	private Console _console { get {
+		return GD.Load<Console>(Resources.Console);
+	}}
 
 	public override void _Ready()
 	{
 		_setCharacterData();
-
 		base._Ready();
 	}
 
@@ -55,6 +57,10 @@ public partial class Controller : CreatureController, IController
 			Velocity.Y - GravitySq * (float)delta,
 			CreatureData.Direction.Z * CreatureData.VelocityMultiplier
 		);
+
+		if (_console.IsOpen && CreatureData.Node is Actor) {
+			CreatureData.CanMoveAndSlide = false;
+		}
 
 		// disallow only horizontal movement when character isn't allowed to move
 		// so that MoveAndSlide still recognises jump/climb actions

@@ -19,14 +19,56 @@ public partial class Inventory : Resource
 
 	public void AddItem(ItemResource item, int amount)
 	{
-		Items.Add(
-			new InventoryItemResource() {
-				ItemResource = item,
-				Amount = amount
-			}
-		);
+		if (IsInInventory(item)) {
+			int resourceIndex = GetResourceIndex(item);
+			UpdateItem(resourceIndex, item, amount);
+		}
+		else {
+			Items.Add(
+				new InventoryItemResource() {
+					ItemResource = item,
+					Amount = amount
+				}
+			);
+		}
 
 		EmitSignal(SignalName.InventoryUpdated);
+	}
+
+	public void UpdateItem(int resourceIndex, ItemResource item, int amount)
+	{
+		if (!IsInInventory(item) || resourceIndex < 0) {
+			return;
+		}
+
+		if (Items[resourceIndex].ItemResource == item) {
+			Items[resourceIndex].Amount += amount;
+		}
+		else {
+			Items[resourceIndex].ItemResource = item;
+			Items[resourceIndex].Amount = amount;
+		}
+	}
+
+	public int GetResourceIndex(ItemResource item)
+	{
+		for (var index = 0; index < Items.Count; index++) {
+			var inventoryItemResource = Items[index];
+			if (inventoryItemResource.ItemResource == item) {
+				return index;
+			}
+		}
+		return -1;
+	}
+
+	public bool IsInInventory(ItemResource item)
+	{
+		foreach (var inventoryItemResource in Items) {
+			if (inventoryItemResource.ItemResource == item) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	[ConsoleCommand("add_item")]
@@ -36,6 +78,10 @@ public partial class Inventory : Resource
 			"artifact" => $"Artifacts/artifact_{name}.tres",
 			_ => null
 		};
+
+		if (itemPath is null) {
+			throw new ConsoleException($"invalid item type `{type}`");
+		}
 
 		if (ItemResource.Exists(itemPath)) {
 			ItemResource item = ItemResource.Get(itemPath);

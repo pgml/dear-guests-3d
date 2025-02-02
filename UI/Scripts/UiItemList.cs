@@ -28,8 +28,8 @@ public partial class UiItemList : Tree
 			: new();
 	}}
 
-	private List<TreeItem> _columns = new();
 	private TreeItem _root;
+	private Dictionary<InventoryItemResource, TreeItem> _listItems = new();
 
 	public override void _Ready()
 	{
@@ -38,7 +38,7 @@ public partial class UiItemList : Tree
 		_buildTitleRow();
 		_populateList();
 
-		ActorInventory.InventoryUpdated += _updateList;
+		ActorInventory.InventoryUpdated += _populateList;
 	}
 
 	private void _buildTitleRow()
@@ -58,6 +58,10 @@ public partial class UiItemList : Tree
 			return;
 		}
 
+		// @todo try to avoid clearing it beforehand
+		// instead try to update or append
+		_clearList();
+
 		foreach (var inventoryItem in ActorInventory.Items) {
 			ItemResource item = inventoryItem.ItemResource;
 			TreeItem row = CreateItem(_root);
@@ -70,26 +74,16 @@ public partial class UiItemList : Tree
 			row.SetText(2, item.Value.ToString());
 			row.SetTextAlignment(1, HorizontalAlignment.Right);
 			row.SetTextAlignment(2, HorizontalAlignment.Right);
+
+			_listItems.Add(inventoryItem, row);
 		}
 	}
 
-	private void _updateList()
+	private void _clearList()
 	{
-		if (ActorInventory.Items is null) {
-			return;
+		_listItems.Clear();
+		foreach (var child in _root.GetChildren()) {
+			_root.RemoveChild(child);
 		}
-
-		InventoryItemResource inventoryItem = ActorInventory.Items[^1];
-		ItemResource item = inventoryItem.ItemResource;
-		TreeItem row = CreateItem(_root);
-		string amount = inventoryItem.Amount > 0
-			? $" ({inventoryItem.Amount.ToString()})"
-			: "";
-
-		row.SetText(0, $"{item.Name}{amount}");
-		row.SetText(1, item.Weight.ToString());
-		row.SetText(2, item.Value.ToString());
-		row.SetTextAlignment(1, HorizontalAlignment.Right);
-		row.SetTextAlignment(2, HorizontalAlignment.Right);
 	}
 }

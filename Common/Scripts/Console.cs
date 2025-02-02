@@ -34,7 +34,7 @@ public partial class Console : Resource
 			: new();
 	}}
 
-	public Dictionary<string, ConsoleCommandInfo> Commands = new();
+	public Dictionary<string, ConsoleCommandInfo> Commands { get; private set; } = new();
 
 	public void ExecuteCommand(object controller, string methodName, string[] args)
 	{

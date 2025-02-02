@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 public struct TitleProperties
@@ -69,8 +70,10 @@ public partial class UiItemList : Tree
 				? $" ({inventoryItem.Amount.ToString()})"
 				: "";
 
+			double weight = Math.Round(item.Weight * inventoryItem.Amount, 1);
+
 			row.SetText(0, $"{item.Name}{amount}");
-			row.SetText(1, item.Weight.ToString());
+			row.SetText(1, weight.ToString());
 			row.SetText(2, item.Value.ToString());
 			row.SetTextAlignment(1, HorizontalAlignment.Right);
 			row.SetTextAlignment(2, HorizontalAlignment.Right);

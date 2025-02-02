@@ -1,15 +1,8 @@
-[gd_resource type="Resource" load_steps=5 format=3 uid="uid://debmpq2sbx6j8"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://debmpq2sbx6j8"]
 
-[ext_resource type="Resource" uid="uid://bwk10r1yuh1to" path="res://Items/Artifacts/artifact_feather.tres" id="1_8hp13"]
 [ext_resource type="Script" uid="uid://b4s3eldqbyqqv" path="res://Inventory/Scripts/Inventory.cs" id="1_tjkxb"]
 [ext_resource type="Script" uid="uid://bbwkvf47k1xp1" path="res://Inventory/Scripts/InventoryItemResource.cs" id="2_r51eg"]
 
-[sub_resource type="Resource" id="Resource_ovtkr"]
-script = ExtResource("2_r51eg")
-ItemResource = ExtResource("1_8hp13")
-Amount = 10
-metadata/_custom_type_script = ExtResource("2_r51eg")
-
 [resource]
 script = ExtResource("1_tjkxb")
-Items = Array[ExtResource("2_r51eg")]([SubResource("Resource_ovtkr")])
+Items = Array[ExtResource("2_r51eg")]([])

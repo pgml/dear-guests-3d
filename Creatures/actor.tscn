@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=73 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dibopwl34gxtd" path="res://Assets/Sprites/shadow.png" id="6_i7mqa"]
 [ext_resource type="Resource" uid="uid://brw1tt2r2vtxh" path="res://Creatures/actor_data.tres" id="8_3eq32"]
 [ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
+[ext_resource type="Resource" uid="uid://debmpq2sbx6j8" path="res://Creatures/actor_inventory.tres" id="9_3eq32"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1pvj"]
 radius = 0.8
@@ -568,6 +569,7 @@ CharacterCollider = NodePath("CharacterCollision")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0)
 script = ExtResource("3_ew7kk")
 CreatureData = ExtResource("8_3eq32")
+ActorInventory = ExtResource("9_3eq32")
 Parent = NodePath("../..")
 ComponentsParent = NodePath("../../Components")
 CharacterSprite = NodePath("CharacterSprite")

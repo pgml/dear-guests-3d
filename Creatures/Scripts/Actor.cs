@@ -5,12 +5,16 @@ public partial class Actor : Creature
 	[Export]
 	public new CreatureData CreatureData { get; private set; }
 
+	[Export]
+	public Inventory Inventory { get; private set; }
+
 	private World _world;
 	private DirectionalLight3D _sun;
 
 	public override void _Ready()
 	{
 		Tools.CheckAssigned(CreatureData, "ActorData is not assigned", GetType().Name);
+		Inventory = GD.Load<Inventory>(Resources.ActorInventory);
 
 		base._Ready();
 

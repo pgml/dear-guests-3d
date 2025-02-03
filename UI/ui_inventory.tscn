@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://deud5ibjki4n6" path="res://Resources/Fonts/EightBitDragon-anqx.ttf" id="1_unlxm"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_cmt26"]
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="3_cmt26"]
-[ext_resource type="Script" uid="uid://6tfocl8qfggu" path="res://UI/Scripts/UiItemList.cs" id="3_jsd1q"]
+[ext_resource type="Script" uid="uid://6tfocl8qfggu" path="res://UI/Scripts/UiBackPackItemList.cs" id="3_jsd1q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psx24"]
 bg_color = Color(0, 0, 0, 0.666667)

@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class UiInventory : Control
+public partial class UiInventory : UiControl
 {
 	[Export]
 	public Panel InventoryBackgroud { get; set; }
@@ -9,12 +9,11 @@ public partial class UiInventory : Control
 		return GD.Load<PackedScene>(Resources.QuickInventory);
 	}}
 
-	public bool IsOpen { get; set; } = false;
-
 	private UiQuickInventory _quickInventory;
 
 	public override void _Ready()
 	{
+		base._Ready();
 		var mainUI = GetNode("/root/MainUI");
 		_quickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
 	}

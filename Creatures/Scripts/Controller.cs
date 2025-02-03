@@ -73,11 +73,6 @@ public partial class Controller : CreatureController, IController
 
 		Velocity = CreatureData.Velocity;
 
-		if (_console.IsOpen && CreatureData.Node is Actor) {
-			Velocity = Vector3.Zero;
-			CreatureData.Direction = Vector3.Zero;
-		}
-
 		MoveAndSlide();
 		_updatePositionToParent();
 

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public partial class UiConsole : Control
+public partial class UiConsole : UiControl
 {
 	[Export]
 	public TextEdit CmdOutput { get; set; }
@@ -14,13 +14,18 @@ public partial class UiConsole : Control
 		return GD.Load<Console>(Resources.Console);
 	}}
 
-	public bool IsOpen { get; set; } = false;
 	private Tween _tween;
 	private int _currHistoryCommandIndex = -1;
 
 	public override void _Ready()
 	{
+		base._Ready();
 		CmdInput.TextSubmitted += _onTextSubmitted;
+	}
+
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
 	}
 
 	public override void _Input(InputEvent @event)

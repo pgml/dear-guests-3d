@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class UiQuickInventory : Control
+public partial class UiQuickInventory : UiControl
 {
 	[Export]
 	public UiQuickInventoryList QuickInventoryItemList { get; set; }
@@ -8,7 +8,10 @@ public partial class UiQuickInventory : Control
 	[Export]
 	public ItemType RestrictTypeTo { get; set; }
 
-	public bool IsOpen { get; set; } = false;
+	public override void _Ready()
+	{
+		base._Ready();
+	}
 
 	public void Toggle(Vector2 position)
 	{

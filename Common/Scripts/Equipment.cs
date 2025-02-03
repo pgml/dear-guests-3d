@@ -5,6 +5,9 @@ public partial class Equipment : Node3D
 	[Export]
 	public Area3D TriggerArea { get; set; }
 
+	[Export]
+	public ItemType AllowedInputType { get; set; }
+
 	public bool CanUse { get; set; } = false;
 
 	public PackedScene UseIndicator { get {
@@ -43,7 +46,7 @@ public partial class Equipment : Node3D
 				position = new Vector2(1000, 1000);
 			}
 
-			_quickInventory.RestrictTypeTo = ItemType.Artifact;
+			_quickInventory.RestrictTypeTo = AllowedInputType;
 			_quickInventory.Toggle(position);
 		}
 	}

@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsca8xc1cojae"]
+[gd_scene load_steps=5 format=3 uid="uid://dsca8xc1cojae"]
 
 [ext_resource type="Script" uid="uid://ktebfg07t4i7" path="res://Common/Scripts/World.cs" id="1_iaoyc"]
 [ext_resource type="Environment" uid="uid://jff1p13xc4bx" path="res://Resources/default_environment.tres" id="2_f76b8"]
 [ext_resource type="Texture2D" uid="uid://drjt0uhsjl4jk" path="res://Resources/Tiled/Waterfront/Waterfront.png" id="2_iaoyc"]
 [ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_f76b8"]
-[ext_resource type="PackedScene" uid="uid://dcjimqhc3n5ye" path="res://UI/ui_main.tscn" id="5_meh0u"]
 
 [node name="World" type="Node3D" node_paths=PackedStringArray("Sun", "AnomalySun", "Moon", "Environment")]
 script = ExtResource("1_iaoyc")
@@ -113,5 +112,3 @@ current = true
 size = 21.844
 far = 110.0
 script = ExtResource("4_f76b8")
-
-[node name="MainUi" parent="." instance=ExtResource("5_meh0u")]

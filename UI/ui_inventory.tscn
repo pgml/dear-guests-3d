@@ -57,7 +57,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w35yh"]
 
-[node name="Inventory" type="Control"]
+[node name="Inventory" type="Control" node_paths=PackedStringArray("InventoryBackgroud")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,6 +65,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jsd1q")
+InventoryBackgroud = NodePath("Panel")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

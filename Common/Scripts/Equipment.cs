@@ -3,6 +3,9 @@ using Godot;
 public partial class Equipment : Node3D
 {
 	[Export]
+	public string EquipmentName { get; set; }
+
+	[Export]
 	public Area3D TriggerArea { get; set; }
 
 	[Export]
@@ -19,12 +22,14 @@ public partial class Equipment : Node3D
 	}}
 
 	private Node3D _indicatorInstance;
-	private UiQuickInventory _quickInventory;
+	private UiQuickInventory _quickInventory = new();
 
 	public override void _Ready()
 	{
-		var mainUI = GetNode("/root/MainUI");
-		_quickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
+		if (!Engine.IsEditorHint()) {
+			var mainUI = GetNode("/root/MainUI");
+			_quickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
+		}
 
 		TriggerArea.BodyEntered += _onTriggerAreaBodyEntered;
 		TriggerArea.BodyExited += _onTriggerAreaBodyExited;
@@ -46,6 +51,7 @@ public partial class Equipment : Node3D
 				position = new Vector2(1000, 1000);
 			}
 
+			_quickInventory.Description = $"Use {EquipmentName}";
 			_quickInventory.RestrictTypeTo = AllowedInputType;
 			_quickInventory.Toggle(position);
 		}

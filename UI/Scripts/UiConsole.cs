@@ -20,7 +20,6 @@ public partial class UiConsole : Control
 
 	public override void _Ready()
 	{
-		CmdInput.GrabFocus();
 		CmdInput.TextSubmitted += _onTextSubmitted;
 	}
 
@@ -36,12 +35,14 @@ public partial class UiConsole : Control
 					_currHistoryCommandIndex--;
 				}
 				CmdInput.Text = Console.CommandHistory[_currHistoryCommandIndex];
+				CmdInput.CaretColumn = CmdInput.Text.Length;
 			}
 			if (e.Keycode == Key.Down) {
 				if (_currHistoryCommandIndex < Console.CommandHistory.Count) {
 					_currHistoryCommandIndex++;
 				}
 				CmdInput.Text = Console.CommandHistory[_currHistoryCommandIndex];
+				CmdInput.CaretColumn = CmdInput.Text.Length;
 			}
 		}
 	}
@@ -74,7 +75,6 @@ public partial class UiConsole : Control
 
 		CmdOutput.Text += $"> {input}\n";
 		CmdInput.Text = "";
-		CmdInput.GrabFocus();
 	}
 
 	private async void _toggleConsole()
@@ -97,9 +97,16 @@ public partial class UiConsole : Control
 
 		Console.IsOpen = IsOpen;
 
+		_grabFocus();
+
 		await ToSignal(_tween, Tween.SignalName.Finished);
+		_tween.IsQueuedForDeletion();
+	}
+
+	private async void _grabFocus()
+	{
+		await ToSignal(GetTree().CreateTimer(0.05f), SceneTreeTimer.SignalName.Timeout);
 		CallDeferred("grab_focus");
 		CmdInput.CallDeferred("grab_focus");
-		_tween.IsQueuedForDeletion();
 	}
 }

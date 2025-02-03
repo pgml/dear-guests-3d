@@ -46,7 +46,7 @@ public partial class UiBackPackItemList : UiItemList
 				? $" ({inventoryItem.Amount.ToString()})"
 				: "";
 
-			double weight = Math.Round(item.Weight * inventoryItem.Amount, 1);
+			double weight = Math.Round(item.Weight * inventoryItem.Amount, 2);
 
 			row.SetText(0, $"{item.Name}{amount}");
 			row.SetText(1, weight.ToString());

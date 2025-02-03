@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bgua2dee46e2j"]
+
+[ext_resource type="Script" uid="uid://ces7ytnbgkr4x" path="res://Inventory/Scripts/ItemResource.cs" id="1_2niiy"]
+
+[resource]
+script = ExtResource("1_2niiy")
+Type = 3
+Name = "Bolt"
+Weight = 0.01
+Value = 0.1

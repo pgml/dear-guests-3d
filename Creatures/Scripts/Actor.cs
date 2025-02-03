@@ -36,7 +36,12 @@ public partial class Actor : Creature
 			CreatureData.IsRunning = !CreatureData.IsRunning;
 		}
 
-		Vector2 input = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
+		Vector2 input = Input.GetVector(
+			"action_walk_left",
+			"action_walk_right",
+			"action_walk_up",
+			"action_walk_down"
+		);
 		Vector3 direction = new() {
 			X = input.X,
 			Y = 0,

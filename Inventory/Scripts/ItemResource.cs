@@ -12,7 +12,7 @@ public partial class ItemResource : Resource
 	public float Weight { get; set; }
 
 	[Export]
-	public int Value { get; set; }
+	public float Value { get; set; }
 
 	private static readonly string _itemResourceDir = "res://Items/";
 

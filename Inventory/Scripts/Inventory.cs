@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class Inventory : Resource
 {
@@ -94,6 +95,17 @@ public partial class Inventory : Resource
 		return -1;
 	}
 
+	public List<InventoryItemResource> GetItemsOfType(ItemType type)
+	{
+		List<InventoryItemResource>	itemsOfType = new();
+		foreach (var item in Items) {
+			if (item.ItemResource.Type == type) {
+				itemsOfType.Add(item);
+			}
+		}
+		return itemsOfType;
+	}
+
 	public bool IsInInventory(ItemResource item)
 	{
 		foreach (var inventoryItemResource in Items) {
@@ -109,6 +121,7 @@ public partial class Inventory : Resource
 	{
 		var itemPath = type switch {
 			"artifact" => $"Artifacts/artifact_{name}.tres",
+			"junk" => $"Junk/{name}.tres",
 			_ => null
 		};
 
@@ -123,6 +136,12 @@ public partial class Inventory : Resource
 		}
 
 		return false;
+	}
+
+	[ConsoleCommand("add_artifact")]
+	public bool ConsoleAddArtifact(string name, string amount)
+	{
+		return ConsoleAddItem("artifact", name, amount);
 	}
 
 	[ConsoleCommand("remove_item")]

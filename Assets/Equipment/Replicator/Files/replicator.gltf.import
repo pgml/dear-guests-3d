@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://3280wx86tbd3"
-path="res://.godot/imported/duplicator.gltf-a2185bfd5dd00a9441c19a4a8ca7bb4d.scn"
+uid="uid://1g2ti0fdvflw"
+path="res://.godot/imported/replicator.gltf-62752dd495b358693348475543168d1e.scn"
 
 [deps]
 
-source_file="res://Assets/Equipment/Duplicator/Files/duplicator.gltf"
-dest_files=["res://.godot/imported/duplicator.gltf-a2185bfd5dd00a9441c19a4a8ca7bb4d.scn"]
+source_file="res://Assets/Equipment/Replicator/Files/replicator.gltf"
+dest_files=["res://.godot/imported/replicator.gltf-62752dd495b358693348475543168d1e.scn"]
 
 [params]
 

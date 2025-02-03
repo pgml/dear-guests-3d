@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6fdse8wrygxm"
-path="res://.godot/imported/artifact_duplicator.png-94cbd1dfc3acb82a6fd2c1d9ec739363.ctex"
+uid="uid://b4yqks2dd5hk8"
+path="res://.godot/imported/artifact_replicator.png-4c6dcc9a9ef53eeaa039e62b53261f8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Equipment/Duplicator/Files/artifact_duplicator.png"
-dest_files=["res://.godot/imported/artifact_duplicator.png-94cbd1dfc3acb82a6fd2c1d9ec739363.ctex"]
+source_file="res://Assets/Equipment/Replicator/Files/artifact_replicator.png"
+dest_files=["res://.godot/imported/artifact_replicator.png-4c6dcc9a9ef53eeaa039e62b53261f8f.ctex"]
 
 [params]
 

@@ -8,7 +8,8 @@ GrowConditions = Dictionary[int, float]({
 1: 0.5,
 2: 600.0
 })
-DuplicatorGlowColour = Color(2.31028e-06, 0.818243, 0.40763, 1)
+ReplicatorGlowColour = Color(0.27451, 0.666667, 0, 1)
+ReplicationTime = 48.0
 GrowPowerConsumption = 1000.0
 Type = 1
 Name = "Pacifist"

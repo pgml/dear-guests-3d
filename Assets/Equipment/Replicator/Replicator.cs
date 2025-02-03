@@ -1,6 +1,6 @@
 using Godot;
 
-public enum DuplicatorType
+public enum ReplicatorType
 {
 	Type1,
 	Type2,
@@ -10,13 +10,13 @@ public enum DuplicatorType
 
 [Tool]
 [GlobalClass]
-public partial class Duplicator : Equipment
+public partial class Replicator : Equipment
 {
-	[ExportToolButton(text: "Set up duplicator mesh")]
+	[ExportToolButton(text: "Set up replicator mesh")]
 	public Callable SetupDuplicatorMesh => Callable.From(SetupMesh);
 
 	[Export]
-	public DuplicatorType Type { get; set; }
+	public ReplicatorType Type { get; set; }
 
 	[Export]
 	public bool Activated { get; set; } = false;

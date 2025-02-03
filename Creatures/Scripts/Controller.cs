@@ -58,10 +58,6 @@ public partial class Controller : CreatureController, IController
 			CreatureData.Direction.Z * CreatureData.VelocityMultiplier
 		);
 
-		if (_console.IsOpen && CreatureData.Node is Actor) {
-			CreatureData.CanMoveAndSlide = false;
-		}
-
 		// disallow only horizontal movement when character isn't allowed to move
 		// so that MoveAndSlide still recognises jump/climb actions
 		if (!CreatureData.CanMoveAndSlide) {
@@ -76,6 +72,11 @@ public partial class Controller : CreatureController, IController
 		Climbing();
 
 		Velocity = CreatureData.Velocity;
+
+		if (_console.IsOpen && CreatureData.Node is Actor) {
+			Velocity = Vector3.Zero;
+			CreatureData.Direction = Vector3.Zero;
+		}
 
 		MoveAndSlide();
 		_updatePositionToParent();

@@ -11,6 +11,10 @@ public partial class Actor : Creature
 	private World _world;
 	private DirectionalLight3D _sun;
 
+	private Console _console { get {
+		return GD.Load<Console>(Resources.Console);
+	}}
+
 	public override void _Ready()
 	{
 		Tools.CheckAssigned(CreatureData, "ActorData is not assigned", GetType().Name);
@@ -39,7 +43,7 @@ public partial class Actor : Creature
 			Z = input.Y * Mathf.Sqrt(1.58f)
 		};
 
-		if (CreatureData is not null) {
+		if (CreatureData is not null && !_console.IsOpen) {
 			CreatureData.Direction = direction;
 		}
 	}

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_0lkjl")
-Type = 0
+Type = 1
 Name = "Pacifist"
-Weight = "0.5"
-Value = "10000"
+Weight = 0.5
+Value = 20000

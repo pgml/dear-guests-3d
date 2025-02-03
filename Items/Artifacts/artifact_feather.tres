@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_vf2uk")
-Type = 0
+Type = 1
 Name = "Feather"
-Weight = "0.1"
-Value = "2000"
+Weight = 0.1
+Value = 3000

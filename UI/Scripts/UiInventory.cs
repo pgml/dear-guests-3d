@@ -5,11 +5,25 @@ public partial class UiInventory : Control
 	[Export]
 	public Panel InventoryBackgroud { get; set; }
 
+	public PackedScene QuickInventory { get {
+		return GD.Load<PackedScene>(Resources.QuickInventory);
+	}}
+
 	public bool IsOpen { get; set; } = false;
+
+	private UiQuickInventory _quickInventory;
+
+	public override void _Ready()
+	{
+		var mainUI = GetNode("/root/MainUI");
+		_quickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
+	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionPressed("toggle_inventory")) {
+		if (@event.IsActionPressed("toggle_inventory")
+			&& !_quickInventory.IsOpen
+		) {
 			_toggleInventory();
 		}
 	}

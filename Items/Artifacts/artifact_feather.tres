@@ -1,10 +1,17 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://bwk10r1yuh1to"]
 
-[ext_resource type="Script" uid="uid://ces7ytnbgkr4x" path="res://Inventory/Scripts/ItemResource.cs" id="1_vf2uk"]
+[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Inventory/Scripts/ArtifactResource.cs" id="1_vf2uk"]
 
 [resource]
 script = ExtResource("1_vf2uk")
+GrowConditions = Dictionary[int, float]({
+1: 8.0,
+3: 0.5
+})
+DuplicatorGlowColour = Color(0.826182, 0.833832, 0.856909, 1)
+GrowPowerConsumption = 0.0
 Type = 1
 Name = "Feather"
 Weight = 0.1
-Value = 3000
+MaxCarryAmount = 10
+Value = 500.0

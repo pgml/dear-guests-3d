@@ -1,10 +1,17 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://dgfy5kgja7dvl"]
 
-[ext_resource type="Script" uid="uid://ces7ytnbgkr4x" path="res://Inventory/Scripts/ItemResource.cs" id="1_0lkjl"]
+[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Inventory/Scripts/ArtifactResource.cs" id="1_0lkjl"]
 
 [resource]
 script = ExtResource("1_0lkjl")
+GrowConditions = Dictionary[int, float]({
+1: 0.5,
+2: 600.0
+})
+DuplicatorGlowColour = Color(2.31028e-06, 0.818243, 0.40763, 1)
+GrowPowerConsumption = 1000.0
 Type = 1
 Name = "Pacifist"
 Weight = 0.5
-Value = 20000
+MaxCarryAmount = 10
+Value = 5000.0

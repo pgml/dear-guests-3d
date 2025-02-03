@@ -20,6 +20,11 @@ public partial class Inventory : Resource
 	public bool AddItem(ItemResource item, int amount)
 	{
 		bool wasAdded = false;
+
+		if (amount > item.MaxCarryAmount) {
+			amount = item.MaxCarryAmount;
+		}
+
 		if (IsInInventory(item)) {
 			int resourceIndex = GetResourceIndex(item);
 			if (UpdateItem(resourceIndex, item, amount)) {
@@ -49,12 +54,17 @@ public partial class Inventory : Resource
 			return false;
 		}
 
-		if (Items[resourceIndex].ItemResource == item) {
-			Items[resourceIndex].Amount += amount;
+		var resource = Items[resourceIndex];
+
+		if (resource.ItemResource == item) {
+			resource.Amount += amount;
+			if (resource.Amount > resource.ItemResource.MaxCarryAmount) {
+				resource.Amount = resource.ItemResource.MaxCarryAmount;
+			}
 		}
 		else {
-			Items[resourceIndex].ItemResource = item;
-			Items[resourceIndex].Amount = amount;
+			resource.ItemResource = item;
+			resource.Amount = amount;
 		}
 
 		return true;

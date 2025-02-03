@@ -16,6 +16,7 @@ public partial class UiQuickInventory : UiControl
 	public void Toggle(Vector2 position)
 	{
 		QuickInventoryItemList.RestrictTypeTo = RestrictTypeTo;
+		QuickInventoryItemList.PopulateList();
 		Position = position;
 		IsOpen = !IsOpen;
 	}

@@ -7,11 +7,11 @@ public partial class UiQuickInventoryList : UiItemList
 	public override void _Ready()
 	{
 		base._Ready();
-		_populateList();
-		ActorInventory.InventoryUpdated += _populateList;
+		PopulateList();
+		ActorInventory.InventoryUpdated += PopulateList;
 	}
 
-	private void _populateList()
+	public void PopulateList()
 	{
 		var items = ActorInventory.GetItemsOfType(RestrictTypeTo);
 

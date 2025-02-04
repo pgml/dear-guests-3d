@@ -21,7 +21,7 @@ public partial class Equipment : Node3D
 
 	//protected UiQuickInventory QuickInventory = new();
 	public PackedScene QuickInventory { get {
-		return GD.Load<PackedScene>(Resources.QuickInventory);
+		return GD.Load<PackedScene>(Resources.UiQuickInventory);
 	}}
 	public UiQuickInventory QuickInventoryInstance = null;
 

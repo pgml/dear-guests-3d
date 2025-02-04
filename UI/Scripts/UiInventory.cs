@@ -6,7 +6,7 @@ public partial class UiInventory : UiControl
 	public Panel InventoryBackgroud { get; set; }
 
 	public PackedScene QuickInventory { get {
-		return GD.Load<PackedScene>(Resources.QuickInventory);
+		return GD.Load<PackedScene>(Resources.UiQuickInventory);
 	}}
 
 	private UiQuickInventory _quickInventory;

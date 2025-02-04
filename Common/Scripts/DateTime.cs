@@ -44,11 +44,37 @@ public partial class DateTime : Resource
 		return $"{Hours():D2}:{Minutes():D2}";
 	}
 
-	public string CurrentDate()
+	public System.DateTime CurrentDate()
 	{
-
 		System.DateTime startOfYear = new(Year, 1, 1);
 		System.DateTime date = startOfYear.AddDays(DayOfYear - 1);
-		return date.ToString(DateFormat);
+		return date;
+	}
+
+	public string CurrentDateString()
+	{
+		return CurrentDate().ToString(DateFormat);
+	}
+
+	public int Month()
+	{
+		System.DateTime startOfYear = new(Year, 1, 1);
+		System.DateTime date = startOfYear.AddDays(DayOfYear - 1);
+		return date.Month;
+	}
+
+	public double TimeStamp()
+	{
+		var baseDate = new System.DateTime(
+			1969 + Year, 1, 1,
+			Hours(), Minutes(), 0
+		);
+
+		var toDate = new System.DateTime(
+			1969 + Year, Month(), DayOfYear,
+			Hours(), Minutes(), 0
+		);
+
+		return toDate.Subtract(baseDate).TotalSeconds;
 	}
 }

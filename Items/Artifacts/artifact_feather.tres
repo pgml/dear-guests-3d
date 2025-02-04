@@ -8,7 +8,7 @@ GrowConditions = Dictionary[int, float]({
 1: 8.0,
 3: 0.5
 })
-ReplicatorGlowColour = Color(0.898039, 0.898039, 0.898039, 1)
+ReplicatorGlowColour = Color(0.925467, 0.925466, 0.925467, 1)
 ReplicationTime = 6.0
 GrowPowerConsumption = 0.0
 Type = 1

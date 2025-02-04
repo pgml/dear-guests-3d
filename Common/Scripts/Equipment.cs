@@ -17,18 +17,21 @@ public partial class Equipment : Node3D
 		return GD.Load<PackedScene>(Resources.UseIndicator);
 	}}
 
+	public DateTime DateTime { get; private set; }
+
+	//protected UiQuickInventory QuickInventory = new();
 	public PackedScene QuickInventory { get {
 		return GD.Load<PackedScene>(Resources.QuickInventory);
 	}}
+	public UiQuickInventory QuickInventoryInstance = null;
 
 	private Node3D _indicatorInstance;
-	private UiQuickInventory _quickInventory = new();
 
 	public override void _Ready()
 	{
 		if (!Engine.IsEditorHint()) {
-			var mainUI = GetNode("/root/MainUI");
-			_quickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
+			DateTime = GD.Load<DateTime>(Resources.DateTime);
+			//QuickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
 		}
 
 		TriggerArea.BodyEntered += _onTriggerAreaBodyEntered;
@@ -37,23 +40,30 @@ public partial class Equipment : Node3D
 
 	public override void _Process(double delta)
 	{
-		if (_quickInventory.IsOpen) {
-			_quickInventory.Position = QuickInventoryPosition();
-		}
+		//if (_quickInventory.IsOpen) {
+		//	_quickInventory.Position = QuickInventoryPosition();
+		//}
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionPressed("action_use") && CanUse) {
+		if (!IsInstanceValid(QuickInventoryInstance)
+			&& (@event.IsActionReleased("action_use"))
+			&& CanUse
+		) {
+			QuickInventoryInstance = QuickInventory.Instantiate<UiQuickInventory>();
+			GetNode("/root/MainUI").AddChild(QuickInventoryInstance);
 			Vector2 position = QuickInventoryPosition();
+			QuickInventoryInstance.Description = $"Use {EquipmentName}";
+			QuickInventoryInstance.RestrictTypeTo = AllowedInputType;
+			QuickInventoryInstance.Open(position);
+		}
 
-			if (_quickInventory.IsOpen) {
-				position = new Vector2(1000, 1000);
+		if (IsInstanceValid(QuickInventoryInstance)) {
+			if (@event.IsActionPressed("action_cancel")) {
+				//QuickInventoryInstance.Close();
+				QuickInventoryInstance.QueueFree();
 			}
-
-			_quickInventory.Description = $"Use {EquipmentName}";
-			_quickInventory.RestrictTypeTo = AllowedInputType;
-			_quickInventory.Toggle(position);
 		}
 	}
 
@@ -70,9 +80,12 @@ public partial class Equipment : Node3D
 
 	protected Vector2 QuickInventoryPosition()
 	{
+		if (QuickInventoryInstance is null) {
+			return Vector2.Zero;
+		}
 		Vector2 position = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
 		position.X += Position.X;
-		position.Y -= _quickInventory.Size.Y + Position.Z;
+		position.Y -= QuickInventoryInstance.Size.Y + Position.Z;
 		return position;
 	}
 
@@ -98,8 +111,9 @@ public partial class Equipment : Node3D
 		_indicatorInstance.QueueFree();
 		CanUse = false;
 
-		if (_quickInventory.IsOpen) {
-			_quickInventory.Toggle(new Vector2(1000, 1000));
-		}
+		//if (QuickInventoryInstance.IsOpen) {
+		//	QuickInventoryInstance.Close();
+		//	QuickInventoryInstance.QueueFree();
+		//}
 	}
 }

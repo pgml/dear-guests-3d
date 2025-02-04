@@ -36,21 +36,86 @@ public partial class Replicator : Equipment
 			if (FindChild(_meshNodeName) is null) {
 				return null;
 			}
-
 			return GetNode(_meshNodeName);
 		}
 	}
 
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
+
 	private string _meshNodeName = "Mesh";
+	private ReplicatorStorage _replicatorStorage = new();
+
+	public override void _Ready()
+	{
+		base._Ready();
+
+		if (!Engine.IsEditorHint()) {
+			_replicatorStorage = GD.Load<ReplicatorStorage>(Resources.ReplicatorStorage);
+		}
+	}
 
 	public override void _Process(double delta)
 	{
+		if (Engine.IsEditorHint()) {
+			return;
+		}
+
 		if (LightsParent is not null) {
 			LightsParent.Visible = Activated;
-			foreach (OmniLight3D light in LightsParent.GetChildren()) {
-				light.LightColor = LightColor;
+
+			if (_replicatorStorage.Replicators.ContainsKey(this)) {
+				ReplicatorContent replicator = _replicatorStorage.Replicators[this];
+				Activated = true;
+				LightColor = replicator.Artifact.ReplicatorGlowColour;
 			}
+			else {
+				Activated = false;
+			}
+
+			SetLights();
+		}
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		var replicators = _replicatorStorage.Replicators;
+		//bool canAdd = false;
+
+		//if (@event is InputEventMouseButton mouseButton && mouseButton.Pressed) {
+		//	if (mouseButton.ButtonIndex == MouseButton.Left) {
+		//		canAdd = true;
+		//		GD.PrintS("mouse");
+		//	}
+		//}
+
+		if (IsInstanceValid(QuickInventoryInstance)) {
+			if (@event.IsActionReleased("action_use")
+				&& QuickInventoryInstance.IsOpen
+				&& !replicators.ContainsKey(this)
+			) {
+				TreeItem selectedItem = QuickInventoryInstance.QuickInventoryItemList.GetSelected();
+				if (selectedItem is not null && AllowedInputType == ItemType.Artifact) {
+					var artifact = (ArtifactResource)selectedItem.GetMetadata(0);
+
+					replicators.Add(this, new ReplicatorContent(
+						artifact,
+						DateTime.TimeStamp(),
+						0
+					));
+
+					//QuickInventoryInstance.Close();
+					QuickInventoryInstance.QueueFree();
+				}
+			}
+		}
+
+		base._Input(@event);
+	}
+
+	public void SetLights()
+	{
+		foreach (OmniLight3D light in LightsParent.GetChildren()) {
+			light.LightColor = LightColor;
 		}
 	}
 

@@ -1,0 +1,142 @@
+using Godot;
+using System.Collections.Generic;
+
+public partial class UiReplicator : UiControl
+{
+	[ExportCategory("Info Window")]
+	[Export] public Label InfoHeadline { get; set; }
+
+	[Export]
+	public TextureButton ArtifactIcon { get; set; }
+
+	[Export]
+	public Label ReplicatorStatus { get; set; }
+
+	[Export]
+	public Label ArtifactName { get; set; }
+
+	[Export]
+	public Label DescriptionStartTime { get; set; }
+
+	[Export]
+	public Label StartTime { get; set; }
+
+	[Export]
+	public Label DescriptionProgress { get; set; }
+
+	[Export]
+	public Label Progress { get; set; }
+
+	[Export]
+	public Label DescriptionEndTime { get; set; }
+
+	[Export]
+	public Label EndTime { get; set; }
+
+
+	[ExportCategory("Settings Window")]
+	[Export]
+	public VBoxContainer SettingsParent { get; set; }
+
+	[Export]
+	public Label SettingsHeadline { get; set; }
+
+	[Export]
+	public VBoxContainer HumidityParent { get; set; }
+
+	[Export]
+	public VBoxContainer PressureParent { get; set; }
+
+	[Export]
+	public VBoxContainer BrightnessParent { get; set; }
+
+	[Export]
+	public VBoxContainer WindVelocityParent { get; set; }
+
+	[Export]
+	public VBoxContainer TemperatureParent { get; set; }
+
+
+	[ExportCategory("Item List")]
+	[Export]
+	public Label ItemListHeadline { get; set; }
+
+	[Export]
+	public Tree ItemList { get; set; }
+
+
+	[ExportCategory("Buttons")]
+	[Export]
+	public Button ReplicateButton { get; set; }
+
+	[Export]
+	public Button CloseButton { get; set; }
+
+
+	protected Inventory ActorInventory { get {
+		return !Engine.IsEditorHint()
+			? GD.Load<Inventory>(Resources.ActorInventory)
+			: new();
+	}}
+
+	protected TreeItem TreeRoot;
+	protected Dictionary<InventoryItemResource, TreeItem> ListItems = new();
+
+	public override void _Ready()
+	{
+		base._Ready();
+		if (!IsInstanceValid(TreeRoot)) {
+			TreeRoot = ItemList.CreateItem();
+		}
+		PopulateList();
+		ActorInventory.InventoryUpdated += PopulateList;
+	}
+
+	public void Open(Vector2 position)
+	{
+		PopulateList();
+		TreeItem firstItem = TreeRoot.GetChildren()[0];
+		ItemList.GrabFocus();
+		ItemList.SetSelected(firstItem, 0);
+		firstItem.Select(0);
+		Position = position;
+		IsOpen = true;
+	}
+
+	public void PopulateList()
+	{
+		var items = ActorInventory.GetItemsOfType(ItemType.Artifact);
+
+		if (items is null) {
+			return;
+		}
+
+		// @todo try to avoid clearing it beforehand
+		// instead try to update or append
+		ClearList();
+
+		foreach (var inventoryItem in items) {
+			ItemResource item = inventoryItem.ItemResource;
+			TreeItem row = ItemList.CreateItem(TreeRoot);
+			string amount = inventoryItem.Amount > 0
+				? $" ({inventoryItem.Amount.ToString()})"
+				: "";
+
+			row.SetText(0, $"{item.Name.ToUpper()}{amount}");
+			row.SetMetadata(0, item);
+			ListItems.Add(inventoryItem, row);
+		}
+	}
+
+	protected void ClearList()
+	{
+		if (!IsInstanceValid(TreeRoot)) {
+			return;
+		}
+
+		ListItems.Clear();
+		foreach (var child in TreeRoot.GetChildren()) {
+			TreeRoot.RemoveChild(child);
+		}
+	}
+}

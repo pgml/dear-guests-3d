@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcjimqhc3n5ye"]
+[gd_scene load_steps=4 format=3 uid="uid://dcjimqhc3n5ye"]
 
 [ext_resource type="PackedScene" uid="uid://bid37ltc5t4se" path="res://UI/ui_clock.tscn" id="1_hvcg1"]
 [ext_resource type="PackedScene" uid="uid://wdvffohf5vt3" path="res://UI/ui_inventory.tscn" id="1_psx24"]
 [ext_resource type="PackedScene" uid="uid://bjrg204p4cqun" path="res://UI/ui_console.tscn" id="3_kkye7"]
-[ext_resource type="PackedScene" uid="uid://qsryptjomhyf" path="res://UI/ui_quick_inventory.tscn" id="4_rqtoc"]
 
 [node name="MainUi" type="CanvasLayer"]
 
@@ -14,7 +13,3 @@ offset_bottom = 360.0
 [node name="Clock" parent="." instance=ExtResource("1_hvcg1")]
 
 [node name="Console" parent="." instance=ExtResource("3_kkye7")]
-
-[node name="QuickInventory" parent="." instance=ExtResource("4_rqtoc")]
-offset_left = 347.0
-offset_right = 427.0

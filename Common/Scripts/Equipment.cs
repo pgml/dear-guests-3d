@@ -53,7 +53,7 @@ public partial class Equipment : Node3D
 		) {
 			QuickInventoryInstance = QuickInventory.Instantiate<UiQuickInventory>();
 			GetNode("/root/MainUI").AddChild(QuickInventoryInstance);
-			Vector2 position = QuickInventoryPosition();
+			Vector2 position = InventoryPosition(QuickInventoryInstance);
 			QuickInventoryInstance.Description = $"Use {EquipmentName}";
 			QuickInventoryInstance.RestrictTypeTo = AllowedInputType;
 			QuickInventoryInstance.Open(position);
@@ -78,14 +78,14 @@ public partial class Equipment : Node3D
 		};
 	}
 
-	protected Vector2 QuickInventoryPosition()
+	protected Vector2 InventoryPosition(Control uiInstance)
 	{
-		if (QuickInventoryInstance is null) {
+		if (uiInstance is null) {
 			return Vector2.Zero;
 		}
 		Vector2 position = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
 		position.X += Position.X;
-		position.Y -= QuickInventoryInstance.Size.Y + Position.Z;
+		position.Y -= uiInstance.Size.Y + Position.Z;
 		return position;
 	}
 

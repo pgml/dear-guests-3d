@@ -16,6 +16,8 @@ public partial class DateTime : Resource
 	public int DayOfYear = 1;
 	public int Year = 1;
 
+	public System.DateTimeKind TimeZone { get; private set; } = System.DateTimeKind.Local;
+
 	public void UpdateDateTime(double dateTimeHours, int dayOfYear, int year)
 	{
 		DateTimeHours = dateTimeHours;
@@ -32,6 +34,13 @@ public partial class DateTime : Resource
 	public int Minutes()
 	{
 		return (int)((DateTimeHours - Hours()) * 60);
+	}
+
+	public int Month()
+	{
+		System.DateTime startOfYear = new(Year, 1, 1);
+		System.DateTime date = startOfYear.AddDays(DayOfYear - 1);
+		return date.Month;
 	}
 
 	public int TwentyFour()
@@ -51,30 +60,41 @@ public partial class DateTime : Resource
 		return date;
 	}
 
+	public System.DateTime Now()
+	{
+		return new System.DateTime(
+			1969 + Year, Month(), DayOfYear,
+			Hours(), Minutes(), 0
+		);
+	}
+
+	public string NowString()
+	{
+		return $"{CurrentDateString()} - {Formatted()}";
+	}
+
 	public string CurrentDateString()
 	{
 		return CurrentDate().ToString(DateFormat);
 	}
 
-	public int Month()
+	public double TimeStamp(System.DateTime toDate = new System.DateTime())
 	{
-		System.DateTime startOfYear = new(Year, 1, 1);
-		System.DateTime date = startOfYear.AddDays(DayOfYear - 1);
-		return date.Month;
+		var baseDate = new System.DateTime(1970, 1, 1, 0, 0, 0, TimeZone);
+		if (toDate == new System.DateTime()) {
+			toDate = Now();
+		}
+		return toDate.Subtract(baseDate).TotalSeconds;
 	}
 
-	public double TimeStamp()
+	public System.DateTime TimeStampToDateTime(double timestamp)
 	{
-		var baseDate = new System.DateTime(
-			1969 + Year, 1, 1,
-			Hours(), Minutes(), 0
-		);
+		System.DateTime dateTime = new System.DateTime(1970, 1, 1, 0, 0, 0, 0, TimeZone);
+		return dateTime.AddSeconds(timestamp).ToLocalTime();
+	}
 
-		var toDate = new System.DateTime(
-			1969 + Year, Month(), DayOfYear,
-			Hours(), Minutes(), 0
-		);
-
-		return toDate.Subtract(baseDate).TotalSeconds;
+	public string TimeStampToDateTimeString(double timestamp)
+	{
+		return TimeStampToDateTime(timestamp).ToString($"{DateFormat} - HH:mm");
 	}
 }

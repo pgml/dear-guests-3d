@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 public enum ReplicatorType
 {
@@ -40,10 +41,17 @@ public partial class Replicator : Equipment
 		}
 	}
 
+	public PackedScene UiReplicator { get {
+		return GD.Load<PackedScene>(Resources.UiReplicator);
+	}}
+	public UiReplicator UiReplicatorInstance = null;
+
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
 	private string _meshNodeName = "Mesh";
 	private ReplicatorStorage _replicatorStorage = new();
+	private ReplicatorContent _replicatorContent;
+	private ArtifactResource _currentArtifact;
 
 	public override void _Ready()
 	{
@@ -61,62 +69,173 @@ public partial class Replicator : Equipment
 		}
 
 		if (LightsParent is not null) {
-			LightsParent.Visible = Activated;
-
-			if (_replicatorStorage.Replicators.ContainsKey(this)) {
-				ReplicatorContent replicator = _replicatorStorage.Replicators[this];
-				Activated = true;
-				LightColor = replicator.Artifact.ReplicatorGlowColour;
-			}
-			else {
-				Activated = false;
-			}
-
 			SetLights();
+		}
+
+		if (IsInstanceValid(UiReplicatorInstance) && UiReplicatorInstance.IsOpen) {
+			bool isPressedConnected = UiReplicatorInstance.ReplicateButton.IsConnected(
+				"pressed",
+				Callable.From(InsertArtifact)
+			);
+
+			if (!isPressedConnected) {
+				UiReplicatorInstance.ReplicateButton.Pressed += InsertArtifact;
+			}
+
+			bool isClosedConnected = UiReplicatorInstance.CloseButton.IsConnected(
+				"pressed",
+				Callable.From(CloseUi)
+			);
+
+			if (!isClosedConnected) {
+				UiReplicatorInstance.CloseButton.Pressed += CloseUi;
+			}
+
+			_currentArtifact = _replicatorContent.Artifact;
+			if (_currentArtifact is not null) {
+				_updateReplicatorInstanceUi();
+			}
 		}
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		var replicators = _replicatorStorage.Replicators;
-		//bool canAdd = false;
-
-		//if (@event is InputEventMouseButton mouseButton && mouseButton.Pressed) {
-		//	if (mouseButton.ButtonIndex == MouseButton.Left) {
-		//		canAdd = true;
-		//		GD.PrintS("mouse");
-		//	}
-		//}
-
-		if (IsInstanceValid(QuickInventoryInstance)) {
-			if (@event.IsActionReleased("action_use")
-				&& QuickInventoryInstance.IsOpen
-				&& !replicators.ContainsKey(this)
-			) {
-				TreeItem selectedItem = QuickInventoryInstance.QuickInventoryItemList.GetSelected();
-				if (selectedItem is not null && AllowedInputType == ItemType.Artifact) {
-					var artifact = (ArtifactResource)selectedItem.GetMetadata(0);
-
-					replicators.Add(this, new ReplicatorContent(
-						artifact,
-						DateTime.TimeStamp(),
-						0
-					));
-
-					//QuickInventoryInstance.Close();
-					QuickInventoryInstance.QueueFree();
-				}
-			}
+		if (!IsInstanceValid(UiReplicatorInstance)
+			&& (@event.IsActionReleased("action_use"))
+			&& CanUse
+		) {
+			// temporarily add replicator ui to mainUI...
+			UiReplicatorInstance = UiReplicator.Instantiate<UiReplicator>();
+			GetNode("/root/MainUI").AddChild(UiReplicatorInstance);
+			Vector2 position = InventoryPosition(UiReplicatorInstance);
+			UiReplicatorInstance.Open(position);
 		}
 
-		base._Input(@event);
+		if (IsInstanceValid(UiReplicatorInstance)) {
+			if (@event.IsActionPressed("action_cancel")) {
+				CloseUi();
+			}
+		}
+	}
+
+	public void InsertArtifact()
+	{
+		if (_replicatorStorage.Replicators.ContainsKey(this)) {
+			return;
+		}
+
+		TreeItem selectedItem = UiReplicatorInstance.ItemList.GetSelected();
+		if (selectedItem is not null && AllowedInputType == ItemType.Artifact) {
+			var artifact = (ArtifactResource)selectedItem.GetMetadata(0);
+
+			if (IsInstanceValid(artifact)) {
+				if (_currentArtifact is not null) {
+					return;
+				}
+
+				var replicators = _replicatorStorage.Replicators;
+				replicators.Add(this, new ReplicatorContent(
+					artifact,
+					DateTime.TimeStamp(),
+					0
+				));
+
+				_updateReplicatorInstanceUi();
+			}
+		}
+	}
+
+	private void _updateReplicatorInstanceUi()
+	{
+		if (_currentArtifact is not null) {
+			UiReplicator instance = UiReplicatorInstance;
+			double replicationStart = _replicatorContent.ReplicationStart;
+
+			instance.ReplicatorStatus.Visible = true;
+			instance.ReplicatorStatus.Text = "Replicating artifact...";
+			instance.ArtifactName.Text = _currentArtifact.Name;
+			instance.StartTime.Text = StartTimeString();
+			instance.Progress.Text = $"{Progress()}%";
+			instance.EndTime.Text = $"~ {RemainingTime()}h";
+
+			instance.SettingsParent.Visible = true;
+			instance.SettingsHeadline.Visible = true;
+
+			instance.ItemList.Visible = false;
+			instance.ItemListHeadline.Visible = false;
+		}
+	}
+
+	public double Progress()
+	{
+		double startTime = StartTime();
+		double endTime = EndTime();
+		double currentTime = DateTime.TimeStamp();
+		double progress = (currentTime - startTime) / (endTime - startTime) * 100;
+
+		return Math.Round(progress, 2);
+	}
+
+	public double StartTime()
+	{
+		return _replicatorContent.ReplicationStart;
+	}
+
+	public string StartTimeString()
+	{
+		return DateTime.TimeStampToDateTimeString(
+			_replicatorContent.ReplicationStart
+		);
+	}
+
+	public double EndTime()
+	{
+		return DateTime.TimeStamp(EndDateTime());
+	}
+
+	public string EndTimeString()
+	{
+		return EndTime().ToString();
+	}
+
+	public System.DateTime EndDateTime()
+	{
+		return DateTime
+			.TimeStampToDateTime(_replicatorContent.ReplicationStart)
+			.AddHours(_currentArtifact.ReplicationTime);
+	}
+
+	public int RemainingTime()
+	{
+		System.TimeSpan remainingTime = EndDateTime().Subtract(DateTime.Now());
+		return (int)Math.Round(remainingTime.TotalHours);
 	}
 
 	public void SetLights()
 	{
+		bool hasContent = false;
+		if (_replicatorStorage.Replicators.ContainsKey(this)) {
+			_replicatorContent = _replicatorStorage.Replicators[this];
+			hasContent = true;
+		}
+
+		LightsParent.Visible = Activated;
+		if (hasContent) {
+			Activated = true;
+			LightColor = _replicatorContent.Artifact.ReplicatorGlowColour;
+		}
+		else {
+			Activated = false;
+		}
+
 		foreach (OmniLight3D light in LightsParent.GetChildren()) {
 			light.LightColor = LightColor;
 		}
+	}
+
+	public void CloseUi()
+	{
+		UiReplicatorInstance.QueueFree();
 	}
 
 	public void SetupMesh()

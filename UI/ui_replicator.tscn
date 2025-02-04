@@ -1,0 +1,601 @@
+[gd_scene load_steps=31 format=3 uid="uid://y5737vxpy2m0"]
+
+[ext_resource type="Script" uid="uid://dsispj3jb0do8" path="res://UI/Scripts/UiReplicator.cs" id="1_7npvn"]
+[ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_q77f4"]
+[ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="2_7npvn"]
+[ext_resource type="Script" uid="uid://bvsg6l8d4uug3" path="res://UI/Scripts/UiQuickInventoryList.cs" id="3_rvt2l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfymb"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.886352, 0.839312, 0.611947, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.713397, 0.655745, 0.379705, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 20
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5fok"]
+bg_color = Color(0.933333, 0.901961, 0.74902, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color(0.713726, 0.654902, 0.380392, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmhyj"]
+content_margin_left = 9.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fmhyj"]
+font = ExtResource("1_q77f4")
+font_size = 3
+font_color = Color(0.239216, 0, 0.0235294, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_7npvn"]
+color = Color(0.847059, 0.792157, 0.533333, 1)
+grow_begin = 0.0
+grow_end = -1.0
+vertical = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uo0nm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q77f4"]
+bg_color = Color(0.846353, 0.791211, 0.533577, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.713726, 0.654902, 0.380392, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dfymb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m5fok"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fmhyj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7npvn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvw6a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ejr2r"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7npvn"]
+font = ExtResource("1_q77f4")
+font_size = 3
+font_color = Color(0.239216, 0, 0.0235294, 0.588235)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dfymb"]
+font = ExtResource("1_q77f4")
+font_size = 3
+font_color = Color(0.239216, 0, 0.0235294, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ms8m5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvt2l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ms8m5"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 1.0
+bg_color = Color(0.749991, 0.686378, 0.411724, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.603922, 0.545098, 0.294118, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvw6a"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 1.0
+bg_color = Color(0.74902, 0.686275, 0.411765, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.831373, 0.411765, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo0nm"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 1.0
+bg_color = Color(0.805268, 0.742709, 0.469656, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.602838, 0.54549, 0.293692, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_q77f4"]
+color = Color(0.713726, 0.654902, 0.380392, 1)
+grow_begin = 0.0
+grow_end = -1.0
+vertical = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_rvt2l"]
+font = ExtResource("1_q77f4")
+font_size = 3
+font_color = Color(0.239216, 0, 0.0235294, 1)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_q77f4"]
+size = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7npvn"]
+bg_color = Color(0.713726, 0.654902, 0.380392, 0)
+border_width_top = 1
+border_color = Color(0.713726, 0.654902, 0.380392, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvt2l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ev57j"]
+content_margin_left = 0.0
+content_margin_top = 3.0
+content_margin_right = 2.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_bottom_left = 1
+anti_aliasing = false
+
+[node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "CloseButton")]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -50.0
+offset_right = 70.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7npvn")
+InfoHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/InfoWindowHeadline")
+ArtifactIcon = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Panel/TextureButton")
+ReplicatorStatus = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/Title")
+ArtifactName = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/ArtifactName")
+DescriptionStartTime = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/DescriptionTime")
+StartTime = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/StartTime")
+DescriptionProgress = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/DescriptionProgress")
+Progress = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/Progress")
+DescriptionEndTime = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/DescriptionEndTime")
+EndTime = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/EndTime")
+SettingsParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow")
+SettingsHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/SettingsHeadline")
+HumidityParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity")
+PressureParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure")
+BrightnessParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness")
+WindVelocityParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity")
+TemperatureParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature")
+ItemListHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/ItemsHeadline")
+ItemList = NodePath("PanelBackground/VBoxContainer/HBoxContainer/Tree")
+ReplicateButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Replicate")
+CloseButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Close")
+
+[node name="PanelBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_dfymb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TitleBackground" type="Panel" parent="PanelBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m5fok")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelBackground/VBoxContainer/TitleBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="InfoWindowHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_fmhyj")
+text = "Use Replicator"
+label_settings = SubResource("LabelSettings_fmhyj")
+vertical_alignment = 1
+uppercase = true
+
+[node name="VSeparator" type="VSeparator" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_7npvn")
+
+[node name="SettingsHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_fmhyj")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="ItemsHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Use Artifact"
+label_settings = SubResource("LabelSettings_fmhyj")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelBackground/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uo0nm")
+
+[node name="Panel" type="Panel" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q77f4")
+
+[node name="TextureButton" type="TextureButton" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Close" type="Button" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_fonts/font = ExtResource("1_q77f4")
+theme_override_font_sizes/font_size = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dfymb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_m5fok")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_fmhyj")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7npvn")
+text = "Close"
+
+[node name="HSeparator7" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uvw6a")
+
+[node name="InfoWindow" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow"]
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_constants/separation = -2
+
+[node name="HSeparator4" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ejr2r")
+
+[node name="Title" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Replicating..."
+label_settings = SubResource("LabelSettings_7npvn")
+uppercase = true
+
+[node name="ArtifactName" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "[Insert Artifact]"
+label_settings = SubResource("LabelSettings_dfymb")
+uppercase = true
+
+[node name="HSeparator2" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ms8m5")
+
+[node name="DescriptionTime" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "Start Time:"
+label_settings = SubResource("LabelSettings_7npvn")
+uppercase = true
+
+[node name="StartTime" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_dfymb")
+
+[node name="HSeparator3" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uvw6a")
+
+[node name="DescriptionProgress" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "Progress:"
+label_settings = SubResource("LabelSettings_7npvn")
+uppercase = true
+
+[node name="Progress" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_dfymb")
+
+[node name="HSeparator5" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uvw6a")
+
+[node name="DescriptionEndTime" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "Approx. finished in:"
+label_settings = SubResource("LabelSettings_7npvn")
+uppercase = true
+
+[node name="EndTime" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_dfymb")
+
+[node name="ButtonWrapper" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Replicate" type="Button" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_fonts/font = ExtResource("1_q77f4")
+theme_override_font_sizes/font_size = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rvt2l")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ms8m5")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uvw6a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_uo0nm")
+text = "REPLICATE"
+
+[node name="HSeparator6" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uvw6a")
+
+[node name="VSeparator" type="VSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_q77f4")
+
+[node name="SettingsWindow" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="HSeparator" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uo0nm")
+
+[node name="Humidity" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity/Row"]
+layout_mode = 2
+text = "Humidity:"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity/Row"]
+layout_mode = 2
+text = "0%"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_highlight = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_disabled = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_styles/slider = SubResource("StyleBoxFlat_7npvn")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_rvt2l")
+
+[node name="Pressure" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure/Row"]
+layout_mode = 2
+text = "Pressure:"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure/Row"]
+layout_mode = 2
+text = "0 kPa"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_highlight = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_disabled = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_styles/slider = SubResource("StyleBoxFlat_7npvn")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_rvt2l")
+max_value = 1000.0
+
+[node name="Brightness" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness/Row"]
+layout_mode = 2
+text = "Brightness:"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness/Row"]
+layout_mode = 2
+text = "0 Lm"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_highlight = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_disabled = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_styles/slider = SubResource("StyleBoxFlat_7npvn")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_rvt2l")
+max_value = 1000.0
+
+[node name="WindVelocity" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity/Row"]
+layout_mode = 2
+text = "Wind:"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity/Row"]
+layout_mode = 2
+text = "0 km/h"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_highlight = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_disabled = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_styles/slider = SubResource("StyleBoxFlat_7npvn")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_rvt2l")
+max_value = 50.0
+
+[node name="Temparature" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
+layout_mode = 2
+text = "Temperature:"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
+layout_mode = 2
+text = "0 °C"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_icons/grabber = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_highlight = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_icons/grabber_disabled = SubResource("PlaceholderTexture2D_q77f4")
+theme_override_styles/slider = SubResource("StyleBoxFlat_7npvn")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_rvt2l")
+max_value = 50.0
+
+[node name="Tree" type="Tree" parent="PanelBackground/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_7npvn")
+theme_override_constants/v_separation = 0
+theme_override_fonts/font = ExtResource("1_q77f4")
+theme_override_font_sizes/font_size = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ev57j")
+hide_folding = true
+enable_recursive_folding = false
+hide_root = true
+select_mode = 1
+scroll_vertical_enabled = false
+auto_tooltip = false
+script = ExtResource("3_rvt2l")

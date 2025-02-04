@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://yymhyb3vrxe7" path="res://Assets/Equipment/Replicator/Replicator.cs" id="1_mdk7f"]
 [ext_resource type="PackedScene" uid="uid://dft4ktnnug7dg" path="res://Assets/Equipment/Replicator/replicator_mesh.tscn" id="2_vm67i"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_h58m0"]
-height = 4.0
-radius = 2.5
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mdk7f"]
+radius = 1.695
+height = 4.095
 
 [node name="Replicator" type="Node3D" node_paths=PackedStringArray("LightsParent", "TriggerArea")]
 script = ExtResource("1_mdk7f")
@@ -23,7 +23,7 @@ transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01291, -0.50171)
-shape = SubResource("CylinderShape3D_h58m0")
+shape = SubResource("CapsuleShape3D_mdk7f")
 debug_color = Color(0.352843, 0.549768, 1, 1)
 
 [node name="Lights" type="Node3D" parent="."]

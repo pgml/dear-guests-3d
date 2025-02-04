@@ -1,37 +1,27 @@
-[gd_scene load_steps=31 format=3 uid="uid://y5737vxpy2m0"]
+[gd_scene load_steps=36 format=3 uid="uid://y5737vxpy2m0"]
 
 [ext_resource type="Script" uid="uid://dsispj3jb0do8" path="res://UI/Scripts/UiReplicator.cs" id="1_7npvn"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_q77f4"]
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="2_7npvn"]
+[ext_resource type="Texture2D" uid="uid://n3dhvwe2rk4e" path="res://Assets/Sprites/UI/ui_bg.png" id="2_rvt2l"]
+[ext_resource type="Texture2D" uid="uid://cll8oaunldigy" path="res://Assets/Sprites/UI/ui_panel_bg.png" id="3_dfymb"]
 [ext_resource type="Script" uid="uid://bvsg6l8d4uug3" path="res://UI/Scripts/UiQuickInventoryList.cs" id="3_rvt2l"]
+[ext_resource type="Texture2D" uid="uid://bdj1k2wt70ufq" path="res://Assets/Sprites/UI/ui_btn_hover_bg.png" id="5_fmhyj"]
+[ext_resource type="Texture2D" uid="uid://3yq0iw2xkrer" path="res://Assets/Sprites/UI/ui_btn_bg.png" id="5_m5fok"]
+[ext_resource type="Texture2D" uid="uid://krogb3sj3h4a" path="res://Assets/Sprites/UI/ui_btn_pressed_bg.png" id="6_ev57j"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfymb"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.886352, 0.839312, 0.611947, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.713397, 0.655745, 0.379705, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 20
-anti_aliasing = false
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m5fok"]
+texture = ExtResource("2_rvt2l")
+modulate_color = Color(1, 1, 1, 0.45098)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5fok"]
-bg_color = Color(0.933333, 0.901961, 0.74902, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_color = Color(0.713726, 0.654902, 0.380392, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-anti_aliasing = false
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dfymb"]
+texture = ExtResource("3_dfymb")
+texture_margin_left = 20.0
+texture_margin_top = 17.0
+texture_margin_right = 20.0
+texture_margin_bottom = 25.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ev57j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmhyj"]
 content_margin_left = 9.0
@@ -41,22 +31,22 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 font = ExtResource("1_q77f4")
 font_size = 3
 font_color = Color(0.239216, 0, 0.0235294, 1)
+shadow_color = Color(0.875137, 0.824767, 0.585779, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7npvn"]
 color = Color(0.847059, 0.792157, 0.533333, 1)
-grow_begin = 0.0
-grow_end = -1.0
+grow_begin = -1.0
 vertical = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uo0nm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q77f4"]
-bg_color = Color(0.846353, 0.791211, 0.533577, 1)
+bg_color = Color(0.886275, 0.839216, 0.611765, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.713726, 0.654902, 0.380392, 1)
+border_color = Color(0.552941, 0.494118, 0.231373, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
@@ -89,61 +79,31 @@ font_color = Color(0.239216, 0, 0.0235294, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvt2l"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ms8m5"]
-content_margin_left = 4.0
-content_margin_top = 0.0
-content_margin_right = 4.0
-content_margin_bottom = 1.0
-bg_color = Color(0.749991, 0.686378, 0.411724, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.603922, 0.545098, 0.294118, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-anti_aliasing = false
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ev57j"]
+texture = ExtResource("5_fmhyj")
+texture_margin_left = 5.0
+texture_margin_top = 1.0
+texture_margin_right = 5.0
+texture_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvw6a"]
-content_margin_left = 4.0
-content_margin_top = 0.0
-content_margin_right = 4.0
-content_margin_bottom = 1.0
-bg_color = Color(0.74902, 0.686275, 0.411765, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.831373, 0.411765, 0, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-anti_aliasing = false
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uo0nm"]
+texture = ExtResource("6_ev57j")
+texture_margin_left = 5.0
+texture_margin_top = 1.0
+texture_margin_right = 5.0
+texture_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uo0nm"]
-content_margin_left = 4.0
-content_margin_top = 0.0
-content_margin_right = 4.0
-content_margin_bottom = 1.0
-bg_color = Color(0.805268, 0.742709, 0.469656, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.602838, 0.54549, 0.293692, 1)
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-anti_aliasing = false
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fmhyj"]
+texture = ExtResource("5_m5fok")
+texture_margin_left = 5.0
+texture_margin_top = 1.0
+texture_margin_right = 5.0
+texture_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_q77f4"]
 color = Color(0.713726, 0.654902, 0.380392, 1)
-grow_begin = 0.0
-grow_end = -1.0
+grow_begin = -2.0
+grow_end = -3.0
 vertical = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_rvt2l"]
@@ -162,26 +122,16 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvt2l"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ev57j"]
-content_margin_left = 0.0
-content_margin_top = 3.0
-content_margin_right = 2.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
-corner_radius_bottom_left = 1
-anti_aliasing = false
-
 [node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "CloseButton")]
-custom_minimum_size = Vector2(160, 0)
+custom_minimum_size = Vector2(170, 130)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -50.0
-offset_right = 70.0
-offset_bottom = 70.0
+offset_left = -80.0
+offset_right = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7npvn")
@@ -207,15 +157,36 @@ ItemList = NodePath("PanelBackground/VBoxContainer/HBoxContainer/Tree")
 ReplicateButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Replicate")
 CloseButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Close")
 
-[node name="PanelBackground" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 9.235
+offset_top = 3.25
+offset_right = -3.72501
+offset_bottom = -3.82
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_m5fok")
+
+[node name="PanelBackground" type="Panel" parent="."]
+custom_minimum_size = Vector2(160, 120)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -60.0
+offset_right = 80.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_dfymb")
+theme_override_styles/panel = SubResource("StyleBoxTexture_dfymb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelBackground"]
 layout_mode = 1
@@ -227,9 +198,9 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="TitleBackground" type="Panel" parent="PanelBackground/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 12.5)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m5fok")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ev57j")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelBackground/VBoxContainer/TitleBackground"]
 layout_mode = 1
@@ -243,11 +214,14 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="InfoWindowHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_fmhyj")
 text = "Use Replicator"
 label_settings = SubResource("LabelSettings_fmhyj")
+horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
@@ -257,19 +231,23 @@ theme_override_styles/separator = SubResource("StyleBoxLine_7npvn")
 
 [node name="SettingsHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(60, 10)
 layout_mode = 2
+size_flags_vertical = 8
 text = "Settings"
 label_settings = SubResource("LabelSettings_fmhyj")
 horizontal_alignment = 1
+vertical_alignment = 1
 uppercase = true
 
 [node name="ItemsHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(60, 10)
 layout_mode = 2
+size_flags_vertical = 8
 text = "Use Artifact"
 label_settings = SubResource("LabelSettings_fmhyj")
 horizontal_alignment = 1
+vertical_alignment = 1
 uppercase = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelBackground/VBoxContainer"]
@@ -422,9 +400,9 @@ theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
 theme_override_fonts/font = ExtResource("1_q77f4")
 theme_override_font_sizes/font_size = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rvt2l")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ms8m5")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_uvw6a")
-theme_override_styles/normal = SubResource("StyleBoxFlat_uo0nm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ev57j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_uo0nm")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fmhyj")
 text = "REPLICATE"
 
 [node name="HSeparator6" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow"]
@@ -588,10 +566,8 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_7npvn")
-theme_override_constants/v_separation = 0
 theme_override_fonts/font = ExtResource("1_q77f4")
 theme_override_font_sizes/font_size = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_ev57j")
 hide_folding = true
 enable_recursive_folding = false
 hide_root = true

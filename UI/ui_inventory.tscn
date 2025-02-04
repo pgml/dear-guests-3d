@@ -1,13 +1,14 @@
-[gd_scene load_steps=17 format=3 uid="uid://wdvffohf5vt3"]
+[gd_scene load_steps=20 format=3 uid="uid://wdvffohf5vt3"]
 
 [ext_resource type="Script" uid="uid://dgep2ce7cdd4n" path="res://UI/Scripts/UiInventory.cs" id="1_jsd1q"]
 [ext_resource type="FontFile" uid="uid://deud5ibjki4n6" path="res://Resources/Fonts/EightBitDragon-anqx.ttf" id="1_unlxm"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_cmt26"]
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="3_cmt26"]
 [ext_resource type="Script" uid="uid://6tfocl8qfggu" path="res://UI/Scripts/UiBackPackItemList.cs" id="3_jsd1q"]
+[ext_resource type="Texture2D" uid="uid://cll8oaunldigy" path="res://Assets/Sprites/UI/ui_panel_bg.png" id="4_82nfj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psx24"]
-bg_color = Color(0, 0, 0, 0.666667)
+bg_color = Color(0, 0, 0, 0.705882)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkye7"]
 content_margin_left = 0.0
@@ -38,10 +39,23 @@ shadow_size = 0
 font = ExtResource("2_cmt26")
 font_size = 10
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w35yh"]
+texture = ExtResource("4_82nfj")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5q2q3"]
 bg_color = Color(0.933333, 0.901961, 0.74902, 1)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_82nfj"]
+content_margin_left = 18.0
+content_margin_top = 2.0
+content_margin_right = 20.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_jsd1q"]
 font = ExtResource("1_unlxm")
@@ -180,9 +194,10 @@ horizontal_alignment = 2
 [node name="Backpack" type="Panel" parent="GridContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_kkye7")
+theme_override_styles/panel = SubResource("StyleBoxTexture_w35yh")
 
 [node name="TitleBackground" type="Panel" parent="GridContainer/VBoxContainer/Backpack"]
+visible = false
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 15.0
@@ -193,12 +208,17 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -4.0
-offset_bottom = -4.0
+offset_top = -5.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
 theme = ExtResource("3_cmt26")
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 5
+theme_override_constants/inner_item_margin_right = 0
+theme_override_constants/inner_item_margin_top = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_82nfj")
 columns = 3
 column_titles_visible = true
 allow_search = false

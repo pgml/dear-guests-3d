@@ -45,6 +45,7 @@ content_margin_right = 5.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="QuickInventory" type="Control" node_paths=PackedStringArray("QuickInventoryItemList", "Label")]
+custom_minimum_size = Vector2(80, 100)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -57,12 +58,12 @@ offset_right = 40.0
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 script = ExtResource("1_kp16p")
 QuickInventoryItemList = NodePath("PanelBackground/VBoxContainer/Tree")
 Label = NodePath("PanelBackground/VBoxContainer/TitleBackground/Label")
 
 [node name="PanelBackground" type="Panel" parent="."]
-custom_minimum_size = Vector2(80, 100)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -21,7 +21,7 @@ public partial class UiInventory : UiControl
 	public override void _Input(InputEvent @event)
 	{
 		if (@event.IsActionPressed("toggle_inventory")
-			&& !_quickInventory.IsOpen
+			&& !IsInstanceValid(_quickInventory)
 		) {
 			_toggleInventory();
 		}

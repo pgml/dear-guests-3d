@@ -31,6 +31,10 @@ public partial class UiItemList : Tree
 
 	protected void ClearList()
 	{
+		if (TreeRoot is null) {
+			return;
+		}
+
 		ListItems.Clear();
 		foreach (var child in TreeRoot.GetChildren()) {
 			TreeRoot.RemoveChild(child);

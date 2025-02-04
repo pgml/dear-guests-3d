@@ -18,12 +18,27 @@ public partial class UiQuickInventory : UiControl
 		base._Ready();
 	}
 
-	public void Toggle(Vector2 position)
+	public void Open(Vector2 position)
 	{
 		Label.Text = Description;
 		QuickInventoryItemList.RestrictTypeTo = RestrictTypeTo;
 		QuickInventoryItemList.PopulateList();
+		TreeItem firstItem = QuickInventoryItemList.GetRoot().GetChildren()[0];
+		QuickInventoryItemList.GrabFocus();
+		QuickInventoryItemList.SetSelected(firstItem, 0);
+		firstItem.Select(0);
 		Position = position;
-		IsOpen = !IsOpen;
+		IsOpen = true;
+	}
+
+	public void Close()
+	{
+		if (QuickInventoryItemList is null) {
+			return;
+		}
+		Label.Text = "";
+		QuickInventoryItemList.RestrictTypeTo = ItemType.Any;
+		Position = new Vector2(1000, 1000);
+		IsOpen = false;
 	}
 }

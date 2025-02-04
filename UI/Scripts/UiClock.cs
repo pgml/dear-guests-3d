@@ -26,7 +26,7 @@ public partial class UiClock : Control
 
 	private void _setDate()
 	{
-		Date.Text = DateTime.CurrentDate();
+		Date.Text = DateTime.CurrentDateString();
 	}
 
 	private void _setTime()

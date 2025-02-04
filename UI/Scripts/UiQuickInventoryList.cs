@@ -31,6 +31,7 @@ public partial class UiQuickInventoryList : UiItemList
 				: "";
 
 			row.SetText(0, $"{item.Name}{amount}");
+			row.SetMetadata(0, item);
 			ListItems.Add(inventoryItem, row);
 		}
 	}

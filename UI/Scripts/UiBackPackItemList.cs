@@ -59,5 +59,10 @@ public partial class UiBackPackItemList : UiItemList
 
 			ListItems.Add(inventoryItem, row);
 		}
+
+		TreeItem firstItem = TreeRoot.GetChildren()[0];
+		CallDeferred("grab_focus");
+		SetSelected(firstItem, 0);
+		firstItem.Select(0);
 	}
 }

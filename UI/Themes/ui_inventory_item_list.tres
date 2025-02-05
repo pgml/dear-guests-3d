@@ -1,15 +1,21 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dgsbiabr6dh8c"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dgsbiabr6dh8c"]
 
 [ext_resource type="FontFile" uid="uid://deud5ibjki4n6" path="res://Resources/Fonts/EightBitDragon-anqx.ttf" id="1_vkowj"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_dwevv"]
 [ext_resource type="Texture2D" uid="uid://cfsmpf7f7udgi" path="res://Assets/Sprites/UI/ui_row_selected.png" id="3_dwevv"]
+[ext_resource type="Texture2D" uid="uid://cvyfj607vnaiv" path="res://Assets/Sprites/UI/ui_row_hover.png" id="3_t35q2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pp6k1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t35q2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pp6k1"]
-bg_color = Color(0.823529, 0.67451, 0.0862745, 0.117647)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yh81r"]
+texture = ExtResource("3_t35q2")
+texture_margin_left = 4.0
+texture_margin_top = 1.0
+texture_margin_right = 4.0
+texture_margin_bottom = 1.0
+region_rect = Rect2(0, 0, 36, 36)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ev57j"]
 content_margin_top = 2.0
@@ -19,10 +25,10 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ms8m5"]
 texture = ExtResource("3_dwevv")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 3.0
-texture_margin_bottom = 2.0
+texture_margin_left = 9.0
+texture_margin_top = 7.0
+texture_margin_right = 9.0
+texture_margin_bottom = 11.0
 expand_margin_left = 1.0
 expand_margin_top = 1.0
 expand_margin_right = 1.0
@@ -57,7 +63,7 @@ Tree/fonts/font = ExtResource("1_vkowj")
 Tree/fonts/title_button_font = ExtResource("2_dwevv")
 Tree/styles/custom_button = SubResource("StyleBoxEmpty_pp6k1")
 Tree/styles/focus = SubResource("StyleBoxEmpty_t35q2")
-Tree/styles/hovered = SubResource("StyleBoxFlat_pp6k1")
+Tree/styles/hovered = SubResource("StyleBoxTexture_yh81r")
 Tree/styles/panel = SubResource("StyleBoxFlat_ev57j")
 Tree/styles/selected_focus = SubResource("StyleBoxTexture_ms8m5")
 Tree/styles/title_button_hover = SubResource("StyleBoxFlat_rqtoc")

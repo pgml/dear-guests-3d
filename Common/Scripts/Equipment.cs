@@ -34,13 +34,12 @@ public partial class Equipment : Node3D
 		if (!Engine.IsEditorHint()) {
 			DateTime = GD.Load<DateTime>(Resources.DateTime);
 			//QuickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
+			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+			ActorData = GD.Load<CreatureData>(Resources.ActorData);
 		}
 
 		TriggerArea.BodyEntered += _onTriggerAreaBodyEntered;
 		TriggerArea.BodyExited += _onTriggerAreaBodyExited;
-
-		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-		ActorData = GD.Load<CreatureData>(Resources.ActorData);
 	}
 
 	public override void _Process(double delta)

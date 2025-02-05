@@ -43,9 +43,10 @@ public partial class UiReplicatorSettingsSlider : HSlider
 		ArtifactGrowCondition condition = _currentGrowCondition();
 		SliderProperties sliderProperties = new(Value, MaxValue, Step);
 
-		if (_replicatorStorage.Has(_sceneRoot.Replicator)) {
+		var replicator = _sceneRoot.Replicator;
+		if (_replicatorStorage.Replicators.ContainsKey(replicator)) {
 			_replicatorStorage.Replicator = _replicator;
-			var replicatorSettings = _replicatorStorage.Settings();
+			var replicatorSettings = _replicatorStorage.Content(replicator).Settings;
 			foreach (var (key, setting) in replicatorSettings) {
 				if (key == condition) {
 					Value = setting.Value;

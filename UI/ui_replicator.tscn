@@ -551,6 +551,7 @@ size_flags_horizontal = 4
 theme = ExtResource("2_7npvn")
 theme_override_fonts/font = ExtResource("1_q77f4")
 theme_override_font_sizes/font_size = 3
+allow_search = false
 hide_folding = true
 enable_recursive_folding = false
 hide_root = true

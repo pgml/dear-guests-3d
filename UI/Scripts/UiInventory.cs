@@ -10,27 +10,43 @@ public partial class UiInventory : UiControl
 	}}
 
 	private UiQuickInventory _quickInventory;
+	private Node _mainUi;
 
 	public override void _Ready()
 	{
 		base._Ready();
-		var mainUI = GetNode("/root/MainUI");
-		_quickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionPressed("toggle_inventory")
-			&& !IsInstanceValid(_quickInventory)
-		) {
-			_toggleInventory();
+		_mainUi = GetNode("/root/MainUI");
+		_quickInventory = _mainUi.FindChild("QuickInventory") as UiQuickInventory;
+		var uiReplicator = _mainUi.FindChild("UiReplicator") as UiReplicator;
+		bool toggleInventory = @event.IsActionPressed("toggle_inventory");
+
+		if (toggleInventory && !ActorData().IsAnyUiPanelOpen()) {
+			_openInventory();
+		}
+		else if (toggleInventory) {
+			_closeInventory();
 		}
 	}
 
-	private void _toggleInventory()
+	private void _openInventory()
 	{
-		float posY = !IsOpen ? 0 : Size.Y;
-		Position = new Vector2(0, posY);
-		IsOpen = !IsOpen;
+		if (!IsOpen) {
+			Position = Vector2.Zero;
+			IsOpen = true;
+			ActorData().IsInventoryOpen = IsOpen;
+		}
+	}
+
+	private void _closeInventory()
+	{
+		if (IsOpen) {
+			Position = new Vector2(0, Size.Y);
+			IsOpen = false;
+			ActorData().IsInventoryOpen = IsOpen;
+		}
 	}
 }

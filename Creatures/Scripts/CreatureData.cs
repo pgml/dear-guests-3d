@@ -39,6 +39,11 @@ public partial class CreatureData : Resource
 	public bool IsOnSlope = false;
 	public bool IsFacingEdge = false;
 
+	// ui states
+	public bool IsInventoryOpen = false;
+	public bool IsReplicatorOpen = false;
+	public bool IsQuickInventoryOpen = false;
+
 	// Component Helper
 	public EdgeCheckComponent EdgeCheck = new();
 	public JumpComponent JumpComponent = new();
@@ -63,5 +68,14 @@ public partial class CreatureData : Resource
 		}
 
 		return sprite;
+	}
+
+	public bool IsAnyUiPanelOpen()
+	{
+		if (IsInventoryOpen || IsQuickInventoryOpen || IsReplicatorOpen) {
+			return true;
+		}
+
+		return false;
 	}
 }

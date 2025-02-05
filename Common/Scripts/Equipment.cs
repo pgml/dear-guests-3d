@@ -25,9 +25,11 @@ public partial class Equipment : Node3D
 	}}
 	public UiQuickInventory QuickInventoryInstance = null;
 
+	protected CreatureData ActorData;
+
 	private Node3D _indicatorInstance;
 
-	public override void _Ready()
+	public async override void _Ready()
 	{
 		if (!Engine.IsEditorHint()) {
 			DateTime = GD.Load<DateTime>(Resources.DateTime);
@@ -36,6 +38,9 @@ public partial class Equipment : Node3D
 
 		TriggerArea.BodyEntered += _onTriggerAreaBodyEntered;
 		TriggerArea.BodyExited += _onTriggerAreaBodyExited;
+
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		ActorData = GD.Load<CreatureData>(Resources.ActorData);
 	}
 
 	public override void _Process(double delta)

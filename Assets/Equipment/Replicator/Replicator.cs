@@ -105,13 +105,9 @@ public partial class Replicator : Equipment
 			&& CanUse
 		) {
 			// temporarily add replicator ui to mainUI...
-			UiReplicatorInstance = UiReplicator.Instantiate<UiReplicator>();
-			GetNode("/root/MainUI").AddChild(UiReplicatorInstance);
-			Vector2 position = InventoryPosition(UiReplicatorInstance);
-			UiReplicatorInstance.Open(position);
+			OpenUi();
 		}
-
-		if (IsInstanceValid(UiReplicatorInstance)) {
+		else if (IsInstanceValid(UiReplicatorInstance)) {
 			if (@event.IsActionPressed("action_cancel")) {
 				CloseUi();
 			}
@@ -233,9 +229,19 @@ public partial class Replicator : Equipment
 		}
 	}
 
+	public void OpenUi()
+	{
+		if (!ActorData.IsAnyUiPanelOpen()) {
+			UiReplicatorInstance = UiReplicator.Instantiate<UiReplicator>();
+			GetNode("/root/MainUI").AddChild(UiReplicatorInstance);
+			Vector2 position = InventoryPosition(UiReplicatorInstance);
+			UiReplicatorInstance.Open(position);
+		}
+	}
+
 	public void CloseUi()
 	{
-		UiReplicatorInstance.QueueFree();
+		UiReplicatorInstance.Close();
 	}
 
 	public void SetupMesh()

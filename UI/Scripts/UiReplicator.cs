@@ -73,6 +73,10 @@ public partial class UiReplicator : UiControl
 	public Button CloseButton { get; set; }
 
 
+	public PackedScene PackedUiReplicator { get {
+		return GD.Load<PackedScene>(Resources.UiReplicator);
+	}}
+
 	protected Inventory ActorInventory { get {
 		return !Engine.IsEditorHint()
 			? GD.Load<Inventory>(Resources.ActorInventory)
@@ -101,6 +105,13 @@ public partial class UiReplicator : UiControl
 		firstItem.Select(0);
 		Position = position;
 		IsOpen = true;
+		ActorData().IsReplicatorOpen = true;
+	}
+
+	public void Close()
+	{
+		QueueFree();
+		ActorData().IsReplicatorOpen = false;
 	}
 
 	public void PopulateList()

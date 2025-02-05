@@ -1,8 +1,29 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://debmpq2sbx6j8"]
+[gd_resource type="Resource" load_steps=9 format=3 uid="uid://debmpq2sbx6j8"]
 
 [ext_resource type="Script" uid="uid://b4s3eldqbyqqv" path="res://Inventory/Scripts/Inventory.cs" id="1_tjkxb"]
+[ext_resource type="Resource" uid="uid://bwk10r1yuh1to" path="res://Items/Artifacts/artifact_feather.tres" id="2_ormwg"]
 [ext_resource type="Script" uid="uid://bbwkvf47k1xp1" path="res://Inventory/Scripts/InventoryItemResource.cs" id="2_r51eg"]
+[ext_resource type="Resource" uid="uid://dgfy5kgja7dvl" path="res://Items/Artifacts/artifact_pacifist.tres" id="3_f5ro0"]
+[ext_resource type="Resource" uid="uid://bgua2dee46e2j" path="res://Items/Junk/bolt.tres" id="4_mk5dh"]
+
+[sub_resource type="Resource" id="Resource_fvods"]
+script = ExtResource("2_r51eg")
+ItemResource = ExtResource("2_ormwg")
+Amount = 60
+metadata/_custom_type_script = ExtResource("2_r51eg")
+
+[sub_resource type="Resource" id="Resource_dvcg0"]
+script = ExtResource("2_r51eg")
+ItemResource = ExtResource("3_f5ro0")
+Amount = 20
+metadata/_custom_type_script = ExtResource("2_r51eg")
+
+[sub_resource type="Resource" id="Resource_ormwg"]
+script = ExtResource("2_r51eg")
+ItemResource = ExtResource("4_mk5dh")
+Amount = 50
+metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [resource]
 script = ExtResource("1_tjkxb")
-Items = Array[ExtResource("2_r51eg")]([])
+Items = Array[ExtResource("2_r51eg")]([SubResource("Resource_fvods"), SubResource("Resource_dvcg0"), SubResource("Resource_ormwg")])

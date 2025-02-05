@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://wdvffohf5vt3"]
+[gd_scene load_steps=21 format=3 uid="uid://wdvffohf5vt3"]
 
 [ext_resource type="Script" uid="uid://dgep2ce7cdd4n" path="res://UI/Scripts/UiInventory.cs" id="1_jsd1q"]
 [ext_resource type="FontFile" uid="uid://deud5ibjki4n6" path="res://Resources/Fonts/EightBitDragon-anqx.ttf" id="1_unlxm"]
@@ -56,6 +56,8 @@ content_margin_left = 18.0
 content_margin_top = 2.0
 content_margin_right = 20.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5y368"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jsd1q"]
 font = ExtResource("1_unlxm")
@@ -214,14 +216,16 @@ grow_horizontal = 2
 grow_vertical = 2
 localize_numeral_system = false
 theme = ExtResource("3_cmt26")
-theme_override_constants/h_separation = 2
-theme_override_constants/v_separation = 5
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 2
+theme_override_constants/inner_item_margin_bottom = 0
 theme_override_constants/inner_item_margin_left = 3
 theme_override_constants/inner_item_margin_right = 4
-theme_override_constants/inner_item_margin_top = 3
-theme_override_constants/item_margin = 0
+theme_override_constants/inner_item_margin_top = 1
+theme_override_constants/item_margin = 1
+theme_override_constants/icon_max_width = 11
+theme_override_font_sizes/font_size = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_82nfj")
-columns = 3
 column_titles_visible = true
 allow_search = false
 hide_folding = true
@@ -241,7 +245,7 @@ size_flags_vertical = 0
 [node name="Panel" type="Panel" parent="GridContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_kkye7")
+theme_override_styles/panel = SubResource("StyleBoxTexture_w35yh")
 
 [node name="TitleBackground" type="Panel" parent="GridContainer/VBoxContainer2/Panel"]
 custom_minimum_size = Vector2(0, 15)
@@ -250,17 +254,17 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 15.0
 grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5q2q3")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5y368")
 
 [node name="Label" type="Label" parent="GridContainer/VBoxContainer2/Panel/TitleBackground"]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 3.0
-offset_top = -4.5
-offset_right = 25.0
-offset_bottom = 4.5
+offset_left = 6.5
+offset_top = -3.5
+offset_right = 23.5
+offset_bottom = 3.5
 grow_vertical = 2
 text = "Belt"
 label_settings = SubResource("LabelSettings_jsd1q")

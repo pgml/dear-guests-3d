@@ -126,7 +126,7 @@ anti_aliasing = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvt2l"]
 
 [node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "CloseButton")]
-custom_minimum_size = Vector2(180, 140)
+custom_minimum_size = Vector2(200, 140)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -223,8 +223,9 @@ theme_override_styles/separator = SubResource("StyleBoxLine_7npvn")
 
 [node name="SettingsHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(50, 10)
+custom_minimum_size = Vector2(65, 10)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 8
 text = "Settings"
 label_settings = SubResource("LabelSettings_fmhyj")
@@ -233,9 +234,9 @@ vertical_alignment = 1
 uppercase = true
 
 [node name="ItemsHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
-custom_minimum_size = Vector2(50, 10)
+custom_minimum_size = Vector2(65, 10)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 size_flags_vertical = 8
 text = "Use Artifact"
 label_settings = SubResource("LabelSettings_fmhyj")
@@ -265,7 +266,7 @@ theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxEmpty_uo0nm")
 
 [node name="Panel" type="Panel" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -409,9 +410,9 @@ theme_override_styles/separator = SubResource("StyleBoxLine_q77f4")
 
 [node name="SettingsWindow" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer"]
 visible = false
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 size_flags_vertical = 0
 
 [node name="HSeparator" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
@@ -430,6 +431,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Humidity"
 label_settings = SubResource("LabelSettings_rvt2l")
+uppercase = true
 
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity/Row"]
 layout_mode = 2
@@ -453,6 +455,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Pressure"
 label_settings = SubResource("LabelSettings_rvt2l")
+uppercase = true
 
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure/Row"]
 layout_mode = 2
@@ -478,6 +481,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Brightness"
 label_settings = SubResource("LabelSettings_rvt2l")
+uppercase = true
 
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness/Row"]
 layout_mode = 2
@@ -502,6 +506,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Wind"
 label_settings = SubResource("LabelSettings_rvt2l")
+uppercase = true
 
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity/Row"]
 layout_mode = 2
@@ -526,6 +531,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Temperature"
 label_settings = SubResource("LabelSettings_rvt2l")
+uppercase = true
 
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
 layout_mode = 2
@@ -545,12 +551,13 @@ theme_override_styles/grabber_area = SubResource("StyleBoxFlat_rvt2l")
 max_value = 50.0
 
 [node name="Tree" type="Tree" parent="PanelBackground/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_7npvn")
+theme_override_constants/v_separation = 0
 theme_override_fonts/font = ExtResource("1_q77f4")
-theme_override_font_sizes/font_size = 3
+theme_override_font_sizes/font_size = 4
 allow_search = false
 hide_folding = true
 enable_recursive_folding = false

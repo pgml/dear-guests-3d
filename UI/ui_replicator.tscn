@@ -450,6 +450,7 @@ label_settings = SubResource("LabelSettings_rvt2l")
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("8_uvw6a")
+value = 60.0
 script = ExtResource("9_ejr2r")
 
 [node name="Pressure" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
@@ -483,6 +484,8 @@ layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("8_uvw6a")
 max_value = 1000.0
+step = 10.0
+value = 100.0
 script = ExtResource("9_ejr2r")
 
 [node name="Brightness" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
@@ -587,6 +590,7 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_7npvn")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_rvt2l")
 max_value = 200.0
 step = 5.0
+value = 20.0
 script = ExtResource("9_ejr2r")
 
 [node name="Tree" type="Tree" parent="PanelBackground/VBoxContainer/HBoxContainer"]

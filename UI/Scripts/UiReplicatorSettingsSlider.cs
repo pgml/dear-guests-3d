@@ -25,25 +25,38 @@ public partial class UiReplicatorSettingsSlider : HSlider
 
 	private Label _amount;
 	private UiReplicator _sceneRoot;
+	private ReplicatorStorage _replicatorStorage = new();
+	private Replicator _replicator;
 
 	public override void _Ready()
 	{
 		_amount = GetParent().FindChild("Amount", true) as Label;
 		_sceneRoot = Owner as UiReplicator;
-		_setInitialValue();
+		_replicatorStorage = GD.Load<ReplicatorStorage>(Resources.ReplicatorStorage);
 
+		_setInitialValue();
 		ValueChanged += _onSliderValueChanged;
 	}
 
 	private void _setInitialValue()
 	{
 		ArtifactGrowCondition condition = _currentGrowCondition();
-		Replicator replicator = _sceneRoot.Replicator;
-		var replicatorSettings = replicator.CurrentSettings;
-		if (replicatorSettings.ContainsKey(condition)) {
-			Value = replicatorSettings[condition].Value;
+		SliderProperties sliderProperties = new(Value, MaxValue, Step);
+
+		if (_replicatorStorage.Has(_sceneRoot.Replicator)) {
+			_replicatorStorage.Replicator = _replicator;
+			var replicatorSettings = _replicatorStorage.Settings();
+			foreach (var (key, setting) in replicatorSettings) {
+				if (key == condition) {
+					Value = setting.Value;
+					sliderProperties = setting;
+					break;
+				}
+			}
 		}
+
 		_amount.Text = Value.ToString();
+		_sceneRoot.Replicator.UpdateSettings(condition, sliderProperties);
 	}
 
 	private void _onSliderValueChanged(double value)

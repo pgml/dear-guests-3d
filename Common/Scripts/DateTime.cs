@@ -26,6 +26,11 @@ public partial class DateTime : Resource
 		EmitSignal(SignalName.DateTimeUpdated, DateTimeHours, DayOfYear, Year);
 	}
 
+	public int DayOfMonth()
+	{
+		return CurrentDate().Day;
+	}
+
 	public int Hours()
 	{
 		return (int)DateTimeHours;
@@ -63,7 +68,7 @@ public partial class DateTime : Resource
 	public System.DateTime Now()
 	{
 		return new System.DateTime(
-			1969 + Year, Month(), DayOfYear,
+			1969 + Year, Month(), DayOfMonth(),
 			Hours(), Minutes(), 0
 		);
 	}

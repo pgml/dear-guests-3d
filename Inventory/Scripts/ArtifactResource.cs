@@ -19,13 +19,13 @@ public partial class ArtifactResource : ItemResource
 {
 	[ExportCategory("Artifact Properties")]
 	[Export]
-	public GDC.Dictionary<ArtifactGrowCondition, float> GrowConditions { get; set; }
+	public GDC.Dictionary<ArtifactGrowCondition, float> OptionalGrowConditions { get; set; }
 
 	[Export]
 	public Color ReplicatorGlowColour  { get; set; }
 
 	[Export]
-	public float ReplicationTime  { get; set; }
+	public float FastestReplicationTime  { get; set; }
 
 	[Export]
 	public float GrowPowerConsumption { get; set; } = 0;

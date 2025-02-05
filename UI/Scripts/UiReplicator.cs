@@ -77,6 +77,13 @@ public partial class UiReplicator : UiControl
 		return GD.Load<PackedScene>(Resources.UiReplicator);
 	}}
 
+	public Dictionary<
+		ArtifactGrowCondition,
+		SliderProperties
+	> SliderValues { get; set; } = new();
+
+	public Replicator Replicator { get; set; }
+
 	protected Inventory ActorInventory { get {
 		return !Engine.IsEditorHint()
 			? GD.Load<Inventory>(Resources.ActorInventory)
@@ -114,6 +121,11 @@ public partial class UiReplicator : UiControl
 		ActorData().IsReplicatorOpen = false;
 	}
 
+	public HSlider Slider(VBoxContainer parent)
+	{
+		return parent.FindChild("Slider") as HSlider;
+	}
+
 	public void PopulateList()
 	{
 		var items = ActorInventory.GetItemsOfType(ItemType.Artifact);
@@ -133,7 +145,8 @@ public partial class UiReplicator : UiControl
 				? $" ({inventoryItem.Amount.ToString()})"
 				: "";
 
-			row.SetText(0, $"{item.Name.ToUpper()}{amount}");
+			//row.SetText(0, $"{item.Name.ToUpper()}{amount}");
+			row.SetText(0, $"{item.Name.ToUpper()}");
 			row.SetMetadata(0, item);
 			ListItems.Add(inventoryItem, row);
 		}

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public enum ReplicatorType
 {
@@ -7,6 +8,27 @@ public enum ReplicatorType
 	Type2,
 	Type3,
 	Type4
+}
+
+public struct ReplicatorSettings
+{
+	public Dictionary<
+		ArtifactGrowCondition,
+		SliderProperties
+	> Values { get; set; } = new();
+
+	public ReplicatorSettings(
+		ArtifactGrowCondition condition,
+		SliderProperties properties
+	)
+	{
+		if (Values.ContainsKey(condition)) {
+			Values[condition] = properties;
+			return;
+		}
+
+		Values.Add(condition, properties);
+	}
 }
 
 [Tool]
@@ -48,6 +70,11 @@ public partial class Replicator : Equipment
 
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
+	public Dictionary<
+		ArtifactGrowCondition,
+		SliderProperties
+	> CurrentSettings { get; set; } = new();
+
 	private string _meshNodeName = "Mesh";
 	private ReplicatorStorage _replicatorStorage = new();
 	private ReplicatorContent _replicatorContent;
@@ -78,14 +105,14 @@ public partial class Replicator : Equipment
 				Callable.From(InsertArtifact)
 			);
 
-			if (!isPressedConnected) {
-				UiReplicatorInstance.ReplicateButton.Pressed += InsertArtifact;
-			}
-
 			bool isClosedConnected = UiReplicatorInstance.CloseButton.IsConnected(
 				"pressed",
 				Callable.From(CloseUi)
 			);
+
+			if (!isPressedConnected) {
+				UiReplicatorInstance.ReplicateButton.Pressed += InsertArtifact;
+			}
 
 			if (!isClosedConnected) {
 				UiReplicatorInstance.CloseButton.Pressed += CloseUi;
@@ -227,12 +254,40 @@ public partial class Replicator : Equipment
 		foreach (OmniLight3D light in LightsParent.GetChildren()) {
 			light.LightColor = LightColor;
 		}
+
+		OmniLight3D tubeLight = LightsParent.GetChild<OmniLight3D>(0);
+		var brightnessEnum = ArtifactGrowCondition.Brightness;
+
+		if (CurrentSettings.ContainsKey(brightnessEnum)) {
+			var sliderProps = CurrentSettings[brightnessEnum];
+			float lightEnergy = Mathf.Sqrt((float)sliderProps.Value / 100);
+			tubeLight.LightEnergy = lightEnergy;
+			tubeLight.OmniRange = 5 + ((float)sliderProps.Value / 500) * 3;
+
+			if (lightEnergy == 0) {
+				Activated = false;
+			}
+		}
+	}
+
+	public void UpdateSettings(
+		ArtifactGrowCondition condition,
+		SliderProperties sliderProperties
+	)
+	{
+		if (CurrentSettings.ContainsKey(condition)) {
+			CurrentSettings[condition] = sliderProperties;
+			return;
+		}
+
+		CurrentSettings.Add(condition, sliderProperties);
 	}
 
 	public void OpenUi()
 	{
 		if (!ActorData.IsAnyUiPanelOpen()) {
 			UiReplicatorInstance = UiReplicator.Instantiate<UiReplicator>();
+			UiReplicatorInstance.Replicator = this;
 			GetNode("/root/MainUI").AddChild(UiReplicatorInstance);
 			Vector2 position = InventoryPosition(UiReplicatorInstance);
 			UiReplicatorInstance.Open(position);

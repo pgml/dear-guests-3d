@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://y5737vxpy2m0"]
+[gd_scene load_steps=40 format=3 uid="uid://y5737vxpy2m0"]
 
 [ext_resource type="Script" uid="uid://dsispj3jb0do8" path="res://UI/Scripts/UiReplicator.cs" id="1_7npvn"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_q77f4"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://krogb3sj3h4a" path="res://Assets/Sprites/UI/ui_btn_pressed_bg.png" id="6_ev57j"]
 [ext_resource type="Texture2D" uid="uid://cxkqjrhbwsxwo" path="res://Assets/Sprites/UI/ui_slider_grabber_normal.png" id="8_uo0nm"]
 [ext_resource type="Theme" uid="uid://bnw6cb1cxtjwv" path="res://UI/Themes/ui_slider.tres" id="8_uvw6a"]
+[ext_resource type="Script" uid="uid://ceii68sqwv6x7" path="res://UI/Scripts/UiReplicatorSettingsSlider.cs" id="9_ejr2r"]
 [ext_resource type="Texture2D" uid="uid://ccgh7t22w0hw2" path="res://Assets/Sprites/UI/ui_slider_grabber_hover.png" id="9_ms8m5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m5fok"]
@@ -417,7 +418,7 @@ size_flags_vertical = 0
 
 [node name="HSeparator" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_uo0nm")
 
 [node name="Humidity" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
@@ -426,6 +427,7 @@ theme_override_constants/separation = 2
 
 [node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity"]
 layout_mode = 2
+theme_override_constants/separation = 1
 
 [node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity/Row"]
 layout_mode = 2
@@ -436,13 +438,19 @@ uppercase = true
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity/Row"]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "0%"
+text = "0"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Unit" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity/Row"]
+layout_mode = 2
+text = "%"
 label_settings = SubResource("LabelSettings_rvt2l")
 
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("8_uvw6a")
+script = ExtResource("9_ejr2r")
 
 [node name="Pressure" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
 layout_mode = 2
@@ -450,6 +458,7 @@ theme_override_constants/separation = 0
 
 [node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure"]
 layout_mode = 2
+theme_override_constants/separation = 1
 
 [node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure/Row"]
 layout_mode = 2
@@ -460,15 +469,21 @@ uppercase = true
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure/Row"]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "0 kPa"
+text = "0"
 label_settings = SubResource("LabelSettings_rvt2l")
 horizontal_alignment = 2
+
+[node name="Unit" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure/Row"]
+layout_mode = 2
+text = "kPa"
+label_settings = SubResource("LabelSettings_rvt2l")
 
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("8_uvw6a")
 max_value = 1000.0
+script = ExtResource("9_ejr2r")
 
 [node name="Brightness" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
 layout_mode = 2
@@ -476,6 +491,7 @@ theme_override_constants/separation = 2
 
 [node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness"]
 layout_mode = 2
+theme_override_constants/separation = 1
 
 [node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness/Row"]
 layout_mode = 2
@@ -486,14 +502,22 @@ uppercase = true
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness/Row"]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "0 Lm"
+text = "0"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Unit" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness/Row"]
+layout_mode = 2
+text = "Lm"
 label_settings = SubResource("LabelSettings_rvt2l")
 
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("8_uvw6a")
-max_value = 1000.0
+max_value = 2000.0
+step = 10.0
+value = 100.0
+script = ExtResource("9_ejr2r")
 
 [node name="WindVelocity" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
 layout_mode = 2
@@ -501,6 +525,7 @@ theme_override_constants/separation = 2
 
 [node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity"]
 layout_mode = 2
+theme_override_constants/separation = 1
 
 [node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity/Row"]
 layout_mode = 2
@@ -511,14 +536,20 @@ uppercase = true
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity/Row"]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "0 km/h"
+text = "0"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Unit" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity/Row"]
+layout_mode = 2
+text = "km/h"
 label_settings = SubResource("LabelSettings_rvt2l")
 
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("8_uvw6a")
-max_value = 50.0
+step = 5.0
+script = ExtResource("9_ejr2r")
 
 [node name="Temparature" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
 layout_mode = 2
@@ -526,6 +557,7 @@ theme_override_constants/separation = 2
 
 [node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature"]
 layout_mode = 2
+theme_override_constants/separation = 1
 
 [node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
 layout_mode = 2
@@ -536,7 +568,12 @@ uppercase = true
 [node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "0 °C"
+text = "0"
+label_settings = SubResource("LabelSettings_rvt2l")
+
+[node name="Unit" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
+layout_mode = 2
+text = "°C"
 label_settings = SubResource("LabelSettings_rvt2l")
 
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature"]
@@ -548,7 +585,9 @@ theme_override_icons/grabber_highlight = ExtResource("9_ms8m5")
 theme_override_icons/grabber_disabled = SubResource("PlaceholderTexture2D_q77f4")
 theme_override_styles/slider = SubResource("StyleBoxFlat_7npvn")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_rvt2l")
-max_value = 50.0
+max_value = 200.0
+step = 5.0
+script = ExtResource("9_ejr2r")
 
 [node name="Tree" type="Tree" parent="PanelBackground/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(65, 0)

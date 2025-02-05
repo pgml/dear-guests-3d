@@ -10,27 +10,6 @@ public enum ReplicatorType
 	Type4
 }
 
-public struct ReplicatorSettings
-{
-	public Dictionary<
-		ArtifactGrowCondition,
-		SliderProperties
-	> Values { get; set; } = new();
-
-	public ReplicatorSettings(
-		ArtifactGrowCondition condition,
-		SliderProperties properties
-	)
-	{
-		if (Values.ContainsKey(condition)) {
-			Values[condition] = properties;
-			return;
-		}
-
-		Values.Add(condition, properties);
-	}
-}
-
 [Tool]
 [GlobalClass]
 public partial class Replicator : Equipment

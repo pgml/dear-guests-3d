@@ -1,4 +1,6 @@
 using Godot;
+using System;
+using System.Reflection;
 
 public static partial class Tools
 {
@@ -17,4 +19,14 @@ public static partial class Tools
 		}
 		return true;
 	}
+
+	#nullable enable
+	public static T? GetCustomAttribute<T, TEnum>(TEnum enumValue)
+		where T : Attribute
+		where TEnum : Enum
+	{
+		FieldInfo? fieldInfo = typeof(TEnum).GetField(enumValue.ToString());
+		return fieldInfo?.GetCustomAttribute<T>();
+	}
+	#nullable disable
 }

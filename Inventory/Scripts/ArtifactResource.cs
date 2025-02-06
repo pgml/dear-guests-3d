@@ -1,17 +1,36 @@
 using Godot;
 using GDC = Godot.Collections;
+using System;
+using System.Collections.Generic;
+
+
+[AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+public partial class AbbrAttribute : Attribute
+{
+	public string Abbreviation { get; }
+
+	public AbbrAttribute(string abbr)
+	{
+		Abbreviation = abbr;
+	}
+}
 
 public enum ArtifactGrowCondition
 {
 	// in percent
+	[Abbr("HUM")]
 	Humidity,
 	// in bar
+	[Abbr("P")]
 	Pressure,
 	// in lumen
+	[Abbr("BRT")]
 	Brightness,
 	// in km/s
+	[Abbr("WVEL")]
 	WindVelocity,
 	// in C°
+	[Abbr("TEMP")]
 	Temperature
 }
 
@@ -78,5 +97,21 @@ public partial class ArtifactResource : ItemResource
 			(double)penalty.ToFloat(),
 			(double)tolerance.ToFloat()
 		);
+	}
+
+	public List<string> RequiredConditions()
+	{
+		List<string> requiredConditions = new();
+
+		foreach (var (condition, value) in OptimalGrowConditions) {
+			ArtifactGrowCondition cond = condition;
+			string abbr = Tools.GetCustomAttribute<
+				AbbrAttribute,
+				ArtifactGrowCondition
+			>(cond)?.Abbreviation;
+			requiredConditions.Add(abbr);
+		}
+
+		return requiredConditions;
 	}
 }

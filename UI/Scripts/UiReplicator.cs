@@ -14,6 +14,13 @@ public partial class UiReplicator : UiControl
 
 	[Export]
 	public Label ArtifactName { get; set; }
+
+	[Export]
+	public Label DescriptionConditions { get; set; }
+
+	[Export]
+	public Label RequiredConditions { get; set; }
+
 	[Export]
 	public Label DescriptionStartTime { get; set; }
 
@@ -99,6 +106,7 @@ public partial class UiReplicator : UiControl
 	protected Dictionary<InventoryItemResource, TreeItem> ListItems = new();
 
 	private string _defaultArtifactName = "[INSERT ARTIFACT]";
+	private string _defaultRequiredConditions = "-";
 	private string _defaultStartTime = "-";
 	private string _defaultProgress = "-";
 	private string _defaultEndTime = "-";
@@ -148,16 +156,13 @@ public partial class UiReplicator : UiControl
 	{
 		bool hasArtifact = artifact is not null;
 
-		//GD.PrintS(
-		//	startTimeString,
-		//	progress,
-		//	remainingTime,
-		//	isReplicating
-		//);
-
 		ArtifactName.Text = hasArtifact
 			? artifact.Name
 			: _defaultArtifactName;
+
+		RequiredConditions.Text = hasArtifact
+			? artifact.RequiredConditions().ToArray().Join(",")
+			: _defaultRequiredConditions;
 
 		StartTime.Text = isReplicating && hasArtifact
 			? startTimeString

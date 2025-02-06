@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://y5737vxpy2m0"]
+[gd_scene load_steps=40 format=3 uid="uid://y5737vxpy2m0"]
 
 [ext_resource type="Script" uid="uid://dsispj3jb0do8" path="res://UI/Scripts/UiReplicator.cs" id="1_7npvn"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_q77f4"]
@@ -74,6 +74,17 @@ font = ExtResource("1_q77f4")
 font_size = 4
 font_color = Color(0.239216, 0, 0.0235294, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_lc4qy"]
+line_spacing = 0.0
+font = ExtResource("1_q77f4")
+font_size = 3
+font_color = Color(0.239216, 0, 0.0235294, 0.588235)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ejr2r"]
+font = ExtResource("1_q77f4")
+font_size = 3
+font_color = Color(0.239216, 0, 0.0235294, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ms8m5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvt2l"]
@@ -121,8 +132,8 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvt2l"]
 
-[node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "InsertButton", "CancelButton", "CloseButton")]
-custom_minimum_size = Vector2(200, 140)
+[node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionConditions", "RequiredConditions", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "InsertButton", "CancelButton", "CloseButton")]
+custom_minimum_size = Vector2(200, 155)
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -138,6 +149,8 @@ InfoHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxConta
 ArtifactIcon = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Panel/TextureButton")
 ReplicatorStatus = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/Title")
 ArtifactName = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/ArtifactName")
+DescriptionConditions = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/DescriptionCondition")
+RequiredConditions = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/Conditions")
 DescriptionStartTime = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/DescriptionTime")
 StartTime = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/StartTime")
 DescriptionProgress = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/DescriptionProgress")
@@ -318,6 +331,23 @@ uppercase = true
 layout_mode = 2
 text = "[Insert Artifact]"
 label_settings = SubResource("LabelSettings_dfymb")
+uppercase = true
+
+[node name="HSeparator6" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ejr2r")
+
+[node name="DescriptionCondition" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "Required conditions"
+label_settings = SubResource("LabelSettings_lc4qy")
+uppercase = true
+
+[node name="Conditions" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]
+layout_mode = 2
+text = "-"
+label_settings = SubResource("LabelSettings_ejr2r")
 uppercase = true
 
 [node name="HSeparator2" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer"]

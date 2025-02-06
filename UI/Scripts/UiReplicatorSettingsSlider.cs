@@ -26,7 +26,6 @@ public partial class UiReplicatorSettingsSlider : HSlider
 	private Label _amount;
 	private UiReplicator _sceneRoot;
 	private ReplicatorStorage _replicatorStorage = new();
-	private Replicator _replicator;
 
 	public override void _Ready()
 	{
@@ -45,8 +44,7 @@ public partial class UiReplicatorSettingsSlider : HSlider
 
 		var replicator = _sceneRoot.Replicator;
 		if (_replicatorStorage.Replicators.ContainsKey(replicator)) {
-			_replicatorStorage.Replicator = _replicator;
-			var replicatorSettings = _replicatorStorage.Content(replicator).Settings;
+			var replicatorSettings = _replicatorStorage.Replicators[replicator].Settings;
 			foreach (var (key, setting) in replicatorSettings) {
 				if (key == condition) {
 					Value = setting.Value;

@@ -29,64 +29,23 @@ public partial class ReplicatorStorage : Resource
 		ReplicatorContent
 	> Replicators { get; set; } = new();
 
-	public Replicator Replicator { get; set; } = new();
-
 	public void Add(Replicator replicator, ReplicatorContent content)
 	{
-		if (Replicators.ContainsKey(Replicator)) {
-			Replicators.Add(Replicator, content);
+		if (!Replicators.ContainsKey(replicator)) {
+			Replicators.Add(replicator, content);
 		}
 	}
 
 	public void Update(Replicator replicator, ReplicatorContent  content)
 	{
-		Replicators[Replicator] = content;
+		Replicators[replicator] = content;
 	}
 
-	public ReplicatorContent Content(Replicator replicator)
+	/// <summary>
+	/// Just a shorter way of ReplicatorStorage.Replicators.ContainsKey(replicator);
+	/// </summary>
+	public bool Has(Replicator replicator)
 	{
-		return Replicators[replicator];
+		return Replicators.ContainsKey(replicator);
 	}
-
-
-	//public Dictionary<ArtifactGrowCondition, SliderProperties> Settings()
-	//{
-	//	if (Replicator is null) {
-	//		return new();
-	//	}
-	//	return Replicators[Replicator].Settings;
-	//}
-
-	//public ArtifactResource Artifact()
-	//{
-	//	if (Replicator is null) {
-	//		return new();
-	//	}
-	//	return Replicators[Replicator].Artifact;
-	//}
-
-	//public double ReplicationStart()
-	//{
-	//	if (Replicator is null) {
-	//		return -1;
-	//	}
-	//	return Replicators[Replicator].ReplicationStart;
-	//}
-
-	//public float Progress()
-	//{
-	//	if (Replicator is null) {
-	//		return -1;
-	//	}
-	//	return Replicators[Replicator].Progress;
-	//}
-
-	//public bool Has(Replicator replicator)
-	//{
-	//	if (Replicators.ContainsKey(replicator)) {
-	//		Replicator = replicator;
-	//		return true;
-	//	}
-	//	return false;
-	//}
 }

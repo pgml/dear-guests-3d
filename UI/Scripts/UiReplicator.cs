@@ -70,6 +70,9 @@ public partial class UiReplicator : UiControl
 	public Button ReplicateButton { get; set; }
 
 	[Export]
+	public Button InsertButton { get; set; }
+
+	[Export]
 	public Button CloseButton { get; set; }
 
 

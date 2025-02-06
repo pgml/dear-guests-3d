@@ -45,8 +45,8 @@ public partial class Replicator : Equipment
 	public PackedScene UiReplicator { get {
 		return GD.Load<PackedScene>(Resources.UiReplicator);
 	}}
-	public UiReplicator UiReplicatorInstance = null;
 
+	public UiReplicator UiReplicatorInstance = null;
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
 	public Dictionary<
@@ -64,40 +64,36 @@ public partial class Replicator : Equipment
 
 		if (!Engine.IsEditorHint()) {
 			_replicatorStorage = GD.Load<ReplicatorStorage>(Resources.ReplicatorStorage);
-			//_replicatorStorage.Replicator = this;
 		}
 	}
 
 	public override void _Process(double delta)
 	{
-		if (Engine.IsEditorHint()) {
-			return;
-		}
-
 		if (LightsParent is not null) {
 			SetLights();
 		}
 
 		if (IsInstanceValid(UiReplicatorInstance) && UiReplicatorInstance.IsOpen) {
-			bool isPressedConnected = UiReplicatorInstance.ReplicateButton.IsConnected(
+			UiReplicator instance = UiReplicatorInstance;
+			bool isPressedConnected = instance.ReplicateButton.IsConnected(
 				"pressed",
 				Callable.From(InsertArtifact)
 			);
 
-			bool isClosedConnected = UiReplicatorInstance.CloseButton.IsConnected(
+			bool isClosedConnected = instance.CloseButton.IsConnected(
 				"pressed",
 				Callable.From(CloseUi)
 			);
 
 			if (!isPressedConnected) {
-				UiReplicatorInstance.ReplicateButton.Pressed += InsertArtifact;
+				instance.ReplicateButton.Pressed += InsertArtifact;
 			}
 
 			if (!isClosedConnected) {
-				UiReplicatorInstance.CloseButton.Pressed += CloseUi;
+				instance.CloseButton.Pressed += CloseUi;
 			}
 
-			_currentArtifact = _replicatorStorage.Content(this).Artifact;
+			_currentArtifact = Content().Artifact;
 			if (_currentArtifact is not null) {
 				_updateReplicatorInstanceUi();
 			}
@@ -106,6 +102,10 @@ public partial class Replicator : Equipment
 
 	public override void _Input(InputEvent @event)
 	{
+		if (Engine.IsEditorHint()) {
+			return;
+		}
+
 		if (!IsInstanceValid(UiReplicatorInstance)
 			&& (@event.IsActionReleased("action_use"))
 			&& CanUse
@@ -127,7 +127,6 @@ public partial class Replicator : Equipment
 			_currentArtifact = (ArtifactResource)selectedItem.GetMetadata(0);
 
 			if (IsInstanceValid(_currentArtifact)) {
-				var replicators = _replicatorStorage.Replicators;
 				_replicatorStorage.Update(this, new ReplicatorContent(
 					_currentArtifact,
 					DateTime.TimeStamp(),
@@ -144,11 +143,10 @@ public partial class Replicator : Equipment
 	{
 		if (_currentArtifact is not null) {
 			UiReplicator instance = UiReplicatorInstance;
-			double replicationStart = _replicatorStorage.Content(this).ReplicationStart;
-
 			instance.ReplicatorStatus.Visible = true;
 			instance.ReplicatorStatus.Text = "Replicating artifact...";
 			instance.ArtifactName.Text = _currentArtifact.Name;
+
 			instance.StartTime.Text = StartTimeString();
 			instance.Progress.Text = $"{Progress()}%";
 			instance.EndTime.Text = $"~ {RemainingTime()}h";
@@ -177,7 +175,7 @@ public partial class Replicator : Equipment
 
 	public double StartTime()
 	{
-		return _replicatorStorage.Content(this).ReplicationStart;
+		return Content().ReplicationStart;
 	}
 
 	public string StartTimeString()
@@ -202,9 +200,8 @@ public partial class Replicator : Equipment
 		double penalty = 0;
 
 		foreach (var (condition, value) in _currentArtifact.OptionalGrowConditions) {
-			//if (_replicatorStorage.Has(this)) {
-			if (_replicatorStorage.Replicators.ContainsKey(this)) {
-				var properties = _replicatorStorage.Content(this).Settings[condition];
+			if (_replicatorStorage.Has(this)) {
+				var properties = Content().Settings[condition];
 				var optimalCondition = _currentArtifact.OptionalGrowConditions[condition];
 				penalty = optimalReplicationTime + Mathf.FloorToInt(
 					Mathf.Abs(properties.Value - optimalCondition) / increaseStep
@@ -230,15 +227,14 @@ public partial class Replicator : Equipment
 		}
 
 		bool hasContent = false;
-		//if (_replicatorStorage.Has(this)) {
-		if (_replicatorStorage.Replicators.ContainsKey(this)) {
+		if (_replicatorStorage.Has(this)) {
 			hasContent = true;
 		}
 
 		LightsParent.Visible = Activated;
 		if (hasContent) {
 			Activated = true;
-			LightColor = _replicatorStorage.Content(this).Artifact.ReplicatorGlowColour;
+			LightColor = Content().Artifact.ReplicatorGlowColour;
 		}
 		else {
 			Activated = false;
@@ -251,9 +247,8 @@ public partial class Replicator : Equipment
 		OmniLight3D tubeLight = LightsParent.GetChild<OmniLight3D>(0);
 		var brightnessEnum = ArtifactGrowCondition.Brightness;
 
-		//if (_replicatorStorage.Has(this)) {
-		if (_replicatorStorage.Replicators.ContainsKey(this)) {
-			var value = _replicatorStorage.Content(this).Settings[brightnessEnum].Value;
+		if (hasContent) {
+			var value = Content().Settings[brightnessEnum].Value;
 			float lightEnergy = Mathf.Sqrt((float)value / 100);
 			tubeLight.LightEnergy = lightEnergy;
 			tubeLight.OmniRange = 5 + ((float)value / 500) * 3;
@@ -271,13 +266,13 @@ public partial class Replicator : Equipment
 	{
 		if (CurrentSettings.ContainsKey(condition)) {
 			CurrentSettings[condition] = sliderProperties;
-			return;
 		}
-		CurrentSettings.Add(condition, sliderProperties);
+		else {
+			CurrentSettings.Add(condition, sliderProperties);
+		}
 
-		//if (_replicatorStorage.Has(this)) {
-		if (_replicatorStorage.Replicators.ContainsKey(this)) {
-			var content = _replicatorStorage.Replicators[this];
+		if (_replicatorStorage.Has(this)) {
+			var content = Content();
 			content.Settings = CurrentSettings;
 			_replicatorStorage.Update(this, content);
 		}
@@ -305,6 +300,11 @@ public partial class Replicator : Equipment
 	public void CloseUi()
 	{
 		UiReplicatorInstance.Close();
+	}
+
+	public ReplicatorContent Content()
+	{
+		return _replicatorStorage.Replicators[this];
 	}
 
 	public void SetupMesh()

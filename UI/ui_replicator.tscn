@@ -1,9 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://y5737vxpy2m0"]
+[gd_scene load_steps=38 format=3 uid="uid://y5737vxpy2m0"]
 
 [ext_resource type="Script" uid="uid://dsispj3jb0do8" path="res://UI/Scripts/UiReplicator.cs" id="1_7npvn"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_q77f4"]
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="2_7npvn"]
-[ext_resource type="Texture2D" uid="uid://n3dhvwe2rk4e" path="res://Assets/Sprites/UI/ui_bg.png" id="2_rvt2l"]
 [ext_resource type="Texture2D" uid="uid://cll8oaunldigy" path="res://Assets/Sprites/UI/ui_panel_bg.png" id="3_dfymb"]
 [ext_resource type="Script" uid="uid://bvsg6l8d4uug3" path="res://UI/Scripts/UiQuickInventoryList.cs" id="3_rvt2l"]
 [ext_resource type="Texture2D" uid="uid://bdj1k2wt70ufq" path="res://Assets/Sprites/UI/ui_btn_hover_bg.png" id="5_fmhyj"]
@@ -13,10 +12,6 @@
 [ext_resource type="Theme" uid="uid://bnw6cb1cxtjwv" path="res://UI/Themes/ui_slider.tres" id="8_uvw6a"]
 [ext_resource type="Script" uid="uid://ceii68sqwv6x7" path="res://UI/Scripts/UiReplicatorSettingsSlider.cs" id="9_ejr2r"]
 [ext_resource type="Texture2D" uid="uid://ccgh7t22w0hw2" path="res://Assets/Sprites/UI/ui_slider_grabber_hover.png" id="9_ms8m5"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m5fok"]
-texture = ExtResource("2_rvt2l")
-modulate_color = Color(1, 1, 1, 0.45098)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dfymb"]
 texture = ExtResource("3_dfymb")
@@ -126,7 +121,7 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvt2l"]
 
-[node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "CloseButton")]
+[node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "InsertButton", "CloseButton")]
 custom_minimum_size = Vector2(200, 140)
 layout_mode = 3
 anchors_preset = 8
@@ -159,17 +154,8 @@ TemperatureParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/Settin
 ItemListHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/ItemsHeadline")
 ItemList = NodePath("PanelBackground/VBoxContainer/HBoxContainer/Tree")
 ReplicateButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Replicate")
+InsertButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Insert")
 CloseButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Close")
-
-[node name="Panel" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_m5fok")
 
 [node name="PanelBackground" type="Panel" parent="."]
 custom_minimum_size = Vector2(160, 120)
@@ -399,6 +385,22 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_ev57j")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_uo0nm")
 theme_override_styles/normal = SubResource("StyleBoxTexture_fmhyj")
 text = "REPLICATE"
+
+[node name="Insert" type="Button" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_fonts/font = ExtResource("1_q77f4")
+theme_override_font_sizes/font_size = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rvt2l")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ev57j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_uo0nm")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fmhyj")
+text = "INSERT"
 
 [node name="HSeparator6" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow"]
 layout_mode = 2

@@ -66,9 +66,14 @@ public partial class ArtifactResource : ItemResource
 
 	public DeviationPenalty DeviationPenalty(ArtifactGrowCondition condition)
 	{
+		if (!DeviationPenalties.ContainsKey(condition)) {
+			return new();
+		}
+
 		var (penalty, tolerance) = DeviationPenalties[condition].Split(":") switch {
 			var a => (a[0], a[1])
 		};
+
 		return new DeviationPenalty(
 			(double)penalty.ToFloat(),
 			(double)tolerance.ToFloat()

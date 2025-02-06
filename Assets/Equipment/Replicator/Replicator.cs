@@ -172,7 +172,6 @@ public partial class Replicator : Equipment
 	/// </summary>
 	public System.DateTime ApproxEndDateTime()
 	{
-		double optimalReplicationTime = Artifact().FastestReplicationTime;
 		double deviationPenalty = 0;
 
 		foreach (var (condition, value) in Artifact().OptimalGrowConditions) {
@@ -183,19 +182,19 @@ public partial class Replicator : Equipment
 			}
 
 			DeviationPenalty artifactDeviationPenalty = Artifact().DeviationPenalty(condition);
-			deviationPenalty = artifactDeviationPenalty.Penalty;
+			double individualPenalty = artifactDeviationPenalty.Penalty;
 			double deviationTolerance = artifactDeviationPenalty.Tolerance;
 			float optimalCondition = Artifact().OptimalGrowConditions[condition];
 			SliderProperties properties = Content().Settings[condition];
 
-			deviationPenalty = optimalReplicationTime + Mathf.FloorToInt(
-				Mathf.Abs(properties.Value - optimalCondition) / deviationTolerance
-			);
+			double diffFromOptimal = Mathf.Abs(properties.Value - optimalCondition);
+			individualPenalty *= diffFromOptimal / deviationTolerance;
+			deviationPenalty += Mathf.FloorToInt(individualPenalty);
 		}
 
 		return DateTime
 			.TimeStampToDateTime(StartTime())
-			.AddHours(deviationPenalty);
+			.AddHours(deviationPenalty + Artifact().FastestReplicationTime);
 	}
 
 	public int RemainingTime()

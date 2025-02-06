@@ -44,7 +44,7 @@ public partial class UiReplicatorSettingsSlider : HSlider
 
 		var replicator = _sceneRoot.Replicator;
 		if (_replicatorStorage.Replicators.ContainsKey(replicator)) {
-			var replicatorSettings = _replicatorStorage.Replicators[replicator].Settings;
+			var replicatorSettings = _replicatorStorage?.Replicators[replicator].Settings;
 			foreach (var (key, setting) in replicatorSettings) {
 				if (key == condition) {
 					Value = setting.Value;

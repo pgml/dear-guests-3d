@@ -41,6 +41,11 @@ public partial class ReplicatorStorage : Resource
 		Replicators[replicator] = content;
 	}
 
+	public void Clear(Replicator replicator)
+	{
+		Replicators[replicator] = new ReplicatorContent(new(), 0, 0, new());
+	}
+
 	/// <summary>
 	/// Just a shorter way of ReplicatorStorage.Replicators.ContainsKey(replicator);
 	/// </summary>

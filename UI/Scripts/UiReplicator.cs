@@ -14,7 +14,6 @@ public partial class UiReplicator : UiControl
 
 	[Export]
 	public Label ArtifactName { get; set; }
-
 	[Export]
 	public Label DescriptionStartTime { get; set; }
 
@@ -99,12 +98,19 @@ public partial class UiReplicator : UiControl
 	protected TreeItem TreeRoot;
 	protected Dictionary<InventoryItemResource, TreeItem> ListItems = new();
 
+	private string _defaultArtifactName = "[INSERT ARTIFACT]";
+	private string _defaultStartTime = "-";
+	private string _defaultProgress = "-";
+	private string _defaultEndTime = "-";
+
 	public override void _Ready()
 	{
 		base._Ready();
+
 		if (!IsInstanceValid(TreeRoot)) {
 			TreeRoot = ItemList.CreateItem();
 		}
+
 		PopulateList();
 		ActorInventory.InventoryUpdated += PopulateList;
 	}
@@ -130,6 +136,55 @@ public partial class UiReplicator : UiControl
 	public HSlider Slider(VBoxContainer parent)
 	{
 		return parent.FindChild("Slider") as HSlider;
+	}
+
+	public void UpdateUi(
+		ArtifactResource artifact,
+		string startTimeString,
+		double progress,
+		int remainingTime,
+		bool isReplicating = false
+	)
+	{
+		bool hasArtifact = artifact is not null;
+
+		//GD.PrintS(
+		//	startTimeString,
+		//	progress,
+		//	remainingTime,
+		//	isReplicating
+		//);
+
+		ArtifactName.Text = hasArtifact
+			? artifact.Name
+			: _defaultArtifactName;
+
+		StartTime.Text = isReplicating && hasArtifact
+			? startTimeString
+			: _defaultStartTime;
+
+		Progress.Text = isReplicating && hasArtifact
+			? $"{progress}%"
+			: _defaultProgress;
+
+		EndTime.Text = hasArtifact
+			? $"~ {remainingTime}h"
+			: _defaultEndTime;
+
+		InsertButton.Visible = !hasArtifact;
+		ReplicateButton.Visible = hasArtifact && !isReplicating;
+		ReplicatorStatus.Visible = isReplicating;
+		CancelButton.Visible = hasArtifact && isReplicating;
+
+		ItemList.Visible = !hasArtifact;
+		ItemListHeadline.Visible = !hasArtifact;
+		ItemList.Visible = !hasArtifact;
+		ItemListHeadline.Visible = !hasArtifact;
+
+		SettingsParent.Visible = hasArtifact;
+		SettingsHeadline.Visible = hasArtifact;
+		SettingsParent.Visible = hasArtifact;
+		SettingsHeadline.Visible = hasArtifact;
 	}
 
 	public void PopulateList()

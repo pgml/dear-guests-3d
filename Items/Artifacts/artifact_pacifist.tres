@@ -4,8 +4,11 @@
 
 [resource]
 script = ExtResource("1_0lkjl")
-OptionalGrowConditions = Dictionary[int, float]({
+OptimalGrowConditions = Dictionary[int, float]({
 2: 600.0
+})
+DeviationPenalties = Dictionary[int, String]({
+2: "1:100"
 })
 ReplicatorGlowColour = Color(0.27451, 0.666667, 0, 1)
 FastestReplicationTime = 48.0

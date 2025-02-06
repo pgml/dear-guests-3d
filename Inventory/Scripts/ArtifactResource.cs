@@ -60,6 +60,20 @@ public struct DeviationPenalty
 public partial class ArtifactResource : ItemResource
 {
 	[ExportCategory("Artifact Properties")]
+
+	[Export]
+	public bool IsSynthetic { get; set; } = false;
+
+	[Export]
+	public ArtifactResource ReplicaOf { get; set; }
+
+	[Export(PropertyHint.Range, "0, 100")]
+	public int Degradation { get; set; } = 0;
+
+	[Export(PropertyHint.Range, "0, 100")]
+	public int DegradationFactorPerReplication { get; set; } = 0;
+
+	[ExportGroup("Replication Properties")]
 	[Export]
 	public GDC.Dictionary<
 		ArtifactGrowCondition,

@@ -146,7 +146,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7npvn")
 InfoHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/InfoWindowHeadline")
-ArtifactIcon = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Panel/TextureButton")
+ArtifactIcon = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/OriginalArtifact/TextureButton")
 ReplicatorStatus = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/Title")
 ArtifactName = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/ArtifactName")
 DescriptionConditions = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/DescriptionCondition")
@@ -266,14 +266,32 @@ layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = SubResource("StyleBoxEmpty_uo0nm")
 
-[node name="Panel" type="Panel" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="OriginalArtifact" type="Panel" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_q77f4")
 
-[node name="TextureButton" type="TextureButton" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Panel"]
+[node name="TextureButton" type="TextureButton" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/OriginalArtifact"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SynthesisedArtifact" type="Panel" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q77f4")
+
+[node name="TextureButton" type="TextureButton" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/SynthesisedArtifact"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
 anchors_preset = 15

@@ -4,6 +4,9 @@
 
 [resource]
 script = ExtResource("1_vf2uk")
+IsSynthetic = false
+Degradation = 0
+DegradationFactorPerReplication = 0.0
 OptimalGrowConditions = Dictionary[int, float]({
 2: 150.0
 })

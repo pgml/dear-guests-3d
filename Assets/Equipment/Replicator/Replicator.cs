@@ -14,6 +14,9 @@ public enum ReplicatorType
 [GlobalClass]
 public partial class Replicator : Equipment
 {
+	[Signal]
+	public delegate void ReplicationFinishedEventHandler();
+
 	[ExportToolButton(text: "Set up replicator mesh")]
 	public Callable SetupDuplicatorMesh => Callable.From(SetupMesh);
 
@@ -162,7 +165,6 @@ public partial class Replicator : Equipment
 
 		return Math.Round(progress, 2);
 	}
-
 
 	/// <summary>
 	/// Calculate the approximate time till the replication will be finished

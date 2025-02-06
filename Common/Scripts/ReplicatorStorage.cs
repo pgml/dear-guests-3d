@@ -4,8 +4,8 @@ using System.Collections.Generic;
 public struct ReplicatorContent
 {
 	public ArtifactResource Artifact;
-	public double ReplicationStart;
-	public float Progress;
+	public double ReplicationStart = 0;
+	public float Progress = 0;
 	public Dictionary<ArtifactGrowCondition, SliderProperties> Settings { get; set; }
 
 	public ReplicatorContent(

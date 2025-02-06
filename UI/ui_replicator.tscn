@@ -121,7 +121,7 @@ anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvt2l"]
 
-[node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "InsertButton", "CloseButton")]
+[node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "InsertButton", "CancelButton", "CloseButton")]
 custom_minimum_size = Vector2(200, 140)
 layout_mode = 3
 anchors_preset = 8
@@ -155,6 +155,7 @@ ItemListHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxC
 ItemList = NodePath("PanelBackground/VBoxContainer/HBoxContainer/Tree")
 ReplicateButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Replicate")
 InsertButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Insert")
+CancelButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Cancel")
 CloseButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/Close")
 
 [node name="PanelBackground" type="Panel" parent="."]
@@ -372,6 +373,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 
 [node name="Replicate" type="Button" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
 theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
@@ -387,7 +389,6 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_fmhyj")
 text = "REPLICATE"
 
 [node name="Insert" type="Button" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper"]
-visible = false
 layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
 theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
@@ -401,6 +402,22 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_ev57j")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_uo0nm")
 theme_override_styles/normal = SubResource("StyleBoxTexture_fmhyj")
 text = "INSERT"
+
+[node name="Cancel" type="Button" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_fonts/font = ExtResource("1_q77f4")
+theme_override_font_sizes/font_size = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rvt2l")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ev57j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_uo0nm")
+theme_override_styles/normal = SubResource("StyleBoxTexture_fmhyj")
+text = "CANCEL"
 
 [node name="HSeparator6" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow"]
 layout_mode = 2

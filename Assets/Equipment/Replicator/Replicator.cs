@@ -46,6 +46,7 @@ public partial class Replicator : Equipment
 		return GD.Load<PackedScene>(Resources.UiReplicator);
 	}}
 
+	public bool IsReplicating = false;
 	public UiReplicator UiReplicatorInstance = null;
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
@@ -75,9 +76,14 @@ public partial class Replicator : Equipment
 
 		if (IsInstanceValid(UiReplicatorInstance) && UiReplicatorInstance.IsOpen) {
 			UiReplicator instance = UiReplicatorInstance;
-			bool isPressedConnected = instance.ReplicateButton.IsConnected(
+			bool isInsertPressedConnected = instance.InsertButton.IsConnected(
 				"pressed",
 				Callable.From(InsertArtifact)
+			);
+
+			bool isReplicatePressedConnected = instance.ReplicateButton.IsConnected(
+				"pressed",
+				Callable.From(Replicate)
 			);
 
 			bool isClosedConnected = instance.CloseButton.IsConnected(
@@ -85,17 +91,23 @@ public partial class Replicator : Equipment
 				Callable.From(CloseUi)
 			);
 
-			if (!isPressedConnected) {
-				instance.ReplicateButton.Pressed += InsertArtifact;
+			if (!isInsertPressedConnected) {
+				instance.InsertButton.Pressed += InsertArtifact;
+			}
+
+			if (!isReplicatePressedConnected) {
+				instance.ReplicateButton.Pressed += Replicate;
 			}
 
 			if (!isClosedConnected) {
 				instance.CloseButton.Pressed += CloseUi;
 			}
 
-			_currentArtifact = Content().Artifact;
 			if (_currentArtifact is not null) {
 				_updateReplicatorInstanceUi();
+			}
+			else {
+				_currentArtifact = Content().Artifact;
 			}
 		}
 	}
@@ -127,16 +139,25 @@ public partial class Replicator : Equipment
 			_currentArtifact = (ArtifactResource)selectedItem.GetMetadata(0);
 
 			if (IsInstanceValid(_currentArtifact)) {
-				_replicatorStorage.Update(this, new ReplicatorContent(
-					_currentArtifact,
-					DateTime.TimeStamp(),
-					0,
-					CurrentSettings
-				));
-
+				UiReplicatorInstance.ArtifactName.Text = _currentArtifact.Name;
 				_updateReplicatorInstanceUi();
 			}
 		}
+	}
+
+	public void Replicate()
+	{
+		if (_currentArtifact is null) {
+			return;
+		}
+		_replicatorStorage.Update(this, new ReplicatorContent(
+			_currentArtifact,
+			DateTime.TimeStamp(),
+			0,
+			CurrentSettings
+		));
+		IsReplicating = true;
+		_updateReplicatorInstanceUi();
 	}
 
 	private void _updateReplicatorInstanceUi()
@@ -144,11 +165,18 @@ public partial class Replicator : Equipment
 		if (_currentArtifact is not null) {
 			UiReplicator instance = UiReplicatorInstance;
 			instance.ReplicatorStatus.Visible = true;
-			instance.ReplicatorStatus.Text = "Replicating artifact...";
 			instance.ArtifactName.Text = _currentArtifact.Name;
 
-			instance.StartTime.Text = StartTimeString();
-			instance.Progress.Text = $"{Progress()}%";
+			instance.InsertButton.Visible = false;
+			instance.ReplicateButton.Visible = true;
+
+			if (IsReplicating) {
+				instance.StartTime.Text = StartTimeString();
+				instance.Progress.Text = $"{Progress()}%";
+
+				instance.ReplicateButton.Visible = false;
+				instance.CancelButton.Visible = true;
+			}
 			instance.EndTime.Text = $"~ {RemainingTime()}h";
 
 			instance.SettingsParent.Visible = true;
@@ -156,6 +184,7 @@ public partial class Replicator : Equipment
 
 			instance.ItemList.Visible = false;
 			instance.ItemListHeadline.Visible = false;
+
 		}
 	}
 
@@ -209,8 +238,12 @@ public partial class Replicator : Equipment
 			}
 		}
 
+		double startTime = Content().ReplicationStart	== 0
+			? DateTime.TimeStamp()
+			: StartTime();
+
 		return DateTime
-			.TimeStampToDateTime(StartTime())
+			.TimeStampToDateTime(startTime)
 			.AddHours(penalty);
 	}
 
@@ -232,7 +265,7 @@ public partial class Replicator : Equipment
 		}
 
 		LightsParent.Visible = Activated;
-		if (hasContent) {
+		if (hasContent && IsReplicating) {
 			Activated = true;
 			LightColor = Content().Artifact.ReplicatorGlowColour;
 		}
@@ -247,7 +280,7 @@ public partial class Replicator : Equipment
 		OmniLight3D tubeLight = LightsParent.GetChild<OmniLight3D>(0);
 		var brightnessEnum = ArtifactGrowCondition.Brightness;
 
-		if (hasContent) {
+		if (hasContent && IsReplicating) {
 			var value = Content().Settings[brightnessEnum].Value;
 			float lightEnergy = Mathf.Sqrt((float)value / 100);
 			tubeLight.LightEnergy = lightEnergy;

@@ -150,7 +150,7 @@ HumidityParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsW
 PressureParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure")
 BrightnessParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness")
 WindVelocityParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity")
-TemperatureParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature")
+TemperatureParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temperature")
 ItemListHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/ItemsHeadline")
 ItemList = NodePath("PanelBackground/VBoxContainer/HBoxContainer/Tree")
 ReplicateButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Replicate")
@@ -556,32 +556,32 @@ theme = ExtResource("8_uvw6a")
 step = 5.0
 script = ExtResource("9_ejr2r")
 
-[node name="Temparature" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
+[node name="Temperature" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature"]
+[node name="Row" type="HBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temperature"]
 layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
+[node name="Label" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temperature/Row"]
 layout_mode = 2
 text = "Temperature"
 label_settings = SubResource("LabelSettings_rvt2l")
 uppercase = true
 
-[node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
+[node name="Amount" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temperature/Row"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "0"
 label_settings = SubResource("LabelSettings_rvt2l")
 
-[node name="Unit" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature/Row"]
+[node name="Unit" type="Label" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temperature/Row"]
 layout_mode = 2
 text = "°C"
 label_settings = SubResource("LabelSettings_rvt2l")
 
-[node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temparature"]
+[node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temperature"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("8_uvw6a")

@@ -4,6 +4,9 @@
 
 [resource]
 script = ExtResource("1_0lkjl")
+IsSynthetic = false
+Degradation = 0
+DegradationFactorPerReplication = 0
 OptimalGrowConditions = Dictionary[int, float]({
 2: 600.0,
 4: 60.0
@@ -15,7 +18,6 @@ DeviationPenalties = Dictionary[int, String]({
 ReplicatorGlowColour = Color(0.27451, 0.666667, 0, 1)
 FastestReplicationTime = 48.0
 GrowPowerConsumption = 1000.0
-IsSynthetic = false
 Type = 1
 Name = "Pacifist"
 Weight = 0.5

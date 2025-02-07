@@ -97,6 +97,9 @@ public partial class ArtifactResource : ItemResource
 	[Export]
 	public float GrowPowerConsumption { get; set; } = 0;
 
+	[Export(PropertyHint.File, "*.tres")]
+	public string ReplicatesInto { get; set; }
+
 	public DeviationPenalty DeviationPenalty(ArtifactGrowCondition condition)
 	{
 		if (!DeviationPenalties.ContainsKey(condition)) {

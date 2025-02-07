@@ -15,7 +15,7 @@ public enum ReplicatorType
 public partial class Replicator : Equipment
 {
 	[Signal]
-	public delegate void ReplicationFinishedEventHandler();
+	public delegate void ReplicationCompleteEventHandler();
 
 	[ExportToolButton(text: "Set up replicator mesh")]
 	public Callable SetupDuplicatorMesh => Callable.From(SetupMesh);
@@ -50,7 +50,7 @@ public partial class Replicator : Equipment
 	}}
 
 	public bool IsReplicating = false;
-	public bool IsReplicationFinished = false;
+	public bool IsReplicationComplete = false;
 	public UiReplicator UiReplicatorInstance = null;
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
@@ -62,6 +62,7 @@ public partial class Replicator : Equipment
 	private string _meshNodeName = "Mesh";
 	private ReplicatorStorage _replicatorStorage = new();
 	private ArtifactResource _currentArtifact;
+	private Inventory _actorInventory;
 
 	public override void _Ready()
 	{
@@ -69,9 +70,10 @@ public partial class Replicator : Equipment
 
 		if (!Engine.IsEditorHint()) {
 			_replicatorStorage = GD.Load<ReplicatorStorage>(Resources.ReplicatorStorage);
+			_actorInventory = GD.Load<Inventory>(Resources.ActorInventory);
 		}
 
-		ReplicationFinished += _onReplicationFinished;
+		ReplicationComplete += _onReplicationComplete;
 	}
 
 	public override void _Process(double delta)
@@ -123,11 +125,15 @@ public partial class Replicator : Equipment
 
 			if (IsInstanceValid(artifact)) {
 				UiReplicatorInstance.ArtifactName.Text = artifact.Name;
+
 				// create copy of content and update settings
 				var content = Content();
 				content.Artifact = artifact;
 				_replicatorStorage.Update(this, content);
 				_updateReplicatorUi();
+
+				int itemResourceIndex = _actorInventory.GetItemResourceIndex(artifact);
+				_actorInventory.RemoveOneItem(itemResourceIndex);
 			}
 		}
 	}
@@ -146,8 +152,25 @@ public partial class Replicator : Equipment
 		));
 
 		IsReplicating = true;
-		IsReplicationFinished = !IsReplicating;
+		IsReplicationComplete = !IsReplicating;
 		_updateReplicatorUi();
+	}
+
+	public void Collect()
+	{
+		if (!IsReplicationComplete) {
+			return;
+		}
+
+		string replicaPath = Artifact().ReplicatesInto;
+		if (ResourceLoader.Exists(replicaPath)) {
+			var replica = GD.Load<ArtifactResource>(replicaPath);
+			_actorInventory.AddItem(replica, 1);
+		}
+
+		_actorInventory.AddItem(Artifact(), 1);
+		IsReplicationComplete = false;
+		CancelReplication();
 	}
 
 	public void CancelReplication()
@@ -215,10 +238,10 @@ public partial class Replicator : Equipment
 		System.TimeSpan remainingTimeSpan = ApproxEndDateTime().Subtract(DateTime.Now());
 		int remainingTime = (int)Math.Round(remainingTimeSpan.TotalHours);
 
-		if (!IsReplicationFinished && remainingTime == 0) {
+		if (!IsReplicationComplete && remainingTime == 0) {
 			remainingTime = 1;
 		}
-		else if (IsReplicationFinished && remainingTime <= 0) {
+		else if (IsReplicationComplete && remainingTime <= 0) {
 			remainingTime = 0;
 		}
 
@@ -347,6 +370,9 @@ public partial class Replicator : Equipment
 		return Content().Settings[brightnessEnum].Value;
 	}
 
+	/// <summary>
+	/// The artifact that is currently stored in the replicator
+	/// </summary>
 	public ArtifactResource Artifact()
 	{
 		if (Content().Artifact is null || Content().Artifact.Name is null) {
@@ -358,12 +384,8 @@ public partial class Replicator : Equipment
 
 	private void _updateReplicatorUi()
 	{
-		if (Artifact() is null) {
-			return;
-		}
-
 		if (Progress() >= 100 && Activated && IsReplicating) {
-			EmitSignal(SignalName.ReplicationFinished);
+			EmitSignal(SignalName.ReplicationComplete);
 		}
 
 		UiReplicatorInstance.UpdateUi(
@@ -372,7 +394,7 @@ public partial class Replicator : Equipment
 			Progress(),
 			RemainingTime(),
 			IsReplicating,
-			IsReplicationFinished
+			IsReplicationComplete
 		);
 	}
 
@@ -387,6 +409,11 @@ public partial class Replicator : Equipment
 		bool isReplicatePressedConnected = instance.ReplicateButton.IsConnected(
 			"pressed",
 			Callable.From(Replicate)
+		);
+
+		bool isCollectPressedConnected = instance.CollectButton.IsConnected(
+			"pressed",
+			Callable.From(Collect)
 		);
 
 		bool isCancelPressedConnected = instance.CancelButton.IsConnected(
@@ -407,6 +434,10 @@ public partial class Replicator : Equipment
 			instance.ReplicateButton.Pressed += Replicate;
 		}
 
+		if (!isReplicatePressedConnected) {
+			instance.CollectButton.Pressed += Collect;
+		}
+
 		if (!isCancelPressedConnected) {
 			instance.CancelButton.Pressed += CancelReplication;
 		}
@@ -425,9 +456,9 @@ public partial class Replicator : Equipment
 		instance.CloseButton.Pressed -= CloseUi;
 	}
 
-	private void _onReplicationFinished()
+	private void _onReplicationComplete()
 	{
-		IsReplicationFinished = true;
+		IsReplicationComplete = true;
 	}
 
 	// ----- Tools

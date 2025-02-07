@@ -9,13 +9,13 @@
 [sub_resource type="Resource" id="Resource_fvods"]
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("2_ormwg")
-Amount = 60
+Amount = 10
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_dvcg0"]
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("3_f5ro0")
-Amount = 20
+Amount = 10
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_ormwg"]

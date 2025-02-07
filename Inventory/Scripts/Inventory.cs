@@ -1,7 +1,8 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
-public partial class Inventory : Resource
+public partial class Inventory : Resource, ICloneable
 {
 	[Signal]
 	public delegate void InventoryUpdatedEventHandler();
@@ -26,7 +27,7 @@ public partial class Inventory : Resource
 		}
 
 		if (IsInInventory(item)) {
-			int resourceIndex = GetResourceIndex(item);
+			int resourceIndex = GetItemResourceIndex(item);
 			if (UpdateItem(resourceIndex, item, amount)) {
 				wasAdded = true;
 			}
@@ -94,7 +95,12 @@ public partial class Inventory : Resource
 		return true;
 	}
 
-	public int GetResourceIndex(ItemResource item)
+	public bool RemoveOneItem(int resourceIndex, int removeByAmount = -1)
+	{
+		return RemoveItem(resourceIndex, 1);
+	}
+
+	public int GetItemResourceIndex(ItemResource item)
 	{
 		for (var index = 0; index < Items.Count; index++) {
 			var inventoryItemResource = Items[index];
@@ -160,5 +166,10 @@ public partial class Inventory : Resource
 		int index = resourceIndex.ToInt();
 		int amount = removeByAmount.ToInt();
 		return RemoveItem(index, amount);
+	}
+
+	public object Clone()
+	{
+		return this.MemberwiseClone();
 	}
 }

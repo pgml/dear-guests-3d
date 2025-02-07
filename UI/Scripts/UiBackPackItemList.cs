@@ -45,6 +45,12 @@ public partial class UiBackPackItemList : UiItemList
 		foreach (var inventoryItem in ActorInventory.Items) {
 			ItemResource item = inventoryItem.ItemResource;
 			TreeItem row = CreateItem(TreeRoot);
+
+			string itemName = item.Name;
+			if (item is ArtifactResource artifact && artifact.IsSynthetic) {
+				itemName += " (s)";
+			}
+
 			string amount = inventoryItem.Amount > 0
 				//? $" ({inventoryItem.Amount.ToString()})"
 				? inventoryItem.Amount.ToString()
@@ -53,7 +59,7 @@ public partial class UiBackPackItemList : UiItemList
 			//double weight = Math.Round(item.Weight * inventoryItem.Amount, 2);
 			var image = Image.LoadFromFile("res://Assets/Sprites/UI/ui_list_icon.png");
 			row.SetIcon(0, ImageTexture.CreateFromImage(image));
-			row.SetText(0, $"  {item.Name}");
+			row.SetText(0, $"  {itemName}");
 			//row.SetText(1, weight.ToString());
 			row.SetText(1, amount);
 			row.SetText(2, $"{item.Value.ToString()} ¡");

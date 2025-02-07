@@ -125,12 +125,12 @@ public partial class UiReplicator : UiControl
 		}
 
 		PopulateList();
-		ActorInventory.InventoryUpdated += PopulateList;
+		//ActorInventory.InventoryUpdated += PopulateList;
 	}
 
 	public override void _ExitTree()
 	{
-		ActorInventory.InventoryUpdated -= PopulateList;
+		//ActorInventory.InventoryUpdated -= PopulateList;
 	}
 
 	public void Open(Vector2 position)
@@ -162,7 +162,7 @@ public partial class UiReplicator : UiControl
 		double progress,
 		int remainingTime,
 		bool isReplicating,
-		bool isReplicationFinished
+		bool isReplicationComplete
 	)
 	{
 		bool hasArtifact = artifact is not null;
@@ -189,12 +189,12 @@ public partial class UiReplicator : UiControl
 
 		InsertButton.Visible = !hasArtifact;
 		ReplicateButton.Visible = hasArtifact && !isReplicating;
-		ReplicatorStatus.Visible = isReplicating || isReplicationFinished;
-		ReplicatorStatus.Text = isReplicationFinished
+		ReplicatorStatus.Visible = isReplicating || isReplicationComplete;
+		ReplicatorStatus.Text = isReplicationComplete
 			? "Replication complete!".ToUpper()
 			: _defaultReplicatorStatus;
-		CollectButton.Visible = isReplicationFinished;
-		CancelButton.Visible = hasArtifact && isReplicating && !isReplicationFinished;
+		CollectButton.Visible = isReplicationComplete;
+		CancelButton.Visible = hasArtifact && isReplicating && !isReplicationComplete;
 
 		ItemList.Visible = !hasArtifact;
 		ItemListHeadline.Visible = !hasArtifact;
@@ -209,7 +209,8 @@ public partial class UiReplicator : UiControl
 
 	public void PopulateList()
 	{
-		var items = ActorInventory.GetItemsOfType(ItemType.Artifact);
+		var inventory = GD.Load<Inventory>(Resources.ActorInventory);
+		var items = inventory.GetItemsOfType(ItemType.Artifact);
 
 		if (items is null) {
 			return;

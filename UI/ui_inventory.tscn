@@ -1,43 +1,16 @@
-[gd_scene load_steps=21 format=3 uid="uid://wdvffohf5vt3"]
+[gd_scene load_steps=22 format=3 uid="uid://wdvffohf5vt3"]
 
 [ext_resource type="Script" uid="uid://dgep2ce7cdd4n" path="res://UI/Scripts/UiInventory.cs" id="1_jsd1q"]
 [ext_resource type="FontFile" uid="uid://deud5ibjki4n6" path="res://Resources/Fonts/EightBitDragon-anqx.ttf" id="1_unlxm"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_cmt26"]
+[ext_resource type="Texture2D" uid="uid://cb03rmfango8p" path="res://Assets/Sprites/UI/ui_panel_bg_clean.png" id="2_w35yh"]
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="3_cmt26"]
 [ext_resource type="Script" uid="uid://6tfocl8qfggu" path="res://UI/Scripts/UiBackPackItemList.cs" id="3_jsd1q"]
+[ext_resource type="FontFile" uid="uid://jfkwd1flgplq" path="res://Resources/Fonts/dear_guests_text.ttf" id="4_5y368"]
 [ext_resource type="Texture2D" uid="uid://cll8oaunldigy" path="res://Assets/Sprites/UI/ui_panel_bg.png" id="4_82nfj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psx24"]
 bg_color = Color(0, 0, 0, 0.705882)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkye7"]
-content_margin_left = 0.0
-content_margin_top = 0.0
-content_margin_right = 0.0
-content_margin_bottom = 0.0
-bg_color = Color(0.886352, 0.839312, 0.611947, 1)
-border_color = Color(0.713397, 0.655745, 0.379705, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 20
-anti_aliasing = false
-
-[sub_resource type="LabelSettings" id="LabelSettings_pp6k1"]
-font = ExtResource("1_unlxm")
-font_size = 8
-font_color = Color(0.239216, 0, 0.0235294, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_kkye7"]
-font = ExtResource("1_unlxm")
-font_size = 6
-font_color = Color(0.239216, 0, 0.0235294, 1)
-shadow_size = 0
-
-[sub_resource type="LabelSettings" id="LabelSettings_rqtoc"]
-font = ExtResource("2_cmt26")
-font_size = 10
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w35yh"]
 texture = ExtResource("4_82nfj")
@@ -46,22 +19,11 @@ texture_margin_top = 20.0
 texture_margin_right = 20.0
 texture_margin_bottom = 20.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5q2q3"]
-bg_color = Color(0.933333, 0.901961, 0.74902, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_82nfj"]
-content_margin_left = 18.0
-content_margin_top = 2.0
-content_margin_right = 20.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5y368"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_jsd1q"]
-font = ExtResource("1_unlxm")
-font_size = 6
+font = ExtResource("2_cmt26")
+font_size = 3
 font_color = Color(0.239216, 0, 0.0235294, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jsd1q"]
@@ -73,6 +35,35 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w35yh"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_82nfj"]
+texture = ExtResource("2_w35yh")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+region_rect = Rect2(0, 0, 64, 64)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pp6k1"]
+font = ExtResource("1_unlxm")
+font_size = 8
+font_color = Color(0.239216, 0, 0.0235294, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kkye7"]
+font = ExtResource("4_5y368")
+font_size = 10
+font_color = Color(0.239216, 0, 0.0235294, 1)
+shadow_size = 0
+shadow_color = Color(0.552941, 0.494118, 0.231373, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rqtoc"]
+font = ExtResource("2_cmt26")
+font_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_82nfj"]
+content_margin_left = 18.0
+content_margin_right = 18.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="Inventory" type="Control" node_paths=PackedStringArray("InventoryBackgroud")]
 layout_mode = 3
 anchors_preset = 15
@@ -81,9 +72,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jsd1q")
-InventoryBackgroud = NodePath("Panel")
+InventoryBackgroud = NodePath("Background")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,164 +83,26 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_psx24")
 
-[node name="GridContainer" type="HBoxContainer" parent="."]
+[node name="Belt" type="VBoxContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(81.945, 100)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -125.0
-offset_right = 150.0
-offset_bottom = 125.0
-grow_horizontal = 2
+offset_left = 98.0
+offset_top = -121.0
+offset_right = 179.945
+offset_bottom = -21.0
 grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer"]
-custom_minimum_size = Vector2(200, 250)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Info" type="Panel" parent="GridContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 15)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kkye7")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GridContainer/VBoxContainer/Info"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_right = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Backpack"
-label_settings = SubResource("LabelSettings_pp6k1")
-uppercase = true
-
-[node name="Weight" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "W: 69 / 138"
-label_settings = SubResource("LabelSettings_kkye7")
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Money" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-layout_mode = 2
-text = "$ 16796"
-label_settings = SubResource("LabelSettings_kkye7")
-horizontal_alignment = 2
-
-[node name="VBoxContainer4" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 8
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_constants/separation = -5
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Time" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-text = "10:38"
-label_settings = SubResource("LabelSettings_rqtoc")
-vertical_alignment = 1
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="GridContainer/VBoxContainer/Info/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-theme_override_constants/separation = -5
-alignment = 2
-
-[node name="Day" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-text = "1. Jan"
-label_settings = SubResource("LabelSettings_kkye7")
-horizontal_alignment = 2
-
-[node name="Year" type="Label" parent="GridContainer/VBoxContainer/Info/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-text = "Year 1"
-label_settings = SubResource("LabelSettings_kkye7")
-horizontal_alignment = 2
-
-[node name="Backpack" type="Panel" parent="GridContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxTexture_w35yh")
-
-[node name="TitleBackground" type="Panel" parent="GridContainer/VBoxContainer/Backpack"]
-visible = false
-layout_mode = 0
-offset_right = 200.0
-offset_bottom = 15.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_5q2q3")
-
-[node name="ItemList" type="Tree" parent="GridContainer/VBoxContainer/Backpack"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -5.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
-localize_numeral_system = false
-theme = ExtResource("3_cmt26")
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 2
-theme_override_constants/inner_item_margin_bottom = 0
-theme_override_constants/inner_item_margin_left = 3
-theme_override_constants/inner_item_margin_right = 4
-theme_override_constants/inner_item_margin_top = 1
-theme_override_constants/item_margin = 1
-theme_override_constants/button_margin = 1
-theme_override_constants/icon_max_width = 16
-theme_override_font_sizes/font_size = 9
-theme_override_styles/panel = SubResource("StyleBoxFlat_82nfj")
-column_titles_visible = true
-allow_search = false
-hide_folding = true
-enable_recursive_folding = false
-hide_root = true
-select_mode = 1
-scroll_horizontal_enabled = false
-scroll_vertical_enabled = false
-auto_tooltip = false
-script = ExtResource("3_jsd1q")
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="GridContainer"]
-visible = false
-custom_minimum_size = Vector2(80, 100)
-layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Panel" type="Panel" parent="GridContainer/VBoxContainer2"]
+[node name="Panel" type="Panel" parent="Belt"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_w35yh")
 
-[node name="TitleBackground" type="Panel" parent="GridContainer/VBoxContainer2/Panel"]
+[node name="TitleBackground" type="Panel" parent="Belt/Panel"]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 1
 anchors_preset = 10
@@ -258,22 +111,24 @@ offset_bottom = 15.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5y368")
 
-[node name="Label" type="Label" parent="GridContainer/VBoxContainer2/Panel/TitleBackground"]
+[node name="Label" type="Label" parent="Belt/Panel/TitleBackground"]
 layout_mode = 1
-anchors_preset = 4
+anchors_preset = 14
 anchor_top = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 6.5
+offset_left = 8.0
 offset_top = -3.5
-offset_right = 23.5
-offset_bottom = 3.5
+offset_right = -8.0
+offset_bottom = 5.5
+grow_horizontal = 2
 grow_vertical = 2
-text = "Belt"
+text = "Belt items"
 label_settings = SubResource("LabelSettings_jsd1q")
 vertical_alignment = 1
 uppercase = true
 
-[node name="Belt" type="Tree" parent="GridContainer/VBoxContainer2/Panel"]
+[node name="Belt" type="Tree" parent="Belt/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -294,3 +149,126 @@ hide_root = true
 scroll_horizontal_enabled = false
 scroll_vertical_enabled = false
 auto_tooltip = false
+
+[node name="Main" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 182.5
+offset_top = 30.0
+offset_right = 457.5
+offset_bottom = 330.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Info" type="Panel" parent="Main"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_82nfj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Info"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_right = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Main/Info/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Backpack"
+label_settings = SubResource("LabelSettings_pp6k1")
+uppercase = true
+
+[node name="Weight" type="Label" parent="Main/Info/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 1
+text = "W: 69 / 138"
+label_settings = SubResource("LabelSettings_kkye7")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Money" type="Label" parent="Main/Info/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "¡ 16796"
+label_settings = SubResource("LabelSettings_kkye7")
+horizontal_alignment = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main/Info/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Time" type="Label" parent="Main/Info/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "10:38"
+label_settings = SubResource("LabelSettings_rqtoc")
+vertical_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Main/Info/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_constants/separation = -5
+alignment = 2
+
+[node name="Day" type="Label" parent="Main/Info/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "1. Jan"
+label_settings = SubResource("LabelSettings_kkye7")
+horizontal_alignment = 2
+
+[node name="Year" type="Label" parent="Main/Info/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Year 1"
+label_settings = SubResource("LabelSettings_kkye7")
+horizontal_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Backpack" type="Panel" parent="Main/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_w35yh")
+
+[node name="ItemList" type="Tree" parent="Main/HBoxContainer/Backpack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+localize_numeral_system = false
+theme = ExtResource("3_cmt26")
+theme_override_constants/v_separation = 2
+theme_override_constants/inner_item_margin_bottom = 0
+theme_override_constants/inner_item_margin_left = 3
+theme_override_constants/inner_item_margin_right = 2
+theme_override_constants/inner_item_margin_top = 1
+theme_override_constants/button_margin = 1
+theme_override_constants/icon_max_width = 16
+theme_override_font_sizes/font_size = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_82nfj")
+column_titles_visible = true
+allow_search = false
+hide_folding = true
+enable_recursive_folding = false
+hide_root = true
+select_mode = 1
+scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
+auto_tooltip = false
+script = ExtResource("3_jsd1q")

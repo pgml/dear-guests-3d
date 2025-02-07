@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://y5737vxpy2m0"]
+[gd_scene load_steps=39 format=3 uid="uid://y5737vxpy2m0"]
 
 [ext_resource type="Script" uid="uid://dsispj3jb0do8" path="res://UI/Scripts/UiReplicator.cs" id="1_7npvn"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_q77f4"]
@@ -19,8 +19,6 @@ texture_margin_top = 17.0
 texture_margin_right = 20.0
 texture_margin_bottom = 25.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ev57j"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmhyj"]
 content_margin_left = 5.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -33,7 +31,7 @@ shadow_color = Color(0.875137, 0.824767, 0.585779, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_7npvn"]
 color = Color(0.847059, 0.792157, 0.533333, 1)
-grow_begin = -1.0
+grow_begin = -3.0
 vertical = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uo0nm"]
@@ -111,7 +109,7 @@ texture_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_q77f4"]
 color = Color(0.713726, 0.654902, 0.380392, 1)
-grow_begin = -2.0
+grow_begin = 0.0
 grow_end = -3.0
 vertical = true
 
@@ -147,7 +145,7 @@ offset_right = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7npvn")
-InfoHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/InfoWindowHeadline")
+InfoHeadline = NodePath("PanelBackground/VBoxContainer/Title/InfoWindowHeadline")
 ArtifactIcon = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/OriginalArtifact/TextureButton")
 ReplicatorStatus = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/ReplicatorStatus")
 ArtifactName = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/ArtifactName")
@@ -160,13 +158,13 @@ Progress = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/I
 DescriptionEndTime = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/DescriptionEndTime")
 EndTime = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/VBoxContainer/EndTime")
 SettingsParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow")
-SettingsHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/SettingsHeadline")
+SettingsHeadline = NodePath("PanelBackground/VBoxContainer/Title/SettingsHeadline")
 HumidityParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity")
 PressureParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure")
 BrightnessParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness")
 WindVelocityParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity")
 TemperatureParent = NodePath("PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temperature")
-ItemListHeadline = NodePath("PanelBackground/VBoxContainer/TitleBackground/HBoxContainer/ItemsHeadline")
+ItemListHeadline = NodePath("PanelBackground/VBoxContainer/Title/ItemsHeadline")
 ItemList = NodePath("PanelBackground/VBoxContainer/HBoxContainer/Tree")
 ReplicateButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Replicate")
 InsertButton = NodePath("PanelBackground/VBoxContainer/HBoxContainer/HBoxContainer/InfoWindow/ButtonWrapper/Insert")
@@ -194,23 +192,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="TitleBackground" type="Panel" parent="PanelBackground/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12.5)
+[node name="Title" type="HBoxContainer" parent="PanelBackground/VBoxContainer"]
+custom_minimum_size = Vector2(0, 14.5)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ev57j")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelBackground/VBoxContainer/TitleBackground"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 0.5
-offset_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+size_flags_vertical = 4
 theme_override_constants/separation = 4
 
-[node name="InfoWindowHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
+[node name="InfoWindowHeadline" type="Label" parent="PanelBackground/VBoxContainer/Title"]
 custom_minimum_size = Vector2(110, 10)
 layout_mode = 2
 size_flags_vertical = 8
@@ -221,11 +209,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="VSeparator" type="VSeparator" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="PanelBackground/VBoxContainer/Title"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_7npvn")
 
-[node name="SettingsHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
+[node name="SettingsHeadline" type="Label" parent="PanelBackground/VBoxContainer/Title"]
 visible = false
 custom_minimum_size = Vector2(65, 10)
 layout_mode = 2
@@ -237,7 +225,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="ItemsHeadline" type="Label" parent="PanelBackground/VBoxContainer/TitleBackground/HBoxContainer"]
+[node name="ItemsHeadline" type="Label" parent="PanelBackground/VBoxContainer/Title"]
 custom_minimum_size = Vector2(65, 10)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -497,7 +485,6 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_q77f4")
 
 [node name="SettingsWindow" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -681,6 +668,7 @@ value = 20.0
 script = ExtResource("9_ejr2r")
 
 [node name="Tree" type="Tree" parent="PanelBackground/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 size_flags_horizontal = 4

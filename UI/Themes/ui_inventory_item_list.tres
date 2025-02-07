@@ -44,7 +44,7 @@ border_color = Color(0.886275, 0.839216, 0.611765, 0)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 expand_margin_left = 18.0
-expand_margin_right = 18.0
+expand_margin_right = 21.0
 
 [resource]
 Tree/colors/font_color = Color(0.239216, 0, 0.0235294, 1)

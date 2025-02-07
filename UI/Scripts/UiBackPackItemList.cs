@@ -56,7 +56,7 @@ public partial class UiBackPackItemList : UiItemList
 			row.SetText(0, $"  {item.Name}");
 			//row.SetText(1, weight.ToString());
 			row.SetText(1, amount);
-			row.SetText(2, $"{item.Value.ToString()}");
+			row.SetText(2, $"{item.Value.ToString()} ¡");
 			row.SetTextAlignment(0, HorizontalAlignment.Left);
 			row.SetTextAlignment(1, HorizontalAlignment.Right);
 			row.SetTextAlignment(2, HorizontalAlignment.Right);

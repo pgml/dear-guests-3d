@@ -5,11 +5,11 @@ using System.Collections.Generic;
 public partial class UiBackPackItemList : UiItemList
 {
 	public Dictionary<string, TitleProperties> ColumnTitles { get; set; } = new() {
-		{ "Item", new TitleProperties(HorizontalAlignment.Left, 120)},
-		{ "Amount", new TitleProperties(HorizontalAlignment.Right, 20) },
+		{ "Item", new TitleProperties(HorizontalAlignment.Left, 140)},
+		{ "Type", new TitleProperties(HorizontalAlignment.Right, 20) },
+		{ "Amount", new TitleProperties(HorizontalAlignment.Right, 30) },
 		//{ "Weight", new TitleProperties(HorizontalAlignment.Right, 25) },
 		{ "Value", new TitleProperties(HorizontalAlignment.Right, 30) },
-		{ "Category", new TitleProperties(HorizontalAlignment.Right, 40) },
 	};
 
 	public override void _Ready()
@@ -62,9 +62,11 @@ public partial class UiBackPackItemList : UiItemList
 			row.SetIcon(0, ImageTexture.CreateFromImage(image));
 			row.SetText(0, $"   {itemName}");
 			//row.SetText(1, weight.ToString());
-			row.SetText(1, amount);
-			row.SetText(2, $"{item.Value.ToString()} ¡");
-			row.SetText(3, item.Type.ToString());
+			row.SetText(1, item.Type.ToString());
+			row.SetText(2, amount);
+			row.SetText(3, $"{item.Value.ToString()} ¡");
+			row.SetCustomColor(1, Color.FromString("3d000696", default));
+			row.SetCustomFontSize(1, 6);
 
 			int i = 0;
 			foreach (var (name, properties) in ColumnTitles) {

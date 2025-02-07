@@ -223,6 +223,7 @@ theme_override_constants/inner_item_margin_left = 3
 theme_override_constants/inner_item_margin_right = 4
 theme_override_constants/inner_item_margin_top = 1
 theme_override_constants/item_margin = 1
+theme_override_constants/button_margin = 1
 theme_override_constants/icon_max_width = 16
 theme_override_font_sizes/font_size = 9
 theme_override_styles/panel = SubResource("StyleBoxFlat_82nfj")
@@ -233,6 +234,7 @@ enable_recursive_folding = false
 hide_root = true
 select_mode = 1
 scroll_horizontal_enabled = false
+scroll_vertical_enabled = false
 auto_tooltip = false
 script = ExtResource("3_jsd1q")
 

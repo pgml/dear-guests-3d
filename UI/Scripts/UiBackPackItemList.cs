@@ -16,8 +16,8 @@ public partial class UiBackPackItemList : UiItemList
 	{
 		base._Ready();
 		_buildTitleRow();
-		_populateList();
-		ActorInventory.InventoryUpdated += _populateList;
+		//_populateList();
+		ActorInventory.InventoryUpdated += PopulateList;
 	}
 
 	private void _buildTitleRow()
@@ -33,7 +33,7 @@ public partial class UiBackPackItemList : UiItemList
 		}
 	}
 
-	private void _populateList()
+	public void PopulateList()
 	{
 		if (ActorInventory.Items is null) {
 			return;
@@ -76,10 +76,5 @@ public partial class UiBackPackItemList : UiItemList
 
 			ListItems.Add(inventoryItem, row);
 		}
-
-		TreeItem firstItem = TreeRoot.GetChildren()[0];
-		CallDeferred("grab_focus");
-		SetSelected(firstItem, 0);
-		firstItem.Select(0);
 	}
 }

@@ -64,7 +64,7 @@ content_margin_left = 18.0
 content_margin_right = 18.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="Inventory" type="Control" node_paths=PackedStringArray("InventoryBackgroud")]
+[node name="Inventory" type="Control" node_paths=PackedStringArray("InventoryBackground", "BackPackItemList")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,7 +72,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jsd1q")
-InventoryBackgroud = NodePath("Background")
+InventoryBackground = NodePath("Background")
+BackPackItemList = NodePath("Main/HBoxContainer/Backpack/ItemList")
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1

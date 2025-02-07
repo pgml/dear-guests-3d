@@ -21,8 +21,8 @@ public partial class UiItemList : Tree
 			: new();
 	}}
 
-	protected TreeItem TreeRoot;
-	protected Dictionary<InventoryItemResource, TreeItem> ListItems = new();
+	public TreeItem TreeRoot;
+	public Dictionary<InventoryItemResource, TreeItem> ListItems = new();
 
 	public override void _Ready()
 	{
@@ -39,5 +39,17 @@ public partial class UiItemList : Tree
 		foreach (var child in TreeRoot.GetChildren()) {
 			TreeRoot.RemoveChild(child);
 		}
+	}
+
+	public void SelectFirstRow(TreeItem root = null)
+	{
+		if (root is null) {
+			root = TreeRoot;
+		}
+
+		TreeItem firstItem = root.GetChildren()[0];
+		CallDeferred("grab_focus");
+		CallDeferred("set_selected", firstItem, 0);
+		firstItem.CallDeferred("select", 0);
 	}
 }

@@ -127,7 +127,7 @@ public partial class Replicator : Equipment
 				UiReplicatorInstance.ArtifactName.Text = artifact.Name;
 
 				// create copy of content and update settings
-				ReplicatorContent content = Content();
+				var content = Content();
 				content.Artifact = artifact;
 				_replicatorStorage.Update(this, content);
 				_updateReplicatorUi();

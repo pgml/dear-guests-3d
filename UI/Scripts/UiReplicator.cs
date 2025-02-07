@@ -136,10 +136,8 @@ public partial class UiReplicator : UiControl
 	public void Open(Vector2 position)
 	{
 		PopulateList();
-		TreeItem firstItem = TreeRoot.GetChildren()[0];
-		ItemList.GrabFocus();
-		ItemList.SetSelected(firstItem, 0);
-		firstItem.Select(0);
+		SelectFirstRow(TreeRoot);
+
 		Position = position;
 		IsOpen = true;
 		ActorData().IsReplicatorOpen = true;
@@ -249,5 +247,17 @@ public partial class UiReplicator : UiControl
 		foreach (var child in TreeRoot.GetChildren()) {
 			TreeRoot.RemoveChild(child);
 		}
+	}
+
+	public void SelectFirstRow(TreeItem root = null)
+	{
+		if (root is null) {
+			root = TreeRoot;
+		}
+
+		TreeItem firstItem = root.GetChildren()[0];
+		ItemList.CallDeferred("grab_focus");
+		ItemList.CallDeferred("set_selected", firstItem, 0);
+		firstItem.CallDeferred("select", 0);
 	}
 }

@@ -3,7 +3,10 @@ using Godot;
 public partial class UiInventory : UiControl
 {
 	[Export]
-	public Panel InventoryBackgroud { get; set; }
+	public Panel InventoryBackground { get; set; }
+
+	[Export]
+	public UiBackPackItemList BackPackItemList { get; set; }
 
 	public PackedScene QuickInventory { get {
 		return GD.Load<PackedScene>(Resources.UiQuickInventory);
@@ -38,6 +41,9 @@ public partial class UiInventory : UiControl
 			Position = Vector2.Zero;
 			IsOpen = true;
 			ActorData().IsInventoryOpen = IsOpen;
+
+			BackPackItemList.PopulateList();
+			BackPackItemList.SelectFirstRow();
 		}
 	}
 

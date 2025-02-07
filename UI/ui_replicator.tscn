@@ -485,6 +485,7 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_q77f4")
 
 [node name="SettingsWindow" type="VBoxContainer" parent="PanelBackground/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -668,7 +669,6 @@ value = 20.0
 script = ExtResource("9_ejr2r")
 
 [node name="Tree" type="Tree" parent="PanelBackground/VBoxContainer/HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 size_flags_horizontal = 4

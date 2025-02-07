@@ -221,7 +221,12 @@ public partial class UiReplicator : UiControl
 		ClearList();
 
 		foreach (var inventoryItem in items) {
-			ItemResource item = inventoryItem.ItemResource;
+			ArtifactResource item = inventoryItem.ItemResource as ArtifactResource;
+
+			if (item.IsSynthetic) {
+				continue;
+			}
+
 			TreeItem row = ItemList.CreateItem(TreeRoot);
 			string amount = inventoryItem.Amount > 0
 				? $" ({inventoryItem.Amount.ToString()})"

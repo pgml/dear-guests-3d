@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public partial class UiReplicator : UiControl
 {
 	[ExportCategory("Info Window")]
-	[Export] public Label InfoHeadline { get; set; }
+	[Export]
+	public Label InfoHeadline { get; set; }
 
 	[Export]
 	public TextureButton ArtifactIcon { get; set; }
@@ -79,6 +80,9 @@ public partial class UiReplicator : UiControl
 	public Button InsertButton { get; set; }
 
 	[Export]
+	public Button CollectButton { get; set; }
+
+	[Export]
 	public Button CancelButton { get; set; }
 
 	[Export]
@@ -105,6 +109,7 @@ public partial class UiReplicator : UiControl
 	protected TreeItem TreeRoot;
 	protected Dictionary<InventoryItemResource, TreeItem> ListItems = new();
 
+	private string _defaultReplicatorStatus = "Replicating...";
 	private string _defaultArtifactName = "[INSERT ARTIFACT]";
 	private string _defaultRequiredConditions = "-";
 	private string _defaultStartTime = "-";
@@ -156,7 +161,8 @@ public partial class UiReplicator : UiControl
 		string startTimeString,
 		double progress,
 		int remainingTime,
-		bool isReplicating = false
+		bool isReplicating,
+		bool isReplicationFinished
 	)
 	{
 		bool hasArtifact = artifact is not null;
@@ -183,8 +189,12 @@ public partial class UiReplicator : UiControl
 
 		InsertButton.Visible = !hasArtifact;
 		ReplicateButton.Visible = hasArtifact && !isReplicating;
-		ReplicatorStatus.Visible = isReplicating;
-		CancelButton.Visible = hasArtifact && isReplicating;
+		ReplicatorStatus.Visible = isReplicating || isReplicationFinished;
+		ReplicatorStatus.Text = isReplicationFinished
+			? "Replication complete!".ToUpper()
+			: _defaultReplicatorStatus;
+		CollectButton.Visible = isReplicationFinished;
+		CancelButton.Visible = hasArtifact && isReplicating && !isReplicationFinished;
 
 		ItemList.Visible = !hasArtifact;
 		ItemListHeadline.Visible = !hasArtifact;

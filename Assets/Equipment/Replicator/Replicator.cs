@@ -50,6 +50,7 @@ public partial class Replicator : Equipment
 	}}
 
 	public bool IsReplicating = false;
+	public bool IsReplicationFinished = false;
 	public UiReplicator UiReplicatorInstance = null;
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
@@ -69,6 +70,8 @@ public partial class Replicator : Equipment
 		if (!Engine.IsEditorHint()) {
 			_replicatorStorage = GD.Load<ReplicatorStorage>(Resources.ReplicatorStorage);
 		}
+
+		ReplicationFinished += _onReplicationFinished;
 	}
 
 	public override void _Process(double delta)
@@ -120,6 +123,7 @@ public partial class Replicator : Equipment
 
 			if (IsInstanceValid(artifact)) {
 				UiReplicatorInstance.ArtifactName.Text = artifact.Name;
+				// create copy of content and update settings
 				var content = Content();
 				content.Artifact = artifact;
 				_replicatorStorage.Update(this, content);
@@ -142,6 +146,7 @@ public partial class Replicator : Equipment
 		));
 
 		IsReplicating = true;
+		IsReplicationFinished = !IsReplicating;
 		_updateReplicatorUi();
 	}
 
@@ -165,7 +170,7 @@ public partial class Replicator : Equipment
 		double currentTime = DateTime.TimeStamp();
 		double progress = (currentTime - startTime) / (endTime - startTime) * 100;
 
-		return Math.Round(progress, 2);
+		return Math.Round(progress >= 100 ? 100 : progress, 2);
 	}
 
 	/// <summary>
@@ -207,8 +212,17 @@ public partial class Replicator : Equipment
 			return 0;
 		}
 
-		System.TimeSpan remainingTime = ApproxEndDateTime().Subtract(DateTime.Now());
-		return (int)Math.Round(remainingTime.TotalHours);
+		System.TimeSpan remainingTimeSpan = ApproxEndDateTime().Subtract(DateTime.Now());
+		int remainingTime = (int)Math.Round(remainingTimeSpan.TotalHours);
+
+		if (!IsReplicationFinished && remainingTime == 0) {
+			remainingTime = 1;
+		}
+		else if (IsReplicationFinished && remainingTime <= 0) {
+			remainingTime = 0;
+		}
+
+		return remainingTime;
 	}
 
 	public void SetLights()
@@ -348,12 +362,17 @@ public partial class Replicator : Equipment
 			return;
 		}
 
+		if (Progress() >= 100 && Activated && IsReplicating) {
+			EmitSignal(SignalName.ReplicationFinished);
+		}
+
 		UiReplicatorInstance.UpdateUi(
 			Artifact(),
 			StartTimeString(),
 			Progress(),
 			RemainingTime(),
-			IsReplicating
+			IsReplicating,
+			IsReplicationFinished
 		);
 	}
 
@@ -404,6 +423,11 @@ public partial class Replicator : Equipment
 		instance.ReplicateButton.Pressed -= Replicate;
 		instance.CancelButton.Pressed -= CancelReplication;
 		instance.CloseButton.Pressed -= CloseUi;
+	}
+
+	private void _onReplicationFinished()
+	{
+		IsReplicationFinished = true;
 	}
 
 	// ----- Tools

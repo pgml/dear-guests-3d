@@ -81,9 +81,14 @@ public partial class Replicator : Equipment
 			SetLights();
 		}
 
-		if (IsInstanceValid(UiReplicatorInstance) && UiReplicatorInstance.IsOpen) {
-			_connectButtonSignals();
-			_updateReplicatorUi();
+		if (IsInstanceValid(UiReplicatorInstance)) {
+			if (UiReplicatorInstance.IsOpen) {
+				_connectButtonSignals();
+				_updateReplicatorUi();
+			}
+			else {
+				_disconnectButtonSignals();
+			}
 		}
 	}
 
@@ -339,7 +344,7 @@ public partial class Replicator : Equipment
 
 	private void _updateReplicatorUi()
 	{
-		if (Artifact() is not null) {
+		if (Artifact() is null) {
 			return;
 		}
 
@@ -390,6 +395,15 @@ public partial class Replicator : Equipment
 		if (!isClosedConnected) {
 			instance.CloseButton.Pressed += CloseUi;
 		}
+	}
+
+	private void _disconnectButtonSignals()
+	{
+		UiReplicator instance = UiReplicatorInstance;
+		instance.InsertButton.Pressed -= InsertArtifact;
+		instance.ReplicateButton.Pressed -= Replicate;
+		instance.CancelButton.Pressed -= CancelReplication;
+		instance.CloseButton.Pressed -= CloseUi;
 	}
 
 	// ----- Tools

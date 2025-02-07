@@ -123,6 +123,11 @@ public partial class UiReplicator : UiControl
 		ActorInventory.InventoryUpdated += PopulateList;
 	}
 
+	public override void _ExitTree()
+	{
+		ActorInventory.InventoryUpdated -= PopulateList;
+	}
+
 	public void Open(Vector2 position)
 	{
 		PopulateList();

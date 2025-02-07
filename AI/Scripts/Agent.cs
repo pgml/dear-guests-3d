@@ -30,6 +30,12 @@ public partial class Agent : NavigationAgent3D
 		DateTime.DateTimeUpdated += EvaluateGoals;
 	}
 
+	public override void _ExitTree()
+	{
+		DateTime.DateTimeUpdated -= EvaluateGoals;
+		VelocityComputed -= _onVelocityComputed;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		if (_creatureData is not null) {

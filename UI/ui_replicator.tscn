@@ -4,7 +4,6 @@
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_q77f4"]
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="2_7npvn"]
 [ext_resource type="Texture2D" uid="uid://cll8oaunldigy" path="res://Assets/Sprites/UI/ui_panel_bg.png" id="3_dfymb"]
-[ext_resource type="Script" uid="uid://bvsg6l8d4uug3" path="res://UI/Scripts/UiQuickInventoryList.cs" id="3_rvt2l"]
 [ext_resource type="Texture2D" uid="uid://bdj1k2wt70ufq" path="res://Assets/Sprites/UI/ui_btn_hover_bg.png" id="5_fmhyj"]
 [ext_resource type="Texture2D" uid="uid://3yq0iw2xkrer" path="res://Assets/Sprites/UI/ui_btn_bg.png" id="5_m5fok"]
 [ext_resource type="Texture2D" uid="uid://krogb3sj3h4a" path="res://Assets/Sprites/UI/ui_btn_pressed_bg.png" id="6_ev57j"]
@@ -131,6 +130,9 @@ border_color = Color(0.713726, 0.654902, 0.380392, 1)
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rvt2l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lc4qy"]
+content_margin_top = 5.0
 
 [node name="UiReplicator" type="Control" node_paths=PackedStringArray("InfoHeadline", "ArtifactIcon", "ReplicatorStatus", "ArtifactName", "DescriptionConditions", "RequiredConditions", "DescriptionStartTime", "StartTime", "DescriptionProgress", "Progress", "DescriptionEndTime", "EndTime", "SettingsParent", "SettingsHeadline", "HumidityParent", "PressureParent", "BrightnessParent", "WindVelocityParent", "TemperatureParent", "ItemListHeadline", "ItemList", "ReplicateButton", "InsertButton", "CollectButton", "CancelButton", "CloseButton")]
 custom_minimum_size = Vector2(200, 155)
@@ -686,6 +688,7 @@ theme = ExtResource("2_7npvn")
 theme_override_constants/v_separation = 0
 theme_override_fonts/font = ExtResource("1_q77f4")
 theme_override_font_sizes/font_size = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_lc4qy")
 allow_search = false
 hide_folding = true
 enable_recursive_folding = false
@@ -693,4 +696,3 @@ hide_root = true
 select_mode = 1
 scroll_vertical_enabled = false
 auto_tooltip = false
-script = ExtResource("3_rvt2l")

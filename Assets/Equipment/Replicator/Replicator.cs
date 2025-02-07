@@ -83,10 +83,7 @@ public partial class Replicator : Equipment
 
 		if (IsInstanceValid(UiReplicatorInstance) && UiReplicatorInstance.IsOpen) {
 			_connectButtonSignals();
-
-			if (Artifact() is not null) {
-				_updateReplicatorUi();
-			}
+			_updateReplicatorUi();
 		}
 	}
 
@@ -342,6 +339,10 @@ public partial class Replicator : Equipment
 
 	private void _updateReplicatorUi()
 	{
+		if (Artifact() is not null) {
+			return;
+		}
+
 		UiReplicatorInstance.UpdateUi(
 			Artifact(),
 			StartTimeString(),

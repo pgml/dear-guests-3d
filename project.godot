@@ -183,6 +183,10 @@ action_cancel={
 3d_render/layer_1="Normal"
 3d_render/layer_2="ShadowAnomaly"
 
+[navigation]
+
+3d/merge_rasterizer_cell_scale=0.01
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

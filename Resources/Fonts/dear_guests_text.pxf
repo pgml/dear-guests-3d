@@ -13,7 +13,7 @@ font_url:
 license: 
 license_url: 
 
-last_exported_path: Z:\home2\pgml\Projekte\Godot\dear-guests-3d\Resources\Fonts\dear_guests_text.ttf
+last_exported_path: F:\Godot\dear-guests-3d\Resources\Fonts\dear_guests_text.ttf
 
 num_glyphs: 106
 glyphs:
@@ -361,7 +361,7 @@ glyphs:
 		advance: 5
 		auto_update_advance: true
 		auto_advance_amount: 1
-		pixels: -1 7, 0 6, 1 0, 1 1, 1 2, 1 3, 1 4, 1 5, 1 6, 1 7, 2 6, 2 8, 3 8, 
+		pixels: 0 6, 1 0, 1 1, 1 2, 1 3, 1 4, 1 5, 1 6, 1 7, 2 6, 2 8, 3 8, 
 	103:
 		advance: 6
 		auto_update_advance: true
@@ -486,7 +486,7 @@ glyphs:
 		advance: 8
 		auto_update_advance: true
 		auto_advance_amount: 1
-		pixels: 0 2, 0 4, 1 0, 1 1, 1 2, 1 3, 1 4, 1 5, 1 6, 1 7, 2 2, 2 4, 2 6, 3 2, 3 4, 3 5, 4 2, 4 4, 4 6, 5 0, 5 1, 5 2, 5 3, 5 4, 5 5, 5 6, 5 7, 6 2, 6 4, 
+		pixels: 0 2, 0 4, 1 0, 1 1, 1 2, 1 3, 1 4, 1 5, 1 6, 1 7, 1 8, 2 2, 2 4, 2 7, 3 2, 3 4, 3 6, 4 2, 4 4, 4 7, 5 0, 5 1, 5 2, 5 3, 5 4, 5 5, 5 6, 5 7, 5 8, 6 2, 6 4, 
 	169:
 		advance: 8
 		auto_update_advance: true

@@ -127,7 +127,7 @@ public partial class Replicator : Equipment
 				UiReplicatorInstance.ArtifactName.Text = artifact.Name;
 
 				// create copy of content and update settings
-				var content = Content();
+				ReplicatorContent content = Content();
 				content.Artifact = artifact;
 				_replicatorStorage.Update(this, content);
 				_updateReplicatorUi();
@@ -162,19 +162,15 @@ public partial class Replicator : Equipment
 			return;
 		}
 
-		string replicaPath = Artifact().ReplicatesInto;
-		if (ResourceLoader.Exists(replicaPath)) {
-			var replica = GD.Load<ArtifactResource>(replicaPath);
-			_actorInventory.AddItem(replica, 1);
-		}
-
-		_actorInventory.AddItem(Artifact(), 1);
+		_moveReplicaToInventory();
+		_moveArtifactToInventory();
 		IsReplicationComplete = false;
 		CancelReplication();
 	}
 
 	public void CancelReplication()
 	{
+		_moveArtifactToInventory();
 		_replicatorStorage.Clear(this);
 		//_currentArtifact = null;
 		IsReplicating = false;
@@ -325,6 +321,7 @@ public partial class Replicator : Equipment
 		UiReplicatorInstance.Close();
 	}
 
+
 	// ----- some helpers
 
 	public ReplicatorContent Content()
@@ -380,6 +377,21 @@ public partial class Replicator : Equipment
 		}
 
 		return Content().Artifact;
+	}
+
+	private bool _moveArtifactToInventory()
+	{
+		return _actorInventory.AddItem(Artifact(), 1);
+	}
+
+	private bool _moveReplicaToInventory()
+	{
+		string replicaPath = Artifact().ReplicatesInto;
+		if (ResourceLoader.Exists(replicaPath)) {
+			var replica = GD.Load<ArtifactResource>(replicaPath);
+			return _actorInventory.AddItem(replica, 1);
+		}
+		return false;
 	}
 
 	private void _updateReplicatorUi()

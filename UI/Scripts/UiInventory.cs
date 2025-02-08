@@ -8,6 +8,10 @@ public partial class UiInventory : UiControl
 	[Export]
 	public UiBackPackItemList BackPackItemList { get; set; }
 
+	public static AudioLibrary AudioLibrary { get {
+		return GD.Load<AudioLibrary>(Resources.AudioLibrary);
+	}}
+
 	public PackedScene QuickInventory { get {
 		return GD.Load<PackedScene>(Resources.UiQuickInventory);
 	}}
@@ -44,15 +48,26 @@ public partial class UiInventory : UiControl
 
 			BackPackItemList.PopulateList();
 			BackPackItemList.SelectFirstRow();
+			BackPackItemList.AudioInstance = AudioLibrary.CreateAudioInstance(
+				"Inventory",
+				this
+			);
+			BackPackItemList.AudioInstance.PlayUiSound(AudioLibrary.InventoryOpen);
 		}
 	}
 
-	private void _closeInventory()
+	private async void _closeInventory()
 	{
 		if (IsOpen) {
 			Position = new Vector2(0, Size.Y);
 			IsOpen = false;
 			ActorData().IsInventoryOpen = IsOpen;
+			var audioInstance = BackPackItemList.AudioInstance;
+			if (IsInstanceValid(audioInstance)) {
+				audioInstance.PlayUiSound(AudioLibrary.InventoryClose);
+				await ToSignal(audioInstance.AudioUi, "finished");
+				audioInstance.CallDeferred("queue_free");
+			}
 		}
 	}
 }

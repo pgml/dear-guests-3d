@@ -13,7 +13,7 @@ public partial class AudioComponent : Component
 	{
 		base._Ready();
 
-		_footstepNode = AudioLibrary.CreateAudioInstance("Footsteps", this);
+		_footstepNode = AudioLibrary.CreateAudioInstance("Footsteps", this, 32);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -39,6 +39,6 @@ public partial class AudioComponent : Component
 
 		// play only generic for now
 		// @todo: make surface dependend
-		_footstepNode.Play(AudioLibrary.FootStepGeneric);
+		_footstepNode.Play(AudioLibrary.FootStepGeneric, AudioBus.Game);
 	}
 }

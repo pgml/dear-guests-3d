@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cop66dyafe5vq"]
+
+[ext_resource type="AudioStream" uid="uid://cb8chtdgh2jhx" path="res://Resources/Audio/Misc/use_object_2.wav" id="2_fturp"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="2_vo58e"]
+
+[resource]
+script = ExtResource("2_vo58e")
+AudioFiles = Array[AudioStream]([ExtResource("2_fturp")])
+MinVolume = 0.2
+MaxVolume = 0.2
+AutoPlay = false

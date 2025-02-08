@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://y4gh5uq0jl2n"]
+
+[ext_resource type="AudioStream" uid="uid://yfjs1iqlaip6" path="res://Resources/Audio/Misc/replicator_hum_whir_1.wav" id="1_hykk4"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="2_mr6sx"]
+
+[resource]
+script = ExtResource("2_mr6sx")
+AudioFiles = Array[AudioStream]([ExtResource("1_hykk4")])
+MinVolume = 0.5
+MaxVolume = 0.5
+AutoPlay = false

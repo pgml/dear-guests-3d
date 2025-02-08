@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cfos0wnvjmars"
+path="res://.godot/imported/02-Desktop-250208_1643-01.wav-b3f8bc06b8c023dcf6055867de0ada03.sample"
+
+[deps]
+
+source_file="res://Resources/Audio/Audio Files/02-Desktop-250208_1643-01.wav"
+dest_files=["res://.godot/imported/02-Desktop-250208_1643-01.wav-b3f8bc06b8c023dcf6055867de0ada03.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

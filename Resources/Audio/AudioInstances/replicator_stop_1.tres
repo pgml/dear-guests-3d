@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://diod6xuscrhvi"]
+
+[ext_resource type="AudioStream" uid="uid://btobait624qic" path="res://Resources/Audio/Misc/replicator_stop_1.wav" id="1_f6yij"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="2_xwr72"]
+
+[resource]
+script = ExtResource("2_xwr72")
+AudioFiles = Array[AudioStream]([ExtResource("1_f6yij")])
+MinVolume = 0.9
+MaxVolume = 0.9
+AutoPlay = false

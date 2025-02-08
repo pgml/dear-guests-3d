@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://0y0lkldxtul6"]
+
+[ext_resource type="AudioStream" uid="uid://cb5oy4o70oilu" path="res://Resources/Audio/Misc/backpack_close.wav" id="1_cnovn"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="2_tibh1"]
+
+[resource]
+script = ExtResource("2_tibh1")
+AudioFiles = Array[AudioStream]([ExtResource("1_cnovn")])
+MinVolume = 0.5
+MaxVolume = 0.5
+AutoPlay = false

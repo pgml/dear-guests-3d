@@ -59,6 +59,19 @@ public partial class Replicator : Equipment
 		SliderProperties
 	> CurrentSettings { get; set; } = new();
 
+	public static AudioLibrary AudioLibrary { get {
+		return GD.Load<AudioLibrary>(Resources.AudioLibrary);
+	}}
+
+	//public AudioInstance AudioInstance { get; private set; }
+	public AudioInstance AudioInstance { get {
+		return AudioLibrary.CreateAudioInstance("Replicator", this, 8);
+	}}
+
+	public AudioInstance ContinuousAudioInstance { get {
+		return AudioLibrary.CreateAudioInstance("ReplicatorLoop", this, 32);
+	}}
+
 	private string _meshNodeName = "Mesh";
 	private ReplicatorStorage _replicatorStorage = new();
 	private ArtifactResource _currentArtifact;
@@ -74,6 +87,7 @@ public partial class Replicator : Equipment
 		}
 
 		ReplicationComplete += _onReplicationComplete;
+		ContinuousAudioInstance.Audio.Finished += _onContinuousAudioFinished;
 	}
 
 	public override void _Process(double delta)
@@ -107,6 +121,15 @@ public partial class Replicator : Equipment
 			&& (@event.IsActionReleased("action_use"))
 			&& CanUse
 		) {
+			var openingSound = Type switch {
+				ReplicatorType.Type1 => AudioLibrary.ReplicatorType1Open,
+				_ => null
+			};
+
+			if (openingSound is not null) {
+				AudioInstance.PlayUiSound(openingSound);
+			}
+
 			// temporarily add replicator ui to mainUI...
 			OpenUi();
 		}
@@ -121,6 +144,14 @@ public partial class Replicator : Equipment
 			}
 
 			if (@event.IsActionPressed("action_cancel")) {
+				var openingSound = Type switch {
+					ReplicatorType.Type1 => AudioLibrary.ReplicatorType1Close,
+					_ => null
+				};
+
+				if (openingSound is not null) {
+					AudioInstance.PlayUiSound(openingSound);
+				}
 				CloseUi();
 			}
 		}
@@ -143,11 +174,12 @@ public partial class Replicator : Equipment
 
 				int itemResourceIndex = _actorInventory.GetItemResourceIndex(artifact);
 				_actorInventory.RemoveOneItem(itemResourceIndex);
+				AudioInstance.PlayUiSound(AudioLibrary.ReplicatorInsertArtifact);
 			}
 		}
 	}
 
-	public void Replicate()
+	public async void Replicate()
 	{
 		if (Artifact() is null) {
 			return;
@@ -160,6 +192,9 @@ public partial class Replicator : Equipment
 			CurrentSettings
 		));
 
+		AudioInstance.Play(AudioLibrary.ReplicatorStart1);
+		await ToSignal(AudioInstance.Audio, "finished");
+		ContinuousAudioInstance.Play(AudioLibrary.ReplicatorHum1);
 		IsReplicating = true;
 		IsReplicationComplete = !IsReplicating;
 		_updateReplicatorUi();
@@ -175,6 +210,9 @@ public partial class Replicator : Equipment
 		_moveArtifactToInventory();
 		IsReplicationComplete = false;
 		CancelReplication();
+		AudioInstance.PlayUiSound(AudioLibrary.ReplicatorRetrieveArtifact);
+		ContinuousAudioInstance.Stop();
+		AudioInstance.Play(AudioLibrary.ReplicatorStop1);
 	}
 
 	public void CancelReplication()
@@ -185,6 +223,8 @@ public partial class Replicator : Equipment
 		IsReplicating = false;
 		Activated = false;
 		_updateReplicatorUi();
+		ContinuousAudioInstance.Stop();
+		AudioInstance.Play(AudioLibrary.ReplicatorStop1);
 	}
 
 	public double Progress()
@@ -405,6 +445,10 @@ public partial class Replicator : Equipment
 
 	private void _updateReplicatorUi()
 	{
+		if (!IsInstanceValid(UiReplicatorInstance)) {
+			return;
+		}
+
 		if (Progress() >= 100 && Activated && IsReplicating) {
 			EmitSignal(SignalName.ReplicationComplete);
 		}
@@ -480,6 +524,11 @@ public partial class Replicator : Equipment
 	private void _onReplicationComplete()
 	{
 		IsReplicationComplete = true;
+	}
+
+	private void _onContinuousAudioFinished()
+	{
+		ContinuousAudioInstance.Play(AudioLibrary.ReplicatorHum1);
 	}
 
 	// ----- Tools

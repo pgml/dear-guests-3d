@@ -1,13 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://cl43pl1kvgl38"]
+[gd_scene load_steps=3 format=3 uid="uid://cl43pl1kvgl38"]
 
 [ext_resource type="Script" uid="uid://01lxmc7vuuwr" path="res://Common/Scripts/AudioInstance.cs" id="1_78j6u"]
+[ext_resource type="AudioStream" uid="uid://b56pokwvljw44" path="res://Resources/Audio/Misc/backpack_open.wav" id="2_64i7o"]
 
 [node name="AudioInstance" type="Node3D"]
 script = ExtResource("1_78j6u")
 
 [node name="Audio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_64i7o")
 attenuation_model = 1
 unit_size = 100.0
-max_distance = 70.0
+max_db = 1.0
+max_distance = 80.0
+bus = &"Fx"
 emission_angle_enabled = true
 attenuation_filter_cutoff_hz = 18000.0
+
+[node name="UiAudio" type="AudioStreamPlayer" parent="."]
+bus = &"Fx"

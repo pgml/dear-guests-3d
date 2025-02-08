@@ -89,6 +89,15 @@ public partial class UiReplicator : UiControl
 	public Button CloseButton { get; set; }
 
 
+	public static AudioLibrary AudioLibrary { get {
+		return GD.Load<AudioLibrary>(Resources.AudioLibrary);
+	}}
+
+	//public AudioInstance AudioInstance { get; private set; }
+	public AudioInstance AudioInstance { get {
+		return AudioLibrary.CreateAudioInstance("Replicator", this);
+	}}
+
 	public PackedScene PackedUiReplicator { get {
 		return GD.Load<PackedScene>(Resources.UiReplicator);
 	}}
@@ -127,6 +136,7 @@ public partial class UiReplicator : UiControl
 			TreeRoot = ItemList.CreateItem();
 		}
 
+		//AudioInstance = AudioLibrary.CreateAudioInstance("browse", this);
 		PopulateList();
 		//ActorInventory.InventoryUpdated += PopulateList;
 	}
@@ -139,16 +149,40 @@ public partial class UiReplicator : UiControl
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventKey e && e.Pressed) {
+			bool playBrowseSound = false;
+
 			if (_currentSlider is not null) {
-				NodePath nextFocusPath = e.Keycode switch {
-					Key.S => _currentSlider.FocusNext,
-					Key.W => _currentSlider.FocusPrevious,
-					_ => null
-				};
+				NodePath nextFocusPath = null;
+
+				if (e.IsAction("ui_focus_next")) {
+					playBrowseSound = true;
+					nextFocusPath = _currentSlider.FocusNext;
+				}
+
+				if (e.IsAction("ui_focus_prev")) {
+					playBrowseSound = true;
+					nextFocusPath = _currentSlider.FocusPrevious;
+				}
+
+				if (e.IsAction("ui_slider_increase") || e.IsAction("ui_slider_decrease")) {
+					playBrowseSound = true;
+				}
 
 				if (nextFocusPath is not null) {
 					_focusNextSlider(nextFocusPath);
 				}
+			}
+
+			if ((e.IsAction("ui_focus_next")
+					&& ItemList.GetSelected().GetNext() is not null)
+				|| (e.IsAction("ui_focus_prev")
+					&& ItemList.GetSelected().GetPrev() is not null)
+			) {
+				playBrowseSound = true;
+			}
+
+			if (playBrowseSound) {
+				AudioInstance.PlayUiSound(AudioLibrary.InventoryBrowse);
 			}
 		}
 	}

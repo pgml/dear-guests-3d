@@ -115,6 +115,9 @@ public partial class UiReplicator : UiControl
 	private string _defaultStartTime = "-";
 	private string _defaultProgress = "-";
 	private string _defaultEndTime = "-";
+	private bool _hasAnySliderFocus = false;
+	private bool _replicatorHasArtifact = false;
+	private Slider _currentSlider = null;
 
 	public override void _Ready()
 	{
@@ -131,6 +134,23 @@ public partial class UiReplicator : UiControl
 	public override void _ExitTree()
 	{
 		//ActorInventory.InventoryUpdated -= PopulateList;
+	}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey e && e.Pressed) {
+			if (_currentSlider is not null) {
+				NodePath nextFocusPath = e.Keycode switch {
+					Key.S => _currentSlider.FocusNext,
+					Key.W => _currentSlider.FocusPrevious,
+					_ => null
+				};
+
+				if (nextFocusPath is not null) {
+					_focusNextSlider(nextFocusPath);
+				}
+			}
+		}
 	}
 
 	public void Open(Vector2 position)
@@ -203,6 +223,9 @@ public partial class UiReplicator : UiControl
 		SettingsHeadline.Visible = hasArtifact;
 		SettingsParent.Visible = hasArtifact;
 		SettingsHeadline.Visible = hasArtifact;
+
+		_replicatorHasArtifact = hasArtifact;
+		_focusFirstSlider();
 	}
 
 	public void PopulateList()
@@ -259,5 +282,27 @@ public partial class UiReplicator : UiControl
 		ItemList.CallDeferred("grab_focus");
 		ItemList.CallDeferred("set_selected", firstItem, 0);
 		firstItem.CallDeferred("select", 0);
+	}
+
+	private void _focusFirstSlider()
+	{
+		if (_replicatorHasArtifact && !_hasAnySliderFocus) {
+			SettingsParent.CallDeferred("grab_focus");
+			_currentSlider = SettingsParent.FindChild("Slider", true) as Slider;
+			if (!_currentSlider.HasFocus()) {
+				_currentSlider.CallDeferred("grab_focus");
+				_hasAnySliderFocus = true;
+			}
+		}
+	}
+
+	private void _focusNextSlider(NodePath currentPath)
+	{
+		NodePath sliderParent = currentPath.ToString().Replace("../", "");
+		var path = SettingsParent
+			.FindChild(sliderParent.GetName(0), true)
+			.FindChild("Slider") as HSlider;
+		path.CallDeferred("grab_focus");
+		_currentSlider = path;
 	}
 }

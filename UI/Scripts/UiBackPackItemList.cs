@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public partial class UiBackPackItemList : UiItemList
 {
 	public Dictionary<string, TitleProperties> ColumnTitles { get; set; } = new() {
-		{ "Item", new TitleProperties(HorizontalAlignment.Left, 100)},
-		{ "Type", new TitleProperties(HorizontalAlignment.Right, 40) },
+		{ "Item", new TitleProperties(HorizontalAlignment.Left, 110)},
+		{ "Type", new TitleProperties(HorizontalAlignment.Right, 30) },
 		{ "Amount", new TitleProperties(HorizontalAlignment.Right, 30) },
 		//{ "Weight", new TitleProperties(HorizontalAlignment.Right, 25) },
 		{ "Value", new TitleProperties(HorizontalAlignment.Right, 40) },

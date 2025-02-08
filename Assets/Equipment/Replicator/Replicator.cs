@@ -111,6 +111,15 @@ public partial class Replicator : Equipment
 			OpenUi();
 		}
 		else if (IsInstanceValid(UiReplicatorInstance)) {
+			if (@event.IsActionReleased("action_use")) {
+				if (Artifact() is null) {
+					InsertArtifact();
+				}
+				else {
+					Replicate();
+				}
+			}
+
 			if (@event.IsActionPressed("action_cancel")) {
 				CloseUi();
 			}

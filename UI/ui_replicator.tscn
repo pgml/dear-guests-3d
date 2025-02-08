@@ -490,6 +490,7 @@ custom_minimum_size = Vector2(65, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+focus_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow"]
 layout_mode = 2
@@ -524,6 +525,8 @@ label_settings = SubResource("LabelSettings_rvt2l")
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Humidity"]
 layout_mode = 2
 size_flags_vertical = 1
+focus_next = NodePath("../../Pressure/Slider")
+focus_previous = NodePath("../../Temperature/Slider")
 theme = ExtResource("8_uvw6a")
 value = 60.0
 script = ExtResource("9_ejr2r")
@@ -557,6 +560,8 @@ label_settings = SubResource("LabelSettings_rvt2l")
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Pressure"]
 layout_mode = 2
 size_flags_vertical = 1
+focus_next = NodePath("../../Brightness/Slider")
+focus_previous = NodePath("../../Humidity/Slider")
 theme = ExtResource("8_uvw6a")
 max_value = 1000.0
 step = 10.0
@@ -591,6 +596,8 @@ label_settings = SubResource("LabelSettings_rvt2l")
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Brightness"]
 layout_mode = 2
 size_flags_vertical = 1
+focus_next = NodePath("../../WindVelocity/Slider")
+focus_previous = NodePath("../../Pressure/Slider")
 theme = ExtResource("8_uvw6a")
 max_value = 2000.0
 step = 10.0
@@ -625,6 +632,8 @@ label_settings = SubResource("LabelSettings_rvt2l")
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/WindVelocity"]
 layout_mode = 2
 size_flags_vertical = 1
+focus_next = NodePath("../../Temperature/Slider")
+focus_previous = NodePath("../../Brightness/Slider")
 theme = ExtResource("8_uvw6a")
 step = 5.0
 script = ExtResource("9_ejr2r")
@@ -657,6 +666,8 @@ label_settings = SubResource("LabelSettings_rvt2l")
 [node name="Slider" type="HSlider" parent="PanelBackground/VBoxContainer/HBoxContainer/SettingsWindow/Temperature"]
 layout_mode = 2
 size_flags_vertical = 1
+focus_next = NodePath("../../Humidity/Slider")
+focus_previous = NodePath("../../WindVelocity/Slider")
 theme = ExtResource("8_uvw6a")
 theme_override_icons/grabber = ExtResource("8_uo0nm")
 theme_override_icons/grabber_highlight = ExtResource("9_ms8m5")

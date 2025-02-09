@@ -80,7 +80,6 @@ transform = Transform3D(0.965406, 0.0872882, -0.245684, 0.172596, 0.492322, 0.85
 [node name="AnomalySun" parent="World" index="2"]
 transform = Transform3D(0.961262, 0, -0.275637, 0.217205, 0.615662, 0.757484, 0.169699, -0.788011, 0.591812, 0, 0, 0)
 rotation_order = 4
-light_energy = 0.0
 
 [node name="Moon" parent="World" index="3"]
 light_color = Color(0.0590279, 0.0590279, 0.0590279, 1)

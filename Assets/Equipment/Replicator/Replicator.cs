@@ -367,7 +367,6 @@ public partial class Replicator : Equipment
 		UiReplicatorInstance.Close();
 	}
 
-
 	// ----- some helpers
 
 	public ReplicatorContent Content()

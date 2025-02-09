@@ -17,5 +17,6 @@ public static class Resources
 	// UI
 	public static readonly string UiLoading = "res://UI/ui_loading.tscn";
 	public static readonly string UiQuickInventory = "res://UI/ui_quick_inventory.tscn";
+	public static readonly string UiBuildMode = "res://UI/ui_build_mode.tscn";
 	public static readonly string UiReplicator = "res://UI/ui_replicator.tscn";
 }

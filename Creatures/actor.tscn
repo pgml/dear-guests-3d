@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=74 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://pei1hfk7hybs" path="res://Common/Components/JumpComponent.tscn" id="4_ad0ix"]
 [ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="4_p5kc0"]
 [ext_resource type="PackedScene" uid="uid://cbpvyb7u8275d" path="res://Common/Components/ClimbComponent.tscn" id="5_ejg33"]
+[ext_resource type="PackedScene" uid="uid://dg3ceau2pn23w" path="res://Common/Components/BuildComponent.tscn" id="6_2kvs5"]
 [ext_resource type="Texture2D" uid="uid://dibopwl34gxtd" path="res://Assets/Sprites/shadow.png" id="6_i7mqa"]
 [ext_resource type="Resource" uid="uid://brw1tt2r2vtxh" path="res://Creatures/actor_data.tres" id="8_3eq32"]
 [ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
@@ -557,6 +558,8 @@ FootStepLoopInterval = 0.34
 
 [node name="ClimbComponent" parent="Components" instance=ExtResource("5_ejg33")]
 MinClimbHeight = 1.0
+
+[node name="BuildComponent" parent="Components" instance=ExtResource("6_2kvs5")]
 
 [node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterCollider")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.543, 0)

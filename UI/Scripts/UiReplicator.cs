@@ -194,6 +194,7 @@ public partial class UiReplicator : UiControl
 
 		Position = position;
 		IsOpen = true;
+		RestrictPlayerMovement = true;
 		ActorData().IsReplicatorOpen = true;
 	}
 

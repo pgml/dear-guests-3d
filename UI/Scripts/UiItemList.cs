@@ -56,7 +56,7 @@ public partial class UiItemList : Tree
 
 	protected void ClearList()
 	{
-		if (TreeRoot is null) {
+		if (!IsInstanceValid(TreeRoot)) {
 			return;
 		}
 
@@ -76,5 +76,10 @@ public partial class UiItemList : Tree
 		CallDeferred("grab_focus");
 		CallDeferred("set_selected", firstItem, 0);
 		firstItem.CallDeferred("select", 0);
+	}
+
+	protected CreatureData ActorData()
+	{
+		return GD.Load<CreatureData>(Resources.ActorData);
 	}
 }

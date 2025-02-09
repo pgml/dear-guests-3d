@@ -104,6 +104,8 @@ public partial class Equipment : Node3D
 			return;
 		}
 
+		ActorData.EquipmentInVicinity.Add(this);
+
 		_indicatorInstance = UseIndicator.Instantiate<Node3D>();
 		_indicatorInstance.Position = new Vector3(0, ColliderHeight(), 0);
 		AddChild(_indicatorInstance);
@@ -112,6 +114,7 @@ public partial class Equipment : Node3D
 
 	private void _onTriggerAreaBodyExited(Node3D body)
 	{
+		ActorData.EquipmentInVicinity.Remove(this);
 		_indicatorInstance.QueueFree();
 		CanUse = false;
 

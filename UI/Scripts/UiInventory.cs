@@ -44,6 +44,7 @@ public partial class UiInventory : UiControl
 		if (!IsOpen) {
 			Position = Vector2.Zero;
 			IsOpen = true;
+			RestrictPlayerMovement = true;
 			ActorData().IsInventoryOpen = IsOpen;
 
 			BackPackItemList.PopulateList();
@@ -61,6 +62,7 @@ public partial class UiInventory : UiControl
 		if (IsOpen) {
 			Position = new Vector2(0, Size.Y);
 			IsOpen = false;
+			RestrictPlayerMovement = false;
 			ActorData().IsInventoryOpen = IsOpen;
 			var audioInstance = BackPackItemList.AudioInstance;
 			if (IsInstanceValid(audioInstance)) {

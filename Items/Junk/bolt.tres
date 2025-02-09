@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_2niiy")
-Type = 3
+Type = 4
 Name = "Bolt"
 Weight = 0.01
 MaxCarryAmount = 99

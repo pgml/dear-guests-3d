@@ -5,6 +5,7 @@ public enum ItemType
 	Any,
 	Artifact,
 	Beverage,
+	Equipment,
 	Junk,
 	Tool
 }
@@ -29,6 +30,9 @@ public partial class ItemResource : Resource
 	[ExportCategory("Item Properties")]
 	[Export]
 	public string Name { get; set; }
+
+	[Export]
+	public string Description { get; set; }
 
 	[Export]
 	public float Weight { get; set; }

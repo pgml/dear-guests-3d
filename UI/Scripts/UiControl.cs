@@ -3,6 +3,7 @@ using Godot;
 public partial class UiControl : Control
 {
 	public bool IsOpen { get; set; } = false;
+	public bool RestrictPlayerMovement { get; set; } = false;
 
 	public async override void _Ready()
 	{
@@ -11,7 +12,7 @@ public partial class UiControl : Control
 
 	public override void _Process(double delta)
 	{
-		if (IsOpen) {
+		if (RestrictPlayerMovement) {
 			ActorData().Direction = Vector3.Zero;
 		}
 	}

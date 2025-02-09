@@ -1,5 +1,6 @@
 using Godot;
 using static IController;
+using System.Collections.Generic;
 
 public partial class CreatureData : Resource
 {
@@ -43,11 +44,15 @@ public partial class CreatureData : Resource
 	public bool IsInventoryOpen = false;
 	public bool IsReplicatorOpen = false;
 	public bool IsQuickInventoryOpen = false;
+	public bool IsBuildMoveActive = false;
 
 	// Component Helper
 	public EdgeCheckComponent EdgeCheck = new();
 	public JumpComponent JumpComponent = new();
 	public ClimbComponent ClimbComponent = new();
+
+	// misc helpers
+	public List<Equipment> EquipmentInVicinity = new();
 
 	public T Character<T>() where T : class
 	{

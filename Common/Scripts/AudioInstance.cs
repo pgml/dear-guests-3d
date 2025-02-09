@@ -23,9 +23,23 @@ public partial class AudioInstance : Node3D
 		AudioUi.Finished += _onAudioFinished;
 	}
 
-	public void Play(AudioClip audioClip, AudioBus bus = AudioBus.Master)
+	public void Play(AudioClip audioClip, AudioBus bus = AudioBus.Master, bool fixPosition = true)
 	{
 		int randomIndex = RandRange(0, audioClip.AudioFiles.Count - 1);
+
+		// due to the orthogonal camera the z position of the spawned audio
+		// instance will always be off which causes the sound
+		// to not correctly reflect the perceived location.
+		// This fixes the position and puts it slightly below the camera
+		// at the momenet the audio is played.
+		if (fixPosition) {
+			var cameraPos = GetViewport().GetCamera3D().GlobalPosition;
+			GlobalPosition = new Vector3(
+				GlobalPosition.X,
+				cameraPos.Y / 2,
+				cameraPos.Z
+			);
+		}
 
 		Audio.Stream = audioClip.AudioFiles[randomIndex];
 		Audio.Bus = bus.ToString();

@@ -144,13 +144,13 @@ public partial class Replicator : Equipment
 			}
 
 			if (@event.IsActionPressed("action_cancel")) {
-				var openingSound = Type switch {
+				var closingSound = Type switch {
 					ReplicatorType.Type1 => AudioLibrary.ReplicatorType1Close,
 					_ => null
 				};
 
-				if (openingSound is not null) {
-					AudioInstance.PlayUiSound(openingSound);
+				if (closingSound is not null) {
+					AudioInstance.PlayUiSound(closingSound);
 				}
 				CloseUi();
 			}
@@ -192,9 +192,10 @@ public partial class Replicator : Equipment
 			CurrentSettings
 		));
 
-		AudioInstance.Play(AudioLibrary.ReplicatorStart1);
+		_playSound(AudioLibrary.ReplicatorStart1);
 		await ToSignal(AudioInstance.Audio, "finished");
-		ContinuousAudioInstance.Play(AudioLibrary.ReplicatorHum1);
+		_playSound(AudioLibrary.ReplicatorHum1, true);
+
 		IsReplicating = true;
 		IsReplicationComplete = !IsReplicating;
 		_updateReplicatorUi();
@@ -208,11 +209,12 @@ public partial class Replicator : Equipment
 
 		_moveReplicaToInventory();
 		_moveArtifactToInventory();
-		IsReplicationComplete = false;
 		CancelReplication();
 		AudioInstance.PlayUiSound(AudioLibrary.ReplicatorRetrieveArtifact);
 		ContinuousAudioInstance.Stop();
-		AudioInstance.Play(AudioLibrary.ReplicatorStop1);
+		_playSound(AudioLibrary.ReplicatorStop1);
+
+		IsReplicationComplete = false;
 	}
 
 	public void CancelReplication()
@@ -224,7 +226,7 @@ public partial class Replicator : Equipment
 		Activated = false;
 		_updateReplicatorUi();
 		ContinuousAudioInstance.Stop();
-		AudioInstance.Play(AudioLibrary.ReplicatorStop1);
+		_playSound(AudioLibrary.ReplicatorStop1);
 	}
 
 	public double Progress()
@@ -428,6 +430,16 @@ public partial class Replicator : Equipment
 		return Content().Artifact;
 	}
 
+	private void _playSound(AudioClip audioClip, bool continuous = false)
+	{
+		if (continuous) {
+			ContinuousAudioInstance.Play(audioClip, AudioBus.Game);
+		}
+		else {
+			AudioInstance.Play(audioClip, AudioBus.Game);
+		}
+	}
+
 	private bool _moveArtifactToInventory()
 	{
 		return _actorInventory.AddItem(Artifact(), 1);
@@ -528,7 +540,12 @@ public partial class Replicator : Equipment
 
 	private void _onContinuousAudioFinished()
 	{
-		ContinuousAudioInstance.Play(AudioLibrary.ReplicatorHum1);
+		// replay audio but don't fix position
+		ContinuousAudioInstance.Play(
+			AudioLibrary.ReplicatorHum1,
+			AudioBus.Game,
+			false
+		);
 	}
 
 	// ----- Tools

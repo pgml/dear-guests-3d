@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ba1y8upqstekl"]
 
 [ext_resource type="Script" uid="uid://yymhyb3vrxe7" path="res://Assets/Equipment/Replicator/Replicator.cs" id="1_mdk7f"]
-[ext_resource type="PackedScene" uid="uid://dft4ktnnug7dg" path="res://Assets/Equipment/Replicator/replicator_mesh.tscn" id="2_vm67i"]
+[ext_resource type="PackedScene" uid="uid://dft4ktnnug7dg" path="res://Assets/Equipment/Replicator/replicator_type_1_mesh.tscn" id="2_vm67i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mdk7f"]
 radius = 1.695

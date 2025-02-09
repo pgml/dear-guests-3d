@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://1g2ti0fdvflw"
-path="res://.godot/imported/replicator.gltf-62752dd495b358693348475543168d1e.scn"
+path="res://.godot/imported/replicator_type_1.gltf-c37206e67d4ed2497f90cc91322e54d3.scn"
 
 [deps]
 
-source_file="res://Assets/Equipment/Replicator/Files/replicator.gltf"
-dest_files=["res://.godot/imported/replicator.gltf-62752dd495b358693348475543168d1e.scn"]
+source_file="res://Assets/Equipment/Replicator/Files/replicator_type_1.gltf"
+dest_files=["res://.godot/imported/replicator_type_1.gltf-c37206e67d4ed2497f90cc91322e54d3.scn"]
 
 [params]
 

@@ -138,7 +138,7 @@ public partial class Replicator : Equipment
 				if (Artifact() is null) {
 					InsertArtifact();
 				}
-				else {
+				else if (Artifact() is not null && !IsReplicating) {
 					Replicate();
 				}
 			}

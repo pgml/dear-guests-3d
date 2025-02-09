@@ -59,18 +59,9 @@ public partial class Replicator : Equipment
 		SliderProperties
 	> CurrentSettings { get; set; } = new();
 
-	public static AudioLibrary AudioLibrary { get {
-		return GD.Load<AudioLibrary>(Resources.AudioLibrary);
-	}}
-
-	//public AudioInstance AudioInstance { get; private set; }
-	public AudioInstance AudioInstance { get {
-		return AudioLibrary.CreateAudioInstance("Replicator", this, 8);
-	}}
-
-	public AudioInstance ContinuousAudioInstance { get {
-		return AudioLibrary.CreateAudioInstance("ReplicatorLoop", this, 32);
-	}}
+	public AudioLibrary AudioLibrary { get; set; }
+	public AudioInstance AudioInstance { get; private set; }
+	public AudioInstance ContinuousAudioInstance { get; set; }
 
 	private string _meshNodeName = "Mesh";
 	private ReplicatorStorage _replicatorStorage = new();
@@ -84,10 +75,14 @@ public partial class Replicator : Equipment
 		if (!Engine.IsEditorHint()) {
 			_replicatorStorage = GD.Load<ReplicatorStorage>(Resources.ReplicatorStorage);
 			_actorInventory = GD.Load<Inventory>(Resources.ActorInventory);
-		}
 
-		ReplicationComplete += _onReplicationComplete;
-		ContinuousAudioInstance.Audio.Finished += _onContinuousAudioFinished;
+			AudioLibrary = GD.Load<AudioLibrary>(Resources.AudioLibrary);
+			AudioInstance = AudioLibrary.CreateAudioInstance("Replicator", this, 8);
+			ContinuousAudioInstance = AudioLibrary.CreateAudioInstance("ReplicatorLoop", this, 32);
+
+			ReplicationComplete += _onReplicationComplete;
+			ContinuousAudioInstance.Audio.Finished += _onContinuousAudioFinished;
+		}
 	}
 
 	public override void _Process(double delta)

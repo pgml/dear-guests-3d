@@ -34,7 +34,7 @@ public partial class BuildComponent : Component
 		}
 
 		if (IsActive && IsPlacing) {
-			PrePlace(_itemResource);
+			PrePlace(_itemResource, delta);
 		}
 
 		if (RemoveMode) {
@@ -76,8 +76,8 @@ public partial class BuildComponent : Component
 				if (!IsPlacing)	{
 					SelectedItem = UiBuildModeInstance.SelectedItem();
 					_itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
-					IsPlacing = true;
 					SpawnItem();
+					IsPlacing = true;
 				}
 				else {
 					Place();
@@ -98,17 +98,114 @@ public partial class BuildComponent : Component
 		GetTree().CurrentScene.AddChild(_itemInstance);
 		_itemInstance.CanUse = false;
 		_itemMesh().SetSurfaceOverrideMaterial(0, GetGhostMaterial(_itemMesh()));
+
+		MeshInstance3D mesh = _getMesh(_itemInstance);
+		GD.PrintS(mesh.GetAabb());
+		ShapeCast3D ray = new() {
+			MaxResults = 8,
+			Shape = new SphereShape3D() { Radius = 1 },
+			Name = "DetectionRay",
+			TargetPosition = Vector3.Zero,
+		};
+		_itemInstance.AddChild(ray);
 	}
 
-	public void PrePlace(EquipmentResource equipment)
+	private RayCast3D _createRayCast(Vector3 position)
 	{
-		Vector3 facingDirection = CreatureData.FacingDirection;
-		Transform3D globalTransform = Controller.GlobalTransform;
-		Vector3 forward = globalTransform.Origin + facingDirection * 2.5f;
-		forward.Y = (float)Controller.DistanceToFloor();
+		MeshInstance3D mesh = _getMesh(_itemInstance);
+		GD.PrintS(mesh.GetAabb());
+		RayCast3D ray = new() {
+			Name = "DetectionRay",
+			TargetPosition = _itemInstance.Position,
+		};
+
+		return ray;
+	}
+
+	public void PrePlace(EquipmentResource equipment, double delta)
+	{
 		if (IsInstanceValid(_itemInstance)) {
-			_itemInstance.Position = forward;
+			MeshInstance3D mesh = _getMesh(_itemInstance);
+			Vector3 meshSize = mesh.GetAabb().Size;
+			float maxMeshLength = Mathf.Max(meshSize.X, meshSize.Z);
+			float minMeshLength = Mathf.Min(meshSize.X, meshSize.Z);
+
+			// _itemInstance.FindChild() doesn't work for whatever reason
+			// so the stupid way it is
+			ShapeCast3D ray = new();
+			foreach (var child in _itemInstance.GetChildren()) {
+				if (child is ShapeCast3D) {
+					ray = child as ShapeCast3D;
+					break;
+				}
+			}
+
+			Vector3 rayPos = ActorData.FacingDirection * maxMeshLength;
+			rayPos.Y = 1.1f;
+			ray.Position = rayPos;
+			Transform3D position = Transform3D.Identity;
+
+			GD.PrintS(position.Origin);
+			if (ray.IsColliding()) {
+				StaticBody3D collider = new();
+				for (var i = 0; i <= ray.GetCollisionCount(); i++) {
+					if (ray.GetCollider(i) is not null) {
+						collider = ray.GetCollider(i) as StaticBody3D;
+						break;
+					}
+				}
+
+				if (collider is not null && collider.GetParent() is MeshInstance3D) {
+					position = GetSnapPosition(
+						_getMesh(_itemInstance),
+						collider.GetParent<MeshInstance3D>()
+					);
+				}
+			}
+			else {
+				Vector3 facingDirection = CreatureData.FacingDirection;
+				Vector3 forward = GlobalTransform.Origin + facingDirection * 2.5f;
+				forward.Z += minMeshLength / 2;
+				position = new Transform3D(GlobalTransform.Basis, forward);
+			}
+			position.Origin.Y = (float)Controller.DistanceToFloor();
+			GD.PrintS(position.Origin);
+
+			_itemInstance.Position = position.Origin;
+			//GD.PrintS(snapPosition == Transform3D.Identity);
 		}
+	}
+
+	public Transform3D GetSnapPosition(
+		MeshInstance3D snapObject,
+		MeshInstance3D snapToObject,
+		float margin = 0.5f
+	) {
+		var itemAabb = snapObject.GetAabb();
+		Vector3 itemSize = itemAabb.Size;
+		Vector3 itemPos = snapObject.GlobalTransform.Origin;
+
+		var bodyAabb = snapToObject.GetAabb();
+		Vector3 bodySize = bodyAabb.Size;
+		Vector3 bodyPos = snapToObject.GlobalTransform.Origin;
+
+		Vector3 direction = (itemPos - bodyPos).Normalized();
+		Vector3 snapPosition = Vector3.Zero;
+
+		if (Mathf.Abs(direction.X) > Mathf.Abs(direction.Z)) {
+			snapPosition.X = Mathf.Sign(direction.X) * (bodySize.X / 2 + itemSize.X / 2 + margin);
+		}
+		else {
+			snapPosition.Z = Mathf.Sign(direction.Z) * (bodySize.Z / 2 + itemSize.Z / 2 + margin);
+		}
+
+		//snapPosition.Y = (bodySize.Y - itemSize.Y) / 2;
+		snapPosition.Y = (float)Controller.DistanceToFloor();
+
+		return new Transform3D(
+			_itemInstance.GlobalTransform.Basis,
+			bodyPos + snapPosition
+		);
 	}
 
 	public void Place()

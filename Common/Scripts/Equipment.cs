@@ -105,6 +105,7 @@ public partial class Equipment : Node3D
 		}
 
 		ActorData.EquipmentInVicinity.Add(this);
+		ActorData.FocusedEquipment = this;
 
 		_indicatorInstance = UseIndicator.Instantiate<Node3D>();
 		_indicatorInstance.Position = new Vector3(0, ColliderHeight(), 0);
@@ -115,8 +116,12 @@ public partial class Equipment : Node3D
 	private void _onTriggerAreaBodyExited(Node3D body)
 	{
 		ActorData.EquipmentInVicinity.Remove(this);
-		_indicatorInstance.QueueFree();
 		CanUse = false;
+		ActorData.FocusedEquipment = null;
+
+		if (IsInstanceValid(_indicatorInstance)) {
+			_indicatorInstance.QueueFree();
+		}
 
 		//if (QuickInventoryInstance.IsOpen) {
 		//	QuickInventoryInstance.Close();

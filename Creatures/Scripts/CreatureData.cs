@@ -53,6 +53,7 @@ public partial class CreatureData : Resource
 
 	// misc helpers
 	public List<Equipment> EquipmentInVicinity = new();
+	public Equipment FocusedEquipment = null;
 
 	public T Character<T>() where T : class
 	{

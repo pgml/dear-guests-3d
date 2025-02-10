@@ -2,23 +2,31 @@ using Godot;
 
 public partial class BuildComponent : Component
 {
+
 	public PackedScene UiBuildMode { get {
 		return GD.Load<PackedScene>(Resources.UiBuildMode);
 	}}
 
 	public UiBuildMode UiBuildModeInstance { get; private set; }
 	public TreeItem SelectedItem { get; private set; }
+	public Area3D ProximityCheck { get {
+		return FindChild("ProximityCheck") as Area3D;
+	}}
 
 	public bool RemoveMode { get; private set; } = false;
 	public bool IsActive { get; private set; } = false;
 	public bool IsPlacing { get; private set; } = false;
 
+	private Equipment _equipmentInFocus = null;
 	private Equipment _itemInstance = null;
 	private EquipmentResource _itemResource = null;
 
 	public override void  _Ready()
 	{
 		base._Ready();
+
+		//ProximityCheck.BodyEntered += _onProximityBodyEntered;
+		//ProximityCheck.BodyExited += _onProximityBodyExited;
 	}
 
 	public override void _Process(double delta)
@@ -29,6 +37,20 @@ public partial class BuildComponent : Component
 
 		if (IsActive && IsPlacing) {
 			PrePlace(_itemResource);
+		}
+
+		if (RemoveMode) {
+			if (ActorData.FocusedEquipment is Equipment equipment) {
+				equipment.CanUse = false;
+				_makeGhost(equipment);
+				_equipmentInFocus = equipment;
+			}
+			else {
+				_revive(_equipmentInFocus);
+			}
+		}
+		else {
+			_revive(_equipmentInFocus);
 		}
 	}
 
@@ -64,21 +86,17 @@ public partial class BuildComponent : Component
 
 		if (@event.IsActionReleased("build_mode_remove")) {
 			RemoveMode = !RemoveMode;
-
 		}
 	}
 
 	public void SpawnItem()
 	{
 		_itemInstance = _itemResource.ItemScene.Instantiate<Equipment>();
-		_itemInstance.Name = $"Spawned{_itemResource.Name}";
+		_itemInstance.Name = $"{_itemResource.Name} {GlobalPosition.ToString()}";
 		//(_itemInstance.FindChild("CollisionShape3D", true) as CollisionShape3D).Disabled = true;
 		GetTree().CurrentScene.AddChild(_itemInstance);
 		_itemInstance.CanUse = false;
-		_itemMesh().SetSurfaceOverrideMaterial(
-			0,
-			GetGhostMaterial(_itemMesh())
-		);
+		_itemMesh().SetSurfaceOverrideMaterial(0, GetGhostMaterial(_itemMesh()));
 	}
 
 	public void PrePlace(EquipmentResource equipment)
@@ -87,7 +105,9 @@ public partial class BuildComponent : Component
 		Transform3D globalTransform = Controller.GlobalTransform;
 		Vector3 forward = globalTransform.Origin + facingDirection * 2.5f;
 		forward.Y = 0;
-		_itemInstance.Position = forward;
+		if (IsInstanceValid(_itemInstance)) {
+			_itemInstance.Position = forward;
+		}
 	}
 
 	public void Place()
@@ -116,6 +136,12 @@ public partial class BuildComponent : Component
 		UiBuildModeInstance.QueueFree();
 		IsActive = false;
 		ActorData.IsBuildMoveActive = false;
+		RemoveMode = false;
+		IsPlacing = false;
+		if (IsInstanceValid(_itemInstance)) {
+			_itemInstance.QueueFree();
+			_itemResource = null;
+		}
 	}
 
 	public BaseMaterial3D GetGhostMaterial(MeshInstance3D mesh)
@@ -146,7 +172,6 @@ public partial class BuildComponent : Component
 		if (!IsInstanceValid(item)) {
 			return null;
 		}
-
 		return item.FindChild("Mesh") as MeshInstance3D;
 	}
 
@@ -156,9 +181,22 @@ public partial class BuildComponent : Component
 			return;
 		}
 
+		GD.PrintS(Controller.Position.DistanceTo(body.Position));
+
+		MeshInstance3D mesh = null;
+		if (_equipmentInFocus is not null) {
+			mesh = _getMesh(_equipmentInFocus);
+			var material = _itemMaterial(mesh);
+
+			material.AlbedoColor = new Color(1, 1, 1);
+			mesh.SetSurfaceOverrideMaterial(0, material);
+		}
+
 		var equipment = body.GetParent().GetParent<Equipment>();
-		var mesh = _getMesh(equipment);
-		equipment.CanUse = false;
+		_equipmentInFocus = equipment;
+
+		mesh = _getMesh(_equipmentInFocus);
+		_equipmentInFocus.CanUse = false;
 		mesh.SetSurfaceOverrideMaterial(0, GetGhostMaterial(mesh));
 	}
 
@@ -171,8 +209,29 @@ public partial class BuildComponent : Component
 		var equipment = body.GetParent().GetParent<Equipment>();
 		var mesh = _getMesh(equipment);
 		var material = _itemMaterial(mesh);
+
 		material.AlbedoColor = new Color(1, 1, 1);
 		mesh.SetSurfaceOverrideMaterial(0, material);
 		equipment.CanUse = true;
+	}
+
+	private void _makeGhost(Equipment equipment)
+	{
+		var mesh = _getMesh(equipment);
+		mesh.SetSurfaceOverrideMaterial(0, GetGhostMaterial(mesh));
+	}
+
+	private void _revive(Equipment equipment)
+	{
+		if (equipment is null) {
+			return;
+		}
+
+		var mesh = _getMesh(equipment);
+		if (IsInstanceValid(mesh)) {
+			var material = _itemMaterial(mesh);
+			material.AlbedoColor = new Color(1, 1, 1);
+			mesh.SetSurfaceOverrideMaterial(0, material);
+		}
 	}
 }

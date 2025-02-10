@@ -112,6 +112,10 @@ public partial class Replicator : Equipment
 			return;
 		}
 
+		if (ActorData is CreatureData data && data.IsBuildMoveActive) {
+			return;
+		}
+
 		if (!IsInstanceValid(UiReplicatorInstance)
 			&& (@event.IsActionReleased("action_use"))
 			&& CanUse

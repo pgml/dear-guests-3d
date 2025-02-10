@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class BuildComponent : Component
 {
@@ -20,6 +21,7 @@ public partial class BuildComponent : Component
 	private Equipment _equipmentInFocus = null;
 	private Equipment _itemInstance = null;
 	private EquipmentResource _itemResource = null;
+	private List<Equipment> _allFocusedEquipment = new();
 
 	public override void  _Ready()
 	{
@@ -41,13 +43,16 @@ public partial class BuildComponent : Component
 				equipment.CanUse = false;
 				_makeGhost(equipment);
 				_equipmentInFocus = equipment;
+				if (!_allFocusedEquipment.Contains(_equipmentInFocus)) {
+					_allFocusedEquipment.Add(_equipmentInFocus);
+				}
 			}
 			else {
-				_revive(_equipmentInFocus);
+				_unfocusAll();
 			}
 		}
 		else {
-			_revive(_equipmentInFocus);
+			_unfocusAll();
 		}
 	}
 
@@ -178,7 +183,7 @@ public partial class BuildComponent : Component
 		mesh.SetSurfaceOverrideMaterial(0, GetGhostMaterial(mesh));
 	}
 
-	private void _revive(Equipment equipment)
+	private void _unfocus(Equipment equipment)
 	{
 		if (equipment is null) {
 			return;
@@ -189,6 +194,14 @@ public partial class BuildComponent : Component
 			var material = _itemMaterial(mesh);
 			material.AlbedoColor = new Color(1, 1, 1);
 			mesh.SetSurfaceOverrideMaterial(0, material);
+		}
+	}
+
+	private void _unfocusAll()
+	{
+		foreach (var equipment in _allFocusedEquipment.ToArray()) {
+			_unfocus(equipment);
+			_allFocusedEquipment.Remove(equipment);
 		}
 	}
 }

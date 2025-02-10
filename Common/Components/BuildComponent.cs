@@ -24,9 +24,6 @@ public partial class BuildComponent : Component
 	public override void  _Ready()
 	{
 		base._Ready();
-
-		//ProximityCheck.BodyEntered += _onProximityBodyEntered;
-		//ProximityCheck.BodyExited += _onProximityBodyExited;
 	}
 
 	public override void _Process(double delta)
@@ -173,46 +170,6 @@ public partial class BuildComponent : Component
 			return null;
 		}
 		return item.FindChild("Mesh") as MeshInstance3D;
-	}
-
-	private void _onProximityBodyEntered(Node3D body)
-	{
-		if (!RemoveMode || body.GetParent() is not MeshInstance3D) {
-			return;
-		}
-
-		GD.PrintS(Controller.Position.DistanceTo(body.Position));
-
-		MeshInstance3D mesh = null;
-		if (_equipmentInFocus is not null) {
-			mesh = _getMesh(_equipmentInFocus);
-			var material = _itemMaterial(mesh);
-
-			material.AlbedoColor = new Color(1, 1, 1);
-			mesh.SetSurfaceOverrideMaterial(0, material);
-		}
-
-		var equipment = body.GetParent().GetParent<Equipment>();
-		_equipmentInFocus = equipment;
-
-		mesh = _getMesh(_equipmentInFocus);
-		_equipmentInFocus.CanUse = false;
-		mesh.SetSurfaceOverrideMaterial(0, GetGhostMaterial(mesh));
-	}
-
-	private void _onProximityBodyExited(Node3D body)
-	{
-		if (body.GetParent() is not MeshInstance3D) {
-			return;
-		}
-
-		var equipment = body.GetParent().GetParent<Equipment>();
-		var mesh = _getMesh(equipment);
-		var material = _itemMaterial(mesh);
-
-		material.AlbedoColor = new Color(1, 1, 1);
-		mesh.SetSurfaceOverrideMaterial(0, material);
-		equipment.CanUse = true;
 	}
 
 	private void _makeGhost(Equipment equipment)

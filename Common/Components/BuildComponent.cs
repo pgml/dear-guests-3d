@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public partial class BuildComponent : Component
 {
-
 	public PackedScene UiBuildMode { get {
 		return GD.Load<PackedScene>(Resources.UiBuildMode);
 	}}
@@ -106,7 +105,7 @@ public partial class BuildComponent : Component
 		Vector3 facingDirection = CreatureData.FacingDirection;
 		Transform3D globalTransform = Controller.GlobalTransform;
 		Vector3 forward = globalTransform.Origin + facingDirection * 2.5f;
-		forward.Y = 0;
+		forward.Y = (float)Controller.DistanceToFloor();
 		if (IsInstanceValid(_itemInstance)) {
 			_itemInstance.Position = forward;
 		}

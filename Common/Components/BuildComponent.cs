@@ -21,6 +21,11 @@ public partial class BuildComponent : Component
 	private Equipment _itemInstance = null;
 	private EquipmentResource _itemResource = null;
 	private List<Equipment> _allFocusedEquipment = new();
+	private PhysicsBody3D _activeCollider = null;
+	// Since the current build object has 4 shape cast surrounding at each
+	// side we store and disable the one that is on the characters side
+	private ShapeCast3D _disabledColliderShapeCasts = null;
+	private bool _isObjectSnapped = false;
 
 	public override void  _Ready()
 	{
@@ -99,27 +104,10 @@ public partial class BuildComponent : Component
 		_itemInstance.CanUse = false;
 		_itemMesh().SetSurfaceOverrideMaterial(0, GetGhostMaterial(_itemMesh()));
 
-		MeshInstance3D mesh = _getMesh(_itemInstance);
-		GD.PrintS(mesh.GetAabb());
-		ShapeCast3D ray = new() {
-			MaxResults = 8,
-			Shape = new SphereShape3D() { Radius = 1 },
-			Name = "DetectionRay",
-			TargetPosition = Vector3.Zero,
-		};
-		_itemInstance.AddChild(ray);
-	}
-
-	private RayCast3D _createRayCast(Vector3 position)
-	{
-		MeshInstance3D mesh = _getMesh(_itemInstance);
-		GD.PrintS(mesh.GetAabb());
-		RayCast3D ray = new() {
-			Name = "DetectionRay",
-			TargetPosition = _itemInstance.Position,
-		};
-
-		return ray;
+		_itemInstance.AddChild(_createShapeCast(Vector3.Forward, "forward"));
+		_itemInstance.AddChild(_createShapeCast(Vector3.Right, "right"));
+		_itemInstance.AddChild(_createShapeCast(Vector3.Back, "back"));
+		_itemInstance.AddChild(_createShapeCast(Vector3.Left, "left"));
 	}
 
 	public void PrePlace(EquipmentResource equipment, double delta)
@@ -129,50 +117,54 @@ public partial class BuildComponent : Component
 			Vector3 meshSize = mesh.GetAabb().Size;
 			float maxMeshLength = Mathf.Max(meshSize.X, meshSize.Z);
 			float minMeshLength = Mathf.Min(meshSize.X, meshSize.Z);
-
-			// _itemInstance.FindChild() doesn't work for whatever reason
-			// so the stupid way it is
 			ShapeCast3D ray = new();
+
 			foreach (var child in _itemInstance.GetChildren()) {
-				if (child is ShapeCast3D) {
-					ray = child as ShapeCast3D;
-					break;
+				if (child is not ShapeCast3D) {
+					continue;
 				}
-			}
 
-			Vector3 rayPos = ActorData.FacingDirection * maxMeshLength;
-			rayPos.Y = 1.1f;
-			ray.Position = rayPos;
-			Transform3D position = Transform3D.Identity;
+				ray = child as ShapeCast3D;
+				ray.Enabled = _disabledColliderShapeCasts != ray;
 
-			GD.PrintS(position.Origin);
-			if (ray.IsColliding()) {
-				StaticBody3D collider = new();
-				for (var i = 0; i <= ray.GetCollisionCount(); i++) {
-					if (ray.GetCollider(i) is not null) {
-						collider = ray.GetCollider(i) as StaticBody3D;
+				if (ray.IsColliding()) {
+					var col = ray.GetCollider(0);
+					if (col is StaticBody3D || col is RigidBody3D) {
+						_activeCollider = col as PhysicsBody3D;
 						break;
 					}
+					else {
+						_disabledColliderShapeCasts = ray;
+						_activeCollider = null;
+					}
 				}
+			}
 
-				if (collider is not null && collider.GetParent() is MeshInstance3D) {
-					position = GetSnapPosition(
-						_getMesh(_itemInstance),
-						collider.GetParent<MeshInstance3D>()
-					);
-				}
+			Vector3 facingDirection = CreatureData.FacingDirection;
+			Vector3 forward = GlobalTransform.Origin + facingDirection * 2.5f;
+			forward.Z += minMeshLength / 2;
+			Transform3D position = new Transform3D(GlobalTransform.Basis, forward);
+
+			bool canSnap = false;
+			var testMotion = Controller.TestMotion(ActorData.FacingDirection * 4);
+			if (testMotion.IsColliding) {
+				var col = testMotion.Collider<PhysicsBody3D>();
+				canSnap = col == mesh.GetChild(0);
+			}
+
+			if (canSnap && _activeCollider is not null) {
+				position = GetSnapPosition(
+					_getMesh(_itemInstance),
+					_activeCollider.GetParent<MeshInstance3D>()
+				);
+				_isObjectSnapped = true;
 			}
 			else {
-				Vector3 facingDirection = CreatureData.FacingDirection;
-				Vector3 forward = GlobalTransform.Origin + facingDirection * 2.5f;
-				forward.Z += minMeshLength / 2;
-				position = new Transform3D(GlobalTransform.Basis, forward);
+				_isObjectSnapped = false;
 			}
-			position.Origin.Y = (float)Controller.DistanceToFloor();
-			GD.PrintS(position.Origin);
 
+			position.Origin.Y = (float)Controller.DistanceToFloor();
 			_itemInstance.Position = position.Origin;
-			//GD.PrintS(snapPosition == Transform3D.Identity);
 		}
 	}
 
@@ -214,6 +206,12 @@ public partial class BuildComponent : Component
 		material.AlbedoColor = new Color(1, 1, 1);
 		_itemMesh().SetSurfaceOverrideMaterial(0, material);
 
+		// remove snap detection shapecasts
+		foreach (var child in _itemInstance.GetChildren()) {
+			if (child is ShapeCast3D) {
+				child.QueueFree();
+			}
+		}
 		IsPlacing = false;
 		_itemInstance = null;
 		_itemResource = null;
@@ -250,6 +248,25 @@ public partial class BuildComponent : Component
 		var material = _itemMaterial(mesh);
 		material.AlbedoColor = Color.FromString("ffffff82", default);
 		return material;
+	}
+
+	private ShapeCast3D _createShapeCast(Vector3 position, string name = "")
+	{
+		MeshInstance3D mesh = _getMesh(_itemInstance);
+		Vector3 meshSize = mesh.GetAabb().Size;
+		float maxMeshLength = Mathf.Max(meshSize.X, meshSize.Z);
+
+		Vector3 pos = position * maxMeshLength;
+		pos.Y = 1.1f;
+
+		ShapeCast3D ray = new() {
+			Name = name,
+			MaxResults = 1,
+			Shape = new SphereShape3D() { Radius = 0.5f },
+			TargetPosition = Vector3.Zero,
+			Position = pos,
+		};
+		return ray;
 	}
 
 	private MeshInstance3D _itemMesh()

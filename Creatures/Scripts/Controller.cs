@@ -224,6 +224,15 @@ public partial class Controller : CreatureController, IController
 		return distanceToFloor;
 	}
 
+	public TestMotion TestMotion(Vector3 motion)
+	{
+		return new TestMotion(
+			GetRid(),
+			GetParent<Node3D>().GlobalTransform,
+			motion
+		);
+	}
+
 	/// <summary>
 	/// Transfers the CharacterBody3D's position to the characters root node<br />
 	/// Since the CharacterBody3D is not the root node we move the position

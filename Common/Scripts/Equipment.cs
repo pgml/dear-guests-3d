@@ -12,14 +12,10 @@ public partial class Equipment : Node3D
 	public ItemType AllowedInputType { get; set; }
 
 	public bool CanUse { get; set; } = false;
-
 	public PackedScene UseIndicator { get {
 		return GD.Load<PackedScene>(Resources.UseIndicator);
 	}}
-
 	public DateTime DateTime { get; private set; }
-
-	//protected UiQuickInventory QuickInventory = new();
 	public PackedScene QuickInventory { get {
 		return GD.Load<PackedScene>(Resources.UiQuickInventory);
 	}}

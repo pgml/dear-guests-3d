@@ -1,10 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://nhwcqueer3yy"]
+[gd_scene load_steps=20 format=3 uid="uid://nhwcqueer3yy"]
 
 [ext_resource type="Texture2D" uid="uid://cll8oaunldigy" path="res://Assets/Sprites/UI/ui_panel_bg.png" id="2_fd32b"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="3_rmb5c"]
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="4_c3nw8"]
 [ext_resource type="Script" uid="uid://byucp7w33tqmf" path="res://UI/Scripts/UiBuildMode.cs" id="4_fd32b"]
 [ext_resource type="Script" uid="uid://d1uid6fexctoi" path="res://UI/Scripts/UiBuildModeList.cs" id="5_r8s7o"]
+[ext_resource type="FontFile" uid="uid://jfkwd1flgplq" path="res://Resources/Fonts/dear_guests_text.ttf" id="6_3x3hh"]
+[ext_resource type="Texture2D" uid="uid://bjqifgtgsjnfj" path="res://Assets/Sprites/UI/ui_kb_key_down.png" id="7_c3nw8"]
+[ext_resource type="Texture2D" uid="uid://cf27u6dph4r5e" path="res://Assets/Sprites/UI/ui_kb_key.png" id="8_c3nw8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c3nw8"]
+font = ExtResource("3_rmb5c")
+font_size = 12
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vc46q"]
 texture = ExtResource("2_fd32b")
@@ -24,45 +33,117 @@ content_margin_top = 3.0
 content_margin_right = 5.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="BuildMode" type="Control" node_paths=PackedStringArray("Label", "BuildModeInventoryItemList")]
-custom_minimum_size = Vector2(120, 150)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3x3hh"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ld5rq"]
+texture = ExtResource("8_c3nw8")
+texture_margin_left = 4.06058
+texture_margin_top = 2.95712
+texture_margin_right = 4.02144
+texture_margin_bottom = 5.20968
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eud6g"]
+texture = ExtResource("7_c3nw8")
+texture_margin_left = 2.98906
+texture_margin_top = 4.05659
+texture_margin_right = 3.02465
+texture_margin_bottom = 1.95712
+
+[sub_resource type="LabelSettings" id="LabelSettings_rmb5c"]
+font = ExtResource("3_rmb5c")
+font_size = 4
+outline_size = 3
+outline_color = Color(0.119412, 0.119412, 0.119412, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qxwhl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nkvq0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c3nw8"]
+
+[node name="BuildMode" type="Control" node_paths=PackedStringArray("CurrentModeLabel", "BuildModeInventoryItemList", "ActionParent", "SwitchModeParent", "EnableSnappingParent", "ExitBuildModeParent", "UseActionButton", "SwitchModeButton", "EnableSnappingButton", "ExitBuildModeButton")]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+script = ExtResource("4_fd32b")
+CurrentModeLabel = NodePath("CurrentMode/CurrentMode")
+BuildModeInventoryItemList = NodePath("VBoxContainer/PanelBackground/VBoxContainer/Tree")
+ActionParent = NodePath("VBoxContainer/Select")
+SwitchModeParent = NodePath("VBoxContainer/Switch Mode")
+EnableSnappingParent = NodePath("VBoxContainer/Enable Snapping")
+ExitBuildModeParent = NodePath("VBoxContainer/Exit Build Mode")
+UseActionButton = NodePath("VBoxContainer/Select/Button")
+SwitchModeButton = NodePath("VBoxContainer/Switch Mode/Button")
+EnableSnappingButton = NodePath("VBoxContainer/Enable Snapping/Button")
+ExitBuildModeButton = NodePath("VBoxContainer/Exit Build Mode/Button")
+
+[node name="CurrentMode" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_top = 10.0
+offset_right = 49.5
+offset_bottom = 28.0
+grow_horizontal = 2
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="CurrentMode"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Build Mode:"
+label_settings = SubResource("LabelSettings_c3nw8")
+horizontal_alignment = 1
+vertical_alignment = 2
+uppercase = true
+
+[node name="CurrentMode" type="Label" parent="CurrentMode"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Place	"
+label_settings = SubResource("LabelSettings_c3nw8")
+horizontal_alignment = 1
+vertical_alignment = 2
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -140.0
-offset_top = -75.0
-offset_right = -20.0
-offset_bottom = 75.0
+offset_left = -110.0
+offset_top = -72.0
+offset_right = -11.0
+offset_bottom = 152.0
 grow_horizontal = 0
 grow_vertical = 2
-focus_mode = 2
-script = ExtResource("4_fd32b")
-Label = NodePath("PanelBackground/VBoxContainer/Label")
-BuildModeInventoryItemList = NodePath("PanelBackground/VBoxContainer/Tree")
 
-[node name="PanelBackground" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
+[node name="PanelBackground" type="Panel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 148.435)
+layout_mode = 2
+size_flags_vertical = 6
 theme_override_styles/panel = SubResource("StyleBoxTexture_vc46q")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelBackground"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelBackground"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="PanelBackground/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelBackground/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15.505)
 layout_mode = 2
 size_flags_vertical = 1
@@ -72,7 +153,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
 
-[node name="Tree" type="Tree" parent="PanelBackground/VBoxContainer"]
+[node name="Tree" type="Tree" parent="VBoxContainer/PanelBackground/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("4_c3nw8")
@@ -85,3 +166,123 @@ select_mode = 1
 scroll_vertical_enabled = false
 auto_tooltip = false
 script = ExtResource("5_r8s7o")
+
+[node name="Select" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Button" type="Button" parent="VBoxContainer/Select"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_fonts/font = ExtResource("6_3x3hh")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3x3hh")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ld5rq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eud6g")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ld5rq")
+toggle_mode = true
+text = "F"
+
+[node name="Label" type="Label" parent="VBoxContainer/Select"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Place/Select/Remove"
+label_settings = SubResource("LabelSettings_rmb5c")
+vertical_alignment = 2
+uppercase = true
+
+[node name="Switch Mode" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Button" type="Button" parent="VBoxContainer/Switch Mode"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_fonts/font = ExtResource("6_3x3hh")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qxwhl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ld5rq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eud6g")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ld5rq")
+toggle_mode = true
+text = "Tab"
+
+[node name="Label" type="Label" parent="VBoxContainer/Switch Mode"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Switch Build Mode"
+label_settings = SubResource("LabelSettings_rmb5c")
+vertical_alignment = 2
+uppercase = true
+
+[node name="Enable Snapping" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Button" type="Button" parent="VBoxContainer/Enable Snapping"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_fonts/font = ExtResource("6_3x3hh")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/focus = SubResource("StyleBoxEmpty_nkvq0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ld5rq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eud6g")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ld5rq")
+toggle_mode = true
+text = "X"
+
+[node name="Label" type="Label" parent="VBoxContainer/Enable Snapping"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Enable Snapping"
+label_settings = SubResource("LabelSettings_rmb5c")
+vertical_alignment = 2
+uppercase = true
+
+[node name="Exit Build Mode" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Button" type="Button" parent="VBoxContainer/Exit Build Mode"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_hover_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_hover_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_focus_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_colors/font_pressed_color = Color(0.239216, 0, 0.0235294, 1)
+theme_override_fonts/font = ExtResource("6_3x3hh")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c3nw8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ld5rq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eud6g")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ld5rq")
+toggle_mode = true
+text = "Q"
+
+[node name="Label" type="Label" parent="VBoxContainer/Exit Build Mode"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Exit Build Mode"
+label_settings = SubResource("LabelSettings_rmb5c")
+vertical_alignment = 2
+uppercase = true

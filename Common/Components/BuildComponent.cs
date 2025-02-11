@@ -1,6 +1,12 @@
 using Godot;
 using System.Collections.Generic;
 
+public enum BuildMode {
+	Place,
+	Move,
+	Remove
+}
+
 public partial class BuildComponent : Component
 {
 	public PackedScene UiBuildMode { get {
@@ -8,20 +14,45 @@ public partial class BuildComponent : Component
 	}}
 
 	public UiBuildMode UiBuildModeInstance { get; private set; }
+
+	/// <summary>
+	/// The currently selected item from the build menu item list
+	/// </summary>
 	public TreeItem SelectedItem { get; private set; }
+
 	public Area3D ProximityCheck { get {
 		return FindChild("ProximityCheck") as Area3D;
 	}}
 
-	public bool RemoveMode { get; private set; } = false;
-	public bool IsActive { get; private set; } = false;
-	public bool IsPlacing { get; private set; } = false;
+	public BuildMode CurrentMode { get; private set; } = BuildMode.Place;
+	public bool IsBuildModeActive { get; private set; } = false;
+	public bool IsPlacingItem { get; private set; } = false;
+	public bool IsSnappingEnabled { get; private set; } = false;
 
+	/// <summary>
+	/// The equipment that is currently focused in either
+	/// move or remove mode
+	/// </summary>
 	private Equipment _equipmentInFocus = null;
+
+	/// <summary>
+	/// The item scene instance of the moved or currently in placement
+	/// equipment
+	/// </summary>
 	private Equipment _itemInstance = null;
 	private EquipmentResource _itemResource = null;
+
+	/// <summary>
+	/// All objects that are somehow currently focused
+	/// </summary>
 	private List<Equipment> _allFocusedEquipment = new();
+
+	/// <summary>
+	/// The collider that is currently colliding with a
+	/// neighbouring object in snap mode
+	/// </summary>
 	private PhysicsBody3D _activeCollider = null;
+
 	// Since the current build object has 4 shape cast surrounding at each
 	// side we store and disable the one that is on the characters side
 	private ShapeCast3D _disabledColliderShapeCasts = null;
@@ -38,60 +69,91 @@ public partial class BuildComponent : Component
 			return;
 		}
 
-		if (IsActive && IsPlacing) {
-			PrePlace(_itemResource, delta);
+		if (IsBuildModeActive && IsPlacingItem) {
+			PrePlace();
 		}
 
-		if (RemoveMode) {
+		_unfocusAll();
+
+		if (CurrentMode == BuildMode.Move || CurrentMode == BuildMode.Remove) {
 			if (ActorData.FocusedEquipment is Equipment equipment) {
 				equipment.CanUse = false;
 				_makeGhost(equipment);
 				_equipmentInFocus = equipment;
+
 				if (!_allFocusedEquipment.Contains(_equipmentInFocus)) {
 					_allFocusedEquipment.Add(_equipmentInFocus);
 				}
 			}
-			else {
-				_unfocusAll();
-			}
-		}
-		else {
-			_unfocusAll();
 		}
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionReleased("action_build")
-			&& !ActorData.IsAnyUiPanelOpen()
-			&& !IsActive
-		) {
+		if (@event.IsActionPressed("action_cancel")) {
+			UiBuildModeInstance.ExitBuildModeButton.SetPressedNoSignal(true);
+		}
+
+		if (@event.IsActionReleased("action_build") &&
+			!ActorData.IsAnyUiPanelOpen() &&
+			!IsBuildModeActive)
+		{
 			EnterBuildMode();
 		}
-		else if (@event.IsActionReleased("action_build")
-			&& IsActive
-		) {
+		else if ((@event.IsActionReleased("action_build") ||
+			@event.IsActionReleased("action_cancel")) &&
+			IsBuildModeActive)
+		{
+			UiBuildModeInstance.ExitBuildModeButton.SetPressedNoSignal(false);
 			ExitBuildMode();
 		}
 
-		if (!RemoveMode) {
-			if (@event.IsActionReleased("action_use")
-				&& IsInstanceValid(UiBuildModeInstance)
-			) {
-				if (!IsPlacing)	{
+		if (!IsBuildModeActive || !IsInstanceValid(UiBuildModeInstance)) {
+			return;
+		}
+
+		if (@event.IsActionPressed("build_mode_switch_mode")) {
+			UiBuildModeInstance.SwitchModeButton.SetPressedNoSignal(true);
+		}
+
+		if (@event.IsActionReleased("build_mode_switch_mode")) {
+			_cycleBuildMode();
+			UiBuildModeInstance.CurrentModeLabel.Text = CurrentMode.ToString();
+			UiBuildModeInstance.SwitchModeButton.SetPressedNoSignal(false);
+		}
+
+		if (@event.IsActionReleased("build_mode_enable_snapping")) {
+			IsSnappingEnabled = !IsSnappingEnabled;
+			UiBuildModeInstance.EnableSnappingButton.SetPressedNoSignal(IsSnappingEnabled);
+		}
+
+		if (@event.IsActionReleased("action_use")) {
+			if (CurrentMode == BuildMode.Place) {
+				if (!IsPlacingItem) {
 					SelectedItem = UiBuildModeInstance.SelectedItem();
 					_itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
+					IsPlacingItem = true;
 					SpawnItem();
-					IsPlacing = true;
+					_createSnapShapeCasts();
 				}
 				else {
 					Place();
 				}
 			}
-		}
-
-		if (@event.IsActionReleased("build_mode_remove")) {
-			RemoveMode = !RemoveMode;
+			else if (CurrentMode == BuildMode.Move) {
+				if (!IsPlacingItem) {
+					IsPlacingItem = true;
+					_itemInstance = ActorData.FocusedEquipment;
+					_createSnapShapeCasts();
+				}
+				else {
+					Place();
+				}
+			}
+			else if (CurrentMode == BuildMode.Remove) {
+				_itemInstance = ActorData.FocusedEquipment;
+				_itemInstance.QueueFree();
+			}
 		}
 	}
 
@@ -102,17 +164,12 @@ public partial class BuildComponent : Component
 		//(_itemInstance.FindChild("CollisionShape3D", true) as CollisionShape3D).Disabled = true;
 		GetTree().CurrentScene.AddChild(_itemInstance);
 		_itemInstance.CanUse = false;
-		_itemMesh().SetSurfaceOverrideMaterial(0, GetGhostMaterial(_itemMesh()));
-
-		_itemInstance.AddChild(_createShapeCast(Vector3.Forward, "forward"));
-		_itemInstance.AddChild(_createShapeCast(Vector3.Right, "right"));
-		_itemInstance.AddChild(_createShapeCast(Vector3.Back, "back"));
-		_itemInstance.AddChild(_createShapeCast(Vector3.Left, "left"));
 	}
 
-	public void PrePlace(EquipmentResource equipment, double delta)
+	public void PrePlace()
 	{
 		if (IsInstanceValid(_itemInstance)) {
+			_makeGhost(_itemInstance);
 			MeshInstance3D mesh = _getMesh(_itemInstance);
 			Vector3 meshSize = mesh.GetAabb().Size;
 			float maxMeshLength = Mathf.Max(meshSize.X, meshSize.Z);
@@ -145,22 +202,24 @@ public partial class BuildComponent : Component
 			forward.Z += minMeshLength / 2;
 			Transform3D position = new Transform3D(GlobalTransform.Basis, forward);
 
-			bool canSnap = false;
-			var testMotion = Controller.TestMotion(ActorData.FacingDirection * 4);
-			if (testMotion.IsColliding) {
-				var col = testMotion.Collider<PhysicsBody3D>();
-				canSnap = col == mesh.GetChild(0);
-			}
+			if (IsSnappingEnabled) {
+				bool canSnap = false;
+				var testMotion = Controller.TestMotion(ActorData.FacingDirection * 4);
+				if (testMotion.IsColliding) {
+					var col = testMotion.Collider<PhysicsBody3D>();
+					canSnap = col == mesh.GetChild(0);
+				}
 
-			if (canSnap && _activeCollider is not null) {
-				position = GetSnapPosition(
-					_getMesh(_itemInstance),
-					_activeCollider.GetParent<MeshInstance3D>()
-				);
-				_isObjectSnapped = true;
-			}
-			else {
-				_isObjectSnapped = false;
+				if (canSnap && _activeCollider is not null) {
+					position = GetSnapPosition(
+						_getMesh(_itemInstance),
+						_activeCollider.GetParent<MeshInstance3D>()
+					);
+					_isObjectSnapped = true;
+				}
+				else {
+					_isObjectSnapped = false;
+				}
 			}
 
 			position.Origin.Y = (float)Controller.DistanceToFloor();
@@ -212,28 +271,31 @@ public partial class BuildComponent : Component
 				child.QueueFree();
 			}
 		}
-		IsPlacing = false;
+		IsPlacingItem = false;
 		_itemInstance = null;
 		_itemResource = null;
+		_activeCollider = null;
+		_disabledColliderShapeCasts = null;
 	}
 
 	public void EnterBuildMode()
 	{
+		CurrentMode = BuildMode.Place;
+
 		UiBuildModeInstance = UiBuildMode.Instantiate<UiBuildMode>();
 		GetNode("/root/MainUI").AddChild(UiBuildModeInstance);
 		//Vector2 position = BuildMenuPosition();
 		UiBuildModeInstance.Open();
-		IsActive = true;
+		IsBuildModeActive = true;
 		ActorData.IsBuildMoveActive = true;
 	}
 
 	public void ExitBuildMode()
 	{
 		UiBuildModeInstance.QueueFree();
-		IsActive = false;
+		IsBuildModeActive = false;
 		ActorData.IsBuildMoveActive = false;
-		RemoveMode = false;
-		IsPlacing = false;
+		IsPlacingItem = false;
 		if (IsInstanceValid(_itemInstance)) {
 			_itemInstance.QueueFree();
 			_itemResource = null;
@@ -246,8 +308,29 @@ public partial class BuildComponent : Component
 			mesh = _itemMesh();
 		}
 		var material = _itemMaterial(mesh);
-		material.AlbedoColor = Color.FromString("ffffff82", default);
+		string ghostColour = CurrentMode == BuildMode.Remove
+			? "ffb49782"
+			: "ffffff82";
+		material.AlbedoColor = Color.FromString(ghostColour, default);
 		return material;
+	}
+
+	private void _cycleBuildMode()
+	{
+		CurrentMode = CurrentMode switch {
+			BuildMode.Place => BuildMode.Move,
+			BuildMode.Move => BuildMode.Remove,
+			BuildMode.Remove => BuildMode.Place,
+			_ => BuildMode.Place,
+		};
+	}
+
+	private void _createSnapShapeCasts()
+	{
+		_itemInstance.AddChild(_createShapeCast(Vector3.Forward, "forward"));
+		_itemInstance.AddChild(_createShapeCast(Vector3.Right, "right"));
+		_itemInstance.AddChild(_createShapeCast(Vector3.Back, "back"));
+		_itemInstance.AddChild(_createShapeCast(Vector3.Left, "left"));
 	}
 
 	private ShapeCast3D _createShapeCast(Vector3 position, string name = "")

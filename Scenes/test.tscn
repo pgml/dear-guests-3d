@@ -91,9 +91,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.4121, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.1905, -0.0576349, -0.528793)
 
 [node name="Replicator" parent="." instance=ExtResource("10_iaow0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.2929, -7.6294e-06, -9.40429)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.2966, 0.0345824, -8.70642)
 
 [node name="Replicator2" parent="." instance=ExtResource("10_iaow0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.413, -2.28882e-05, -9.26716)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5724, 0.03459, -8.33952)
 
 [editable path="World"]

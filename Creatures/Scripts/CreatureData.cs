@@ -78,7 +78,11 @@ public partial class CreatureData : Resource
 
 	public bool IsAnyUiPanelOpen()
 	{
-		if (IsInventoryOpen || IsQuickInventoryOpen || IsReplicatorOpen) {
+		if (IsInventoryOpen ||
+			IsQuickInventoryOpen ||
+			IsReplicatorOpen ||
+			IsBuildMoveActive)
+		{
 			return true;
 		}
 

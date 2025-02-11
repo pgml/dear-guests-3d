@@ -3,10 +3,34 @@ using Godot;
 public partial class UiBuildMode : UiControl
 {
 	[Export]
-	public Label Label { get; set; }
+	public Label CurrentModeLabel { get; set; }
 
 	[Export]
 	public UiBuildModeList BuildModeInventoryItemList { get; set; }
+
+	[Export]
+	public HBoxContainer ActionParent { get; set; }
+
+	[Export]
+	public HBoxContainer SwitchModeParent { get; set; }
+
+	[Export]
+	public HBoxContainer EnableSnappingParent { get; set; }
+
+	[Export]
+	public HBoxContainer ExitBuildModeParent { get; set; }
+
+	[Export]
+	public Button UseActionButton { get; set; }
+
+	[Export]
+	public Button SwitchModeButton { get; set; }
+
+	[Export]
+	public Button EnableSnappingButton { get; set; }
+
+	[Export]
+	public Button ExitBuildModeButton { get; set; }
 
 	public override void _Ready()
 	{
@@ -37,7 +61,6 @@ public partial class UiBuildMode : UiControl
 		if (BuildModeInventoryItemList is null) {
 			return;
 		}
-		Label.Text = "";
 		Position = new Vector2(1000, 1000);
 		IsOpen = false;
 	}

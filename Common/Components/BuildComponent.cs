@@ -272,10 +272,7 @@ public partial class BuildComponent : Component
 		IsBuildModeActive = false;
 		ActorData.IsBuildMoveActive = false;
 		IsPlacingItem = false;
-		if (IsInstanceValid(_itemInstance)) {
-			_itemInstance.QueueFree();
-			_itemResource = null;
-		}
+		_removeItemInstance();
 	}
 
 	public Transform3D DeterminSnapPosition(
@@ -335,6 +332,11 @@ public partial class BuildComponent : Component
 			BuildMode.PickUp => BuildMode.Place,
 			_ => BuildMode.Place,
 		};
+
+		if (CurrentMode != BuildMode.Place && IsInstanceValid(_itemInstance)) {
+			IsPlacingItem = false;
+			_removeItemInstance();
+		}
 	}
 
 	/// <summary>
@@ -366,6 +368,17 @@ public partial class BuildComponent : Component
 			Position = pos,
 		};
 		return ray;
+	}
+
+	private bool _removeItemInstance()
+	{
+		if (!IsInstanceValid(_itemInstance)) {
+			return false;
+		}
+
+		_itemInstance.QueueFree();
+		_itemResource = null;
+		return true;
 	}
 
 	private MeshInstance3D _itemMeshInstance()

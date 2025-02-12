@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dlvjc4n8lf4mk"]
+
+[ext_resource type="AudioStream" uid="uid://bwsfoux6fhrff" path="res://Resources/Audio/Misc/bleep.wav" id="1_3hsjw"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="1_c53l4"]
+
+[resource]
+script = ExtResource("1_c53l4")
+AudioFiles = Array[AudioStream]([ExtResource("1_3hsjw")])
+MinVolume = 0.15
+MaxVolume = 0.15
+AutoPlay = false

@@ -23,6 +23,11 @@ public partial class AudioLibrary : Resource
 	[Export] public AudioClip ReplicatorHum1 { get; set; }
 	[Export] public AudioClip ReplicatorStop1 { get; set; }
 
+	[ExportGroup("Misc")]
+	[Export] public AudioClip MiscClick { get; set; }
+	[Export] public AudioClip MiscBleep { get; set; }
+	[Export] public AudioClip MiscPlace { get; set; }
+
 	public AudioInstance CreateAudioInstance(
 		string instanceName,
 		Node scene,

@@ -137,14 +137,17 @@ public partial class BuildComponent : Component
 			_cycleBuildModes();
 			uiInstance.CurrentModeLabel.Text = CurrentMode.ToString();
 			uiInstance.SwitchModeButton.SetPressedNoSignal(false);
+			AudioInstance.PlayUiSound(AudioLibrary.InventoryBrowse);
 		}
 
 		if (@event.IsActionReleased("build_mode_enable_snapping")) {
 			IsSnappingEnabled = !IsSnappingEnabled;
 			uiInstance.EnableSnappingButton.SetPressedNoSignal(IsSnappingEnabled);
+			AudioInstance.PlayUiSound(AudioLibrary.MiscClick);
 		}
 
 		if (@event.IsActionReleased("action_use")) {
+			AudioInstance.PlayUiSound(AudioLibrary.MiscPlace);
 			if (CurrentMode == BuildMode.Place) {
 				if (!IsMovingItem) {
 					IsMovingItem = true;
@@ -318,6 +321,7 @@ public partial class BuildComponent : Component
 		UiBuildModeInstance.Open();
 		IsBuildModeActive = true;
 		ActorData.IsBuildMoveActive = true;
+		AudioInstance.PlayUiSound(AudioLibrary.MiscBleep);
 	}
 
 	public void ExitBuildMode()
@@ -327,6 +331,7 @@ public partial class BuildComponent : Component
 		ActorData.IsBuildMoveActive = false;
 		IsMovingItem = false;
 		_removeItemInstance();
+		AudioInstance.PlayUiSound(AudioLibrary.MiscBleep);
 	}
 
 	public Transform3D DeterminSnapPosition(

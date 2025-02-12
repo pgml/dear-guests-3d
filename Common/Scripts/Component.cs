@@ -6,7 +6,14 @@ public partial class Component : Node3D
 	// resources
 	protected CreatureData ActorData;
 	protected Inventory ActorInventory;
-	protected AudioLibrary AudioLibrary;
+
+	protected static AudioLibrary AudioLibrary { get {
+		return GD.Load<AudioLibrary>(Resources.AudioLibrary);
+	}}
+
+	protected AudioInstance AudioInstance { get {
+		return AudioLibrary.CreateAudioInstance("Replicator", this);
+	}}
 	//protected SceneManager SceneManager;
 	//protected QuickBar Quickbar;
 
@@ -19,7 +26,7 @@ public partial class Component : Node3D
 
 		ActorData = Load<CreatureData>(Resources.ActorData);
 		ActorInventory = GD.Load<Inventory>(Resources.ActorInventory);
-		AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
+		//AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
 		//Quickbar = Load<QuickBar>(Resources.QuickBar);
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);

@@ -70,7 +70,7 @@ public partial class BuildComponent : Component
 		}
 
 		if (IsBuildModeActive && IsPlacingItem) {
-			PrePlace();
+			MoveObject();
 		}
 
 		_unfocusAll();
@@ -81,6 +81,8 @@ public partial class BuildComponent : Component
 				_makeGhost(equipment);
 				_equipmentInFocus = equipment;
 
+				// in some occasions several objects get focused which we need to
+				// store in order to be able to remove the focus of all objects
 				if (!_allFocusedEquipment.Contains(_equipmentInFocus)) {
 					_allFocusedEquipment.Add(_equipmentInFocus);
 				}
@@ -90,10 +92,6 @@ public partial class BuildComponent : Component
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event.IsActionPressed("action_cancel")) {
-			UiBuildModeInstance.ExitBuildModeButton.SetPressedNoSignal(true);
-		}
-
 		if (@event.IsActionReleased("action_build") &&
 			!ActorData.IsAnyUiPanelOpen() &&
 			!IsBuildModeActive)
@@ -112,12 +110,16 @@ public partial class BuildComponent : Component
 			return;
 		}
 
+		if (@event.IsActionPressed("action_cancel")) {
+			UiBuildModeInstance.ExitBuildModeButton.SetPressedNoSignal(true);
+		}
+
 		if (@event.IsActionPressed("build_mode_switch_mode")) {
 			UiBuildModeInstance.SwitchModeButton.SetPressedNoSignal(true);
 		}
 
 		if (@event.IsActionReleased("build_mode_switch_mode")) {
-			_cycleBuildMode();
+			_cycleBuildModes();
 			UiBuildModeInstance.CurrentModeLabel.Text = CurrentMode.ToString();
 			UiBuildModeInstance.SwitchModeButton.SetPressedNoSignal(false);
 		}
@@ -130,14 +132,14 @@ public partial class BuildComponent : Component
 		if (@event.IsActionReleased("action_use")) {
 			if (CurrentMode == BuildMode.Place) {
 				if (!IsPlacingItem) {
+					IsPlacingItem = true;
 					SelectedItem = UiBuildModeInstance.SelectedItem();
 					_itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
-					IsPlacingItem = true;
 					SpawnItem();
 					_createSnapShapeCasts();
 				}
 				else {
-					Place();
+					PlaceObject();
 				}
 			}
 			else if (CurrentMode == BuildMode.Move) {
@@ -147,16 +149,20 @@ public partial class BuildComponent : Component
 					_createSnapShapeCasts();
 				}
 				else {
-					Place();
+					PlaceObject();
 				}
 			}
 			else if (CurrentMode == BuildMode.Remove) {
+				// @todo: implement removel confirmation
 				_itemInstance = ActorData.FocusedEquipment;
 				_itemInstance.QueueFree();
 			}
 		}
 	}
 
+	/// <summary>
+	/// Instantiates an item from a resource path directly into move mode
+	/// </summary>
 	public void SpawnItem()
 	{
 		_itemInstance = _itemResource.ItemScene.Instantiate<Equipment>();
@@ -166,7 +172,7 @@ public partial class BuildComponent : Component
 		_itemInstance.CanUse = false;
 	}
 
-	public void PrePlace()
+	public void MoveObject()
 	{
 		if (IsInstanceValid(_itemInstance)) {
 			_makeGhost(_itemInstance);
@@ -211,7 +217,7 @@ public partial class BuildComponent : Component
 				}
 
 				if (canSnap && _activeCollider is not null) {
-					position = GetSnapPosition(
+					position = DeterminSnapPosition(
 						_getMesh(_itemInstance),
 						_activeCollider.GetParent<MeshInstance3D>()
 					);
@@ -227,7 +233,50 @@ public partial class BuildComponent : Component
 		}
 	}
 
-	public Transform3D GetSnapPosition(
+	public void PlaceObject()
+	{
+		var material = _itemMaterial();
+		material.AlbedoColor = new Color(1, 1, 1);
+		_itemMeshInstance().SetSurfaceOverrideMaterial(0, material);
+
+		// remove snap detection shapecasts
+		foreach (var child in _itemInstance.GetChildren()) {
+			if (child is ShapeCast3D) {
+				child.QueueFree();
+			}
+		}
+
+		IsPlacingItem = false;
+		_itemInstance = null;
+		_itemResource = null;
+		_activeCollider = null;
+		_disabledColliderShapeCasts = null;
+	}
+
+	public void EnterBuildMode()
+	{
+		CurrentMode = BuildMode.Place;
+
+		UiBuildModeInstance = UiBuildMode.Instantiate<UiBuildMode>();
+		GetNode("/root/MainUI").AddChild(UiBuildModeInstance);
+		UiBuildModeInstance.Open();
+		IsBuildModeActive = true;
+		ActorData.IsBuildMoveActive = true;
+	}
+
+	public void ExitBuildMode()
+	{
+		UiBuildModeInstance.QueueFree();
+		IsBuildModeActive = false;
+		ActorData.IsBuildMoveActive = false;
+		IsPlacingItem = false;
+		if (IsInstanceValid(_itemInstance)) {
+			_itemInstance.QueueFree();
+			_itemResource = null;
+		}
+	}
+
+	public Transform3D DeterminSnapPosition(
 		MeshInstance3D snapObject,
 		MeshInstance3D snapToObject,
 		float margin = 0.5f
@@ -250,7 +299,6 @@ public partial class BuildComponent : Component
 			snapPosition.Z = Mathf.Sign(direction.Z) * (bodySize.Z / 2 + itemSize.Z / 2 + margin);
 		}
 
-		//snapPosition.Y = (bodySize.Y - itemSize.Y) / 2;
 		snapPosition.Y = (float)Controller.DistanceToFloor();
 
 		return new Transform3D(
@@ -259,63 +307,25 @@ public partial class BuildComponent : Component
 		);
 	}
 
-	public void Place()
+	/// <summary>
+	/// Makes the currently focuses object translucent when in move or remove mode<br />
+	/// In move mode the translucency has a red tint
+	/// </summary>
+	private void _makeGhost(Equipment equipment)
 	{
-		var material = _itemMaterial();
-		material.AlbedoColor = new Color(1, 1, 1);
-		_itemMesh().SetSurfaceOverrideMaterial(0, material);
-
-		// remove snap detection shapecasts
-		foreach (var child in _itemInstance.GetChildren()) {
-			if (child is ShapeCast3D) {
-				child.QueueFree();
-			}
-		}
-		IsPlacingItem = false;
-		_itemInstance = null;
-		_itemResource = null;
-		_activeCollider = null;
-		_disabledColliderShapeCasts = null;
-	}
-
-	public void EnterBuildMode()
-	{
-		CurrentMode = BuildMode.Place;
-
-		UiBuildModeInstance = UiBuildMode.Instantiate<UiBuildMode>();
-		GetNode("/root/MainUI").AddChild(UiBuildModeInstance);
-		//Vector2 position = BuildMenuPosition();
-		UiBuildModeInstance.Open();
-		IsBuildModeActive = true;
-		ActorData.IsBuildMoveActive = true;
-	}
-
-	public void ExitBuildMode()
-	{
-		UiBuildModeInstance.QueueFree();
-		IsBuildModeActive = false;
-		ActorData.IsBuildMoveActive = false;
-		IsPlacingItem = false;
-		if (IsInstanceValid(_itemInstance)) {
-			_itemInstance.QueueFree();
-			_itemResource = null;
-		}
-	}
-
-	public BaseMaterial3D GetGhostMaterial(MeshInstance3D mesh)
-	{
+		var mesh = _getMesh(equipment);
 		if (!IsInstanceValid(mesh)) {
-			mesh = _itemMesh();
+			mesh = _itemMeshInstance();
 		}
 		var material = _itemMaterial(mesh);
 		string ghostColour = CurrentMode == BuildMode.Remove
 			? "ffb49782"
 			: "ffffff82";
 		material.AlbedoColor = Color.FromString(ghostColour, default);
-		return material;
+		mesh.SetSurfaceOverrideMaterial(0, material);
 	}
 
-	private void _cycleBuildMode()
+	private void _cycleBuildModes()
 	{
 		CurrentMode = CurrentMode switch {
 			BuildMode.Place => BuildMode.Move,
@@ -325,6 +335,10 @@ public partial class BuildComponent : Component
 		};
 	}
 
+	/// <summary>
+	/// Creates four sphere casts on each side of the object which are used
+	/// to detect if theres something it can snap to
+	/// </summary>
 	private void _createSnapShapeCasts()
 	{
 		_itemInstance.AddChild(_createShapeCast(Vector3.Forward, "forward"));
@@ -352,7 +366,7 @@ public partial class BuildComponent : Component
 		return ray;
 	}
 
-	private MeshInstance3D _itemMesh()
+	private MeshInstance3D _itemMeshInstance()
 	{
 		return _getMesh(_itemInstance);
 	}
@@ -360,7 +374,7 @@ public partial class BuildComponent : Component
 	private BaseMaterial3D _itemMaterial(MeshInstance3D mesh = null)
 	{
 		if (!IsInstanceValid(mesh)) {
-			mesh = _itemMesh();
+			mesh = _itemMeshInstance();
 		}
 		return mesh.GetActiveMaterial(0).Duplicate() as BaseMaterial3D;
 	}
@@ -373,12 +387,9 @@ public partial class BuildComponent : Component
 		return item.FindChild("Mesh") as MeshInstance3D;
 	}
 
-	private void _makeGhost(Equipment equipment)
-	{
-		var mesh = _getMesh(equipment);
-		mesh.SetSurfaceOverrideMaterial(0, GetGhostMaterial(mesh));
-	}
-
+	/// <summary>
+	/// Unfocues currently focused equipment in either move or remove mode
+	/// </summary>
 	private void _unfocus(Equipment equipment)
 	{
 		if (equipment is null) {
@@ -393,6 +404,9 @@ public partial class BuildComponent : Component
 		}
 	}
 
+	/// <summary>
+	/// Unfocues all equipment focused in either move or remove mode
+	/// </summary>
 	private void _unfocusAll()
 	{
 		foreach (var equipment in _allFocusedEquipment.ToArray()) {

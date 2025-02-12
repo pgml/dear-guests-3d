@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public enum BuildMode {
 	Place,
 	Move,
-	Remove
+	PickUp
 }
 
 public partial class BuildComponent : Component
@@ -75,7 +75,7 @@ public partial class BuildComponent : Component
 
 		_unfocusAll();
 
-		if (CurrentMode == BuildMode.Move || CurrentMode == BuildMode.Remove) {
+		if (CurrentMode == BuildMode.Move || CurrentMode == BuildMode.PickUp) {
 			if (ActorData.FocusedEquipment is Equipment equipment) {
 				equipment.CanUse = false;
 				_makeGhost(equipment);
@@ -154,7 +154,7 @@ public partial class BuildComponent : Component
 					PlaceObject();
 				}
 			}
-			else if (CurrentMode == BuildMode.Remove) {
+			else if (CurrentMode == BuildMode.PickUp) {
 				// @todo: implement removel confirmation
 				_itemInstance = ActorData.FocusedEquipment;
 				_itemInstance.QueueFree();
@@ -320,7 +320,7 @@ public partial class BuildComponent : Component
 			mesh = _itemMeshInstance();
 		}
 		var material = _itemMaterial(mesh);
-		string ghostColour = CurrentMode == BuildMode.Remove
+		string ghostColour = CurrentMode == BuildMode.PickUp
 			? "ffb49782"
 			: "ffffff82";
 		material.AlbedoColor = Color.FromString(ghostColour, default);
@@ -331,8 +331,8 @@ public partial class BuildComponent : Component
 	{
 		CurrentMode = CurrentMode switch {
 			BuildMode.Place => BuildMode.Move,
-			BuildMode.Move => BuildMode.Remove,
-			BuildMode.Remove => BuildMode.Place,
+			BuildMode.Move => BuildMode.PickUp,
+			BuildMode.PickUp => BuildMode.Place,
 			_ => BuildMode.Place,
 		};
 	}

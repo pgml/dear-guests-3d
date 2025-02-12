@@ -92,6 +92,8 @@ public partial class BuildComponent : Component
 
 	public override void _Input(InputEvent @event)
 	{
+		UiBuildMode uiInstance = UiBuildModeInstance;
+
 		if (@event.IsActionReleased("action_build") &&
 			!ActorData.IsAnyUiPanelOpen() &&
 			!IsBuildModeActive)
@@ -102,38 +104,38 @@ public partial class BuildComponent : Component
 			@event.IsActionReleased("action_cancel")) &&
 			IsBuildModeActive)
 		{
-			UiBuildModeInstance.ExitBuildModeButton.SetPressedNoSignal(false);
+			uiInstance.ExitBuildModeButton.SetPressedNoSignal(false);
 			ExitBuildMode();
 		}
 
-		if (!IsBuildModeActive || !IsInstanceValid(UiBuildModeInstance)) {
+		if (!IsBuildModeActive || !IsInstanceValid(uiInstance)) {
 			return;
 		}
 
 		if (@event.IsActionPressed("action_cancel")) {
-			UiBuildModeInstance.ExitBuildModeButton.SetPressedNoSignal(true);
+			uiInstance.ExitBuildModeButton.SetPressedNoSignal(true);
 		}
 
 		if (@event.IsActionPressed("build_mode_switch_mode")) {
-			UiBuildModeInstance.SwitchModeButton.SetPressedNoSignal(true);
+			uiInstance.SwitchModeButton.SetPressedNoSignal(true);
 		}
 
 		if (@event.IsActionReleased("build_mode_switch_mode")) {
 			_cycleBuildModes();
-			UiBuildModeInstance.CurrentModeLabel.Text = CurrentMode.ToString();
-			UiBuildModeInstance.SwitchModeButton.SetPressedNoSignal(false);
+			uiInstance.CurrentModeLabel.Text = CurrentMode.ToString();
+			uiInstance.SwitchModeButton.SetPressedNoSignal(false);
 		}
 
 		if (@event.IsActionReleased("build_mode_enable_snapping")) {
 			IsSnappingEnabled = !IsSnappingEnabled;
-			UiBuildModeInstance.EnableSnappingButton.SetPressedNoSignal(IsSnappingEnabled);
+			uiInstance.EnableSnappingButton.SetPressedNoSignal(IsSnappingEnabled);
 		}
 
 		if (@event.IsActionReleased("action_use")) {
 			if (CurrentMode == BuildMode.Place) {
 				if (!IsPlacingItem) {
 					IsPlacingItem = true;
-					SelectedItem = UiBuildModeInstance.SelectedItem();
+					SelectedItem = uiInstance.SelectedItem();
 					_itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
 					SpawnItem();
 					_createSnapShapeCasts();

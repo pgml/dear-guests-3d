@@ -11,6 +11,9 @@ public partial class Equipment : Node3D
 	[Export]
 	public ItemType AllowedInputType { get; set; }
 
+	[Export(PropertyHint.File, "*.tres")]
+	public string ResourcePath { get; set; }
+
 	public bool CanUse { get; set; } = false;
 	public PackedScene UseIndicator { get {
 		return GD.Load<PackedScene>(Resources.UseIndicator);

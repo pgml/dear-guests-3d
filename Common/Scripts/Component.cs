@@ -5,6 +5,7 @@ public partial class Component : Node3D
 {
 	// resources
 	protected CreatureData ActorData;
+	protected Inventory ActorInventory;
 	protected AudioLibrary AudioLibrary;
 	//protected SceneManager SceneManager;
 	//protected QuickBar Quickbar;
@@ -17,6 +18,7 @@ public partial class Component : Node3D
 		//SceneManager = GetNode<SceneManager>(Resources.SceneManager);
 
 		ActorData = Load<CreatureData>(Resources.ActorData);
+		ActorInventory = GD.Load<Inventory>(Resources.ActorInventory);
 		AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
 		//Quickbar = Load<QuickBar>(Resources.QuickBar);
 

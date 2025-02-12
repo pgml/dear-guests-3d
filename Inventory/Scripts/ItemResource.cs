@@ -45,11 +45,22 @@ public partial class ItemResource : Resource
 
 	private static readonly string _itemResourceDir = "res://Items/";
 
-	public static ItemResource Get(string itemName)
+	public static ItemResource Get(string path, bool absoluePath = false)
 	{
-		string path = ItemResource._itemResourceDir;
-		path = $"{path}/{itemName}";
+		if (!absoluePath) {
+			path = $"{ItemResource._itemResourceDir}/{path}";
+		}
 		return ResourceLoader.Load<ItemResource>(path);
+	}
+
+	public static T Get<T>(string path, bool absoluePath = false)
+		where T : class
+	{
+		if (!absoluePath) {
+			path = $"{ItemResource._itemResourceDir}/{path}";
+		}
+
+		return ResourceLoader.Load<T>(path);
 	}
 
 	public static bool Exists(string itemName)

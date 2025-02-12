@@ -83,6 +83,14 @@ public partial class BuildComponent : Component
 				_makeGhost(equipment);
 				_equipmentInFocus = equipment;
 
+				if (!IsInstanceValid(_itemInstance)) {
+					_itemInstance = _equipmentInFocus;
+				}
+
+				if (_itemResource is null) {
+					_itemResource = _equipmentResource();
+				}
+
 				// in some occasions several objects get focused which we need to
 				// store in order to be able to remove the focus of all objects
 				if (!_allFocusedEquipment.Contains(_equipmentInFocus)) {
@@ -93,6 +101,7 @@ public partial class BuildComponent : Component
 
 		_connectPlaceDetectionSignals();
 	}
+
 
 	public override void _Input(InputEvent @event)
 	{
@@ -140,9 +149,12 @@ public partial class BuildComponent : Component
 				if (!IsMovingItem) {
 					IsMovingItem = true;
 					SelectedItem = uiInstance.SelectedItem();
-					_itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
-					SpawnItem();
-					_createSnapShapeCasts();
+
+					if (SelectedItem is not null) {
+						_itemResource = _equipmentResource();
+						SpawnItem();
+						_createSnapShapeCasts();
+					}
 				}
 				else {
 					PlaceItem();
@@ -159,9 +171,7 @@ public partial class BuildComponent : Component
 				}
 			}
 			else if (CurrentMode == BuildMode.PickUp) {
-				// @todo: implement removel confirmation
-				_itemInstance = ActorData.FocusedEquipment;
-				_itemInstance.QueueFree();
+				PickUpItem();
 			}
 		}
 	}
@@ -246,6 +256,11 @@ public partial class BuildComponent : Component
 
 	public bool PlaceItem()
 	{
+		if (!IsInstanceValid(_itemInstance)) {
+			GD.PushWarning($"[BUILDMODE] Cannot place item: _itemInstance is not set.");
+			return false;
+		}
+
 		if (!_isItemPlaceable) {
 			GD.PushWarning($"[BUILDMODE] {_itemInstance.Name} cannot be placed here.");
 			return false;
@@ -262,6 +277,12 @@ public partial class BuildComponent : Component
 			}
 		}
 
+		// remove from inventory when in place mode
+		if (CurrentMode == BuildMode.Place) {
+			int itemResourceIndex = ActorInventory.GetItemResourceIndex(_itemResource);
+			ActorInventory.RemoveOneItem(itemResourceIndex);
+		}
+
 		IsMovingItem = false;
 		_itemInstance = null;
 		_itemResource = null;
@@ -269,6 +290,21 @@ public partial class BuildComponent : Component
 		_disabledColliderShapeCasts = null;
 		_itemCollidingWith = null;
 
+		UiBuildModeInstance.SelectFirstRow();
+		return true;
+	}
+
+	public bool PickUpItem()
+	{
+		if (!IsInstanceValid(ActorData.FocusedEquipment)) {
+			return false;
+		}
+
+		// @todo: implement removal confirmation
+		_itemInstance = ActorData.FocusedEquipment;
+		_itemInstance.QueueFree();
+		GD.PrintS(_itemResource);
+		ActorInventory.AddItem(_itemResource, 1);
 		return true;
 	}
 
@@ -354,12 +390,20 @@ public partial class BuildComponent : Component
 			_ => BuildMode.Place,
 		};
 
-		if (CurrentMode != BuildMode.Place && IsInstanceValid(_itemInstance)) {
+		if (CurrentMode != BuildMode.Place &&
+			IsInstanceValid(_itemInstance) &&
+			_equipmentInFocus is null &&
+			IsMovingItem)
+		{
 			IsMovingItem = false;
 			_isObjectSnapped = false;
 			_isItemPlaceable = true;
 			_itemCollidingWith = null;
 			_removeItemInstance();
+		}
+
+		if (CurrentMode == BuildMode.Place) {
+			UiBuildModeInstance.SelectFirstRow();
 		}
 	}
 
@@ -407,6 +451,9 @@ public partial class BuildComponent : Component
 
 	private MeshInstance3D _itemMeshInstance()
 	{
+		if (_itemInstance is null) {
+			return null;
+		}
 		return _getMesh(_itemInstance);
 	}
 
@@ -452,6 +499,24 @@ public partial class BuildComponent : Component
 			_unfocus(equipment);
 			_allFocusedEquipment.Remove(equipment);
 		}
+	}
+
+	private EquipmentResource _equipmentResource()
+	{
+		EquipmentResource itemResource = null;
+
+		if (IsInstanceValid(_itemInstance)) {
+			itemResource = ItemResource.Get<EquipmentResource>(
+				_itemInstance.ResourcePath,
+				true
+			);
+		}
+
+		if (SelectedItem is not null) {
+			itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
+		}
+
+		return itemResource;
 	}
 
 	private void _connectPlaceDetectionSignals()

@@ -46,13 +46,9 @@ public partial class UiBuildMode : UiControl
 		}
 
 		BuildModeInventoryItemList.PopulateList();
-		TreeItem firstItem = listRoot.GetChildren()[0];
-		BuildModeInventoryItemList.GrabFocus();
-		BuildModeInventoryItemList.SetSelected(firstItem, 0);
-		firstItem.Select(0);
+		SelectFirstRow();
 		//Position = position;
 		IsOpen = true;
-
 		return true;
 	}
 
@@ -63,6 +59,17 @@ public partial class UiBuildMode : UiControl
 		}
 		Position = new Vector2(1000, 1000);
 		IsOpen = false;
+	}
+
+	public void SelectFirstRow()
+	{
+		TreeItem listRoot = BuildModeInventoryItemList.GetRoot();
+		if (listRoot.GetChildren().Count > 0) {
+			TreeItem firstItem = listRoot.GetChildren()[0];
+			BuildModeInventoryItemList.GrabFocus();
+			BuildModeInventoryItemList.SetSelected(firstItem, 0);
+			firstItem.Select(0);
+		}
 	}
 
 	public TreeItem SelectedItem()

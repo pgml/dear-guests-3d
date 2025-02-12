@@ -102,7 +102,6 @@ public partial class BuildComponent : Component
 		_connectPlaceDetectionSignals();
 	}
 
-
 	public override void _Input(InputEvent @event)
 	{
 		UiBuildMode uiInstance = UiBuildModeInstance;
@@ -125,6 +124,7 @@ public partial class BuildComponent : Component
 			return;
 		}
 
+		// make ui buttons react to keypresses
 		if (@event.IsActionPressed("action_cancel")) {
 			uiInstance.ExitBuildModeButton.SetPressedNoSignal(true);
 		}
@@ -224,11 +224,13 @@ public partial class BuildComponent : Component
 				_isItemPlaceable = false;
 			}
 
+			// always put moving object in front of character
 			Vector3 facingDirection = CreatureData.FacingDirection;
 			Vector3 forward = GlobalTransform.Origin + facingDirection * 2.5f;
 			forward.Z += minMeshLength / 2;
 			Transform3D position = new Transform3D(GlobalTransform.Basis, forward);
 
+			// adjust position snapping is enabled and object can be snapped
 			if (IsSnappingEnabled) {
 				bool canSnap = false;
 				var testMotion = Controller.TestMotion(ActorData.FacingDirection * 4);
@@ -303,7 +305,6 @@ public partial class BuildComponent : Component
 		// @todo: implement removal confirmation
 		_itemInstance = ActorData.FocusedEquipment;
 		_itemInstance.QueueFree();
-		GD.PrintS(_itemResource);
 		ActorInventory.AddItem(_itemResource, 1);
 		return true;
 	}
@@ -392,7 +393,7 @@ public partial class BuildComponent : Component
 
 		if (CurrentMode != BuildMode.Place &&
 			IsInstanceValid(_itemInstance) &&
-			_equipmentInFocus is null &&
+			IsInstanceValid(_equipmentInFocus) &&
 			IsMovingItem)
 		{
 			IsMovingItem = false;
@@ -413,6 +414,10 @@ public partial class BuildComponent : Component
 	/// </summary>
 	private void _createSnapShapeCasts()
 	{
+		if (!IsInstanceValid(_itemInstance)) {
+			return;
+		}
+
 		_itemInstance.AddChild(_createShapeCast(Vector3.Forward, "forward"));
 		_itemInstance.AddChild(_createShapeCast(Vector3.Right, "right"));
 		_itemInstance.AddChild(_createShapeCast(Vector3.Back, "back"));
@@ -421,6 +426,10 @@ public partial class BuildComponent : Component
 
 	private ShapeCast3D _createShapeCast(Vector3 position, string name = "")
 	{
+		if (!IsInstanceValid(_itemInstance)) {
+			return null;
+		}
+
 		MeshInstance3D mesh = _getMesh(_itemInstance);
 		Vector3 meshSize = mesh.GetAabb().Size;
 		float maxMeshLength = Mathf.Max(meshSize.X, meshSize.Z);

@@ -26,7 +26,7 @@ public partial class BuildComponent : Component
 
 	public BuildMode CurrentMode { get; private set; } = BuildMode.Place;
 	public bool IsBuildModeActive { get; private set; } = false;
-	public bool IsPlacingItem { get; private set; } = false;
+	public bool IsMovingItem { get; private set; } = false;
 	public bool IsSnappingEnabled { get; private set; } = false;
 
 	/// <summary>
@@ -52,11 +52,13 @@ public partial class BuildComponent : Component
 	/// neighbouring object in snap mode
 	/// </summary>
 	private PhysicsBody3D _activeCollider = null;
+	private Node3D _itemCollidingWith = null;
 
 	// Since the current build object has 4 shape cast surrounding at each
 	// side we store and disable the one that is on the characters side
 	private ShapeCast3D _disabledColliderShapeCasts = null;
 	private bool _isObjectSnapped = false;
+	private bool _isItemPlaceable = true;
 
 	public override void  _Ready()
 	{
@@ -69,8 +71,8 @@ public partial class BuildComponent : Component
 			return;
 		}
 
-		if (IsBuildModeActive && IsPlacingItem) {
-			MoveObject();
+		if (IsBuildModeActive && IsMovingItem) {
+			MoveItem();
 		}
 
 		_unfocusAll();
@@ -88,6 +90,8 @@ public partial class BuildComponent : Component
 				}
 			}
 		}
+
+		_connectPlaceDetectionSignals();
 	}
 
 	public override void _Input(InputEvent @event)
@@ -133,25 +137,25 @@ public partial class BuildComponent : Component
 
 		if (@event.IsActionReleased("action_use")) {
 			if (CurrentMode == BuildMode.Place) {
-				if (!IsPlacingItem) {
-					IsPlacingItem = true;
+				if (!IsMovingItem) {
+					IsMovingItem = true;
 					SelectedItem = uiInstance.SelectedItem();
 					_itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
 					SpawnItem();
 					_createSnapShapeCasts();
 				}
 				else {
-					PlaceObject();
+					PlaceItem();
 				}
 			}
 			else if (CurrentMode == BuildMode.Move) {
-				if (!IsPlacingItem) {
-					IsPlacingItem = true;
+				if (!IsMovingItem) {
+					IsMovingItem = true;
 					_itemInstance = ActorData.FocusedEquipment;
 					_createSnapShapeCasts();
 				}
 				else {
-					PlaceObject();
+					PlaceItem();
 				}
 			}
 			else if (CurrentMode == BuildMode.PickUp) {
@@ -174,7 +178,7 @@ public partial class BuildComponent : Component
 		_itemInstance.CanUse = false;
 	}
 
-	public void MoveObject()
+	public void MoveItem()
 	{
 		if (IsInstanceValid(_itemInstance)) {
 			_makeGhost(_itemInstance);
@@ -203,6 +207,11 @@ public partial class BuildComponent : Component
 						_activeCollider = null;
 					}
 				}
+			}
+
+			_isItemPlaceable = true;
+			if (_itemCollidingWith is not null && !_isObjectSnapped) {
+				_isItemPlaceable = false;
 			}
 
 			Vector3 facingDirection = CreatureData.FacingDirection;
@@ -235,8 +244,13 @@ public partial class BuildComponent : Component
 		}
 	}
 
-	public void PlaceObject()
+	public bool PlaceItem()
 	{
+		if (!_isItemPlaceable) {
+			GD.PushWarning($"[BUILDMODE] {_itemInstance.Name} cannot be placed here.");
+			return false;
+		}
+
 		var material = _itemMaterial();
 		material.AlbedoColor = new Color(1, 1, 1);
 		_itemMeshInstance().SetSurfaceOverrideMaterial(0, material);
@@ -248,11 +262,14 @@ public partial class BuildComponent : Component
 			}
 		}
 
-		IsPlacingItem = false;
+		IsMovingItem = false;
 		_itemInstance = null;
 		_itemResource = null;
 		_activeCollider = null;
 		_disabledColliderShapeCasts = null;
+		_itemCollidingWith = null;
+
+		return true;
 	}
 
 	public void EnterBuildMode()
@@ -271,7 +288,7 @@ public partial class BuildComponent : Component
 		UiBuildModeInstance.QueueFree();
 		IsBuildModeActive = false;
 		ActorData.IsBuildMoveActive = false;
-		IsPlacingItem = false;
+		IsMovingItem = false;
 		_removeItemInstance();
 	}
 
@@ -307,7 +324,7 @@ public partial class BuildComponent : Component
 	}
 
 	/// <summary>
-	/// Makes the currently focuses object translucent when in move or remove mode<br />
+	/// Makes the currently focused object translucent when in move or remove mode<br />
 	/// In move mode the translucency has a red tint
 	/// </summary>
 	private void _makeGhost(Equipment equipment)
@@ -316,10 +333,14 @@ public partial class BuildComponent : Component
 		if (!IsInstanceValid(mesh)) {
 			mesh = _itemMeshInstance();
 		}
+
 		var material = _itemMaterial(mesh);
-		string ghostColour = CurrentMode == BuildMode.PickUp
-			? "ffb49782"
-			: "ffffff82";
+		string ghostColour = _isItemPlaceable ? "ffffff82" : "ffb49782";
+
+		//if (CurrentMode == BuildMode.Place || CurrentMode == BuildMode.Move) {
+		//	ghostColour = _itemCanBePlaced ? "7df00077": "ffb49782";
+		//}
+
 		material.AlbedoColor = Color.FromString(ghostColour, default);
 		mesh.SetSurfaceOverrideMaterial(0, material);
 	}
@@ -334,7 +355,10 @@ public partial class BuildComponent : Component
 		};
 
 		if (CurrentMode != BuildMode.Place && IsInstanceValid(_itemInstance)) {
-			IsPlacingItem = false;
+			IsMovingItem = false;
+			_isObjectSnapped = false;
+			_isItemPlaceable = true;
+			_itemCollidingWith = null;
 			_removeItemInstance();
 		}
 	}
@@ -428,5 +452,56 @@ public partial class BuildComponent : Component
 			_unfocus(equipment);
 			_allFocusedEquipment.Remove(equipment);
 		}
+	}
+
+	private void _connectPlaceDetectionSignals()
+	{
+		if ((CurrentMode == BuildMode.Place ||
+			CurrentMode == BuildMode.Move) &&
+			IsInstanceValid(_itemInstance))
+		{
+			var triggerArea = _itemInstance.FindChild("TriggerArea") as Area3D;
+
+			bool isBodyEnteredConnected = triggerArea.IsConnected(
+				"body_entered",
+				Callable.From<Node3D>(_onTriggerAreaBodyEntered)
+			);
+
+			if (!isBodyEnteredConnected) {
+				triggerArea.Connect(
+					"body_entered",
+					Callable.From<Node3D>(_onTriggerAreaBodyEntered)
+				);
+				//triggerArea.BodyEntered += _onTriggerAreaBodyEntered;
+			}
+
+			bool isBodyExitedConnected = triggerArea.IsConnected(
+				"body_exited",
+				Callable.From<Node3D>(_onTriggerAreaBodyExited)
+			);
+
+			if (!isBodyExitedConnected) {
+				triggerArea.Connect(
+					"body_exited",
+					Callable.From<Node3D>(_onTriggerAreaBodyExited)
+				);
+			}
+		}
+	}
+
+	private void _onTriggerAreaBodyEntered(Node3D body)
+	{
+		// Exclude self from being detected
+		if (IsInstanceValid(_itemInstance)) {
+			if (body.GetParent() == _getMesh(_itemInstance)) {
+				return;
+			}
+		}
+		_itemCollidingWith = body;
+	}
+
+	private void _onTriggerAreaBodyExited(Node3D body)
+	{
+		_itemCollidingWith = null;
 	}
 }

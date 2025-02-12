@@ -88,7 +88,7 @@ light_color = Color(0.0590279, 0.0590279, 0.0590279, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.4121, 0, 0)
 
 [node name="Joachim" parent="." instance=ExtResource("9_2cgwh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.1905, -0.0576349, -0.528793)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.7712, -0.0576349, 6.24851)
 
 [node name="Replicator" parent="." instance=ExtResource("10_iaow0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.2966, 0.0345824, -8.70642)

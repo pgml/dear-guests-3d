@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dft4ktnnug7dg" path="res://Assets/Equipment/Replicator/replicator_type_1_mesh.tscn" id="2_vm67i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mdk7f"]
-radius = 1.695
-height = 4.095
+radius = 1.5
+height = 4.0
 
 [node name="Replicator" type="Node3D" node_paths=PackedStringArray("LightsParent", "TriggerArea")]
 script = ExtResource("1_mdk7f")
@@ -20,9 +20,9 @@ AllowedInputType = 1
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 
 [node name="TriggerArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, -0.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01291, -0.50171)
 shape = SubResource("CapsuleShape3D_mdk7f")
 debug_color = Color(0.352843, 0.549768, 1, 1)
 

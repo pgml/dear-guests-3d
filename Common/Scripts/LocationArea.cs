@@ -69,4 +69,3 @@ public partial class LocationArea : Area2D, Location
 	//	}
 	//}
 }
-

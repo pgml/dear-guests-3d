@@ -76,9 +76,9 @@ public partial class Controller : CreatureController, IController
 		MoveAndSlide();
 		_updatePositionToParent();
 
-		if (CreatureData.IsClimbing
-			&& DistanceToFloor() > CreatureData.ClimbComponent.SafeThreshold
-		) {
+		if (CreatureData.IsClimbing &&
+			DistanceToFloor() > CreatureData.ClimbComponent.SafeThreshold)
+		{
 			CreatureData.CanClimb = false;
 			CreatureData.ShouldClimb = false;
 			GD.Print("STAAWWWP");
@@ -202,10 +202,8 @@ public partial class Controller : CreatureController, IController
 
 		if (testMotion.IsColliding) {
 			var collider = testMotion.Collider<StaticBody3D>();
-
 			if (collider is not null) {
 				var staticBody = collider.GetParent().GetParent<Node3D>();
-
 				if (staticBody is StaticObject) {
 					distanceToFloor = CharacterElevation() - staticBody.Position.Y;
 				}

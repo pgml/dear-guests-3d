@@ -164,7 +164,9 @@ public partial class UiReplicator : UiControl
 					nextFocusPath = _currentSlider.FocusPrevious;
 				}
 
-				if (e.IsAction("ui_slider_increase") || e.IsAction("ui_slider_decrease")) {
+				if (e.IsAction("ui_slider_increase") ||
+					e.IsAction("ui_slider_decrease"))
+				{
 					playBrowseSound = true;
 				}
 

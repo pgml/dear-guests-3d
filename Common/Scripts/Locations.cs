@@ -26,4 +26,3 @@ public partial class Locations : Node3D
 		}
 	}
 }
-

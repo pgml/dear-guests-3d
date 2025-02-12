@@ -43,11 +43,15 @@ public partial class UiItemList : Tree
 
 		if (@event is InputEventKey e && e.Pressed) {
 			if (GetSelected() is TreeItem selectedItem) {
-				if (e.IsAction("ui_focus_next") && selectedItem.GetNext() is not null) {
+				if (e.IsAction("ui_focus_next") &&
+					selectedItem.GetNext() is not null)
+				{
 					AudioInstance.PlayUiSound(AudioLibrary.InventoryBrowse);
 				}
 
-				if (e.IsAction("ui_focus_prev") && selectedItem.GetPrev() is not null) {
+				if (e.IsAction("ui_focus_prev") &&
+					selectedItem.GetPrev() is not null)
+				{
 					AudioInstance.PlayUiSound(AudioLibrary.InventoryBrowse);
 				}
 			}

@@ -47,10 +47,10 @@ public partial class Equipment : Node3D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (!IsInstanceValid(QuickInventoryInstance)
-			&& (@event.IsActionReleased("action_use"))
-			&& CanUse
-		) {
+		if (!IsInstanceValid(QuickInventoryInstance) &&
+			(@event.IsActionReleased("action_use")) &&
+			CanUse)
+		{
 			QuickInventoryInstance = QuickInventory.Instantiate<UiQuickInventory>();
 			GetNode("/root/MainUI").AddChild(QuickInventoryInstance);
 			Vector2 position = InventoryPosition(QuickInventoryInstance);

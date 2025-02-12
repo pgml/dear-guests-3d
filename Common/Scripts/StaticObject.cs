@@ -68,8 +68,15 @@ public partial class StaticObject : Node3D
 			return;
 		}
 
-		if (IsInstanceValid(Sun) && IsInstanceValid(SunShadowMesh) && Fake3DShadow) {
-			SunShadowMesh.RotationDegrees = new Vector3(0, Sun.RotationDegrees.X, 0);
+		if (IsInstanceValid(Sun) &&
+			IsInstanceValid(SunShadowMesh) &&
+			Fake3DShadow)
+		{
+			SunShadowMesh.RotationDegrees = new Vector3(
+				0,
+				Sun.RotationDegrees.X,
+				0
+			);
 		}
 	}
 

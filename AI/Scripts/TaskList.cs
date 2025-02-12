@@ -89,4 +89,3 @@ public class TaskList
 		return new TaskLocation(locationName, locationType);
 	}
 }
-

@@ -79,15 +79,15 @@ public partial class Camera : Camera3D
 
 		var (camX, camY, camZ) = _currentCameraPosition;
 		if (isNearBound) {
-			if ((playerX < camX && limitLeft)
-				|| (playerX > camX && limitRight)
-			) {
+			if ((playerX < camX && limitLeft) ||
+				(playerX > camX && limitRight))
+			{
 				_toPosition.X = camX;
 			}
 
-			if ((playerZ + (Size * 2) < camZ && limitTop)
-				|| (playerZ + (Size * 2) > camZ && limitBottom)
-			) {
+			if ((playerZ + (Size * 2) < camZ && limitTop) ||
+				(playerZ + (Size * 2) > camZ && limitBottom))
+			{
 				_toPosition.Y = camY;
 				_toPosition.Z = camZ;
 			}

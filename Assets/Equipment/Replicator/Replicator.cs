@@ -116,10 +116,10 @@ public partial class Replicator : Equipment
 			return;
 		}
 
-		if (!IsInstanceValid(UiReplicatorInstance)
-			&& (@event.IsActionReleased("action_use"))
-			&& CanUse
-		) {
+		if (!IsInstanceValid(UiReplicatorInstance) &&
+			@event.IsActionReleased("action_use") &&
+			CanUse)
+		{
 			var openingSound = Type switch {
 				ReplicatorType.Type1 => AudioLibrary.ReplicatorType1Open,
 				_ => null
@@ -253,9 +253,9 @@ public partial class Replicator : Equipment
 		double deviationPenalty = 0;
 
 		foreach (var (condition, value) in Artifact().OptimalGrowConditions) {
-			if (!Content().Settings.ContainsKey(condition)
-				&& _replicatorStorage.Has(this)
-			) {
+			if (!Content().Settings.ContainsKey(condition) &&
+				_replicatorStorage.Has(this))
+			{
 				continue;
 			}
 
@@ -407,9 +407,9 @@ public partial class Replicator : Equipment
 	{
 		var brightnessEnum = ArtifactGrowCondition.Brightness;
 
-		if (Content().Settings is null
-			|| !Content().Settings.ContainsKey(brightnessEnum)
-		) {
+		if (Content().Settings is null ||
+			!Content().Settings.ContainsKey(brightnessEnum))
+		{
 			return 0;
 		}
 

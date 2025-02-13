@@ -176,7 +176,7 @@ public partial class BuildComponent : Component
 				{
 					_itemInstance = focusedEquipment;
 					IsMovingItem = true;
-						_createSnapShapeCasts();
+					_createSnapShapeCasts();
 				}
 				else {
 					PlaceItem();
@@ -278,6 +278,7 @@ public partial class BuildComponent : Component
 
 		if (!_isItemPlaceable) {
 			GD.PushWarning($"[BUILDMODE] {_itemInstance.Name} cannot be placed here.");
+			AudioInstance.PlayUiSound(AudioLibrary.MiscDenied);
 			return false;
 		}
 

@@ -83,25 +83,29 @@ public partial class BuildComponent : Component
 
 		_unfocusAll();
 
-		if (CurrentMode == BuildMode.Move || CurrentMode == BuildMode.PickUp) {
-			if (ActorData.FocusedEquipment is Equipment equipment) {
-				equipment.CanUse = false;
-				_makeGhost(equipment);
-				_equipmentInFocus = equipment;
+		Equipment focusedEquipment = null;
+		if (ActorData.FocusedEquipment is Equipment) {
+			focusedEquipment = ActorData.FocusedEquipment;
+			_itemInstance = focusedEquipment;
+			_itemResource = _equipmentResource();
+		}
 
-				if (!IsInstanceValid(_itemInstance)) {
-					_itemInstance = _equipmentInFocus;
-				}
+		if ((CurrentMode == BuildMode.Move ||
+			CurrentMode == BuildMode.PickUp) &&
+			focusedEquipment is not null)
+		{
+			focusedEquipment.CanUse = false;
+			_makeGhost(focusedEquipment);
+			_equipmentInFocus = focusedEquipment;
 
-				if (_itemResource is null) {
-					_itemResource = _equipmentResource();
-				}
+			if (!IsInstanceValid(_itemInstance)) {
+				_itemInstance = _equipmentInFocus;
+			}
 
-				// in some occasions several objects get focused which we need to
-				// store in order to be able to remove the focus of all objects
-				if (!_allFocusedEquipment.Contains(_equipmentInFocus)) {
-					_allFocusedEquipment.Add(_equipmentInFocus);
-				}
+			// in some occasions several objects get focused which we need to
+			// store in order to be able to remove the focus of all objects
+			if (!_allFocusedEquipment.Contains(_equipmentInFocus)) {
+				_allFocusedEquipment.Add(_equipmentInFocus);
 			}
 		}
 
@@ -545,8 +549,7 @@ public partial class BuildComponent : Component
 				true
 			);
 		}
-
-		if (IsInstanceValid(SelectedItem)) {
+		else if (IsInstanceValid(SelectedItem)) {
 			itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
 		}
 

@@ -41,6 +41,7 @@ public partial class CreatureData : Resource
 	public bool IsFacingEdge = false;
 
 	// ui states
+	public bool IsConsoleOpen = false;
 	public bool IsInventoryOpen = false;
 	public bool IsReplicatorOpen = false;
 	public bool IsQuickInventoryOpen = false;

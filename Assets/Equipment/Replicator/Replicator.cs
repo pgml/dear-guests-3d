@@ -112,7 +112,10 @@ public partial class Replicator : Equipment
 			return;
 		}
 
-		if (ActorData is CreatureData data && data.IsBuildMoveActive) {
+		if (ActorData is CreatureData data &&
+			data.IsBuildMoveActive &&
+			data.IsConsoleOpen)
+		{
 			return;
 		}
 

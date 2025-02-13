@@ -20,6 +20,7 @@ content_margin_right = 10.0
 color = Color(0.530723, 0.530723, 0.530723, 1)
 
 [node name="Console" type="Control" node_paths=PackedStringArray("CmdOutput", "CmdInput")]
+z_index = 50
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
 anchors_preset = 10

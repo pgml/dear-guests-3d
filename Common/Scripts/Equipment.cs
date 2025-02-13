@@ -50,6 +50,10 @@ public partial class Equipment : Node3D
 
 	public override void _Input(InputEvent @event)
 	{
+		if (ActorData.IsConsoleOpen) {
+			return;
+		}
+
 		if (!IsInstanceValid(QuickInventoryInstance) &&
 			(@event.IsActionReleased("action_use")) &&
 			CanUse)

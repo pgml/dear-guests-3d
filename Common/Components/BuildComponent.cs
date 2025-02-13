@@ -104,6 +104,10 @@ public partial class BuildComponent : Component
 
 	public override void _Input(InputEvent @event)
 	{
+		if (ActorData.IsConsoleOpen) {
+			return;
+		}
+
 		UiBuildMode uiInstance = UiBuildModeInstance;
 
 		if (@event.IsActionReleased("action_build") &&

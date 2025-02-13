@@ -101,6 +101,7 @@ public partial class UiConsole : UiControl
 		}
 
 		Console.IsOpen = IsOpen;
+		ActorData().IsConsoleOpen = IsOpen;
 
 		_grabFocus();
 

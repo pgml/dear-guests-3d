@@ -632,3 +632,6 @@ parameters/Walk/blend_position = Vector2(-0.139847, 0.628897)
 [node name="UI" type="Node3D" parent="."]
 
 [node name="Cursor" parent="UI" instance=ExtResource("8_xua5t")]
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)

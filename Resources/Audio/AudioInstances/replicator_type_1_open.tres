@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("2_ynfor")
 AudioFiles = Array[AudioStream]([ExtResource("1_2nla3")])
-MinVolume = 0.3
-MaxVolume = 0.3
+MinVolume = 0.25
+MaxVolume = 0.25
 AutoPlay = false

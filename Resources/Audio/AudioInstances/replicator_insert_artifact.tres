@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("2_vo58e")
 AudioFiles = Array[AudioStream]([ExtResource("2_fturp")])
-MinVolume = 0.2
+MinVolume = 0.15
 MaxVolume = 0.2
 AutoPlay = false

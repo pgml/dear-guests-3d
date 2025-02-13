@@ -23,10 +23,15 @@ public partial class AudioInstance : Node3D
 		AudioUi.Finished += _onAudioFinished;
 	}
 
-	public void Play(AudioClip audioClip, AudioBus bus = AudioBus.Master, bool fixPosition = true)
-	{
+	public void Play(
+		AudioClip audioClip,
+		AudioBus bus = AudioBus.Master,
+		bool fixPosition = false
+	) {
 		int randomIndex = RandRange(0, audioClip.AudioFiles.Count - 1);
 
+		// @deprecated - in discovered the audio listener...
+		//
 		// due to the orthogonal camera the z position of the spawned audio
 		// instance will always be off which causes the sound
 		// to not correctly reflect the perceived location.

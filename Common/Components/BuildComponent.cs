@@ -236,6 +236,9 @@ public partial class BuildComponent : Component
 			if (_itemCollidingWith is not null && !_isObjectSnapped) {
 				_isItemPlaceable = false;
 			}
+			else {
+				_isObjectSnapped = false;
+			}
 
 			// always put moving object in front of character
 			Vector3 facingDirection = CreatureData.FacingDirection;

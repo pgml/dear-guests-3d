@@ -411,19 +411,21 @@ public partial class BuildComponent : Component
 			_ => BuildMode.Place,
 		};
 
-		if (CurrentMode != BuildMode.Place &&
-			IsInstanceValid(_itemInstance) &&
-			IsInstanceValid(_equipmentInFocus) &&
-			IsMovingItem)
-		{
-			IsMovingItem = false;
-			_isObjectSnapped = false;
-			_isItemPlaceable = true;
-			_itemCollidingWith = null;
-			if (_isFromInventory) {
+		if (IsInstanceValid(_itemInstance) && IsMovingItem) {
+			if (CurrentMode != BuildMode.Place) {
+				IsMovingItem = false;
+				_isObjectSnapped = false;
+				_isItemPlaceable = true;
+				_isFromInventory = false;
+				_itemCollidingWith = null;
+				_equipmentInFocus = null;
+			}
+
+			if (CurrentMode != BuildMode.PickUp) {
 				_removeItemInstance();
 			}
-			_isFromInventory = false;
+
+			_unfocus(_itemInstance);
 		}
 
 		if (CurrentMode == BuildMode.Place) {

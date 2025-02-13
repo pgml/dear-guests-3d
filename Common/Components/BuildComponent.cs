@@ -60,6 +60,12 @@ public partial class BuildComponent : Component
 	private bool _isObjectSnapped = false;
 	private bool _isItemPlaceable = true;
 
+	/// <summary>
+	/// indicates whether the item that is being moved came from the
+	/// inventory or was already placed on the map
+	/// </summary>
+	private bool _isFromInventory = false;
+
 	public override void  _Ready()
 	{
 		base._Ready();
@@ -104,10 +110,6 @@ public partial class BuildComponent : Component
 
 	public override void _Input(InputEvent @event)
 	{
-		if (ActorData.IsConsoleOpen) {
-			return;
-		}
-
 		UiBuildMode uiInstance = UiBuildModeInstance;
 
 		if (@event.IsActionReleased("action_build") &&
@@ -168,10 +170,13 @@ public partial class BuildComponent : Component
 				}
 			}
 			else if (CurrentMode == BuildMode.Move) {
-				if (!IsMovingItem) {
+				if (!IsMovingItem &&
+					ActorData.FocusedEquipment is Equipment focusedEquipment &&
+					IsInstanceValid(focusedEquipment))
+				{
+					_itemInstance = focusedEquipment;
 					IsMovingItem = true;
-					_itemInstance = ActorData.FocusedEquipment;
-					_createSnapShapeCasts();
+						_createSnapShapeCasts();
 				}
 				else {
 					PlaceItem();
@@ -193,6 +198,7 @@ public partial class BuildComponent : Component
 		//(_itemInstance.FindChild("CollisionShape3D", true) as CollisionShape3D).Disabled = true;
 		GetTree().CurrentScene.AddChild(_itemInstance);
 		_itemInstance.CanUse = false;
+		_isFromInventory = true;
 	}
 
 	public void MoveItem()
@@ -298,6 +304,7 @@ public partial class BuildComponent : Component
 		_activeCollider = null;
 		_disabledColliderShapeCasts = null;
 		_itemCollidingWith = null;
+		_isFromInventory = false;
 
 		UiBuildModeInstance.SelectFirstRow();
 		return true;
@@ -409,7 +416,10 @@ public partial class BuildComponent : Component
 			_isObjectSnapped = false;
 			_isItemPlaceable = true;
 			_itemCollidingWith = null;
-			_removeItemInstance();
+			if (_isFromInventory) {
+				_removeItemInstance();
+			}
+			_isFromInventory = false;
 		}
 
 		if (CurrentMode == BuildMode.Place) {
@@ -530,7 +540,7 @@ public partial class BuildComponent : Component
 			);
 		}
 
-		if (SelectedItem is not null) {
+		if (IsInstanceValid(SelectedItem)) {
 			itemResource = (EquipmentResource)SelectedItem.GetMetadata(0);
 		}
 

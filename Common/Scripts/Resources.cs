@@ -13,6 +13,7 @@ public static class Resources
 	public static readonly string AudioInstance = "res://Common/Tools/audio_instance.tscn";
 	public static readonly string SceneTransition = "res://Common/Tools/scene_transition.tscn";
 	public static readonly string UseIndicator = "res://Common/Tools/use_indicator.tscn";
+	public static readonly string PowerIndicator = "res://Common/Tools/power_indicator.tscn";
 
 	// UI
 	public static readonly string UiLoading = "res://UI/ui_loading.tscn";

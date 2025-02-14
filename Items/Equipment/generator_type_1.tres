@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ccc1jx5qyy0ag"]
+
+[ext_resource type="Script" uid="uid://b6h5w78ueoock" path="res://Inventory/Scripts/EquipmentResource.cs" id="1_uic0n"]
+[ext_resource type="PackedScene" uid="uid://cqql2yahtehec" path="res://Assets/Equipment/Generator/generator_type_1.tscn" id="1_xcio6"]
+
+[resource]
+script = ExtResource("1_uic0n")
+IsPowerSource = true
+NeedPower = false
+PowerConsumption = 0.0
+Type = 3
+ItemScene = ExtResource("1_xcio6")
+Name = "Generator"
+Description = ""
+Weight = 20.0
+MaxCarryAmount = 5
+Value = 60.0

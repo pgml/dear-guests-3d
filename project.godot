@@ -63,6 +63,7 @@ Stairs=""
 MapBounds=""
 InstancePlaceholder=""
 Climbable=""
+PowerSource=""
 
 [gui]
 

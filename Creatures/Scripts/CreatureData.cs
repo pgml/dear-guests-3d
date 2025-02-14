@@ -41,6 +41,7 @@ public partial class CreatureData : Resource
 	public bool IsFacingEdge = false;
 
 	// ui states
+	public bool IsAnyPanelOpen = false;
 	public bool IsConsoleOpen = false;
 	public bool IsInventoryOpen = false;
 	public bool IsReplicatorOpen = false;
@@ -81,6 +82,7 @@ public partial class CreatureData : Resource
 	{
 		if (IsInventoryOpen ||
 			IsQuickInventoryOpen ||
+			IsReplicatorOpen ||
 			IsReplicatorOpen ||
 			IsBuildMoveActive)
 		{

@@ -5,9 +5,13 @@
 
 [resource]
 script = ExtResource("1_ngf8e")
+IsPowerSource = false
+NeedsPower = true
+PowerConsumption = 10.0
 Type = 3
 ItemScene = ExtResource("1_wo8t6")
 Name = "Replicator Type 1"
-Weight = 20.0
+Description = ""
+Weight = 50.0
 MaxCarryAmount = 10
 Value = 1000.0

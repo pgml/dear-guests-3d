@@ -2,26 +2,18 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public enum ReplicatorType
-{
-	Type1,
-	Type2,
-	Type3,
-	Type4
-}
-
 [Tool]
 [GlobalClass]
 public partial class Replicator : Equipment
 {
+	[ExportToolButton(text: "Set up mesh")]
+	public Callable SetupEquipmentMesh => Callable.From(SetupMesh);
+
 	[Signal]
 	public delegate void ReplicationCompleteEventHandler();
 
-	[ExportToolButton(text: "Set up replicator mesh")]
-	public Callable SetupDuplicatorMesh => Callable.From(SetupMesh);
-
 	[Export]
-	public ReplicatorType Type { get; set; }
+	public EquipmentType Type { get; set; }
 
 	[Export]
 	public bool Activated { get; set; } = false;
@@ -33,17 +25,6 @@ public partial class Replicator : Equipment
 	[Export]
 	public Color LightColor { get; set; }
 
-	[Export]
-	public Color MeshBackLightColor { get; set; }
-
-	public Node Mesh {
-		get {
-			if (FindChild(_meshNodeName) is null) {
-				return null;
-			}
-			return GetNode(_meshNodeName);
-		}
-	}
 
 	public PackedScene UiReplicator { get {
 		return GD.Load<PackedScene>(Resources.UiReplicator);
@@ -52,21 +33,20 @@ public partial class Replicator : Equipment
 	public bool IsReplicating = false;
 	public bool IsReplicationComplete = false;
 	public UiReplicator UiReplicatorInstance = null;
-	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
 	public Dictionary<
 		ArtifactGrowCondition,
 		SliderProperties
 	> CurrentSettings { get; set; } = new();
 
-	public AudioLibrary AudioLibrary { get; set; }
+	public AudioLibrary AudioLibrary { get; private set; }
 	public AudioInstance AudioInstance { get; private set; }
-	public AudioInstance ContinuousAudioInstance { get; set; }
+	public AudioInstance ContinuousAudioInstance { get; private set; }
 
-	private string _meshNodeName = "Mesh";
 	private ReplicatorStorage _replicatorStorage = new();
 	private ArtifactResource _currentArtifact;
 	private Inventory _actorInventory;
+	private float _progress = 0;
 
 	public override void _Ready()
 	{
@@ -95,6 +75,18 @@ public partial class Replicator : Equipment
 			SetLights();
 		}
 
+		HasPower = false;
+		foreach (var area in TriggerArea.GetOverlappingAreas()) {
+			if (area.GetParent().IsInGroup("PowerSource")) {
+				HasPower = true;
+				break;
+			}
+		}
+
+		if (!HasPower) {
+			TurnOff();
+		}
+
 		if (IsInstanceValid(UiReplicatorInstance)) {
 			if (UiReplicatorInstance.IsOpen) {
 				_connectButtonSignals();
@@ -104,6 +96,8 @@ public partial class Replicator : Equipment
 				_disconnectButtonSignals();
 			}
 		}
+
+		base._Process(delta);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -124,7 +118,7 @@ public partial class Replicator : Equipment
 			CanUse)
 		{
 			var openingSound = Type switch {
-				ReplicatorType.Type1 => AudioLibrary.ReplicatorType1Open,
+				EquipmentType.Type1 => AudioLibrary.ReplicatorType1Open,
 				_ => null
 			};
 
@@ -147,7 +141,7 @@ public partial class Replicator : Equipment
 
 			if (@event.IsActionPressed("action_cancel")) {
 				var closingSound = Type switch {
-					ReplicatorType.Type1 => AudioLibrary.ReplicatorType1Close,
+					EquipmentType.Type1 => AudioLibrary.ReplicatorType1Close,
 					_ => null
 				};
 
@@ -187,6 +181,11 @@ public partial class Replicator : Equipment
 			return;
 		}
 
+		if (!HasPower) {
+			AudioInstance.PlayUiSound(AudioLibrary.MiscDenied);
+			return;
+		}
+
 		_replicatorStorage.Update(this, new ReplicatorContent(
 			Artifact(),
 			DateTime.TimeStamp(),
@@ -223,17 +222,27 @@ public partial class Replicator : Equipment
 	{
 		_moveArtifactToInventory();
 		_replicatorStorage.Clear(this);
-		//_currentArtifact = null;
 		IsReplicating = false;
+		//_currentArtifact = null;
+		TurnOff();
+	}
+
+	public bool TurnOff()
+	{
+		if (!Activated) {
+			//GD.PushWarning("[Replicator] already turned off");
+			return false;
+		}
+
 		Activated = false;
-		_updateReplicatorUi();
 		ContinuousAudioInstance.Stop();
 		_playSound(AudioLibrary.ReplicatorStop1);
+		return true;
 	}
 
 	public double Progress()
 	{
-		if (!Activated) {
+		if (!Activated && !IsReplicating) {
 			return 0;
 		}
 
@@ -547,35 +556,5 @@ public partial class Replicator : Equipment
 			AudioBus.Game,
 			false
 		);
-	}
-
-	// ----- Tools
-
-	public void SetupMesh()
-	{
-		_renameMesh();
-
-		if (IsInstanceValid(Mesh)) {
-			var meshInstance = (MeshInstance3D)Mesh;
-			if (meshInstance.Scale != TopDownScale) {
-				meshInstance.Scale = TopDownScale;
-			}
-			var material = meshInstance.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
-			material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
-			material.BlendMode = BaseMaterial3D.BlendModeEnum.PremultAlpha;
-			material.BacklightEnabled = true;
-			material.Backlight = MeshBackLightColor;
-		}
-	}
-
-	private bool _renameMesh()
-	{
-		foreach (var child in GetChildren()) {
-			if (child is MeshInstance3D) {
-				child.Name = _meshNodeName;
-				return true;
-			}
-		}
-		return false;
 	}
 }

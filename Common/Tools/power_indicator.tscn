@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwv4nhjdabjyo"]
+
+[ext_resource type="Texture2D" uid="uid://brpwqa7tnv12g" path="res://Assets/Sprites/UI/ui_energy.png" id="1_v148g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgxf0"]
+atlas = ExtResource("1_v148g")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h17a7"]
+atlas = ExtResource("1_v148g")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x2aqx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgxf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h17a7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="PowerUndicator" type="Node3D"]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.532288, 0)
+offset = Vector2(0, 16)
+pixel_size = 0.07
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_x2aqx")
+autoplay = "default"
+frame_progress = 0.942779

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqql2yahtehec"]
+
+[ext_resource type="PackedScene" uid="uid://da6j0odbxx6dn" path="res://Assets/Equipment/Generator/generator_type_1_mesh.tscn" id="1_uglsq"]
+[ext_resource type="Script" uid="uid://4rmlyekb3w6i" path="res://Assets/Equipment/Generator/Generator.cs" id="2_qyvuc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qyvuc"]
+size = Vector3(2.20026, 1.87061, 2.39648)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m1amb"]
+size = Vector3(20, 4, 20)
+
+[node name="GeneratorType1" type="Node3D" node_paths=PackedStringArray("TriggerArea") groups=["PowerSource"]]
+script = ExtResource("2_qyvuc")
+EquipmentName = "Generator"
+TriggerArea = NodePath("TriggerArea")
+AllowedInputType = 1
+ResourcePath = "uid://ccc1jx5qyy0ag"
+MeshBackLightColor = Color(1, 0.980488, 0.520656, 1)
+
+[node name="Mesh" parent="." instance=ExtResource("1_uglsq")]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+
+[node name="TriggerArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TriggerArea"]
+shape = SubResource("BoxShape3D_qyvuc")
+debug_color = Color(0.352843, 0.549768, 1, 1)
+
+[node name="Range" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Range"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("BoxShape3D_m1amb")
+debug_color = Color(0.406713, 0.466573, 3.85046e-07, 1)

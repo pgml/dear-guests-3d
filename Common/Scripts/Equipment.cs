@@ -1,5 +1,13 @@
 using Godot;
 
+public enum EquipmentType
+{
+	Type1,
+	Type2,
+	Type3,
+	Type4
+}
+
 public partial class Equipment : Node3D
 {
 	[Export]
@@ -14,19 +22,44 @@ public partial class Equipment : Node3D
 	[Export(PropertyHint.File, "*.tres")]
 	public string ResourcePath { get; set; }
 
-	public bool CanUse { get; set; } = false;
+	[Export]
+	public Color MeshBackLightColor { get; set; }
+
+	public Node Mesh {
+		get {
+			if (FindChild(_meshNodeName) is null) {
+				return null;
+			}
+			return GetNode(_meshNodeName);
+		}
+	}
+
 	public PackedScene UseIndicator { get {
 		return GD.Load<PackedScene>(Resources.UseIndicator);
 	}}
-	public DateTime DateTime { get; private set; }
+
+	public PackedScene PowerIndicator { get {
+		return GD.Load<PackedScene>(Resources.PowerIndicator);
+	}}
+
 	public PackedScene QuickInventory { get {
 		return GD.Load<PackedScene>(Resources.UiQuickInventory);
 	}}
+
+	public bool CanUse { get; set; } = false;
+	public bool HasPower { get; set; } = false;
+
+	public DateTime DateTime { get; private set; }
 	public UiQuickInventory QuickInventoryInstance = null;
+	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
 	protected CreatureData ActorData;
 
 	private Node3D _indicatorInstance;
+	private Node3D _powerIndicatorInstance;
+	private string _meshNodeName = "Mesh";
+
+	private EquipmentResource _itemResource = null;
 
 	public async override void _Ready()
 	{
@@ -35,6 +68,13 @@ public partial class Equipment : Node3D
 			//QuickInventory = mainUI.FindChild("QuickInventory") as UiQuickInventory;
 			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			ActorData = GD.Load<CreatureData>(Resources.ActorData);
+
+			_powerIndicatorInstance = PowerIndicator.Instantiate<Node3D>();
+			_powerIndicatorInstance.Position = new Vector3(0, ColliderHeight(), 0);
+			_powerIndicatorInstance.Visible = false;
+			AddChild(_powerIndicatorInstance);
+
+			_itemResource = ResourceLoader.Load<EquipmentResource>(ResourcePath);
 		}
 
 		TriggerArea.BodyEntered += _onTriggerAreaBodyEntered;
@@ -43,9 +83,15 @@ public partial class Equipment : Node3D
 
 	public override void _Process(double delta)
 	{
+		if (Engine.IsEditorHint()) {
+			return;
+		}
+
 		//if (_quickInventory.IsOpen) {
 		//	_quickInventory.Position = QuickInventoryPosition();
 		//}
+
+		_powerIndicatorInstance.Visible = !HasPower && _itemResource.NeedsPower;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -55,7 +101,7 @@ public partial class Equipment : Node3D
 		}
 
 		if (!IsInstanceValid(QuickInventoryInstance) &&
-			(@event.IsActionReleased("action_use")) &&
+			@event.IsActionReleased("action_use") &&
 			CanUse)
 		{
 			QuickInventoryInstance = QuickInventory.Instantiate<UiQuickInventory>();
@@ -130,5 +176,35 @@ public partial class Equipment : Node3D
 		//	QuickInventoryInstance.Close();
 		//	QuickInventoryInstance.QueueFree();
 		//}
+	}
+
+	// ----- Tools
+
+	public void SetupMesh()
+	{
+		_renameMesh();
+
+		if (IsInstanceValid(Mesh)) {
+			var meshInstance = (MeshInstance3D)Mesh;
+			if (meshInstance.Scale != TopDownScale) {
+				meshInstance.Scale = TopDownScale;
+			}
+			var material = meshInstance.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
+			material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
+			material.BlendMode = BaseMaterial3D.BlendModeEnum.PremultAlpha;
+			material.BacklightEnabled = true;
+			material.Backlight = MeshBackLightColor;
+		}
+	}
+
+	private bool _renameMesh()
+	{
+		foreach (var child in GetChildren()) {
+			if (child is MeshInstance3D) {
+				child.Name = _meshNodeName;
+				return true;
+			}
+		}
+		return false;
 	}
 }

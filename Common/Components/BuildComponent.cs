@@ -348,8 +348,11 @@ public partial class BuildComponent : Component
 		UiBuildModeInstance.QueueFree();
 		IsBuildModeActive = false;
 		ActorData.IsBuildMoveActive = false;
-		IsMovingItem = false;
-		_removeItemInstance();
+		if (IsMovingItem) {
+			_removeItemInstance();
+			IsMovingItem = false;
+		}
+		_unfocusAll();
 		AudioInstance.PlayUiSound(AudioLibrary.MiscBleep);
 	}
 

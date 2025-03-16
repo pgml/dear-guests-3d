@@ -47,16 +47,16 @@ public partial class Equipment : Node3D
 	}}
 
 	public bool CanUse { get; set; } = false;
-	public bool HasPower { get; set; } = false;
+	//public bool HasPower { get; set; } = false;
 
 	public DateTime DateTime { get; private set; }
-	public UiQuickInventory QuickInventoryInstance = null;
+	public UiQuickInventory QuickInventoryInst = null;
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 
 	protected CreatureData ActorData;
 
-	private Node3D _indicatorInstance;
-	private Node3D _powerIndicatorInstance;
+	private Node3D _indicatorInst;
+	private Node3D _powerIndicatorInst;
 	private string _meshNodeName = "Mesh";
 
 	private EquipmentResource _itemResource = null;
@@ -69,10 +69,10 @@ public partial class Equipment : Node3D
 			await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			ActorData = GD.Load<CreatureData>(Resources.ActorData);
 
-			_powerIndicatorInstance = PowerIndicator.Instantiate<Node3D>();
-			_powerIndicatorInstance.Position = new Vector3(0, ColliderHeight(), 0);
-			_powerIndicatorInstance.Visible = false;
-			AddChild(_powerIndicatorInstance);
+			_powerIndicatorInst = PowerIndicator.Instantiate<Node3D>();
+			_powerIndicatorInst.Position = new Vector3(0, ColliderHeight(), 0);
+			_powerIndicatorInst.Visible = false;
+			AddChild(_powerIndicatorInst);
 
 			_itemResource = ResourceLoader.Load<EquipmentResource>(ResourcePath);
 		}
@@ -91,7 +91,7 @@ public partial class Equipment : Node3D
 		//	_quickInventory.Position = QuickInventoryPosition();
 		//}
 
-		_powerIndicatorInstance.Visible = !HasPower && _itemResource.NeedsPower;
+		_powerIndicatorInst.Visible = !HasPower() && _itemResource.NeedsPower;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -100,29 +100,30 @@ public partial class Equipment : Node3D
 			return;
 		}
 
-		if (!IsInstanceValid(QuickInventoryInstance) &&
+		if (!IsInstanceValid(QuickInventoryInst) &&
 			@event.IsActionReleased("action_use") &&
 			CanUse)
 		{
-			QuickInventoryInstance = QuickInventory.Instantiate<UiQuickInventory>();
-			GetNode("/root/MainUI").AddChild(QuickInventoryInstance);
-			Vector2 position = InventoryPosition(QuickInventoryInstance);
-			QuickInventoryInstance.Description = $"Use {EquipmentName}";
-			QuickInventoryInstance.RestrictTypeTo = AllowedInputType;
-			QuickInventoryInstance.Open(position);
+			QuickInventoryInst = QuickInventory.Instantiate<UiQuickInventory>();
+			GetNode("/root/MainUI").AddChild(QuickInventoryInst);
+			Vector2 position = InventoryPosition(QuickInventoryInst);
+			QuickInventoryInst.Description = $"Use {EquipmentName}";
+			QuickInventoryInst.RestrictTypeTo = AllowedInputType;
+			QuickInventoryInst.Open(position);
 		}
 
-		if (IsInstanceValid(QuickInventoryInstance)) {
+		if (IsInstanceValid(QuickInventoryInst)) {
 			if (@event.IsActionPressed("action_cancel")) {
 				//QuickInventoryInstance.Close();
-				QuickInventoryInstance.QueueFree();
+				QuickInventoryInst.QueueFree();
 			}
 		}
 	}
 
 	protected float ColliderHeight()
 	{
-		var collisionShape = TriggerArea.FindChild("CollisionShape3D") as CollisionShape3D;
+		var collisionShape = TriggerArea
+			.FindChild("CollisionShape3D") as CollisionShape3D;
 		return collisionShape.Shape switch {
 			BoxShape3D => (collisionShape.Shape as BoxShape3D).Size.Y,
 			CapsuleShape3D => (collisionShape.Shape as CapsuleShape3D).Height,
@@ -136,10 +137,22 @@ public partial class Equipment : Node3D
 		if (uiInstance is null) {
 			return Vector2.Zero;
 		}
-		Vector2 position = GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
+		Vector2 position = GetViewport()
+			.GetCamera3D()
+			.UnprojectPosition(GlobalPosition);
 		position.X += Position.X;
 		position.Y -= uiInstance.Size.Y + Position.Z;
 		return position;
+	}
+
+	protected virtual bool HasPower()
+	{
+		foreach (var area in TriggerArea.GetOverlappingAreas()) {
+			if (area.GetParent().IsInGroup("PowerSource")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void _onTriggerAreaBodyEntered(Node3D body)
@@ -156,9 +169,9 @@ public partial class Equipment : Node3D
 		ActorData.EquipmentInVicinity.Add(this);
 		ActorData.FocusedEquipment = this;
 
-		_indicatorInstance = UseIndicator.Instantiate<Node3D>();
-		_indicatorInstance.Position = new Vector3(0, ColliderHeight(), 0);
-		AddChild(_indicatorInstance);
+		_indicatorInst = UseIndicator.Instantiate<Node3D>();
+		_indicatorInst.Position = new Vector3(0, ColliderHeight(), 0);
+		AddChild(_indicatorInst);
 		CanUse = true;
 	}
 
@@ -168,8 +181,8 @@ public partial class Equipment : Node3D
 		CanUse = false;
 		ActorData.FocusedEquipment = null;
 
-		if (IsInstanceValid(_indicatorInstance)) {
-			_indicatorInstance.QueueFree();
+		if (IsInstanceValid(_indicatorInst)) {
+			_indicatorInst.QueueFree();
 		}
 
 		//if (QuickInventoryInstance.IsOpen) {
@@ -185,15 +198,15 @@ public partial class Equipment : Node3D
 		_renameMesh();
 
 		if (IsInstanceValid(Mesh)) {
-			var meshInstance = (MeshInstance3D)Mesh;
-			if (meshInstance.Scale != TopDownScale) {
-				meshInstance.Scale = TopDownScale;
+			var meshInst = (MeshInstance3D)Mesh;
+			if (meshInst.Scale != TopDownScale) {
+				meshInst.Scale = TopDownScale;
 			}
-			var material = meshInstance.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
-			material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
-			material.BlendMode = BaseMaterial3D.BlendModeEnum.PremultAlpha;
-			material.BacklightEnabled = true;
-			material.Backlight = MeshBackLightColor;
+			var mat = meshInst.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
+			mat.Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
+			mat.BlendMode = BaseMaterial3D.BlendModeEnum.PremultAlpha;
+			mat.BacklightEnabled = true;
+			mat.Backlight = MeshBackLightColor;
 		}
 	}
 

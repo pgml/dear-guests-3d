@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public struct SliderProperties
+public class SliderProperties
 {
 	public double Value { get; set; }
 	public double MaxValue { get; set; }

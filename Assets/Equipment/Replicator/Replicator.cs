@@ -32,7 +32,7 @@ public partial class Replicator : Equipment
 
 	public bool IsReplicating = false;
 	public bool IsReplicationComplete = false;
-	public UiReplicator UiReplicatorInstance = null;
+	public UiReplicator UiReplicatorInst = null;
 
 	public Dictionary<
 		ArtifactGrowCondition,
@@ -44,9 +44,9 @@ public partial class Replicator : Equipment
 	public AudioInstance ContinuousAudioInstance { get; private set; }
 
 	private ReplicatorStorage _replicatorStorage = new();
+	private ReplicatorContent _content;
 	private ArtifactResource _currentArtifact;
 	private Inventory _actorInventory;
-	private float _progress = 0;
 
 	public override void _Ready()
 	{
@@ -71,24 +71,17 @@ public partial class Replicator : Equipment
 			return;
 		}
 
+		if (!HasPower()) {
+			TurnOff();
+		}
+
 		if (LightsParent is not null) {
 			SetLights();
 		}
 
-		HasPower = false;
-		foreach (var area in TriggerArea.GetOverlappingAreas()) {
-			if (area.GetParent().IsInGroup("PowerSource")) {
-				HasPower = true;
-				break;
-			}
-		}
-
-		if (!HasPower) {
-			TurnOff();
-		}
-
-		if (IsInstanceValid(UiReplicatorInstance)) {
-			if (UiReplicatorInstance.IsOpen) {
+		if (IsInstanceValid(UiReplicatorInst)) {
+			if (UiReplicatorInst.IsOpen) {
+				UpdateProgress();
 				_connectButtonSignals();
 				_updateReplicatorUi();
 			}
@@ -113,7 +106,7 @@ public partial class Replicator : Equipment
 			return;
 		}
 
-		if (!IsInstanceValid(UiReplicatorInstance) &&
+		if (!IsInstanceValid(UiReplicatorInst) &&
 			@event.IsActionReleased("action_use") &&
 			CanUse)
 		{
@@ -129,7 +122,7 @@ public partial class Replicator : Equipment
 			// temporarily add replicator ui to mainUI...
 			OpenUi();
 		}
-		else if (IsInstanceValid(UiReplicatorInstance)) {
+		else if (IsInstanceValid(UiReplicatorInst)) {
 			if (@event.IsActionReleased("action_use")) {
 				if (Artifact() is null) {
 					InsertArtifact();
@@ -155,17 +148,15 @@ public partial class Replicator : Equipment
 
 	public void InsertArtifact()
 	{
-		TreeItem selectedItem = UiReplicatorInstance.ItemList.GetSelected();
+		TreeItem selectedItem = UiReplicatorInst.ItemList.GetSelected();
 		if (selectedItem is not null && AllowedInputType == ItemType.Artifact) {
 			var artifact = (ArtifactResource)selectedItem.GetMetadata(0);
 
 			if (IsInstanceValid(artifact)) {
-				UiReplicatorInstance.ArtifactName.Text = artifact.Name;
+				UiReplicatorInst.ArtifactName.Text = artifact.Name;
 
 				// create copy of content and update settings
-				var content = Content();
-				content.Artifact = artifact;
-				_replicatorStorage.Update(this, content);
+				_content.Artifact = artifact;
 				_updateReplicatorUi();
 
 				int itemResourceIndex = _actorInventory.GetItemResourceIndex(artifact);
@@ -181,17 +172,14 @@ public partial class Replicator : Equipment
 			return;
 		}
 
-		if (!HasPower) {
+		if (!HasPower()) {
 			AudioInstance.PlayUiSound(AudioLibrary.MiscDenied);
 			return;
 		}
 
-		_replicatorStorage.Update(this, new ReplicatorContent(
-			Artifact(),
-			DateTime.TimeStamp(),
-			0,
-			CurrentSettings
-		));
+		_content.Artifact = Artifact();
+		_content.ReplicationStart = DateTime.TimeStamp();
+		_content.Settings = CurrentSettings;
 
 		_playSound(AudioLibrary.ReplicatorStart1);
 		await ToSignal(AudioInstance.Audio, "finished");
@@ -199,6 +187,7 @@ public partial class Replicator : Equipment
 
 		IsReplicating = true;
 		IsReplicationComplete = !IsReplicating;
+		Activated = true;
 		_updateReplicatorUi();
 	}
 
@@ -227,31 +216,32 @@ public partial class Replicator : Equipment
 		TurnOff();
 	}
 
-	public bool TurnOff()
+	public void TurnOff()
 	{
 		if (!Activated) {
-			//GD.PushWarning("[Replicator] already turned off");
-			return false;
+			return;
 		}
-
 		Activated = false;
+
 		ContinuousAudioInstance.Stop();
+		_content.ReplicationPause = DateTime.TimeStamp();
 		_playSound(AudioLibrary.ReplicatorStop1);
-		return true;
 	}
 
-	public double Progress()
+	public void UpdateProgress()
 	{
-		if (!Activated && !IsReplicating) {
-			return 0;
+		if (!IsReplicating) {
+			return;
 		}
 
 		double startTime = StartTime();
 		double endTime = EndTime();
-		double currentTime = DateTime.TimeStamp();
+		double currentTime = _content.ReplicationPause > 0
+			? _content.ReplicationPause
+			: DateTime.TimeStamp();
 		double progress = (currentTime - startTime) / (endTime - startTime) * 100;
 
-		return Math.Round(progress >= 100 ? 100 : progress, 2);
+		_content.Progress = Math.Round(progress >= 100 ? 100 : progress, 2);
 	}
 
 	/// <summary>
@@ -265,17 +255,18 @@ public partial class Replicator : Equipment
 		double deviationPenalty = 0;
 
 		foreach (var (condition, value) in Artifact().OptimalGrowConditions) {
-			if (!Content().Settings.ContainsKey(condition) &&
+			if (!_content.Settings.ContainsKey(condition) &&
 				_replicatorStorage.Has(this))
 			{
 				continue;
 			}
 
-			DeviationPenalty artifactDeviationPenalty = Artifact().DeviationPenalty(condition);
+			DeviationPenalty artifactDeviationPenalty = Artifact()
+				.DeviationPenalty(condition);
 			double individualPenalty = artifactDeviationPenalty.Penalty;
 			double deviationTolerance = artifactDeviationPenalty.Tolerance;
 			float optimalCondition = Artifact().OptimalGrowConditions[condition];
-			SliderProperties properties = Content().Settings[condition];
+			SliderProperties properties = _content.Settings[condition];
 
 			double diffFromOptimal = Mathf.Abs(properties.Value - optimalCondition);
 			individualPenalty *= diffFromOptimal / deviationTolerance;
@@ -308,18 +299,20 @@ public partial class Replicator : Equipment
 
 	public void SetLights()
 	{
+		var brightness = Brightness();
+
+		if (!HasPower()) {
+			brightness = 0;
+		}
+
 		bool hasContent = false;
 		if (_replicatorStorage.Has(this)) {
 			hasContent = true;
 		}
 
-		LightsParent.Visible = Activated;
+		LightsParent.Visible = brightness > 0 && IsReplicating;
 		if (hasContent && IsReplicating) {
-			Activated = true;
-			LightColor = Content().Artifact.ReplicatorGlowColour;
-		}
-		else {
-			Activated = false;
+			LightColor = _content.Artifact.ReplicatorGlowColour;
 		}
 
 		foreach (OmniLight3D light in LightsParent.GetChildren()) {
@@ -329,21 +322,15 @@ public partial class Replicator : Equipment
 		OmniLight3D tubeLight = LightsParent.GetChild<OmniLight3D>(0);
 
 		if (hasContent && IsReplicating) {
-			var value = Brightness();
-			float lightEnergy = Mathf.Sqrt((float)value / 100);
+			float lightEnergy = Mathf.Sqrt((float)brightness / 100);
 			tubeLight.LightEnergy = lightEnergy;
-			tubeLight.OmniRange = 5 + ((float)value / 500) * 3;
-
-			if (lightEnergy == 0) {
-				Activated = false;
-			}
+			tubeLight.OmniRange = 5 + ((float)brightness / 500) * 3;
 		}
 	}
 
 	public void UpdateSettings(
 		ArtifactGrowCondition condition,
-		SliderProperties sliderProperties
-	)
+		SliderProperties sliderProperties)
 	{
 		if (CurrentSettings.ContainsKey(condition)) {
 			CurrentSettings[condition] = sliderProperties;
@@ -353,51 +340,59 @@ public partial class Replicator : Equipment
 		}
 
 		if (_replicatorStorage.Has(this)) {
-			var content = Content();
-			content.Settings = CurrentSettings;
-			_replicatorStorage.Update(this, content);
+			_content.Settings = CurrentSettings;
 		}
 		else {
-			_replicatorStorage.Add(this, new ReplicatorContent(
-				Artifact(),
-				DateTime.TimeStamp(),
-				0,
-				CurrentSettings
-			));
+			var content = new ReplicatorContent(
+				Artifact(), DateTime.TimeStamp(), 0, 0, CurrentSettings
+			);
+
+			_content = content;
+			_replicatorStorage.Add(this, _content);
 		}
 	}
 
 	public void OpenUi()
 	{
 		if (!ActorData.IsAnyUiPanelOpen()) {
-			UiReplicatorInstance = UiReplicator.Instantiate<UiReplicator>();
-			UiReplicatorInstance.Replicator = this;
-			GetNode("/root/MainUI").AddChild(UiReplicatorInstance);
-			Vector2 position = InventoryPosition(UiReplicatorInstance);
-			UiReplicatorInstance.Open(position);
+			UiReplicatorInst = UiReplicator.Instantiate<UiReplicator>();
+			UiReplicatorInst.Replicator = this;
+			GetNode("/root/MainUI").AddChild(UiReplicatorInst);
+			Vector2 position = InventoryPosition(UiReplicatorInst);
+			UiReplicatorInst.Open(position);
 		}
 	}
 
 	public void CloseUi()
 	{
-		UiReplicatorInstance.Close();
+		UiReplicatorInst.Close();
 	}
+
+	//protected override bool HasPower()
+	//{
+	//	if (!base.HasPower()) {
+	//		Activated = false;
+	//		//IsReplicating = false;
+	//	}
+
+	//	return base.HasPower();
+	//}
 
 	// ----- some helpers
 
-	public ReplicatorContent Content()
-	{
-		if (!_replicatorStorage.Replicators.ContainsKey(this)) {
-			return new();
-		}
-		return _replicatorStorage.Replicators[this];
-	}
-
 	public double StartTime()
 	{
-		return Content().ReplicationStart == 0
-			? DateTime.TimeStamp()
-			: Content().ReplicationStart;
+		double startTime = DateTime.TimeStamp();
+
+		if (_content.ReplicationStart > 0) {
+			startTime = _content.ReplicationStart;
+		}
+
+		//if (_content.ReplicationPause > 0) {
+		//	startTime = _content.ReplicationPause;
+		//}
+
+		return startTime;
 	}
 
 	public string StartTimeString()
@@ -419,13 +414,14 @@ public partial class Replicator : Equipment
 	{
 		var brightnessEnum = ArtifactGrowCondition.Brightness;
 
-		if (Content().Settings is null ||
-			!Content().Settings.ContainsKey(brightnessEnum))
+		if (_content is null ||
+			_content.Settings is null ||
+			!_content.Settings.ContainsKey(brightnessEnum))
 		{
 			return 0;
 		}
 
-		return Content().Settings[brightnessEnum].Value;
+		return _content.Settings[brightnessEnum].Value;
 	}
 
 	/// <summary>
@@ -433,11 +429,14 @@ public partial class Replicator : Equipment
 	/// </summary>
 	public ArtifactResource Artifact()
 	{
-		if (Content().Artifact is null || Content().Artifact.Name is null) {
+		if (_content is null ||
+			_content.Artifact is null ||
+			_content.Artifact.Name is null)
+		{
 			return null;
 		}
 
-		return Content().Artifact;
+		return _content.Artifact;
 	}
 
 	private void _playSound(AudioClip audioClip, bool continuous = false)
@@ -467,18 +466,18 @@ public partial class Replicator : Equipment
 
 	private void _updateReplicatorUi()
 	{
-		if (!IsInstanceValid(UiReplicatorInstance)) {
+		if (!IsInstanceValid(UiReplicatorInst)) {
 			return;
 		}
 
-		if (Progress() >= 100 && Activated && IsReplicating) {
+		if (_content.Progress >= 100 && Activated && IsReplicating) {
 			EmitSignal(SignalName.ReplicationComplete);
 		}
 
-		UiReplicatorInstance.UpdateUi(
+		UiReplicatorInst.UpdateUi(
 			Artifact(),
 			StartTimeString(),
-			Progress(),
+			_content.Progress,
 			RemainingTime(),
 			IsReplicating,
 			IsReplicationComplete
@@ -487,7 +486,7 @@ public partial class Replicator : Equipment
 
 	private void _connectButtonSignals()
 	{
-		UiReplicator instance = UiReplicatorInstance;
+		UiReplicator instance = UiReplicatorInst;
 		bool isInsertPressedConnected = instance.InsertButton.IsConnected(
 			"pressed",
 			Callable.From(InsertArtifact)
@@ -536,7 +535,7 @@ public partial class Replicator : Equipment
 
 	private void _disconnectButtonSignals()
 	{
-		UiReplicator instance = UiReplicatorInstance;
+		UiReplicator instance = UiReplicatorInst;
 		instance.InsertButton.Pressed -= InsertArtifact;
 		instance.ReplicateButton.Pressed -= Replicate;
 		instance.CancelButton.Pressed -= CancelReplication;

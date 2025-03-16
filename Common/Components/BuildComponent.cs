@@ -114,7 +114,7 @@ public partial class BuildComponent : Component
 
 	public override void _Input(InputEvent @event)
 	{
-		UiBuildMode uiInstance = UiBuildModeInstance;
+		var uiInstance = UiBuildModeInstance;
 
 		if (@event.IsActionReleased("action_build") &&
 			!ActorData.IsAnyUiPanelOpen() &&

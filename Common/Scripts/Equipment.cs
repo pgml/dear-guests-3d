@@ -1,5 +1,11 @@
 using Godot;
 
+/// <summary>
+/// EquipmentType represents level of the equipment.<br />
+/// Each level has its own efficiency and perks depending on what
+/// kind of equipment we're dealing with<br />
+/// The higher the type, the better the equipmemt
+/// </summary>
 public enum EquipmentType
 {
 	Type1,
@@ -47,7 +53,6 @@ public partial class Equipment : Node3D
 	}}
 
 	public bool CanUse { get; set; } = false;
-	//public bool HasPower { get; set; } = false;
 
 	public DateTime DateTime { get; private set; }
 	public UiQuickInventory QuickInventoryInst = null;

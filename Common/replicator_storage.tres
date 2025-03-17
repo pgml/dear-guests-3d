@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://1lakk3d2p73n"]
 
-[ext_resource type="Script" uid="uid://ceayn6m2vahd3" path="res://Common/Scripts/ReplicatorStorage.cs" id="1_5nxvi"]
+[ext_resource type="Script" uid="uid://ceayn6m2vahd3" path="res://Assets/Equipment/Replicator/ReplicatorStorage.cs" id="1_5nxvi"]
 
 [resource]
 script = ExtResource("1_5nxvi")

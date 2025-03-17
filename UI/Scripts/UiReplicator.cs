@@ -212,34 +212,30 @@ public partial class UiReplicator : UiControl
 	}
 
 	public void UpdateUi(
-		ArtifactResource artifact,
-		string startTimeString,
-		double progress,
-		int remainingTime,
+		ReplicationProcess process,
 		bool isReplicating,
-		bool isReplicationComplete
-	)
+		bool isReplicationComplete)
 	{
-		bool hasArtifact = artifact is not null;
+		bool hasArtifact = process.Artifact is not null;
 
 		ArtifactName.Text = hasArtifact
-			? artifact.Name
+			? process.Artifact.Name
 			: _defaultArtifactName;
 
 		RequiredConditions.Text = hasArtifact
-			? artifact.RequiredConditions().ToArray().Join(",")
+			? process.Artifact.RequiredConditions().ToArray().Join(",")
 			: _defaultRequiredConditions;
 
 		StartTime.Text = isReplicating && hasArtifact
-			? startTimeString
+			? process.StartTimeString()
 			: _defaultStartTime;
 
 		Progress.Text = isReplicating && hasArtifact
-			? $"{progress}%"
+			? $"{process.Progress}%"
 			: _defaultProgress;
 
 		EndTime.Text = hasArtifact
-			? $"~ {remainingTime}h"
+			? $"~ {process.RemainingTime()}h"
 			: _defaultEndTime;
 
 		InsertButton.Visible = !hasArtifact;

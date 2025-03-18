@@ -10,13 +10,14 @@ public class ReplicationProcess
 	public ArtifactResource Artifact;
 	public double ReplicationStart = 0;
 	public double ReplicationPause = 0;
-	public double Progress = 0;
 	public Dictionary<
 		ArtifactGrowCondition,
 		SliderProperties
 	> Settings { get; set; }
-	public bool IsComplete = false;
+	public double Progress = 0;
 	public bool InProgress = false;
+	public bool IsComplete = false;
+	public bool IsPaused = false;
 
 	//private double _remainingTime = 0;
 
@@ -32,9 +33,9 @@ public class ReplicationProcess
 			startTime = ReplicationStart;
 		}
 
-		//if (_content.ReplicationPause > 0) {
-		//	startTime = _content.ReplicationPause;
-		//}
+		if (ReplicationPause > 0) {
+			startTime = ReplicationPause;
+		}
 
 		return startTime;
 	}

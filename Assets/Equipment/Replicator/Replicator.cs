@@ -73,6 +73,9 @@ public partial class Replicator : Equipment
 		}
 
 		if (!HasPower()) {
+			if (_process.InProgress) {
+				_process.IsPaused = true;
+			}
 			TurnOff();
 		} else {
 			if (LightsParent is not null) {
@@ -185,15 +188,18 @@ public partial class Replicator : Equipment
 		}
 
 		//_process.Artifact = Artifact();
-		_process.ReplicationStart = DateTime.TimeStamp();
+		if (!_process.IsPaused) {
+			_process.ReplicationStart = DateTime.TimeStamp();
+		}
 		_process.Settings = CurrentSettings;
+		_process.IsPaused = false;
+		_process.InProgress = true;
+		//_process.IsComplete = !_process.InProgress;
 
 		_playSound(AudioLibrary.ReplicatorStart1);
 		await ToSignal(AudioInstance.Audio, "finished");
 		_playSound(AudioLibrary.ReplicatorHum1, true);
 
-		_process.InProgress = true;
-		_process.IsComplete = !_process.InProgress;
 		IsActivated = true;
 		_updateReplicatorUi();
 	}
@@ -246,17 +252,16 @@ public partial class Replicator : Equipment
 	/// </summary>
 	public void UpdateProgress()
 	{
-		if (!_process.InProgress) {
+		if (!_process.InProgress || _process.IsPaused || !HasPower()) {
 			return;
 		}
 
 		double startTime = _process.StartTime();
 		double endTime = _process.EndTime();
-		double currentTime = _process.ReplicationPause > 0
-			? _process.ReplicationPause
-			: DateTime.TimeStamp();
+		double currentTime = DateTime.TimeStamp();
 		double progress = (currentTime - startTime) / (endTime - startTime) * 100;
 
+		 GD.PrintS(startTime, endTime, currentTime);
 		_process.Progress = Math.Round(progress >= 100 ? 100 : progress, 2);
 	}
 
@@ -412,7 +417,7 @@ public partial class Replicator : Equipment
 			EmitSignal(SignalName.ReplicationComplete);
 		}
 
-		UiReplicatorInst.UpdateUi(_process, _process.InProgress, _process.IsComplete);
+		UiReplicatorInst.UpdateUi(_process);
 	}
 
 	private void _connectButtonSignals()

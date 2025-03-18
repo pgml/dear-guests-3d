@@ -211,54 +211,60 @@ public partial class UiReplicator : UiControl
 		return parent.FindChild("Slider") as HSlider;
 	}
 
-	public void UpdateUi(
-		ReplicationProcess process,
-		bool isReplicating,
-		bool isReplicationComplete)
+	public void UpdateUi(ReplicationProcess process)
 	{
-		bool hasArtifact = process.Artifact is not null;
+		_replicatorHasArtifact = process.Artifact is not null;
 
-		ArtifactName.Text = hasArtifact
+		ArtifactName.Text = _replicatorHasArtifact
 			? process.Artifact.Name
 			: _defaultArtifactName;
 
-		RequiredConditions.Text = hasArtifact
+		RequiredConditions.Text =_replicatorHasArtifact
 			? process.Artifact.RequiredConditions().ToArray().Join(",")
 			: _defaultRequiredConditions;
 
-		StartTime.Text = isReplicating && hasArtifact
+		StartTime.Text = process.InProgress && _replicatorHasArtifact
 			? process.StartTimeString()
 			: _defaultStartTime;
 
-		Progress.Text = isReplicating && hasArtifact
+		Progress.Text = process.InProgress && _replicatorHasArtifact
 			? $"{process.Progress}%"
 			: _defaultProgress;
 
-		EndTime.Text = hasArtifact
+		EndTime.Text = _replicatorHasArtifact
 			? $"~ {process.RemainingTime()}h"
 			: _defaultEndTime;
 
-		InsertButton.Visible = !hasArtifact;
-		ReplicateButton.Visible = hasArtifact && !isReplicating;
-		ReplicatorStatus.Visible = isReplicating || isReplicationComplete;
-		ReplicatorStatus.Text = isReplicationComplete
+		InsertButton.Visible = !_replicatorHasArtifact;
+
+		ReplicateButton.Visible = _replicatorHasArtifact
+			&& (!process.InProgress || process.IsPaused);
+		ReplicatorStatus.Visible = process.InProgress || process.IsComplete;
+		ReplicatorStatus.Text = process.IsComplete
 			? "Replication complete!".ToUpper()
 			: _defaultReplicatorStatus;
-		CollectButton.Visible = isReplicationComplete;
-		CancelButton.Visible = hasArtifact && isReplicating && !isReplicationComplete;
 
-		ItemList.Visible = !hasArtifact;
-		ItemListHeadline.Visible = !hasArtifact;
-		ItemList.Visible = !hasArtifact;
-		ItemListHeadline.Visible = !hasArtifact;
+		CollectButton.Visible = process.IsComplete;
 
-		SettingsParent.Visible = hasArtifact;
-		SettingsHeadline.Visible = hasArtifact;
-		SettingsParent.Visible = hasArtifact;
-		SettingsHeadline.Visible = hasArtifact;
+		CancelButton.Visible = _replicatorHasArtifact
+			&& process.InProgress
+			&& !process.IsComplete;
 
-		_replicatorHasArtifact = hasArtifact;
+		_toggleItemList();
+		_toggleSettings();
 		_focusFirstSlider();
+	}
+
+	private void _toggleItemList()
+	{
+		ItemList.Visible = !_replicatorHasArtifact;
+		ItemListHeadline.Visible = !_replicatorHasArtifact;
+	}
+
+	private void _toggleSettings()
+	{
+		SettingsParent.Visible = _replicatorHasArtifact;
+		SettingsHeadline.Visible = _replicatorHasArtifact;
 	}
 
 	public void PopulateList()

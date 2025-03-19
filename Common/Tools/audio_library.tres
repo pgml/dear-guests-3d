@@ -1,0 +1,36 @@
+[gd_resource type="Resource" load_steps=17 format=3 uid="uid://bqujfr0eb46cn"]
+
+[ext_resource type="Script" uid="uid://5b3vry7osrjh" path="res://Common/Scripts/AudioLibrary.cs" id="1_7lvr4"]
+[ext_resource type="Resource" uid="uid://cn3cmg4ealxlw" path="res://Resources/Audio/AudioInstances/inventory_browse.tres" id="1_g4ir7"]
+[ext_resource type="Resource" uid="uid://dsbj0kocvnho7" path="res://Resources/Audio/AudioInstances/footstep_generic.tres" id="1_t34ec"]
+[ext_resource type="Resource" uid="uid://cop66dyafe5vq" path="res://Resources/Audio/AudioInstances/replicator_insert_artifact.tres" id="2_u2kw6"]
+[ext_resource type="Resource" uid="uid://ceffkcomi77l7" path="res://Resources/Audio/AudioInstances/replicator_type_1_close.tres" id="2_xa4sh"]
+[ext_resource type="Resource" uid="uid://0y0lkldxtul6" path="res://Resources/Audio/AudioInstances/inventory_close.tres" id="3_5ukuw"]
+[ext_resource type="Resource" uid="uid://dhoks8sd7ywyj" path="res://Resources/Audio/AudioInstances/replicator_type_2_open.tres" id="4_g4ir7"]
+[ext_resource type="Resource" uid="uid://ujjc3ajdxdsl" path="res://Resources/Audio/AudioInstances/inventory_open.tres" id="4_vlh87"]
+[ext_resource type="Resource" uid="uid://y4gh5uq0jl2n" path="res://Resources/Audio/AudioInstances/replicator_hum_1.tres" id="5_6r1c2"]
+[ext_resource type="Resource" uid="uid://d0lwcyrn0u2v3" path="res://Resources/Audio/AudioInstances/misc_click.tres" id="5_iw0jx"]
+[ext_resource type="Resource" uid="uid://dlvjc4n8lf4mk" path="res://Resources/Audio/AudioInstances/misc_bleep.tres" id="5_pvstt"]
+[ext_resource type="Resource" uid="uid://bnx03n141qep3" path="res://Resources/Audio/AudioInstances/replicator_retrieve_artifact.tres" id="6_2gb4l"]
+[ext_resource type="Resource" uid="uid://bjimi1c8or1np" path="res://Resources/Audio/AudioInstances/misc_place.tres" id="7_e76mo"]
+[ext_resource type="Resource" uid="uid://coqfpe5ketsiy" path="res://Resources/Audio/AudioInstances/misc_denied.tres" id="7_v5rkt"]
+[ext_resource type="Resource" uid="uid://plwoldql88jf" path="res://Resources/Audio/AudioInstances/replicator_start_1.tres" id="8_whwcy"]
+[ext_resource type="Resource" uid="uid://diod6xuscrhvi" path="res://Resources/Audio/AudioInstances/replicator_stop_1.tres" id="9_whwcy"]
+
+[resource]
+script = ExtResource("1_7lvr4")
+FootStepGeneric = ExtResource("1_t34ec")
+InventoryBrowse = ExtResource("1_g4ir7")
+InventoryOpen = ExtResource("4_vlh87")
+InventoryClose = ExtResource("3_5ukuw")
+ReplicatorType1Open = ExtResource("4_g4ir7")
+ReplicatorType1Close = ExtResource("2_xa4sh")
+ReplicatorInsertArtifact = ExtResource("2_u2kw6")
+ReplicatorRetrieveArtifact = ExtResource("6_2gb4l")
+ReplicatorStart1 = ExtResource("8_whwcy")
+ReplicatorHum1 = ExtResource("5_6r1c2")
+ReplicatorStop1 = ExtResource("9_whwcy")
+MiscClick = ExtResource("5_iw0jx")
+MiscBleep = ExtResource("5_pvstt")
+MiscPlace = ExtResource("7_e76mo")
+MiscDenied = ExtResource("7_v5rkt")

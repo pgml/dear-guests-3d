@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://coqfpe5ketsiy"]
+
+[ext_resource type="AudioStream" uid="uid://duo4mc4oe7au1" path="res://Resources/Audio/Misc/misc_denied.mp3" id="1_n1ehi"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="2_f4rvq"]
+
+[resource]
+script = ExtResource("2_f4rvq")
+AudioFiles = Array[AudioStream]([ExtResource("1_n1ehi")])
+MinVolume = 0.15
+MaxVolume = 0.15
+AutoPlay = false

@@ -18,12 +18,21 @@ public partial class EdgeCheckComponent : Component
 		}
 
 		if (IsFacingEdge() && CreatureData.IsOnFloor) {
-			CreatureData.CanMoveAndSlide = false;
-			CreatureData.CanJump = true;
+			if (CreatureData.IsOnFloor) {
+				CreatureData.CanMoveAndSlide = false;
+				CreatureData.CanJump = true;
+				CreatureData.IsFacingEdge = true;
+			}
+			CreatureData.ShouldJumpForward = true;
 		}
 		else {
+			CreatureData.IsFacingEdge = false;
 			CreatureData.CanMoveAndSlide = true;
 			CreatureData.CanJump = false;
+		}
+
+		if (!IsFacingEdge() && !CreatureData.IsJumping) {
+			CreatureData.ShouldJumpForward = false;
 		}
 	}
 
@@ -31,7 +40,6 @@ public partial class EdgeCheckComponent : Component
 	{
 		Vector3 facingDirection = CreatureData.FacingDirection;
 		Transform3D globalTransform = Controller.GlobalTransform;
-
 		Vector3 forward = globalTransform.Origin + facingDirection * TestForwardDistance;
 		Vector3 testPosition = forward + TestDownDistance;
 
@@ -41,9 +49,6 @@ public partial class EdgeCheckComponent : Component
 			Margin = BodyTestMargin
 		};
 
-		return !PhysicsServer3D.BodyTestMotion(
-			Controller.GetRid(),
-			bodyTestParams
-		);
+		return !PhysicsServer3D.BodyTestMotion(Controller.GetRid(), bodyTestParams);
 	}
 }

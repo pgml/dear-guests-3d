@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3f85j5u3164f"]
+
+[ext_resource type="PackedScene" uid="uid://bfdsko50gwufn" path="res://Assets/Exterior/Tree_Platform_Simmel/tree_platform_simmel.tscn" id="1_3cpt6"]
+[ext_resource type="PackedScene" uid="uid://bro2h4rmcn3yd" path="res://Assets/Exterior/Tree_Tiny/tree_tiny.tscn" id="2_p02uv"]
+
+[node name="TreeTinySimmel" type="Node3D"]
+
+[node name="TreeTiny" parent="." instance=ExtResource("2_p02uv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67584, -2.16016)
+
+[node name="TreePlatformSimmel" parent="." instance=ExtResource("1_3cpt6")]
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 2.0
+vertices = PackedVector3Array(-4.00133, 0, 0.992242, -3.97965, 0, -6.09636, 3.99416, 0, -6.02006, 4.00179, 0, 0.958211)
+affect_navigation_mesh = true

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bnx03n141qep3"]
+
+[ext_resource type="AudioStream" uid="uid://cb8chtdgh2jhx" path="res://Resources/Audio/Misc/use_object_2.wav" id="1_f6sra"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="2_l7ys0"]
+
+[resource]
+script = ExtResource("2_l7ys0")
+AudioFiles = Array[AudioStream]([ExtResource("1_f6sra")])
+MinVolume = 0.2
+MaxVolume = 0.2
+AutoPlay = false

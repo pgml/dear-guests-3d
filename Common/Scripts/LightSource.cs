@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class LightSource : StaticObject
+public partial class LightSource : Node3D
 {
 	[Export]
 	public bool TimeBaseActivation { get; set; }

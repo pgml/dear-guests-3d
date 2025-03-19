@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0n12788ojl1q"]
+
+[ext_resource type="Texture2D" uid="uid://chj0h024de38b" path="res://Assets/Sprites/UI/Cursors/use_indicator.png" id="1_x2aqx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2aqx"]
+atlas = ExtResource("1_x2aqx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lskgt"]
+atlas = ExtResource("1_x2aqx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtshy"]
+atlas = ExtResource("1_x2aqx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7iyqt"]
+atlas = ExtResource("1_x2aqx")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x2aqx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2aqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lskgt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtshy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7iyqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rtshy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lskgt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 11.0
+}]
+
+[node name="UseUndicator" type="Node3D"]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+offset = Vector2(0, 16)
+pixel_size = 0.07
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_x2aqx")
+autoplay = "default"
+frame_progress = 0.984694

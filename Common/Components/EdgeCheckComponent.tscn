@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bofwmu7ustooo" path="res://Common/Components/EdgeCheckComponent.cs" id="1_jqhxe"]
 
-[node name="EdgeCheckComponent" type="Node"]
+[node name="EdgeCheckComponent" type="Node3D"]
 script = ExtResource("1_jqhxe")

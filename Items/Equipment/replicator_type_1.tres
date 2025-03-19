@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dhfae6wemk3wa"]
+
+[ext_resource type="Script" uid="uid://b6h5w78ueoock" path="res://Inventory/Scripts/EquipmentResource.cs" id="1_ngf8e"]
+[ext_resource type="PackedScene" uid="uid://ba1y8upqstekl" path="res://Assets/Equipment/Replicator/replicator_type_1.tscn" id="1_wo8t6"]
+
+[resource]
+script = ExtResource("1_ngf8e")
+IsPowerSource = false
+NeedsPower = true
+PowerConsumption = 10.0
+Type = 3
+ItemScene = ExtResource("1_wo8t6")
+Name = "Replicator Type 1"
+Description = ""
+Weight = 50.0
+MaxCarryAmount = 10
+Value = 1000.0

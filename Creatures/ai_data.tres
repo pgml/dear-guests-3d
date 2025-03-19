@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dqg5jrxmih52v"]
+
+[ext_resource type="Script" uid="uid://chr0m84dkofkn" path="res://Creatures/Scripts/AiData.cs" id="1_y34lw"]
+
+[resource]
+script = ExtResource("1_y34lw")

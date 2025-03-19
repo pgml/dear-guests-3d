@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://ce42ff5dpv77b"]
+
+[ext_resource type="Script" uid="uid://chn8awh0fx6sl" path="res://Common/Scripts/LocationMarker.cs" id="1_jpvt1"]
+[ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_anvdh"]
+
+[sub_resource type="TextMesh" id="TextMesh_qpfo2"]
+text = "POI
+"
+font = ExtResource("2_anvdh")
+font_size = 64
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iaow0"]
+shading_mode = 0
+specular_mode = 2
+albedo_color = Color(5.48691e-06, 0.981359, 0.296418, 1)
+billboard_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_iaow0"]
+size = Vector3(0.05, 4, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jpvt1"]
+shading_mode = 0
+specular_mode = 2
+albedo_color = Color(0, 0.984065, 0.380268, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_jpvt1"]
+text = "x"
+font = ExtResource("2_anvdh")
+font_size = 76
+
+[node name="POI" type="Marker3D"]
+script = ExtResource("1_jpvt1")
+
+[node name="Gizmo" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.5, 0)
+cast_shadow = 0
+mesh = SubResource("TextMesh_qpfo2")
+material = SubResource("StandardMaterial3D_iaow0")
+
+[node name="Arrow" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53657, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_iaow0")
+material = SubResource("StandardMaterial3D_jpvt1")
+
+[node name="Marker" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0793281, 0.0383301, 0.235925)
+cast_shadow = 0
+mesh = SubResource("TextMesh_jpvt1")
+material = SubResource("StandardMaterial3D_jpvt1")

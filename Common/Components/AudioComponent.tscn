@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://ydi0uaiokpfl" path="res://Common/Components/AudioComponent.cs" id="1_wm8f0"]
 
-[node name="AudioComponent" type="Node"]
+[node name="AudioComponent" type="Node3D"]
 script = ExtResource("1_wm8f0")

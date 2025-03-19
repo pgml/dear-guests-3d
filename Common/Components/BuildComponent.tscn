@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg3ceau2pn23w"]
+
+[ext_resource type="Script" uid="uid://dh765usx5x7vw" path="res://Common/Components/BuildComponent.cs" id="1_vsgxd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vsgxd"]
+radius = 2.0
+
+[node name="BuildComponent" type="Node3D"]
+script = ExtResource("1_vsgxd")
+
+[node name="ProximityCheck" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ProximityCheck"]
+shape = SubResource("SphereShape3D_vsgxd")

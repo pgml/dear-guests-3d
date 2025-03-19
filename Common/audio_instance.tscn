@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cl43pl1kvgl38"]
-
-[ext_resource type="Script" uid="uid://01lxmc7vuuwr" path="res://Common/Scripts/AudioInstance.cs" id="1_78j6u"]
-
-[node name="AudioInstance" type="Node3D"]
-script = ExtResource("1_78j6u")
-
-[node name="Audio" type="AudioStreamPlayer3D" parent="."]
-attenuation_filter_cutoff_hz = 18000.0

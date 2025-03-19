@@ -1,18 +1,23 @@
 using Godot;
-//using System.Collections.Generic;
 using static IController;
+using System.Collections.Generic;
 
 public partial class CreatureData : Resource
 {
 	public Node3D Parent = null;
-	public Actor Node = null;
+	public dynamic Node = null;
 	public Controller Controller = null;
 	//public RectangleShape2D CollisionShape = null;
 
 	// movement
 	public bool CanMoveAndSlide = true;
 	public bool CanJump = false;
+	public bool StartJump = false;
 	public bool ShouldJump = false;
+	public bool ShouldJumpForward = true;
+	public bool CanClimb = false;
+	public bool StartClimb = false;
+	public bool ShouldClimb = false;
 	public float WalkSpeed = 0;
 	public float RunSpeed = 0;
 	public float DefaultWalkSpeed = 0;
@@ -28,12 +33,62 @@ public partial class CreatureData : Resource
 	public MoveState CurrentState = MoveState.IDLE;
 	public bool IsOnFloor = true;
 	public bool IsJumping = false;
+	public bool IsClimbing = false;
 	public bool IsRunning = false;
 	public bool IsIdle = false;
 	public bool IsOnStairs = false;
 	public bool IsOnSlope = false;
+	public bool IsFacingEdge = false;
+
+	// ui states
+	public bool IsAnyPanelOpen = false;
+	public bool IsConsoleOpen = false;
+	public bool IsInventoryOpen = false;
+	public bool IsReplicatorOpen = false;
+	public bool IsQuickInventoryOpen = false;
+	public bool IsBuildMoveActive = false;
 
 	// Component Helper
 	public EdgeCheckComponent EdgeCheck = new();
 	public JumpComponent JumpComponent = new();
+	public ClimbComponent ClimbComponent = new();
+
+	// misc helpers
+	public List<Equipment> EquipmentInVicinity = new();
+	public Equipment FocusedEquipment = null;
+
+	public T Character<T>() where T : class
+	{
+		return Node is T value
+			? value
+			: default(T);
+	}
+
+	public Sprite3D CharacterSprite()
+	{
+		if (Node is null) {
+			return null;
+		}
+
+		Sprite3D sprite = (Node as Actor).CharacterSprite;
+		if (Node is AI) {
+			sprite = (Node as AI).CharacterSprite;
+		}
+
+		return sprite;
+	}
+
+	public bool IsAnyUiPanelOpen()
+	{
+		if (IsInventoryOpen ||
+			IsQuickInventoryOpen ||
+			IsReplicatorOpen ||
+			IsReplicatorOpen ||
+			IsBuildMoveActive)
+		{
+			return true;
+		}
+
+		return false;
+	}
 }

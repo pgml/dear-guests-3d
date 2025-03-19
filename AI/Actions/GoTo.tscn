@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckik2qvon36u3"]
+
+[ext_resource type="Script" uid="uid://ov1q1u4urtim" path="res://AI/Actions/GoTo.cs" id="1_12odo"]
+
+[node name="GoTo" type="Node"]
+script = ExtResource("1_12odo")
+ActionName = "GoTo"

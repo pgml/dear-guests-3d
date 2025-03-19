@@ -11,18 +11,22 @@ public enum Bound
 
 public partial class Camera : Camera3D
 {
-	[Export]
-	public CharacterBody3D Controller { get; set; }
-
 	private Vector3 _currentCameraPosition = Vector3.Zero;
 	private Vector3 _currentPlayerPosition = Vector3.Zero;
 	private Vector3 _toPosition = Vector3.Zero;
+	private CreatureData _creatureData;
 
-	public override void _Ready() {}
+	public async override void _Ready()
+	{
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		_creatureData = GD.Load<CreatureData>(Resources.ActorData);
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		_followPlayer();
+		if (_creatureData is not null) {
+			_followPlayer();
+		}
 	}
 
 	/**
@@ -31,20 +35,12 @@ public partial class Camera : Camera3D
 	 */
 	private void _followPlayer()
 	{
-		_currentPlayerPosition = Controller.Position;
+		_currentPlayerPosition = _creatureData.Parent.Position;
 		var (playerX, playerY, playerZ) = _currentPlayerPosition;
 
-		_toPosition = new Vector3(
-			playerX,
-			playerY + (Size * 2),
-			playerZ + (Size * 2)
-		);
-
-		var controller = Controller as Controller;
-		//if (controller.CreatureData.IsJumping) {
-		//	_toPosition.Y = Position.Y;
-		//	_toPosition.Z = Position.Z;
-		//}
+		_toPosition = _currentPlayerPosition;
+		_toPosition.Y += Size * 2;
+		_toPosition.Z += Size * 2;
 
 		_limitCamera();
 
@@ -83,15 +79,15 @@ public partial class Camera : Camera3D
 
 		var (camX, camY, camZ) = _currentCameraPosition;
 		if (isNearBound) {
-			if ((playerX < camX && limitLeft)
-				|| (playerX > camX && limitRight)
-			) {
+			if ((playerX < camX && limitLeft) ||
+				(playerX > camX && limitRight))
+			{
 				_toPosition.X = camX;
 			}
 
-			if ((playerZ + (Size * 2) < camZ && limitTop)
-				|| (playerZ + (Size * 2) > camZ && limitBottom)
-			) {
+			if ((playerZ + (Size * 2) < camZ && limitTop) ||
+				(playerZ + (Size * 2) > camZ && limitBottom))
+			{
 				_toPosition.Y = camY;
 				_toPosition.Z = camZ;
 			}

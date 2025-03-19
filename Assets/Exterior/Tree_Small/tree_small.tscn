@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://crehxts8wgr36"]
+
+[ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_qcoew"]
+[ext_resource type="PackedScene" uid="uid://b27bliw1e003t" path="res://Assets/Exterior/Tree_Small/tree_small_mesh.tscn" id="2_4lxw0"]
+[ext_resource type="Texture2D" uid="uid://cum1jc33chrmj" path="res://Assets/Sprites/Tiles/trees.png" id="4_ppmku"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qcoew"]
+radius = 1.269
+height = 7.19961
+
+[node name="TreeSmall" type="Node3D" node_paths=PackedStringArray("SunShadowMesh")]
+script = ExtResource("1_qcoew")
+SunShadowMesh = NodePath("SunShadowMesh")
+
+[node name="Mesh" parent="." instance=ExtResource("2_4lxw0")]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+cast_shadow = 2
+
+[node name="Billboard" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.103, 9.971, 0.2)
+visible = false
+pixel_size = 0.07
+billboard = 1
+texture_filter = 0
+texture = ExtResource("4_ppmku")
+region_enabled = true
+region_rect = Rect2(483, 3, 123, 181)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00427721, 3.55125, -0.71788)
+shape = SubResource("CapsuleShape3D_qcoew")
+
+[node name="SunShadowMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, -1)
+visible = false
+cast_shadow = 3
+skeleton = NodePath("")
+metadata/extras = {
+"data": {
+"billboard": {
+"enabled": false,
+"y": false
+},
+"custom": [],
+"directional": {
+"angles": [],
+"enabled": false,
+"mode": "cameraAngle"
+},
+"instance": {
+"custom": [],
+"name": "tree_small-col",
+"parent": null,
+"pos": {
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+},
+"rot": {
+"order": "XYZ",
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+},
+"sca": {
+"x": 1.0,
+"y": 1.0,
+"z": 1.0
+},
+"uuid": "AFFF8C80-BB41-4F7E-BA05-5E7A81D24F74"
+},
+"name": "tree_small-col",
+"points": [{
+"name": "Origin",
+"pos": {
+"x": 0.0,
+"y": 0.0,
+"z": 0.0
+}
+}]
+}
+}

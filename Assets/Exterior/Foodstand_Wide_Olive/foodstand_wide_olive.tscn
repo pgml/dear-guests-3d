@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccsjl12hfi3lw"]
+
+[ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_gr6vt"]
+[ext_resource type="PackedScene" uid="uid://h4ntrgyr8v8" path="res://Assets/Exterior/Foodstand_Wide_Olive/foodstand_wide_olive_mesh.tscn" id="2_nrjn6"]
+[ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="2_q0qjf"]
+
+[node name="FoodStandWideOlive" type="Node3D" groups=["Climbable"]]
+script = ExtResource("1_gr6vt")
+
+[node name="Mesh" parent="." instance=ExtResource("2_nrjn6")]
+transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+
+[node name="Billboard" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.983, 0.2)
+visible = false
+pixel_size = 0.07
+billboard = 1
+texture_filter = 0
+texture = ExtResource("2_q0qjf")
+region_enabled = true
+region_rect = Rect2(775, 1197, 115, 83)
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+height = 6.5
+vertices = PackedVector3Array(-5.05834, 0, -4.00108, -4.87169, 0, 1.2605, 4.98788, 0, 1.06814, 5, 0, -4)
+affect_navigation_mesh = true
+avoidance_enabled = false

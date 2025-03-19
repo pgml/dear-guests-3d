@@ -1,11 +1,19 @@
 using Godot;
 using static Godot.GD;
 
-public partial class Component : Node
+public partial class Component : Node3D
 {
 	// resources
 	protected CreatureData ActorData;
-	protected AudioLibrary AudioLibrary;
+	protected Inventory ActorInventory;
+
+	protected static AudioLibrary AudioLibrary { get {
+		return GD.Load<AudioLibrary>(Resources.AudioLibrary);
+	}}
+
+	protected AudioInstance AudioInstance { get {
+		return AudioLibrary.CreateAudioInstance("Replicator", this);
+	}}
 	//protected SceneManager SceneManager;
 	//protected QuickBar Quickbar;
 
@@ -17,7 +25,8 @@ public partial class Component : Node
 		//SceneManager = GetNode<SceneManager>(Resources.SceneManager);
 
 		ActorData = Load<CreatureData>(Resources.ActorData);
-		AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
+		ActorInventory = GD.Load<Inventory>(Resources.ActorInventory);
+		//AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
 		//Quickbar = Load<QuickBar>(Resources.QuickBar);
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);

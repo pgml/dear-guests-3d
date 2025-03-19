@@ -1,9 +1,18 @@
 using Godot;
+using System;
 using static IController;
 
 public partial class Controller : CreatureController, IController
 {
+	[Export]
+	public CollisionShape3D CharacterCollider { get; set; }
+
+	public CreatureData CreatureData { get; private set; }
+
 	private AnimationNodeStateMachinePlayback _stateMachine;
+	private Console _console { get {
+		return GD.Load<Console>(Resources.Console);
+	}}
 
 	public override void _Ready()
 	{
@@ -21,20 +30,15 @@ public partial class Controller : CreatureController, IController
 
 	public void Movement(double delta)
 	{
+		CreatureData.IsOnFloor = IsOnFloor();
 		CreatureData.CurrentState = CurrentState;
 		CreatureData.Position = Position;
 
-		// Set velocity to zero to make animations stop when
-		// movement is forced
-		//if (CreatureData.VelocityMultiplier == 0.0f) {
-		//	Velocity = Vector3.Zero;
-		//}
-		//else {
-			CurrentState = _stateIdle();
-		//}
-
 		if (Velocity != Vector3.Zero)	{
 			CurrentState = _stateWalk();
+		}
+		else {
+			CurrentState = _stateIdle();
 		}
 
 		CreatureData.CurrentState = CurrentState;
@@ -65,10 +69,21 @@ public partial class Controller : CreatureController, IController
 		}
 
 		Jumping();
+		Climbing();
 
 		Velocity = CreatureData.Velocity;
 
 		MoveAndSlide();
+		_updatePositionToParent();
+
+		if (CreatureData.IsClimbing &&
+			DistanceToFloor() > CreatureData.ClimbComponent.SafeThreshold)
+		{
+			CreatureData.CanClimb = false;
+			CreatureData.ShouldClimb = false;
+			GD.Print("STAAWWWP");
+			return;
+		}
 
 		if (CreatureData.Direction != Vector3.Zero) {
 			CreatureData.FacingDirection = CreatureData.Direction;
@@ -100,7 +115,7 @@ public partial class Controller : CreatureController, IController
 			CreatureData.Velocity.Y = CreatureData.JumpComponent.JumpImpulse;
 		}
 
-		if (CreatureData.IsJumping && CreatureData.JumpComponent.JumpLimitation) {
+		if (CreatureData.IsJumping && CreatureData.ShouldJumpForward) {
 			_disableHorizontalMovement();
 
 			float velocityMultiplier = CreatureData.VelocityMultiplier;
@@ -119,6 +134,26 @@ public partial class Controller : CreatureController, IController
 		}
 	}
 
+	public void Climbing()
+	{
+		if (CreatureData.IsClimbing && IsOnFloor()) {
+			CreatureData.IsClimbing = false;
+		}
+
+		if (CreatureData.ShouldClimb && CreatureData.CanClimb) {
+			CreatureData.IsClimbing = true;
+			CreatureData.Velocity.Y = CreatureData.ClimbComponent.ClimbTo.Y;
+		}
+
+		if (CreatureData.IsClimbing) {
+			_disableHorizontalMovement();
+			float velocityMultiplier = CreatureData.VelocityMultiplier;
+			Vector3 facingDirection = CreatureData.FacingDirection;
+			CreatureData.Velocity.X = facingDirection.X * velocityMultiplier / 2;
+			CreatureData.Velocity.Z = facingDirection.Z * velocityMultiplier / 2;
+		}
+	}
+
 	public void SlopeMovement()
 	{
 		if (_isOnSlope()) {
@@ -133,6 +168,83 @@ public partial class Controller : CreatureController, IController
 		else {
 			FloorConstantSpeed = false;
 		}
+	}
+
+	/// <summary>
+	/// Get the real elevation of a character<br />
+	/// Due to different things like scaling and pixel size, position.Y
+	/// doesn't not correctly represent the characters y position
+	/// </summary>
+	public double CharacterElevation(bool inTileSize = false)
+	{
+		Sprite3D sprite = CreatureData.CharacterSprite();
+		var tileSize = 32;
+		float spritePosY = tileSize * sprite.PixelSize * sprite.Scale.Y;
+		float parentPosY = GetParent<Node3D>().Position.Y;
+		double elevation = Math.Round(parentPosY - spritePosY, 1);
+
+		if (inTileSize) {
+			float tileScale = sprite.Scale.Y + sprite.Scale.Z;
+			elevation /= tileScale;
+		}
+
+		return elevation;
+	}
+
+	public double DistanceToFloor(bool inTileSize = false)
+	{
+		TestMotion testMotion = new(
+			GetRid(),
+			GetParent<Node3D>().GlobalTransform,
+			Vector3.Down
+		);
+		double distanceToFloor = 0;
+
+		if (testMotion.IsColliding) {
+			var collider = testMotion.Collider<StaticBody3D>();
+			if (collider is not null) {
+				var staticBody = collider.GetParent().GetParent<Node3D>();
+				if (staticBody is StaticObject) {
+					distanceToFloor = CharacterElevation() - staticBody.Position.Y;
+				}
+			}
+		}
+		else {
+			distanceToFloor = CharacterElevation();
+		}
+
+		if (inTileSize) {
+			Sprite3D sprite = CreatureData.CharacterSprite();
+			float tileScale = sprite.Scale.Y + sprite.Scale.Z;
+			distanceToFloor /= tileScale;
+		}
+
+		return distanceToFloor;
+	}
+
+	public TestMotion TestMotion(Vector3 motion)
+	{
+		return new TestMotion(
+			GetRid(),
+			GetParent<Node3D>().GlobalTransform,
+			motion
+		);
+	}
+
+	/// <summary>
+	/// Transfers the CharacterBody3D's position to the characters root node<br />
+	/// Since the CharacterBody3D is not the root node we move the position
+	/// to the actual root which makes it easier to handle
+	/// </summary>
+	private void _updatePositionToParent()
+	{
+		var parentPosition = GetParent<Node3D>().Position;
+		GetParent<Node3D>().Position = new Vector3(
+			parentPosition.X + Position.X,
+			parentPosition.Y + Position.Y,
+			parentPosition.Z + Position.Z
+		);
+		Position = Vector3.Zero;
 	}
 
 	private void _disableHorizontalMovement()
@@ -153,7 +265,6 @@ public partial class Controller : CreatureController, IController
 
 		if (GetSlideCollisionCount() > 0) {
 			var collider = GetLastSlideCollision().GetCollider() as Node3D;
-
 			if (collider.IsInGroup("Stairs")) {
 				CreatureData.IsOnStairs = true;
 			}
@@ -166,22 +277,28 @@ public partial class Controller : CreatureController, IController
 
 	private void _setCharacterData()
 	{
-		if (CharacterNode is Actor) {
-			var characterNode = CharacterNode as Actor;
-			CreatureData = characterNode.CreatureData;
-		}
-		//else if (CharacterNode is AI) {
-		//	var characterNode = CharacterNode as AI;
-		//	CreatureData = characterNode.CreatureData;
-		//}
+		CreatureData = _creatureData();
 
-		CreatureData.Controller = this;
-		CreatureData.Parent = GetParent() as Node3D;
-		CreatureData.IsRunning = ToggleRun;
-		CreatureData.DefaultWalkSpeed = DefaultWalkSpeed;
-		CreatureData.DefaultRunSpeed = DefaultRunSpeed;
-		CreatureData.WalkSpeed = DefaultWalkSpeed;
-		CreatureData.RunSpeed = DefaultRunSpeed;
+		if (IsInstanceValid(CreatureData)) {
+			CreatureData.Controller = this;
+			CreatureData.Parent = GetParent() as Node3D;
+			CreatureData.IsRunning = ToggleRun;
+			CreatureData.DefaultWalkSpeed = DefaultWalkSpeed;
+			CreatureData.DefaultRunSpeed = DefaultRunSpeed;
+			CreatureData.WalkSpeed = DefaultWalkSpeed;
+			CreatureData.RunSpeed = DefaultRunSpeed;
+		}
+	}
+
+	private CreatureData _creatureData()
+	{
+		var characterNode = FindChild("Character");
+
+		if (characterNode is AI) {
+			return (characterNode as AI).CreatureData;
+		}
+
+		return (characterNode as Actor).CreatureData;
 	}
 
 	private MoveState _stateIdle()
@@ -204,5 +321,10 @@ public partial class Controller : CreatureController, IController
 		//}
 
 		return currentState;
+	}
+
+	private MoveState _stateJump()
+	{
+		return MoveState.JUMP;
 	}
 }

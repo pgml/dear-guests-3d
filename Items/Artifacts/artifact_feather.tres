@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bwk10r1yuh1to"]
+
+[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Inventory/Scripts/ArtifactResource.cs" id="1_vf2uk"]
+
+[resource]
+script = ExtResource("1_vf2uk")
+IsSynthetic = false
+Degradation = 0
+DegradationFactorPerReplication = 0
+OptimalGrowConditions = Dictionary[int, float]({
+2: 150.0
+})
+DeviationPenalties = Dictionary[int, String]({
+2: "1:50"
+})
+ReplicatorGlowColour = Color(0.925467, 0.925466, 0.925467, 1)
+FastestReplicationTime = 0.05
+GrowPowerConsumption = 0.0
+ReplicatesInto = "uid://cqi8g26ftaugo"
+Type = 1
+Name = "Feather"
+Description = ""
+Weight = 0.1
+MaxCarryAmount = 10
+Value = 1000.0

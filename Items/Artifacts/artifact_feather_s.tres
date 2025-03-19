@@ -1,0 +1,22 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cqi8g26ftaugo"]
+
+[ext_resource type="Resource" uid="uid://bwk10r1yuh1to" path="res://Items/Artifacts/artifact_feather.tres" id="1_44d71"]
+[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Inventory/Scripts/ArtifactResource.cs" id="1_yiqli"]
+
+[resource]
+script = ExtResource("1_yiqli")
+IsSynthetic = true
+ReplicaOf = ExtResource("1_44d71")
+Degradation = 0
+DegradationFactorPerReplication = 0
+OptimalGrowConditions = Dictionary[int, float]({})
+DeviationPenalties = Dictionary[int, String]({})
+ReplicatorGlowColour = Color(0.925467, 0.925466, 0.925467, 1)
+FastestReplicationTime = 6.0
+GrowPowerConsumption = 0.0
+ReplicatesInto = ""
+Type = 1
+Name = "Synthetic Feather"
+Weight = 0.1
+MaxCarryAmount = 10
+Value = 500.0

@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 
@@ -72,24 +72,25 @@ public partial class Replicator : Equipment
 			return;
 		}
 
-		if (!HasPower()) {
-			TurnOff();
-		} else {
-			if (LightsParent is not null) {
-				SetLights();
-			}
-		}
+		//if (!HasPower()) {
+		//	TurnOff();
+		//}
+		//else {
+		//	if (LightsParent is not null) {
+		//		SetLights();
+		//	}
+		//}
 
-		if (IsInstanceValid(UiReplicatorInst)) {
-			if (UiReplicatorInst.IsOpen) {
-				UpdateProgress();
-				_connectButtonSignals();
-				_updateReplicatorUi();
-			}
-			else {
-				_disconnectButtonSignals();
-			}
-		}
+		//if (IsInstanceValid(UiReplicatorInst)) {
+		//	if (UiReplicatorInst.IsOpen) {
+		//		UpdateProgress();
+		//		_connectButtonSignals();
+		//		_updateReplicatorUi();
+		//	}
+		//	else {
+		//		_disconnectButtonSignals();
+		//	}
+		//}
 
 		base._Process(delta);
 	}
@@ -111,15 +112,6 @@ public partial class Replicator : Equipment
 			@event.IsActionReleased("action_use") &&
 			CanUse)
 		{
-			var openingSound = Type switch {
-				EquipmentType.Type1 => AudioLibrary.ReplicatorType1Open,
-				_ => null
-			};
-
-			if (openingSound is not null) {
-				AudioInstance.PlayUiSound(openingSound);
-			}
-
 			// temporarily add replicator ui to mainUI...
 			OpenUi();
 		}
@@ -134,14 +126,6 @@ public partial class Replicator : Equipment
 			}
 
 			if (@event.IsActionPressed("action_cancel")) {
-				var closingSound = Type switch {
-					EquipmentType.Type1 => AudioLibrary.ReplicatorType1Close,
-					_ => null
-				};
-
-				if (closingSound is not null) {
-					AudioInstance.PlayUiSound(closingSound);
-				}
 				CloseUi();
 			}
 		}
@@ -344,6 +328,8 @@ public partial class Replicator : Equipment
 	public void OpenUi()
 	{
 		if (!ActorData.IsAnyUiPanelOpen()) {
+			_playOpeningSound();
+
 			UiReplicatorInst = UiReplicator.Instantiate<UiReplicator>();
 			UiReplicatorInst.Replicator = this;
 			GetNode("/root/MainUI").AddChild(UiReplicatorInst);
@@ -399,6 +385,31 @@ public partial class Replicator : Equipment
 		}
 		else {
 			AudioInstance.Play(audioClip, AudioBus.Game);
+		}
+	}
+
+	private void _playOpeningSound()
+	{
+		var openingSound = Type switch {
+			EquipmentType.Type1 => AudioLibrary.ReplicatorType1Open,
+			_ => null
+		};
+
+		if (openingSound is not null) {
+			AudioInstance.PlayUiSound(openingSound);
+		}
+	}
+
+
+	private void _playClosingSound()
+	{
+		var closingSound = Type switch {
+			EquipmentType.Type1 => AudioLibrary.ReplicatorType1Close,
+			_ => null
+		};
+
+		if (closingSound is not null) {
+			AudioInstance.PlayUiSound(closingSound);
 		}
 	}
 

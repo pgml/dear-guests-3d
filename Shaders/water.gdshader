@@ -20,6 +20,7 @@ uniform sampler2D foam_texture : filter_nearest, repeat_enable;
 uniform float foam_tex_scale = 1;
 uniform vec4 edge_color: source_color;
 uniform float edge_scale = 0.1;
+uniform float foam_scroll_speed: hint_range(0.1, 1.0, 0.1) = 0.4;
 uniform float near = 0.1;
 uniform float far = 100.0;
 
@@ -91,9 +92,17 @@ void fragment() {
 	vec4 upos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth, 1.0);
 	vec3 pixel_position = upos.xyz / upos.w;
 	
-	vec2 foam_uv = round_to_pixel(uv, 200);
-	vec4 foam_tex = texture(foam_texture, foam_uv * foam_tex_scale);
-	vec3 foam_c = mix(edge_color.rgb, foam_tex.rgb, edge_color.a);
+	float edgePatternScroll = TIME * foam_scroll_speed;
+	vec2 foam_uv = round_to_pixel(uv, 200) * foam_tex_scale;
+	float channelA = texture(foam_texture, foam_uv - vec2(edgePatternScroll, cos(foam_uv.x))).r;
+    float channelB = texture(foam_texture, foam_uv * 0.5 + vec2(sin(foam_uv.y), edgePatternScroll)).b;
+	float mask = (channelA + channelB) * 0.95;
+    mask = pow(mask, 2.0);
+    mask = clamp(mask, 0.0, 1.0);
+	vec3 foam_mask = texture(foam_texture, foam_uv * foam_tex_scale).rgb;
+	//vec3 foam_c = mix(foam_mask.rgb, final_color, foam_mask);
+	//foam_c = mix(edge_color.rgb, foam_c.rgb, foam_mask);
+	vec3 foam_c = mix(edge_color.rgb, foam_mask.rgb, mask);
 	
 	// Adjust the edge foam calculation to include edge_scale
 	if (VERTEX.z < pixel_position.z + 0.05 + edge_scale) {

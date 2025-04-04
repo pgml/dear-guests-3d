@@ -1,0 +1,53 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://drbq3dw3voduk"]
+
+[ext_resource type="Shader" uid="uid://cavqf0dcui0fy" path="res://Shaders/antz_foam_water.gdshader" id="1_p1fr0"]
+[ext_resource type="Texture2D" uid="uid://82q5u1ekvgpd" path="res://Shaders/textures/water_foam.png" id="2_dndaq"]
+[ext_resource type="Texture2D" uid="uid://duivqnjpbw2tl" path="res://Shaders/textures/n_noise_1.tres" id="3_53cqi"]
+[ext_resource type="Texture2D" uid="uid://caoynv2cyy6im" path="res://Shaders/textures/n_noise_2.tres" id="4_up3d6"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_p1fr0")
+shader_parameter/sync_time = 0.0
+shader_parameter/wave_speed = 0.05
+shader_parameter/edge_fade_power = 2.0
+shader_parameter/transmittence = 0.04
+shader_parameter/h_dist_trans_weight = 3.0
+shader_parameter/transmit_color = Color(0, 0, 0, 1)
+shader_parameter/depth_fade_distance = 5.0
+shader_parameter/surface_albedo = Color(0.309987, 0.66176, 0.824312, 1)
+shader_parameter/surface_bottom = Color(0.414272, 0.743077, 0.980242, 1)
+shader_parameter/opacity = 0.4
+shader_parameter/opacity_floor = 0.1
+shader_parameter/opacity_ceiling = 0.8
+shader_parameter/pixelate = true
+shader_parameter/roughness = 0.4
+shader_parameter/height_scale = 1.0
+shader_parameter/amplitude1 = 2.0
+shader_parameter/amplitude2 = 0.5
+shader_parameter/v_noise_tile = 200
+shader_parameter/normal_noise = ExtResource("3_53cqi")
+shader_parameter/normal_noise2 = ExtResource("4_up3d6")
+shader_parameter/normal_noise_size = 51.2
+shader_parameter/normal_noise_speed = 0.05
+shader_parameter/v_normal_scale = 1.0
+shader_parameter/normal_map_w = 256
+shader_parameter/sky_color = Color(0, 0, 0, 1)
+shader_parameter/high_color = Color(0, 0, 0, 1)
+shader_parameter/low_color = Color(0, 0, 0, 1)
+shader_parameter/wave_color_range = 2.0
+shader_parameter/foamTexture = ExtResource("2_dndaq")
+shader_parameter/foamScale = 25.0
+shader_parameter/foamScrollSpeed = 0.4
+shader_parameter/foamEdgeBias = 0.1
+shader_parameter/foamFallOffDistance = 0.4
+shader_parameter/foamEdgeDistance = 0.2
+shader_parameter/shine_strength = 0.17
+shader_parameter/shine_shininess = 18.0
+shader_parameter/shadow = 0.72
+shader_parameter/shadow_width = 0.18
+shader_parameter/shadow_color = Color(0.705, 0.705, 0.705, 0.705)
+shader_parameter/_specular_smoothness = 0.199
+shader_parameter/_specular_strength = 0.075
+shader_parameter/_glossiness = 0.067

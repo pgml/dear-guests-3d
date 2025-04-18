@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dvcrnialcr258"]
+[gd_scene load_steps=23 format=3 uid="uid://dvcrnialcr258"]
 
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_1tv80"]
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_wmvcl"]
@@ -20,10 +20,13 @@
 [ext_resource type="PackedScene" uid="uid://ch3lsem0ncpvq" path="res://Assets/Furniture/Bottles/bottle_brown.tscn" id="15_pjwsc"]
 [ext_resource type="PackedScene" uid="uid://ca0kgkrbvdkt5" path="res://Assets/Furniture/Bottles/bottle_green.tscn" id="16_hxbu8"]
 [ext_resource type="Texture2D" uid="uid://dfxesufusbh01" path="res://Assets/Sprites/Tiles/decals.png" id="19_55gey"]
+[ext_resource type="Script" uid="uid://clhw8xw8welp2" path="res://Common/Scripts/SceneTrigger.cs" id="20_gil5b"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_55gey"]
+size = Vector3(2.5, 0.1, 1.72285)
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_wmvcl")
-Indoor = true
 
 [node name="World" parent="." instance=ExtResource("1_1tv80")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.43323e-05, 0.0131073, -0.0131741)
@@ -35,18 +38,16 @@ Latitude = 33.0
 environment = ExtResource("3_wmyhn")
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.825873, -0.526081, 0.202892, 0.414046, 0.810093, 0.415105, -0.382739, -0.258819, 0.886859, 0, 0, 0)
-light_energy = 1.0
-
-[node name="AnomalySun" parent="World" index="2"]
-light_energy = 0.8
+transform = Transform3D(0.554411, 2.38069e-08, 0.832238, 0.832235, -3.66595e-08, -0.554413, 1.73105e-08, 1, -4.01375e-08, 0, 0, 0)
 
 [node name="Moon" parent="World" index="3"]
 light_energy = 0.0
 
 [node name="Content" type="Node3D" parent="."]
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Content"]
+[node name="Lights" type="Node3D" parent="Content"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Content/Lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0509, 5.67489, 0)
 visible = false
 light_color = Color(0.993947, 0.951409, 0.729972, 1)
@@ -54,7 +55,7 @@ light_energy = 2.455
 shadow_enabled = true
 omni_range = 11.009
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="Content"]
+[node name="OmniLight3D2" type="OmniLight3D" parent="Content/Lights"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.00074, 5.67489, 0)
 visible = false
 light_color = Color(0.993947, 0.951409, 0.729972, 1)
@@ -62,7 +63,7 @@ light_energy = 2.455
 shadow_enabled = true
 omni_range = 11.009
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Content"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Content/Lights"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 11.3714, 7.05977, 0.878418)
 visible = false
 light_color = Color(0.974143, 0.920995, 0.745289, 1)
@@ -71,7 +72,7 @@ shadow_enabled = true
 spot_angle = 42.02
 spot_angle_attenuation = 0.0490368
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="Content"]
+[node name="SpotLight3D2" type="SpotLight3D" parent="Content/Lights"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.575518, 18.4676, -5.91185)
 visible = false
 light_color = Color(0.974143, 0.920995, 0.745289, 1)
@@ -82,7 +83,7 @@ spot_attenuation = 0.4
 spot_angle = 42.02
 spot_angle_attenuation = 0.0490368
 
-[node name="SpotLight3D3" type="SpotLight3D" parent="Content"]
+[node name="SpotLight3D3" type="SpotLight3D" parent="Content/Lights"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -12.6721, 18.4676, -5.91185)
 visible = false
 light_color = Color(0.974143, 0.920995, 0.745289, 1)
@@ -99,185 +100,187 @@ transform = Transform3D(1.3, 0, 0, 0, 1.82, 0, 0, 0, 1.86, 0, 0, 0)
 [node name="CafeFront" parent="Content" instance=ExtResource("5_bdnae")]
 transform = Transform3D(1.3, 0, 0, 0, 1.83, 0, 0, 0, 1.86, 0, 0, 0)
 
-[node name="Counter" parent="Content" instance=ExtResource("6_kiniw")]
+[node name="Props" type="Node3D" parent="Content"]
+
+[node name="Counter" parent="Content/Props" instance=ExtResource("6_kiniw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.49603, 9.53674e-07, 3.47495)
 
-[node name="Booth" type="Node" parent="Content"]
+[node name="Booth" type="Node3D" parent="Content/Props"]
 
-[node name="BenchBooth" parent="Content/Booth" instance=ExtResource("6_ds81e")]
+[node name="BenchBooth" parent="Content/Props/Booth" instance=ExtResource("6_ds81e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.76309, 0.6825, -2.55886)
 
-[node name="TableLong" parent="Content/Booth" instance=ExtResource("8_7nx10")]
+[node name="TableLong" parent="Content/Props/Booth" instance=ExtResource("8_7nx10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.679, 0.6825, -2.17862)
 
-[node name="TableGrp" type="Node3D" parent="Content"]
+[node name="TableGrp" type="Node3D" parent="Content/Props"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7149, 1.82, 7.04816)
 
-[node name="Chair_R1" parent="Content/TableGrp" instance=ExtResource("10_2ql0y")]
+[node name="Chair_R1" parent="Content/Props/TableGrp" instance=ExtResource("10_2ql0y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.61592, -1.1375, 0.0485115)
 
-[node name="TableShort" parent="Content/TableGrp" instance=ExtResource("11_na8qa")]
+[node name="TableShort" parent="Content/Props/TableGrp" instance=ExtResource("11_na8qa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.775749, -1.1375, 0.627712)
 
-[node name="Chair1_l" parent="Content/TableGrp" instance=ExtResource("10_1maqr")]
+[node name="Chair1_l" parent="Content/Props/TableGrp" instance=ExtResource("10_1maqr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.99638, 0, -0.654707)
 
-[node name="TableGrp2" type="Node3D" parent="Content"]
+[node name="TableGrp2" type="Node3D" parent="Content/Props"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.42589, 1.82, 7.04816)
 
-[node name="Chair_R1" parent="Content/TableGrp2" instance=ExtResource("10_2ql0y")]
+[node name="Chair_R1" parent="Content/Props/TableGrp2" instance=ExtResource("10_2ql0y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.933694, -1.1375, 0.0485115)
 
-[node name="TableShort" parent="Content/TableGrp2" instance=ExtResource("11_na8qa")]
+[node name="TableShort" parent="Content/Props/TableGrp2" instance=ExtResource("11_na8qa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22121, -1.1375, 0.627712)
 
-[node name="Chair1_l" parent="Content/TableGrp2" instance=ExtResource("10_1maqr")]
+[node name="Chair1_l" parent="Content/Props/TableGrp2" instance=ExtResource("10_1maqr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.35186, 0, -0.654707)
 
-[node name="BarStool_1" parent="Content" instance=ExtResource("12_dsij8")]
+[node name="BarStool_1" parent="Content/Props" instance=ExtResource("12_dsij8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.30204, 0, 7.04305)
 
-[node name="BarStool_2" parent="Content" instance=ExtResource("12_dsij8")]
+[node name="BarStool_2" parent="Content/Props" instance=ExtResource("12_dsij8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8016, 0, 4.19576)
 
-[node name="BarStool_3" parent="Content" instance=ExtResource("12_dsij8")]
+[node name="BarStool_3" parent="Content/Props" instance=ExtResource("12_dsij8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.09897, 0, 1.14375)
 
-[node name="Shelf" parent="Content" instance=ExtResource("13_ab7vx")]
+[node name="Shelf" parent="Content/Props" instance=ExtResource("13_ab7vx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58071, 5.46146, -7.67276)
 
-[node name="Shelf2" parent="Content" instance=ExtResource("13_ab7vx")]
+[node name="Shelf2" parent="Content/Props" instance=ExtResource("13_ab7vx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58071, 3.80156, -7.67276)
 
-[node name="Shelf3" parent="Content" instance=ExtResource("13_ab7vx")]
+[node name="Shelf3" parent="Content/Props" instance=ExtResource("13_ab7vx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.81817, 5.46146, -7.67276)
 
-[node name="Shelf4" parent="Content" instance=ExtResource("13_ab7vx")]
+[node name="Shelf4" parent="Content/Props" instance=ExtResource("13_ab7vx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.81817, 3.80156, -7.67276)
 
-[node name="Shelf5" parent="Content" instance=ExtResource("13_ab7vx")]
+[node name="Shelf5" parent="Content/Props" instance=ExtResource("13_ab7vx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.115, 5.45046, -7.67276)
 
-[node name="Fridge" parent="Content" instance=ExtResource("14_j00ud")]
+[node name="Fridge" parent="Content/Props" instance=ExtResource("14_j00ud")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2039, 0.11375, -5.97545)
 
-[node name="ShelfContent" type="Node" parent="Content"]
+[node name="ShelfContent" type="Node3D" parent="Content/Props"]
 
-[node name="Cup" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.02054, 4.08002, -6.63727)
 
-[node name="Cup2" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup2" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.51907, 4.08002, -6.5024)
 
-[node name="Cup3" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup3" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.02443, 4.16717, -6.5024)
 
-[node name="Cup4" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup4" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.53661, 4.16717, -6.62778)
 
-[node name="Cup5" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup5" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.04197, 4.16717, -6.51235)
 
-[node name="Cup6" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup6" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.58831, 4.16717, -6.51235)
 
-[node name="Cup7" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup7" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.08679, 4.16717, -6.51235)
 
-[node name="Cup8" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup8" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.02054, 4.08002, -6.63727)
 
-[node name="Cup9" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup9" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.51907, 4.08002, -6.5024)
 
-[node name="Cup10" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup10" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.02443, 4.16717, -6.5024)
 
-[node name="Cup11" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup11" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.53661, 4.16717, -6.62778)
 
-[node name="Cup12" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup12" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.04197, 4.16717, -6.51235)
 
-[node name="Cup13" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup13" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.58831, 4.16717, -6.51235)
 
-[node name="Cup14" parent="Content/ShelfContent" instance=ExtResource("14_hxbu8")]
+[node name="Cup14" parent="Content/Props/ShelfContent" instance=ExtResource("14_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.08679, 4.16717, -6.51235)
 
-[node name="Bottle_Blue" parent="Content/ShelfContent" instance=ExtResource("4_2f4rf")]
+[node name="Bottle_Blue" parent="Content/Props/ShelfContent" instance=ExtResource("4_2f4rf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.12986, 5.69308, -6.55057)
 
-[node name="Bottle_Brown" parent="Content/ShelfContent" instance=ExtResource("15_pjwsc")]
+[node name="Bottle_Brown" parent="Content/Props/ShelfContent" instance=ExtResource("15_pjwsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.72389, 5.79849, -6.57682)
 
-[node name="Bottle_Green" parent="Content/ShelfContent" instance=ExtResource("16_hxbu8")]
+[node name="Bottle_Green" parent="Content/Props/ShelfContent" instance=ExtResource("16_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.29998, 5.69307, -6.76018)
 
-[node name="Bottle_Blue2" parent="Content/ShelfContent" instance=ExtResource("4_2f4rf")]
+[node name="Bottle_Blue2" parent="Content/Props/ShelfContent" instance=ExtResource("4_2f4rf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.47029, 5.69963, -6.70123)
 
-[node name="Bottle_Brown2" parent="Content/ShelfContent" instance=ExtResource("15_pjwsc")]
+[node name="Bottle_Brown2" parent="Content/Props/ShelfContent" instance=ExtResource("15_pjwsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.91275, 5.8116, -6.82671)
 
-[node name="Bottle_Green2" parent="Content/ShelfContent" instance=ExtResource("16_hxbu8")]
+[node name="Bottle_Green2" parent="Content/Props/ShelfContent" instance=ExtResource("16_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.99991, 5.69963, -6.76677)
 
-[node name="Bottle_Blue5" parent="Content/ShelfContent" instance=ExtResource("4_2f4rf")]
+[node name="Bottle_Blue5" parent="Content/Props/ShelfContent" instance=ExtResource("4_2f4rf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4421, 4.03317, -6.55057)
 
-[node name="Bottle_Brown5" parent="Content/ShelfContent" instance=ExtResource("15_pjwsc")]
+[node name="Bottle_Brown5" parent="Content/Props/ShelfContent" instance=ExtResource("15_pjwsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0361, 4.13859, -6.57682)
 
-[node name="Bottle_Green5" parent="Content/ShelfContent" instance=ExtResource("16_hxbu8")]
+[node name="Bottle_Green5" parent="Content/Props/ShelfContent" instance=ExtResource("16_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6122, 4.03318, -6.76018)
 
-[node name="Bottle_Blue6" parent="Content/ShelfContent" instance=ExtResource("4_2f4rf")]
+[node name="Bottle_Blue6" parent="Content/Props/ShelfContent" instance=ExtResource("4_2f4rf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7825, 4.03317, -6.70123)
 
-[node name="Bottle_Brown6" parent="Content/ShelfContent" instance=ExtResource("15_pjwsc")]
+[node name="Bottle_Brown6" parent="Content/Props/ShelfContent" instance=ExtResource("15_pjwsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.225, 4.13859, -6.82671)
 
-[node name="Bottle_Green6" parent="Content/ShelfContent" instance=ExtResource("16_hxbu8")]
+[node name="Bottle_Green6" parent="Content/Props/ShelfContent" instance=ExtResource("16_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3121, 4.03318, -6.76677)
 
-[node name="Bottle_Blue3" parent="Content/ShelfContent" instance=ExtResource("4_2f4rf")]
+[node name="Bottle_Blue3" parent="Content/Props/ShelfContent" instance=ExtResource("4_2f4rf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9427, 5.69308, -6.55057)
 
-[node name="Bottle_Brown3" parent="Content/ShelfContent" instance=ExtResource("15_pjwsc")]
+[node name="Bottle_Brown3" parent="Content/Props/ShelfContent" instance=ExtResource("15_pjwsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6205, 5.80331, -6.76466)
 
-[node name="Bottle_Green3" parent="Content/ShelfContent" instance=ExtResource("16_hxbu8")]
+[node name="Bottle_Green3" parent="Content/Props/ShelfContent" instance=ExtResource("16_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4404, 5.69307, -6.58696)
 
-[node name="Bottle_Blue4" parent="Content/ShelfContent" instance=ExtResource("4_2f4rf")]
+[node name="Bottle_Blue4" parent="Content/Props/ShelfContent" instance=ExtResource("4_2f4rf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7723, 5.69963, -6.70123)
 
-[node name="Bottle_Brown4" parent="Content/ShelfContent" instance=ExtResource("15_pjwsc")]
+[node name="Bottle_Brown4" parent="Content/Props/ShelfContent" instance=ExtResource("15_pjwsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.2147, 5.8116, -6.65342)
 
-[node name="Bottle_Green4" parent="Content/ShelfContent" instance=ExtResource("16_hxbu8")]
+[node name="Bottle_Green4" parent="Content/Props/ShelfContent" instance=ExtResource("16_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3019, 5.69963, -6.76677)
 
-[node name="Bottle_Blue7" parent="Content/ShelfContent" instance=ExtResource("4_2f4rf")]
+[node name="Bottle_Blue7" parent="Content/Props/ShelfContent" instance=ExtResource("4_2f4rf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.1592, 5.69308, -6.55057)
 
-[node name="Bottle_Brown7" parent="Content/ShelfContent" instance=ExtResource("15_pjwsc")]
+[node name="Bottle_Brown7" parent="Content/Props/ShelfContent" instance=ExtResource("15_pjwsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.837, 5.80331, -6.76466)
 
-[node name="Bottle_Green7" parent="Content/ShelfContent" instance=ExtResource("16_hxbu8")]
+[node name="Bottle_Green7" parent="Content/Props/ShelfContent" instance=ExtResource("16_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6569, 5.69307, -6.58696)
 
-[node name="Bottle_Blue8" parent="Content/ShelfContent" instance=ExtResource("4_2f4rf")]
+[node name="Bottle_Blue8" parent="Content/Props/ShelfContent" instance=ExtResource("4_2f4rf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.9888, 5.69963, -6.70123)
 
-[node name="Bottle_Brown8" parent="Content/ShelfContent" instance=ExtResource("15_pjwsc")]
+[node name="Bottle_Brown8" parent="Content/Props/ShelfContent" instance=ExtResource("15_pjwsc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.4312, 5.8116, -6.65342)
 
-[node name="Bottle_Green8" parent="Content/ShelfContent" instance=ExtResource("16_hxbu8")]
+[node name="Bottle_Green8" parent="Content/Props/ShelfContent" instance=ExtResource("16_hxbu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5184, 5.69963, -6.76677)
 
-[node name="Poster" type="Sprite3D" parent="Content"]
+[node name="Poster" type="Sprite3D" parent="Content/Props"]
 transform = Transform3D(1.12, 0, 0, 0, 1.568, 0, 0, 0, 1.602, 1.53426, 4.75237, -7.33688)
 pixel_size = 0.07
 shaded = true
@@ -287,7 +290,7 @@ texture = ExtResource("19_55gey")
 region_enabled = true
 region_rect = Rect2(36, 609, 24, 31)
 
-[node name="Picture" type="Sprite3D" parent="Content"]
+[node name="Picture" type="Sprite3D" parent="Content/Props"]
 transform = Transform3D(1.12, 0, 0, 0, 1.568, 0, 0, 0, 1.602, -1.30691, 5.71536, -1.93848)
 pixel_size = 0.07
 shaded = true
@@ -296,6 +299,18 @@ texture_filter = 4
 texture = ExtResource("19_55gey")
 region_enabled = true
 region_rect = Rect2(6, 593, 20, 15)
+
+[node name="SceneTriggers" type="Node3D" parent="Content"]
+
+[node name="Waterfront" type="Area3D" parent="Content/SceneTriggers" groups=["SceneTriggerArea"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2835, 0.0681999, 9.05774)
+script = ExtResource("20_gil5b")
+ChangeSceneTo = "uid://blxmhwe5ji5w0"
+AutoTrigger = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Content/SceneTriggers/Waterfront"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.561426)
+shape = SubResource("BoxShape3D_55gey")
 
 [node name="Actor" parent="." instance=ExtResource("4_plu6v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.82876, -0.0485001, -1.37159)

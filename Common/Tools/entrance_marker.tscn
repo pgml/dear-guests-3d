@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://dohf3b0ohy80a"]
+
+[ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="1_jgnrg"]
+[ext_resource type="Script" uid="uid://bp158k37n1m32" path="res://Common/Scripts/EntranceMarker.cs" id="1_s4ani"]
+
+[sub_resource type="TextMesh" id="TextMesh_svxe0"]
+text = "ENTRANCE"
+font = ExtResource("1_jgnrg")
+font_size = 32
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eldlo"]
+shading_mode = 0
+specular_mode = 2
+albedo_color = Color(1, 0.403922, 0.568627, 1)
+billboard_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_psgro"]
+size = Vector3(0.05, 4, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gxk6y"]
+shading_mode = 0
+specular_mode = 2
+albedo_color = Color(1, 0.402384, 0.569011, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_ayy6q"]
+text = "x"
+font = ExtResource("1_jgnrg")
+font_size = 76
+
+[node name="EntranceMarker" type="Marker3D"]
+script = ExtResource("1_s4ani")
+
+[node name="Gizmo" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.27539, 0)
+cast_shadow = 0
+mesh = SubResource("TextMesh_svxe0")
+material = SubResource("StandardMaterial3D_eldlo")
+
+[node name="Arrow" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53657, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_psgro")
+material = SubResource("StandardMaterial3D_gxk6y")
+
+[node name="Marker" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0793281, 0.0383301, 0.235925)
+cast_shadow = 0
+mesh = SubResource("TextMesh_ayy6q")
+material = SubResource("StandardMaterial3D_gxk6y")

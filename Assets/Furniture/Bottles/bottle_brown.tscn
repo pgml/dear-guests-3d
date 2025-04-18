@@ -1,11 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ch3lsem0ncpvq"]
+[gd_scene load_steps=3 format=3 uid="uid://ch3lsem0ncpvq"]
 
 [ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_x6blu"]
 [ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="2_vjr0g"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_jysoh"]
-radius = 0.183
-height = 0.846
 
 [node name="Bottle_Brown" type="Node3D"]
 script = ExtResource("1_x6blu")
@@ -22,8 +18,3 @@ texture_filter = 4
 texture = ExtResource("2_vjr0g")
 region_enabled = true
 region_rect = Rect2(6, 562, 5, 14)
-
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.3, 0, 0, 0, 1.82, 0, 0, 0, 1.86, 0, 0.765748, -0.185787)
-cast_shadow = 3
-mesh = SubResource("CapsuleMesh_jysoh")

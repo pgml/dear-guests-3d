@@ -164,6 +164,8 @@ public partial class World : Node
 
 	public DateTime DateTime;
 
+	private double _initialDayTimeHours = 0;
+
 	public override void _Ready()
 	{
 		if (!Engine.IsEditorHint()) {
@@ -209,6 +211,10 @@ public partial class World : Node
 			DayTimeHours += delta * TimeScale;
 			DateTime.UpdateDateTime(DayTimeHours, DayOfYear, Year);
 		}
+		if (_initialDayTimeHours == 0) {
+			_initialDayTimeHours = DayTimeHours;
+		}
+
 	}
 
 	private void _update()
@@ -226,7 +232,7 @@ public partial class World : Node
 		double dayProgress = DayTimeHours / HoursInDay;
 
 		if (TimeOnly) {
-			dayProgress = 10 / HoursInDay;
+			dayProgress = _initialDayTimeHours / HoursInDay;
 		}
 
 		// 193 is the number of days from the summer solstice to the end of the year.

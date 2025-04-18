@@ -8,6 +8,12 @@ public partial class StaticObject : Node3D
 	public Callable SetPrepareForTopDown => Callable.From(PrepareForTopdown);
 
 	[Export]
+	public bool IsIndoor { get; set; }
+
+	[Export]
+	public bool IsSprite { get; set; }
+
+	[Export]
 	public MeshInstance3D SunShadowMesh { get; set; }
 
 	private bool _fake3DShadow = false;
@@ -21,6 +27,8 @@ public partial class StaticObject : Node3D
 	}
 
 	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
+
+	public Vector3 TopDownScaleIndoor = new Vector3(1.3f, 1.82f, 1.86f);
 
 	public Node Mesh {
 		get {
@@ -105,9 +113,10 @@ public partial class StaticObject : Node3D
 	{
 		_renameMesh();
 
+		Vector3 scale = IsIndoor ? TopDownScaleIndoor : TopDownScale;
 		if (IsInstanceValid(Mesh)) {
 			if (SunShadowMesh is not null) {
-				SunShadowMesh.Scale = TopDownScale;
+				SunShadowMesh.Scale = scale;
 				SunShadowMesh.CastShadow = GeometryInstance3D.ShadowCastingSetting.ShadowsOnly;
 				SunShadowMesh.Visible = _fake3DShadow;
 			}
@@ -120,15 +129,30 @@ public partial class StaticObject : Node3D
 				meshInstance.CastShadow = GeometryInstance3D.ShadowCastingSetting.DoubleSided;
 			}
 
-			if (meshInstance.Scale != TopDownScale) {
-				meshInstance.Scale = TopDownScale;
+			if (meshInstance.Scale != scale) {
+				meshInstance.Scale = scale;
 			}
 
 			//Mesh.SetSceneInstanceLoadPlaceholder(true);
 			Mesh.SetSceneInstanceLoadPlaceholder(false);
 		}
 
-		_renameBillboard();
+		if (!IsSprite) {
+			_renameBillboard();
+		}
+		else {
+			foreach (var child in GetChildren()) {
+				if (child is Sprite3D) {
+					Sprite3D sprite = child as Sprite3D;
+					sprite.PixelSize = 0.07f;
+					sprite.Shaded = true;
+					sprite.AlphaCut = SpriteBase3D.AlphaCutMode.OpaquePrepass;
+					sprite.TextureFilter = BaseMaterial3D.TextureFilterEnum.NearestWithMipmapsAnisotropic;
+					sprite.CastShadow = GeometryInstance3D.ShadowCastingSetting.DoubleSided;
+					sprite.Scale = scale;
+				}
+			}
+		}
 
 		if (IsInstanceValid(BillboardPlaceholer)) {
 			//BillboardPlaceholer.Visible = false;

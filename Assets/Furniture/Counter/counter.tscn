@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://crlah4owphw8p"]
+
+[ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_tqus8"]
+[ext_resource type="PackedScene" uid="uid://dlmo2xk7goput" path="res://Assets/Furniture/Counter/counter_mesh.tscn" id="2_ohmub"]
+
+[node name="Counter" type="Node3D"]
+script = ExtResource("1_tqus8")
+Indoor = true
+
+[node name="Mesh" parent="." instance=ExtResource("2_ohmub")]
+transform = Transform3D(1.3, 0, 0, 0, 1.82, 0, 0, 0, 1.86, 0, 0, 0)

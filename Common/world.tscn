@@ -27,9 +27,10 @@ MoonBaseEnergy = 0.2
 environment = ExtResource("2_f76b8")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.315398, -0.388847, -0.865632, 0.928614, 0.314321, 0.197153, 0.195423, -0.866025, 0.460227, 0, 0, 0)
+transform = Transform3D(0.882869, 3.39941e-08, 0.469609, 0.469607, -2.74788e-08, -0.882873, -1.71081e-08, 1, -4.02242e-08, 0, 0, 0)
 rotation_order = 4
 light_color = Color(0.964706, 0.952941, 0.901961, 1)
+light_energy = 0.0
 shadow_enabled = true
 shadow_bias = 0.04
 shadow_normal_bias = 2.5
@@ -42,7 +43,7 @@ directional_shadow_split_3 = 0.563
 [node name="AnomalySun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.961262, 0.217205, -0.169699, 0, 0.615661, 0.78801, 0.275637, -0.757484, 0.591812, 0, 0, 0)
 light_color = Color(0.964706, 0.952941, 0.901961, 1)
-light_energy = 0.8
+light_energy = 0.0
 light_cull_mask = 4294967293
 shadow_enabled = true
 shadow_bias = 0.01

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdvtj7cx5bh5o"]
+
+[ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_hq4b2"]
+[ext_resource type="PackedScene" uid="uid://dil1jjxljgg74" path="res://Assets/Furniture/Bench_Booth/bench_booth_mesh.tscn" id="2_nyhkc"]
+
+[node name="BenchBooth" type="Node3D"]
+script = ExtResource("1_hq4b2")
+Indoor = true
+
+[node name="Mesh" parent="." instance=ExtResource("2_nyhkc")]
+transform = Transform3D(1.3, 0, 0, 0, 1.82, 0, 0, 0, 1.86, 0, 0, 0)
+cast_shadow = 2

@@ -11,10 +11,10 @@ public partial class EntranceMarker : Marker3D
 	public string FacingDirection = "Up";
 
 	public Dictionary<string, Vector2> Directions = new() {
-		{ "Up", new Vector2(0, -1) },
-		{ "Right", new Vector2(1, 0) },
-		{ "Down", new Vector2(0, 1) },
-		{ "Left", new Vector2(-1, 0) },
+		{ "Up", Vector2.Up },
+		{ "Right", Vector2.Right },
+		{ "Down", Vector2.Down },
+		{ "Left", Vector2.Left },
 	};
 
 	public Vector2 GetFacingDirection()
@@ -22,4 +22,3 @@ public partial class EntranceMarker : Marker3D
 		return Directions[FacingDirection];
 	}
 }
-

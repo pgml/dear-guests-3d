@@ -6,12 +6,15 @@ public partial class Scene : Node3D
 	[Signal]
 	public delegate void SceneLoadedEventHandler();
 
+	[Export]
+	public string SceneName { get; set; }
+
 	protected CreatureData ActorData;
 
 	private UiLoading _uiLoading;
 	private Godot.Collections.Array<Node> _instancePlaceholders;
-
 	private PackedScene _sceneTransition;
+	private SceneTree _tree;
 
 	public async override void _Ready()
 	{
@@ -30,11 +33,19 @@ public partial class Scene : Node3D
 			_loadPlaceholders();
 			SceneLoaded += _onSceneLoaded;
 		}
+
+		if (!IsInstanceValid(_tree)) {
+			_tree = GetTree();
+		}
+
+		if (!HasActor(_tree)) {
+			SpawnActorAt(new Vector3(0, 3.6f, 0), _tree.CurrentScene as Scene);
+	 	}
 	}
 
 	public async void Change(Node3D from, string to)
 	{
-		var actor = GetTree().GetNodesInGroup("Actor")[0];
+		var actor = ActorData.Character<Actor>();
 		var transition = _sceneTransition.Instantiate<SceneTransition>();
 		AddChild(transition);
 
@@ -43,20 +54,65 @@ public partial class Scene : Node3D
 		transition.FadeIn();
 		await transition.AnimationFinished();
 
-		if (IsInstanceValid(actor.GetParent())) {
-			actor.GetParent().RemoveChild(actor);
-		}
+		//if (IsInstanceValid(actor.GetParent())) {
+		//	actor.GetParent().RemoveChild(actor);
+		//}
 
-		from.GetTree().CallDeferred("change_scene_to_file", to);
+		_tree = GetTree();
+		Node currentScene = _tree.CurrentScene;
+		var toScene = ResourceLoader.Load<PackedScene>(to).Instantiate<Scene>();
+		_tree.Root.AddChild(toScene);
+		(currentScene as Node3D).Visible = false;
+
 		await ToSignal(GetTree().CreateTimer(.4), "timeout");
-
 		transition.FadeOut();
 		await ToSignal(GetTree().CreateTimer(.5), "timeout");
 
 		ActorData.CanMoveAndSlide = true;
-		transition.QueueFree();
 
-		GD.PrintS($"---: {GetTree().CurrentScene}");
+		transition.QueueFree();
+		_tree.Root.RemoveChild(currentScene);
+
+		_tree.CurrentScene = toScene;
+
+		_setActorPosition(currentScene.SceneFilePath);
+
+		GD.PrintS("changed scene to:", toScene.SceneName);
+	}
+
+	public bool HasActor(SceneTree tree)
+	{
+		return tree.GetNodesInGroup("Actor").Count > 0;
+	}
+
+	public Node3D SpawnActorAt(Vector3 position, Scene scene)
+	{
+		var actor = ResourceLoader.Load<PackedScene>(Resources.Actor).Instantiate<Node3D>();
+		scene.AddChild(actor);
+		actor.Position = position;
+		return actor;
+	}
+
+	private void _setActorPosition(string currentSceneRes)
+	{
+		foreach (EntranceMarker marker in _tree.GetNodesInGroup("EntranceMarker")) {
+			var fromScenePath = ResourceUid.GetIdPath(ResourceUid.TextToId(marker.FromScene));
+			if (fromScenePath == currentSceneRes) {
+				Vector3 startPos = marker.GlobalPosition;
+				// @todo determine character height dynamically
+				if (!HasActor(_tree)) {
+					var actor = SpawnActorAt(startPos, _tree.CurrentScene as Scene);
+					//(actor.GetParent() as Controller).SetFacingDirection(marker.GetFacingDirection());
+					GD.PrintS(ActorData.Controller, marker.GetFacingDirection());
+					ActorData.Controller.SetFacingDirection(marker.GetFacingDirection());
+		 		}
+				else {
+					startPos.Y += 3.55f;
+					ActorData.Parent.GlobalPosition = startPos;
+					ActorData.Controller.SetFacingDirection(marker.GetFacingDirection());
+				}
+			}
+		}
 	}
 
 	private async void _loadPlaceholders()

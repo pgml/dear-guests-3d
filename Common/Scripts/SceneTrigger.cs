@@ -4,6 +4,8 @@ public partial class SceneTrigger : Area3D
 {
 	[Export(PropertyHint.File, "*.tscn")]
 	public string ChangeSceneTo;
+	//[Export]
+	//public PackedScene ChangeSceneTo;
 
 	[Export]
 	public bool AutoTrigger = false;
@@ -41,6 +43,9 @@ public partial class SceneTrigger : Area3D
 
 	private void _enterArea()
 	{
+		var scene = GetTree().CurrentScene as Scene;
+
+		scene.Change(GetOwner<Node3D>(), ChangeSceneTo);
 		//_sceneManager.FromScene = GetTree().CurrentScene.SceneFilePath;
 		//_sceneManager.ChangeScene(GetOwner<Node2D>(), ChangeSceneTo);
 	}

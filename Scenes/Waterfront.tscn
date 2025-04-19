@@ -82,8 +82,9 @@ size = Vector3(1, 40, 65.4905)
 [sub_resource type="BoxShape3D" id="BoxShape3D_e0oj0"]
 size = Vector3(2.06277, 0.1, 0.6)
 
-[node name="Scene" type="Node3D"]
+[node name="Waterfront" type="Node3D"]
 script = ExtResource("1_4f71o")
+SceneName = "Waterfront"
 
 [node name="Content" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_851v1")
@@ -408,8 +409,8 @@ debug_color = Color(1, 0.465935, 0.696315, 1)
 
 [node name="EntranceMarkers" type="Node3D" parent="Content"]
 
-[node name="CafeHappiness" parent="Content/EntranceMarkers" instance=ExtResource("22_e0om7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9113, 9.49067, -21.6013)
+[node name="CafeHappiness" parent="Content/EntranceMarkers" groups=["EntranceMarker"] instance=ExtResource("22_e0om7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.9112, 9.49067, -21.1397)
 FromScene = "uid://dvcrnialcr258"
 FacingDirection = "Down"
 
@@ -446,8 +447,8 @@ DayOfYear = 160
 Latitude = 33.009
 TimeScale = 0.00666
 
-[node name="Actor" parent="." instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 70.9174, 13.068, -43.4086)
+[node name="Actor" parent="." groups=["Actor"] instance=ExtResource("3_6g5e3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.308, 9.41449, -16.8797)
 
 [node name="AI" type="Node3D" parent="."]
 

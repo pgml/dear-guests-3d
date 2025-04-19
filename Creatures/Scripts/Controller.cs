@@ -231,6 +231,11 @@ public partial class Controller : CreatureController, IController
 		);
 	}
 
+	public void SetFacingDirection(Vector2 direction)
+	{
+		CreatureData.AnimationComponent.SetInitialFacingDirection(direction);
+	}
+
 	/// <summary>
 	/// Transfers the CharacterBody3D's position to the characters root node<br />
 	/// Since the CharacterBody3D is not the root node we move the position

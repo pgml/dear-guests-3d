@@ -568,7 +568,7 @@ floor_snap_length = 1.0
 script = ExtResource("2_6neyu")
 CharacterCollider = NodePath("CharacterCollision")
 
-[node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent", "CharacterSprite", "SunShadowSprite")]
+[node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent", "CharacterSprite", "SunShadowSprite") groups=["Actor"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0)
 script = ExtResource("3_ew7kk")
 CreatureData = ExtResource("8_3eq32")

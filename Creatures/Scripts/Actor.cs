@@ -52,4 +52,12 @@ public partial class Actor : Creature
 			CreatureData.Direction = direction;
 		}
 	}
+
+	public void SpawnAtPosition(Vector3 position, Scene scene)
+	{
+		var actor = ResourceLoader.Load<PackedScene>(Resources.Actor).Instantiate<Node3D>();
+		GD.PrintS(actor, scene);
+		scene.AddChild(actor);
+		actor.Position = position;
+	}
 }

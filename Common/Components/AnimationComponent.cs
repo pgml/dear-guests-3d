@@ -17,7 +17,8 @@ public partial class AnimationComponent : Component
 
 		_stateMachine = AnimationTree.Get("parameters/playback").Obj as AnimationNodeStateMachinePlayback;
 		_startingDirection = CreatureData.Controller.StartingDirection;
-		SetInitialFacingDirection();
+		SetInitialFacingDirection(_startingDirection);
+		CreatureData.AnimationComponent = this;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -32,10 +33,11 @@ public partial class AnimationComponent : Component
 		_updateAnimationParameters(_moveDirection);
 	}
 
-	public void SetInitialFacingDirection()
+	public void SetInitialFacingDirection(Vector2 direction)
 	{
-		AnimationTree.Set("parameters/Idle/blend_position", _startingDirection);
-		AnimationTree.Set("parameters/BoxedIdle/blend_position", _startingDirection);
+		GD.PrintS(direction, "asdad");
+		AnimationTree.Set("parameters/Idle/blend_position", direction);
+		AnimationTree.Set("parameters/BoxedIdle/blend_position", direction);
 	}
 
 	private void _updateAnimationParameters(Vector3 moveInput)

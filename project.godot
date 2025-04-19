@@ -64,6 +64,7 @@ MapBounds=""
 InstancePlaceholder=""
 Climbable=""
 PowerSource=""
+EntranceMarker=""
 
 [gui]
 

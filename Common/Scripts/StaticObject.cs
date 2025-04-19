@@ -60,7 +60,8 @@ public partial class StaticObject : Node3D
 	public override void _Ready()
 	{
 		if (!Engine.IsEditorHint()) {
-			World = GetTree().Root.GetNode<World>("Scene/World");
+			//World = GetTree().Root.GetNode<World>("Scene/World");
+			World = GetTree().CurrentScene as World;
 
 			if (IsInstanceValid(World)) {
 				Sun = World.Sun;

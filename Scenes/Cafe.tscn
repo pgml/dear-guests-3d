@@ -43,10 +43,6 @@ environment = ExtResource("3_wmyhn")
 
 [node name="Sun" parent="World" index="1"]
 transform = Transform3D(0.554411, 2.38069e-08, 0.832239, 0.832236, -3.66594e-08, -0.554414, 1.73105e-08, 1, -4.01376e-08, 0, 0, 0)
-light_energy = 1.0
-
-[node name="AnomalySun" parent="World" index="2"]
-light_energy = 0.8
 
 [node name="Content" type="Node3D" parent="."]
 
@@ -293,6 +289,24 @@ texture_filter = 4
 texture = ExtResource("19_55gey")
 region_enabled = true
 region_rect = Rect2(6, 593, 20, 15)
+
+[node name="MapBounds" type="Node3D" parent="Content"]
+
+[node name="Top" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643378, 2.896, -7.20938)
+aabb = AABB(-9.51007, -1.64925, -0.022211, 19.0201, 3.2985, 0.0825079)
+
+[node name="Bottom" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643378, 2.896, 6.56517)
+aabb = AABB(-9.51007, -1.64925, -0.022211, 19.0201, 3.2985, 0.0825079)
+
+[node name="Left" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.82135, 2.896, -0.317963)
+aabb = AABB(-1.98801, -1.64925, -6.84025, 0.0892947, 3.2985, 13.7186)
+
+[node name="Right" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0186, 2.896, -0.317963)
+aabb = AABB(-1.98801, -1.64925, -6.84025, 0.0892947, 3.2985, 13.7186)
 
 [node name="SceneTriggers" type="Node3D" parent="Content"]
 

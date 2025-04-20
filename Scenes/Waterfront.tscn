@@ -410,7 +410,7 @@ debug_color = Color(1, 0.465935, 0.696315, 1)
 [node name="EntranceMarkers" type="Node3D" parent="Content"]
 
 [node name="CafeHappiness" parent="Content/EntranceMarkers" groups=["EntranceMarker"] instance=ExtResource("22_e0om7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7243, 5.92667, -12.4356)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7243, 5.92667, -12.9534)
 FromScene = "uid://dvcrnialcr258"
 FacingDirection = "Down"
 

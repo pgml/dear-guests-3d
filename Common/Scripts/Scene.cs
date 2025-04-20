@@ -18,8 +18,14 @@ public partial class Scene : Node3D
 
 	public async override void _Ready()
 	{
-		_instancePlaceholders = GetTree().GetNodesInGroup("InstancePlaceholder");
+		//_instancePlaceholders = GetTree().GetNodesInGroup("InstancePlaceholder");
 		_sceneTransition = GD.Load<PackedScene>(Resources.SceneTransition);
+
+		if (!IsInstanceValid(_tree)) {
+			_tree = GetTree();
+		}
+
+		_instancePlaceholders = _tree.GetNodesInGroup("InstancePlaceholder");
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		ActorData = GD.Load<CreatureData>(Resources.ActorData);
@@ -32,10 +38,6 @@ public partial class Scene : Node3D
 			_uiLoading.Show();
 			_loadPlaceholders();
 			SceneLoaded += _onSceneLoaded;
-		}
-
-		if (!IsInstanceValid(_tree)) {
-			_tree = GetTree();
 		}
 
 		if (!HasActor(_tree)) {

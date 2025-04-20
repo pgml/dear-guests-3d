@@ -1,24 +1,12 @@
-[gd_scene load_steps=42 format=3 uid="uid://blxmhwe5ji5w0"]
+[gd_scene load_steps=30 format=3 uid="uid://blxmhwe5ji5w0"]
 
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_4f71o"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_w3fsy"]
 [ext_resource type="PackedScene" uid="uid://f1inc7pl32n" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
 [ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="3_6g5e3"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="5_w3fsy"]
-[ext_resource type="PackedScene" uid="uid://d1m8cxrfaqorg" path="res://Assets/Exterior/Tree_Small_Underground_Stone/tree_small_underground.tscn" id="6_g2emv"]
-[ext_resource type="PackedScene" uid="uid://b3f85j5u3164f" path="res://Assets/Exterior/Tree_Tiny_Simmel/tree_tiny_simmel.tscn" id="7_c0wxc"]
-[ext_resource type="PackedScene" uid="uid://dofasu8kldusa" path="res://Assets/Exterior/Street_Light/street_light.tscn" id="8_6b5rd"]
-[ext_resource type="PackedScene" uid="uid://dg1vpe3nn8hrj" path="res://Assets/Exterior/FlowerBox_Horizontal/flower_box_horizontal.tscn" id="9_851v1"]
-[ext_resource type="PackedScene" uid="uid://d4ae121k1xcqc" path="res://Assets/Exterior/FlowerBox_Vertical/flower_box_vertical.tscn" id="10_e0om7"]
-[ext_resource type="PackedScene" uid="uid://do7dx6ksxoaf3" path="res://Assets/Exterior/Bench_Front/bench_front.tscn" id="11_svxe0"]
-[ext_resource type="PackedScene" uid="uid://75xtbr5fblcr" path="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige.tscn" id="12_eldlo"]
-[ext_resource type="PackedScene" uid="uid://cwheu41usd8uc" path="res://Assets/Exterior/Foodstand_Wide_Blue/foodstand_wide_blue.tscn" id="13_psgro"]
-[ext_resource type="PackedScene" uid="uid://cm4x23qunch1g" path="res://Assets/Exterior/Foodstand_Wide_Olive_Tilted/foodstand_wide_olive_tilted.tscn" id="14_gxk6y"]
-[ext_resource type="PackedScene" uid="uid://ccsjl12hfi3lw" path="res://Assets/Exterior/Foodstand_Wide_Olive/foodstand_wide_olive.tscn" id="15_ayy6q"]
-[ext_resource type="PackedScene" uid="uid://yrmmist0esc6" path="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn" id="16_e0oj0"]
 [ext_resource type="Script" uid="uid://clhw8xw8welp2" path="res://Common/Scripts/SceneTrigger.cs" id="16_svxe0"]
 [ext_resource type="Script" uid="uid://ltqhvqcgr87p" path="res://Common/Scripts/Locations.cs" id="17_e0om7"]
-[ext_resource type="PackedScene" uid="uid://c01cdiavnc8pt" path="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn" id="17_vyh1s"]
 [ext_resource type="PackedScene" uid="uid://ce42ff5dpv77b" path="res://Common/Tools/poi.tscn" id="18_svxe0"]
 [ext_resource type="PackedScene" uid="uid://camul2t8tfgtn" path="res://Creatures/joachim.tscn" id="19_6b5rd"]
 [ext_resource type="PackedScene" uid="uid://ba1y8upqstekl" path="res://Assets/Equipment/Replicator/replicator_type_1.tscn" id="21_851v1"]
@@ -178,52 +166,52 @@ debug_color = Color(3.99485e-06, 0.640077, 0.353703, 1)
 [node name="Trees_Bushes" type="Node3D" parent="Content"]
 script = ExtResource("5_w3fsy")
 
-[node name="TreeSmallUnderground" parent="Content/Trees_Bushes" instance=ExtResource("6_g2emv")]
+[node name="TreeSmallUnderground" parent="Content/Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Small_Underground_Stone/tree_small_underground.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.78436, 0.00244884, -4.87382)
 
-[node name="TreeSmallUnderground2" parent="Content/Trees_Bushes" instance=ExtResource("6_g2emv")]
+[node name="TreeSmallUnderground2" parent="Content/Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Small_Underground_Stone/tree_small_underground.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.9151, 0.0123563, -4.92158)
 
-[node name="TreeTinySimmel" parent="Content/Trees_Bushes" instance=ExtResource("7_c0wxc")]
+[node name="TreeTinySimmel" parent="Content/Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Tiny_Simmel/tree_tiny_simmel.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.4535, 5.94, -13.6624)
 
-[node name="TreeTinySimmel2" parent="Content/Trees_Bushes" instance=ExtResource("7_c0wxc")]
+[node name="TreeTinySimmel2" parent="Content/Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Tiny_Simmel/tree_tiny_simmel.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.9488, 5.93999, -13.746)
 
-[node name="TreeTinySimmel3" parent="Content/Trees_Bushes" instance=ExtResource("7_c0wxc")]
+[node name="TreeTinySimmel3" parent="Content/Trees_Bushes" instance_placeholder="res://Assets/Exterior/Tree_Tiny_Simmel/tree_tiny_simmel.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63, 5.93999, -13.8174)
 
 [node name="Lights" type="Node3D" parent="Content"]
 script = ExtResource("5_w3fsy")
 
-[node name="StreetLight" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57147, -1.19209e-07, -4.86045)
 
-[node name="StreetLight2" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight2" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3943, 5.94, -12.4304)
 
-[node name="StreetLight3" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight3" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.8146, 0.112542, -5.23527)
 
-[node name="StreetLight4" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight4" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.058, 11.8899, -26.1767)
 
-[node name="StreetLight5" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight5" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48.096, 8.1675, -35.3093)
 
-[node name="StreetLight6" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight6" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.14743, 5.94, -12.4674)
 
-[node name="StreetLight7" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight7" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.15578, 13.365, -36.2957)
 
-[node name="StreetLight8" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight8" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2305, 11.8899, -25.9993)
 
-[node name="StreetLight9" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight9" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.9529, 0.0967025, -8.83955)
 
-[node name="StreetLight10" parent="Content/Lights" instance=ExtResource("8_6b5rd")]
+[node name="StreetLight10" parent="Content/Lights" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.4451, 8.16749, -34.6532)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Content/Lights"]
@@ -239,64 +227,64 @@ spot_angle = 84.3
 [node name="Props" type="Node3D" parent="Content"]
 script = ExtResource("5_w3fsy")
 
-[node name="FlowerBoxHorizontal" parent="Content/Props" instance=ExtResource("9_851v1")]
+[node name="FlowerBoxHorizontal" parent="Content/Props" instance_placeholder="res://Assets/Exterior/FlowerBox_Horizontal/flower_box_horizontal.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.0013, 5.94, -10.0074)
 
-[node name="FlowerBoxVertical2" parent="Content/Props" instance=ExtResource("10_e0om7")]
+[node name="FlowerBoxVertical2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/FlowerBox_Vertical/flower_box_vertical.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9555, 5.91202, -10.5533)
 
-[node name="FlowerBoxHorizontal2" parent="Content/Props" instance=ExtResource("9_851v1")]
+[node name="FlowerBoxHorizontal2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/FlowerBox_Horizontal/flower_box_horizontal.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.1031, 5.94, -9.74478)
 
-[node name="FlowerBoxVertical" parent="Content/Props" instance=ExtResource("10_e0om7")]
+[node name="FlowerBoxVertical" parent="Content/Props" instance_placeholder="res://Assets/Exterior/FlowerBox_Vertical/flower_box_vertical.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.3354, 5.91202, -9.76604)
 
-[node name="BenchFront" parent="Content/Props" instance=ExtResource("11_svxe0")]
+[node name="BenchFront" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.09098, 3.8147e-06, -5.13341)
 
-[node name="BenchFront2" parent="Content/Props" instance=ExtResource("11_svxe0")]
+[node name="BenchFront2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3055, 0, -4.95703)
 
-[node name="BenchFront3" parent="Content/Props" instance=ExtResource("11_svxe0")]
+[node name="BenchFront3" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.3789, 0.00990367, -4.74802)
 
-[node name="BenchFront4" parent="Content/Props" instance=ExtResource("11_svxe0")]
+[node name="BenchFront4" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.3427, 0, -4.60916)
 
-[node name="BenchFront5" parent="Content/Props" instance=ExtResource("11_svxe0")]
+[node name="BenchFront5" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Bench_Front/bench_front.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.255, 0.0835076, -8.93427)
 
-[node name="FoodstantSmallBeige" parent="Content/Props" instance=ExtResource("12_eldlo")]
+[node name="FoodstantSmallBeige" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3738, 11.8899, -17.1023)
 
-[node name="FoodstandWideBlue" parent="Content/Props" instance=ExtResource("13_psgro")]
+[node name="FoodstandWideBlue" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Blue/foodstand_wide_blue.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5817, 11.8899, -17.2034)
 
-[node name="FoodstandWideOliveTilted" parent="Content/Props" instance=ExtResource("14_gxk6y")]
+[node name="FoodstandWideOliveTilted" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Olive_Tilted/foodstand_wide_olive_tilted.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.045, 11.9277, -23.9626)
 
-[node name="FoodstantSmallBeige2" parent="Content/Props" instance=ExtResource("12_eldlo")]
+[node name="FoodstantSmallBeige2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6329, 11.8899, -17.0857)
 
-[node name="FoodStandWideOlive" parent="Content/Props" instance=ExtResource("15_ayy6q")]
+[node name="FoodStandWideOlive" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Foodstand_Wide_Olive/foodstand_wide_olive.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.5616, 11.88, -24.677)
 
-[node name="RubbishBin" parent="Content/Props" instance=ExtResource("16_e0oj0")]
+[node name="RubbishBin" parent="Content/Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3955, 1.52588e-05, -5.02945)
 
-[node name="RubbishBin2" parent="Content/Props" instance=ExtResource("16_e0oj0")]
+[node name="RubbishBin2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.7382, 0, -5.26101)
 
-[node name="RubbishBin3" parent="Content/Props" instance=ExtResource("16_e0oj0")]
+[node name="RubbishBin3" parent="Content/Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.7999, 3.81469e-06, -9.0738)
 
-[node name="RubbishBin4" parent="Content/Props" instance=ExtResource("16_e0oj0")]
+[node name="RubbishBin4" parent="Content/Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.80437, 11.88, -26.3592)
 
-[node name="RubbishContainer" parent="Content/Props" instance=ExtResource("17_vyh1s")]
+[node name="RubbishContainer" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6023, 6.0467, -11.9404)
 
-[node name="RubbishContainer2" parent="Content/Props" instance=ExtResource("17_vyh1s")]
+[node name="RubbishContainer2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.4832, 6.0467, -11.9581)
 
 [node name="AdditionalCollisions" type="Node3D" parent="Content"]

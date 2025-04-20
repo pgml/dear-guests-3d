@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dvcrnialcr258"]
+[gd_scene load_steps=22 format=3 uid="uid://dvcrnialcr258"]
 
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_1tv80"]
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_wmvcl"]
@@ -7,20 +7,23 @@
 [ext_resource type="PackedScene" uid="uid://c7lwh4dvxmt6n" path="res://Assets/Furniture/Bottles/bottle_blue.tscn" id="4_2f4rf"]
 [ext_resource type="PackedScene" uid="uid://rvrt45cvpvrd" path="res://Resources/Crocotile/Cafe_Town_Front.gltf" id="5_bdnae"]
 [ext_resource type="PackedScene" uid="uid://bdvtj7cx5bh5o" path="res://Assets/Furniture/Bench_Booth/bench_booth.tscn" id="6_ds81e"]
-[ext_resource type="PackedScene" uid="uid://crlah4owphw8p" path="res://Assets/Furniture/Counter/counter.tscn" id="6_kiniw"]
+[ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="6_hxbu8"]
 [ext_resource type="PackedScene" uid="uid://s1pnuterbpy4" path="res://Assets/Furniture/Table_Long/table_long.tscn" id="8_7nx10"]
 [ext_resource type="PackedScene" uid="uid://bu21btmpi3naj" path="res://Assets/Furniture/Chair_1/chair_1_l.tscn" id="10_1maqr"]
 [ext_resource type="PackedScene" uid="uid://bq4i3g1k74ec4" path="res://Assets/Furniture/Chair_1/chair_1_r.tscn" id="10_2ql0y"]
 [ext_resource type="PackedScene" uid="uid://dthnjbeimbnhs" path="res://Assets/Furniture/Table_Short/table_short.tscn" id="11_na8qa"]
-[ext_resource type="PackedScene" uid="uid://bqj562h4x5crg" path="res://Assets/Furniture/BarStool_1/bar_stool_1.tscn" id="12_dsij8"]
-[ext_resource type="PackedScene" uid="uid://plfieymkko3n" path="res://Assets/Furniture/Shelf/shelf.tscn" id="13_ab7vx"]
 [ext_resource type="PackedScene" uid="uid://cp1dhdgmesqu8" path="res://Assets/Furniture/Bottles/cup.tscn" id="14_hxbu8"]
-[ext_resource type="PackedScene" uid="uid://vurf4ohymdcb" path="res://Assets/Furniture/Fridge/fridge.tscn" id="14_j00ud"]
 [ext_resource type="PackedScene" uid="uid://ch3lsem0ncpvq" path="res://Assets/Furniture/Bottles/bottle_brown.tscn" id="15_pjwsc"]
 [ext_resource type="PackedScene" uid="uid://ca0kgkrbvdkt5" path="res://Assets/Furniture/Bottles/bottle_green.tscn" id="16_hxbu8"]
 [ext_resource type="Texture2D" uid="uid://dfxesufusbh01" path="res://Assets/Sprites/Tiles/decals.png" id="19_55gey"]
 [ext_resource type="Script" uid="uid://clhw8xw8welp2" path="res://Common/Scripts/SceneTrigger.cs" id="20_gil5b"]
 [ext_resource type="PackedScene" uid="uid://dohf3b0ohy80a" path="res://Common/Tools/entrance_marker.tscn" id="21_7a8qd"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_hxbu8"]
+vertices = PackedVector3Array(1.59, 0.31, -6.74977, 1.59, 0.31, -4.49977, 2.59, 0.31, -4.49977, 2.59, 0.31, -6.74977, -7.91, 0.31, -3.49977, -7.91, 0.31, -1.49977, -7.16, 0.31, -1.49977, -7.16, 0.31, -3.49977, -6.41, 2.56, -3.49977, -6.41, 2.56, -1.49977, -6.16, 1.81, -2.74977, -1.91, 1.81, -2.74977, -1.66, 2.56, -1.49977, -1.66, 2.56, -3.49977, -5.66, 1.81, -2.99977, -2.41, 1.81, -2.99977, -5.41, 2.06, -0.999775, -2.66, 2.06, -0.999775, -2.8475, 1.81, -3.49977, -0.91, 0.31, -3.49977, -0.91, 0.31, -1.49977, -0.41, 0.31, -1.49977, -0.41, 0.31, -3.49977, 3.34, 0.31, 2.75023, 4.09, 0.31, 2.75023, 2.84, 0.31, 2.25023, 2.84, 0.31, 1.25023, 4.09, 0.31, 0.750225, 3.34, 0.31, 0.750225, -0.41, 0.81, 2.75023, -0.16, 0.81, 3.50023, 0.59, 0.31, 3.00023, -5.41, 0.81, 3.00023, -5.16, 0.81, 3.75023, -4.41, 0.81, 3.75023, -3.41, 0.81, 2.50023, 3.09, 0.31, 3.50023, 1.09, 0.31, 3.50023, 2.59, 0.31, -0.249775, 9.34, 0.31, -1.74977, 9.34, 0.31, -2.74977, 7.84, 0.31, -2.74977, 6.59, 0.31, -0.249775, 6.59, 0.31, 1.75023, 5.09, 0.31, -2.24977, 5.84, 0.31, -1.49977, 7.84, 0.31, -3.49977, 0.34, 0.31, -3.49977, 2.84, 0.31, -2.24977, -1.16, 1.56, 3.00023, -3.16, 1.81, 3.00023, -3.41, 1.81, 3.75023, -0.66, 2.06, 3.75023, -7.91, 0.31, -0.749775, -7.91, 0.81, 3.00023, 0.0900002, 0.31, -0.749775, -2.535, 0.31, 1.68773, -5.14495, 0.81, 2.01917, -0.91, 0.81, 2.75023, -1.41, 0.81, 2.50023, -0.91, 0.31, 1.41689, 0.673333, 0.31, 2.58356, 4.59, 1.81, 3.00023, 3.59, 1.56, 3.50023, 5.34, 1.81, 3.75023, 6.09, 1.81, 2.75023, 6.09, 1.81, -0.249775, 4.59, 1.81, 0.500225, 3.09, 1.81, -0.499775, 3.59, 1.56, 0.250225, 5.34, 1.81, -1.49977, 3.09, 1.81, -1.74977, 3.34, 1.56, 1.50023, 3.34, 1.56, 2.00023, 3.84, 1.56, 2.00023, 3.84, 1.56, 1.50023, 4.59, 2.31, 4.50023, 4.59, 2.31, 5.50023, 6.09, 2.31, 5.50023, 6.09, 2.31, 4.25023)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5), PackedInt32Array(10, 9, 8), PackedInt32Array(13, 12, 11), PackedInt32Array(14, 10, 8), PackedInt32Array(13, 11, 15), PackedInt32Array(16, 14, 17), PackedInt32Array(17, 14, 15), PackedInt32Array(13, 15, 18), PackedInt32Array(18, 15, 14), PackedInt32Array(18, 14, 8), PackedInt32Array(22, 21, 19), PackedInt32Array(19, 21, 20), PackedInt32Array(25, 24, 23), PackedInt32Array(26, 28, 27), PackedInt32Array(31, 30, 29), PackedInt32Array(33, 32, 34), PackedInt32Array(34, 32, 35), PackedInt32Array(23, 36, 25), PackedInt32Array(25, 36, 37), PackedInt32Array(25, 37, 31), PackedInt32Array(38, 28, 26), PackedInt32Array(40, 39, 41), PackedInt32Array(41, 39, 42), PackedInt32Array(42, 39, 43), PackedInt32Array(41, 45, 44), PackedInt32Array(41, 44, 46), PackedInt32Array(46, 44, 48), PackedInt32Array(46, 48, 47), PackedInt32Array(50, 49, 51), PackedInt32Array(51, 49, 52), PackedInt32Array(56, 53, 55), PackedInt32Array(53, 57, 54), PackedInt32Array(54, 57, 32), PackedInt32Array(32, 57, 35), PackedInt32Array(35, 57, 56), PackedInt32Array(56, 57, 53), PackedInt32Array(59, 58, 49), PackedInt32Array(49, 58, 52), PackedInt32Array(41, 42, 45), PackedInt32Array(58, 59, 29), PackedInt32Array(35, 56, 59), PackedInt32Array(59, 56, 60), PackedInt32Array(60, 56, 55), PackedInt32Array(59, 60, 29), PackedInt32Array(29, 60, 61), PackedInt32Array(61, 60, 55), PackedInt32Array(61, 55, 38), PackedInt32Array(61, 38, 26), PackedInt32Array(61, 26, 25), PackedInt32Array(29, 61, 31), PackedInt32Array(31, 61, 25), PackedInt32Array(38, 55, 48), PackedInt32Array(48, 55, 47), PackedInt32Array(63, 62, 64), PackedInt32Array(64, 62, 65), PackedInt32Array(65, 62, 67), PackedInt32Array(65, 67, 66), PackedInt32Array(69, 68, 67), PackedInt32Array(67, 68, 71), PackedInt32Array(67, 71, 70), PackedInt32Array(67, 70, 66), PackedInt32Array(75, 74, 72), PackedInt32Array(72, 74, 73), PackedInt32Array(77, 76, 78), PackedInt32Array(78, 76, 79)]
+agent_radius = 0.2
+agent_max_climb = 0.75
 
 [sub_resource type="QuadMesh" id="QuadMesh_gil5b"]
 size = Vector2(5.195, 0.41)
@@ -42,9 +45,14 @@ Latitude = 33.0
 environment = ExtResource("3_wmyhn")
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.554411, 2.38069e-08, 0.832239, 0.832236, -3.66594e-08, -0.554414, 1.73105e-08, 1, -4.01376e-08, 0, 0, 0)
+transform = Transform3D(0.825873, -0.526081, 0.202892, 0.414046, 0.810094, 0.415105, -0.382739, -0.258819, 0.886859, 0, 0, 0)
+light_energy = 1.0
 
-[node name="Content" type="Node3D" parent="."]
+[node name="AnomalySun" parent="World" index="2"]
+light_energy = 0.8
+
+[node name="Content" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_hxbu8")
 
 [node name="Lights" type="Node3D" parent="Content"]
 
@@ -112,8 +120,9 @@ cast_shadow = 3
 mesh = SubResource("QuadMesh_gil5b")
 
 [node name="Props" type="Node3D" parent="Content"]
+script = ExtResource("6_hxbu8")
 
-[node name="Counter" parent="Content/Props" instance=ExtResource("6_kiniw")]
+[node name="Counter" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Counter/counter.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51028, 0, 1.87089)
 
 [node name="Booth" type="Node3D" parent="Content/Props"]
@@ -148,31 +157,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.02122, -1.44875, -2.78918)
 [node name="Chair1_l" parent="Content/Props/TableGrp2" instance=ExtResource("10_1maqr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.72594, -0.768126, -3.48608)
 
-[node name="BarStool_1" parent="Content/Props" instance=ExtResource("12_dsij8")]
+[node name="BarStool_1" parent="Content/Props" instance_placeholder="res://Assets/Furniture/BarStool_1/bar_stool_1.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.79238, 0, 0.4533)
 
-[node name="BarStool_2" parent="Content/Props" instance=ExtResource("12_dsij8")]
+[node name="BarStool_2" parent="Content/Props" instance_placeholder="res://Assets/Furniture/BarStool_1/bar_stool_1.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.55766, 0, 2.14387)
 
-[node name="BarStool_3" parent="Content/Props" instance=ExtResource("12_dsij8")]
+[node name="BarStool_3" parent="Content/Props" instance_placeholder="res://Assets/Furniture/BarStool_1/bar_stool_1.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.80369, 0, 3.80968)
 
-[node name="Shelf" parent="Content/Props" instance=ExtResource("13_ab7vx")]
+[node name="Shelf" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Shelf/shelf.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05602, 2.95236, -4.12113)
 
-[node name="Shelf2" parent="Content/Props" instance=ExtResource("13_ab7vx")]
+[node name="Shelf2" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Shelf/shelf.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05602, 1.71087, -4.12113)
 
-[node name="Shelf3" parent="Content/Props" instance=ExtResource("13_ab7vx")]
+[node name="Shelf3" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Shelf/shelf.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.27865, 2.91756, -4.12113)
 
-[node name="Shelf4" parent="Content/Props" instance=ExtResource("13_ab7vx")]
+[node name="Shelf4" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Shelf/shelf.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.26817, 1.71847, -4.12113)
 
-[node name="Shelf5" parent="Content/Props" instance=ExtResource("13_ab7vx")]
+[node name="Shelf5" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Shelf/shelf.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.49968, 2.89169, -4.12113)
 
-[node name="Fridge" parent="Content/Props" instance=ExtResource("14_j00ud")]
+[node name="Fridge" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Fridge/fridge.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.53826, 0.061875, -3.20295)
 
 [node name="ShelfContent" type="Node3D" parent="Content/Props"]
@@ -307,6 +316,23 @@ aabb = AABB(-1.98801, -1.64925, -6.84025, 0.0892947, 3.2985, 13.7186)
 [node name="Right" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0186, 2.896, -0.317963)
 aabb = AABB(-1.98801, -1.64925, -6.84025, 0.0892947, 3.2985, 13.7186)
+
+[node name="NavObstacles" type="Node3D" parent="Content"]
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="Content/NavObstacles"]
+vertices = PackedVector3Array(-8.63039, 0, 3.94395, 5.58338, 0, 3.82082, 5.35696, 0, 5.8337, -10.4404, 0, 5.88695, -9.93933, 0, -2.49768, -8.35708, 0, -2.21738)
+affect_navigation_mesh = true
+
+[node name="NavigationObstacle3D2" type="NavigationObstacle3D" parent="Content/NavObstacles"]
+height = 0.2
+vertices = PackedVector3Array(9.97508, 0, -2.12861, 9.92767, 0, -4.86467, 10.5568, 0, -4.8945, 10.4689, 0, -2.10496)
+affect_navigation_mesh = true
+
+[node name="NavigationObstacle3D3" type="NavigationObstacle3D" parent="Content/NavObstacles"]
+transform = Transform3D(1, 0, 0, 0, 0.999992, -0.0040317, 0, 0.0040317, 0.999992, 0, 4.15884, 0)
+height = 3.53
+vertices = PackedVector3Array(-9.58137, 0, -10.8363, -9.79172, 0, 6.81396, 14.2568, 0, 6.86631, 13.7919, 0, -11.456)
+affect_navigation_mesh = true
 
 [node name="SceneTriggers" type="Node3D" parent="Content"]
 

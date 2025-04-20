@@ -35,10 +35,9 @@ shadow_enabled = true
 shadow_bias = 0.04
 shadow_normal_bias = 2.5
 shadow_caster_mask = 4294967293
-directional_shadow_mode = 1
-directional_shadow_split_1 = 0.527
-directional_shadow_split_2 = 0.497
-directional_shadow_split_3 = 0.563
+directional_shadow_split_1 = 0.352
+directional_shadow_split_2 = 0.475
+directional_shadow_split_3 = 0.51
 
 [node name="AnomalySun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.961262, 0.217205, -0.169699, 0, 0.615661, 0.78801, 0.275637, -0.757484, 0.591812, 0, 0, 0)
@@ -110,6 +109,6 @@ region_rect = Rect2(201, 842, 54, 101)
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)
 projection = 1
 current = true
-size = 21.844
+size = 14.4
 far = 110.0
 script = ExtResource("4_f76b8")

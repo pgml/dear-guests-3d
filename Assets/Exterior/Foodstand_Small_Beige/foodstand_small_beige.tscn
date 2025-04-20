@@ -5,13 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://h3cadh8eknin" path="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige_mesh.tscn" id="2_vrs0h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dhn3y"]
-size = Vector3(4.24829, 5.35426, 3.15686)
+size = Vector3(3.53815, 5.35426, 2.40265)
 
 [node name="FoodstantSmallBeige" type="Node3D" groups=["Climbable"]]
 script = ExtResource("1_dhn3y")
 
 [node name="Mesh" parent="." instance=ExtResource("2_vrs0h")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
+cast_shadow = 2
 
 [node name="Billboard" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.145, 0.2)
@@ -27,11 +28,11 @@ region_rect = Rect2(832, 1071, 63, 81)
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0533447, 2.69109, -1.4621)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0870665, 2.69109, -1.08499)
 shape = SubResource("BoxShape3D_dhn3y")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
-height = 6.5
-vertices = PackedVector3Array(-3.03174, 0, -3.99111, -3.03567, 0, 0.957184, 2.83167, 0, 0.932976, 2.97243, 0, -3.96675)
+height = 3.75
+vertices = PackedVector3Array(-1.75771, 0, -2.11634, -1.77538, 0, 0.295913, 1.74126, 0, 0.385098, 1.66218, 0, -2.22288)
 affect_navigation_mesh = true
 avoidance_enabled = false

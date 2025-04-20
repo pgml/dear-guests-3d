@@ -6,7 +6,7 @@
 [node name="TreeSmallUnderground" type="Node3D"]
 
 [node name="tree_small" parent="." instance=ExtResource("1_2e87w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21656, 0.299896, 0.400795)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21656, 0.104397, 0.195595)
 
 [node name="tree_small_underground" parent="." instance=ExtResource("2_rigtd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.142596, -0.00245647, -0.127903)

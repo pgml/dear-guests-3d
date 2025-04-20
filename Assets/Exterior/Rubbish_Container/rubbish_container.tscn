@@ -5,13 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_sem34"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sem34"]
-size = Vector3(4.18384, 3.75886, 2.25)
+size = Vector3(2.86798, 2.47475, 1.8689)
 
 [node name="RubbishContainer" type="Node3D" groups=["Climbable"]]
 script = ExtResource("1_6uyms")
 
 [node name="Mesh" parent="." instance=ExtResource("2_sem34")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 cast_shadow = 2
 
 [node name="Billboard" type="Sprite3D" parent="."]
@@ -28,5 +28,5 @@ region_rect = Rect2(0, 257, 64, 63)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.427463)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.985603, -0.169074, 0, 0.169074, 0.985603, -0.080719, 1.98067, -0.992169)
+transform = Transform3D(1, 0, 0, 0, 0.985603, -0.169074, 0, 0.169074, 0.985603, -0.0132449, 1.27085, -0.651837)
 shape = SubResource("BoxShape3D_sem34")

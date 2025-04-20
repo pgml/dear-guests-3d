@@ -8,9 +8,6 @@ public partial class StaticObject : Node3D
 	public Callable SetPrepareForTopDown => Callable.From(PrepareForTopdown);
 
 	[Export]
-	public bool IsIndoor { get; set; }
-
-	[Export]
 	public bool IsSprite { get; set; }
 
 	[Export]
@@ -26,9 +23,8 @@ public partial class StaticObject : Node3D
 		}
 	}
 
-	public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
-
-	public Vector3 TopDownScaleIndoor = new Vector3(1.3f, 1.82f, 1.86f);
+	//public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
+	public Vector3 TopDownScale = new Vector3(0.69f, 0.99f, 1.0f);
 
 	public Node Mesh {
 		get {
@@ -114,7 +110,7 @@ public partial class StaticObject : Node3D
 	{
 		_renameMesh();
 
-		Vector3 scale = IsIndoor ? TopDownScaleIndoor : TopDownScale;
+		Vector3 scale = TopDownScale;
 		if (IsInstanceValid(Mesh)) {
 			if (SunShadowMesh is not null) {
 				SunShadowMesh.Scale = scale;

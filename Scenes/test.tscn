@@ -76,7 +76,9 @@ DayTimeHours = 10.0
 Latitude = -10.054
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.837761, -7.63098e-09, -0.546028, -0.546026, -4.30402e-08, -0.837764, -1.71081e-08, 1, -4.02242e-08, 0, 0, 0)
+transform = Transform3D(0.837761, -7.63097e-09, -0.546028, -0.546026, -4.30401e-08, -0.837764, -1.71081e-08, 1, -4.02242e-08, 0, 0, 0)
+directional_shadow_split_1 = 0.328
+directional_shadow_split_2 = 0.379
 
 [node name="AnomalySun" parent="World" index="2"]
 transform = Transform3D(0.961262, 0, -0.275637, 0.217205, 0.615662, 0.757484, 0.169699, -0.788011, 0.591812, 0, 0, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=73 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -9,14 +9,12 @@
 [ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="4_p5kc0"]
 [ext_resource type="PackedScene" uid="uid://cbpvyb7u8275d" path="res://Common/Components/ClimbComponent.tscn" id="5_ejg33"]
 [ext_resource type="PackedScene" uid="uid://dg3ceau2pn23w" path="res://Common/Components/BuildComponent.tscn" id="6_2kvs5"]
-[ext_resource type="Texture2D" uid="uid://dibopwl34gxtd" path="res://Assets/Sprites/shadow.png" id="6_i7mqa"]
 [ext_resource type="Resource" uid="uid://brw1tt2r2vtxh" path="res://Creatures/actor_data.tres" id="8_3eq32"]
 [ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
 [ext_resource type="Resource" uid="uid://debmpq2sbx6j8" path="res://Creatures/actor_inventory.tres" id="9_3eq32"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1pvj"]
-radius = 0.8
-height = 5.0
+height = 2.86407
 
 [sub_resource type="Animation" id="Animation_qc4db"]
 length = 0.001
@@ -562,26 +560,26 @@ MinClimbHeight = 1.0
 [node name="BuildComponent" parent="Components" instance=ExtResource("6_2kvs5")]
 
 [node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterCollider")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.543, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.89429, 0)
 floor_max_angle = 1.39626
 floor_snap_length = 1.0
 script = ExtResource("2_6neyu")
 CharacterCollider = NodePath("CharacterCollision")
+DefaultWalkSpeed = 6.0
+DefaultRunSpeed = 10.0
 
-[node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent", "CharacterSprite", "SunShadowSprite") groups=["Actor"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.22, 0)
+[node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent", "CharacterSprite") groups=["Actor"]]
+transform = Transform3D(1.12, 0, 0, 0, 1.58, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("3_ew7kk")
 CreatureData = ExtResource("8_3eq32")
 Inventory = ExtResource("9_3eq32")
 Parent = NodePath("../..")
 ComponentsParent = NodePath("../../Components")
 CharacterSprite = NodePath("CharacterSprite")
-SunShadowSprite = NodePath("SunShadowMesh")
 
 [node name="CharacterSprite" type="Sprite3D" parent="Controller/Character"]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 cast_shadow = 2
-pixel_size = 0.07
+pixel_size = 0.04
 shaded = true
 alpha_cut = 2
 texture_filter = 4
@@ -589,31 +587,10 @@ texture = ExtResource("4_p5kc0")
 hframes = 6
 vframes = 20
 
-[node name="SunShadowMesh" type="Sprite3D" parent="Controller/Character"]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, -0.5)
-visible = false
-cast_shadow = 3
-pixel_size = 0.07
-shaded = true
-alpha_cut = 2
-texture_filter = 0
-texture = ExtResource("4_p5kc0")
-hframes = 6
-vframes = 16
-
 [node name="CharacterCollision" type="CollisionShape3D" parent="Controller"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.043, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.469707, 0)
 shape = SubResource("CapsuleShape3D_y1pvj")
 debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
-
-[node name="Shadow" type="Sprite3D" parent="Controller"]
-transform = Transform3D(0.35, 0, 0, 0, 0.0642826, 0.352443, 0, -0.28996, 0.0781348, 0, -3.33476, -0.159)
-visible = false
-cast_shadow = 3
-shaded = true
-alpha_cut = 2
-texture_filter = 0
-texture = ExtResource("6_i7mqa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

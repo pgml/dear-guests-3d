@@ -8,7 +8,7 @@
 script = ExtResource("1_ilt1d")
 
 [node name="Mesh" parent="." instance=ExtResource("2_70sac")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, -0.0625)
+transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, -0.0625)
 
 [node name="Billboard" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.051, 5.841, 0.2)

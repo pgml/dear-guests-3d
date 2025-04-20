@@ -6,11 +6,11 @@
 [node name="TreeTinySimmel" type="Node3D"]
 
 [node name="TreeTiny" parent="." instance=ExtResource("2_p02uv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67584, -2.16016)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.867468, -1.29402)
 
 [node name="TreePlatformSimmel" parent="." instance=ExtResource("1_3cpt6")]
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
 height = 2.0
-vertices = PackedVector3Array(-4.00133, 0, 0.992242, -3.97965, 0, -6.09636, 3.99416, 0, -6.02006, 4.00179, 0, 0.958211)
+vertices = PackedVector3Array(-2.10421, 0, 0.222453, -2.08136, 0, -3.3605, 2.04117, 0, -3.29415, 2.02449, 0, 0.174895)
 affect_navigation_mesh = true

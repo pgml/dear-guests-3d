@@ -8,10 +8,10 @@
 script = ExtResource("1_kgmw3")
 
 [node name="Mesh" parent="." instance=ExtResource("2_uytbn")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Billboard" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.114, 0.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.342, 0.2)
 visible = false
 pixel_size = 0.07
 billboard = 1
@@ -22,7 +22,6 @@ region_rect = Rect2(169, 219, 78, 37)
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.596296)
-height = 2.0
-vertices = PackedVector3Array(-3.31787, 0, -1.65335, -3.2483, 0, 1.5463, 3.52948, 0, 1.49308, 3.38217, 0, -1.64462)
+vertices = PackedVector3Array(-1.73327, 0, -0.262944, -1.74001, 0, 0.650104, 1.72439, 0, 0.670652, 1.71368, 0, -0.276328)
 affect_navigation_mesh = true
 avoidance_enabled = false

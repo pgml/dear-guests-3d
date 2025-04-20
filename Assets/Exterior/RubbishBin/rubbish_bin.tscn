@@ -9,7 +9,7 @@ script = ExtResource("1_8erqp")
 SunShadowMesh = NodePath("SunShadowMesh")
 
 [node name="Mesh" parent="." instance=ExtResource("2_g6xta")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 cast_shadow = 2
 
 [node name="Billboard" type="Sprite3D" parent="."]
@@ -23,7 +23,7 @@ region_enabled = true
 region_rect = Rect2(39, 27, 18, 37)
 
 [node name="SunShadowMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 cast_shadow = 3
 skeleton = NodePath("")
@@ -74,7 +74,7 @@ metadata/extras = {
 }
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
-height = 3.5
-vertices = PackedVector3Array(-1.03553, 0, 0.622972, -1.04358, 0, -0.762948, 1.00408, 0, -0.670581, 1.00584, 0, 0.678965)
+height = 1.75
+vertices = PackedVector3Array(-0.666622, 0, 0.343822, -0.766385, 0, -0.483507, 0.762448, 0, -0.484222, 0.686194, 0, 0.391724)
 affect_navigation_mesh = true
 avoidance_enabled = false

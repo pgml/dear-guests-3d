@@ -101,16 +101,14 @@ public partial class Scene : Node3D
 				Vector3 startPos = marker.GlobalPosition;
 				// @todo determine character height dynamically
 				if (!HasActor(_tree)) {
-					var actor = SpawnActorAt(startPos, _tree.CurrentScene as Scene);
-					//(actor.GetParent() as Controller).SetFacingDirection(marker.GetFacingDirection());
-					GD.PrintS(ActorData.Controller, marker.GetFacingDirection());
-					ActorData.Controller.SetFacingDirection(marker.GetFacingDirection());
+					SpawnActorAt(startPos, _tree.CurrentScene as Scene);
 		 		}
 				else {
 					startPos.Y += 3.55f;
 					ActorData.Parent.GlobalPosition = startPos;
-					ActorData.Controller.SetFacingDirection(marker.GetFacingDirection());
 				}
+
+				ActorData.Controller.StartingDirection = marker.GetFacingDirection();
 			}
 		}
 	}

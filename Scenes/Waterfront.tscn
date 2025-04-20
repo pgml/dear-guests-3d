@@ -398,20 +398,19 @@ avoidance_enabled = false
 [node name="SceneTriggers" type="Node3D" parent="Content"]
 
 [node name="CafeHappiness" type="Area3D" parent="Content/SceneTriggers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.0415, 9.55777, -10.4837)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7904, 6.03161, -13.8848)
 script = ExtResource("16_svxe0")
 ChangeSceneTo = "uid://dvcrnialcr258"
 AutoTrigger = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Content/SceneTriggers/CafeHappiness"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.305105, 0, 0)
 shape = SubResource("BoxShape3D_e0oj0")
 debug_color = Color(1, 0.465935, 0.696315, 1)
 
 [node name="EntranceMarkers" type="Node3D" parent="Content"]
 
 [node name="CafeHappiness" parent="Content/EntranceMarkers" groups=["EntranceMarker"] instance=ExtResource("22_e0om7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7243, 5.92667, -13.0393)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.7243, 5.92667, -12.4356)
 FromScene = "uid://dvcrnialcr258"
 FacingDirection = "Down"
 
@@ -449,7 +448,7 @@ Latitude = 33.009
 TimeScale = 0.00666
 
 [node name="Actor" parent="." groups=["Actor"] instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.3629, 5.95858, -12.8146)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.6517, 5.95858, -10.3032)
 
 [node name="AI" type="Node3D" parent="."]
 

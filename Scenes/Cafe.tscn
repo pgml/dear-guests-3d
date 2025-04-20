@@ -42,7 +42,7 @@ Latitude = 33.0
 environment = ExtResource("3_wmyhn")
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.825872, -0.526081, 0.202892, 0.414046, 0.810093, 0.415105, -0.382739, -0.258819, 0.88686, 0, 0, 0)
+transform = Transform3D(0.554411, 2.38069e-08, 0.832239, 0.832236, -3.66594e-08, -0.554414, 1.73105e-08, 1, -4.01376e-08, 0, 0, 0)
 light_energy = 1.0
 
 [node name="AnomalySun" parent="World" index="2"]
@@ -309,7 +309,7 @@ shape = SubResource("BoxShape3D_55gey")
 [node name="EntranceMarkers" type="Node3D" parent="Content"]
 
 [node name="Waterfront" parent="Content/EntranceMarkers" groups=["EntranceMarker"] instance=ExtResource("21_7a8qd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.679233, -0.0133301, 3.41457)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.679233, -0.01333, 3.50651)
 FromScene = "uid://blxmhwe5ji5w0"
 
 [editable path="World"]

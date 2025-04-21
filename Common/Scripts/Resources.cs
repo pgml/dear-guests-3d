@@ -10,7 +10,8 @@ public static class Resources
 	public static readonly string ReplicatorStorage = "res://Common/replicator_storage.tres";
 
 	// Creatures
-	public static readonly string Actor = "res://Creatures/actor.tscn";
+	//public static readonly string Actor = "res://Creatures/actor.tscn";
+	public static readonly string Actor = "uid://7nos3bf51wac";
 
 	// Tools
 	public static readonly string AudioInstance = "res://Common/Tools/audio_instance.tscn";

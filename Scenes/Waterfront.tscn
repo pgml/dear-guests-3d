@@ -1,14 +1,13 @@
-[gd_scene load_steps=30 format=3 uid="uid://blxmhwe5ji5w0"]
+[gd_scene load_steps=29 format=3 uid="uid://blxmhwe5ji5w0"]
 
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_4f71o"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_w3fsy"]
 [ext_resource type="PackedScene" uid="uid://f1inc7pl32n" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
-[ext_resource type="PackedScene" uid="uid://7nos3bf51wac" path="res://Creatures/actor.tscn" id="3_6g5e3"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="5_w3fsy"]
+[ext_resource type="PackedScene" uid="uid://b0gr320gfr5fh" path="res://Common/Tools/spawn_marker.tscn" id="11_ur2uv"]
 [ext_resource type="Script" uid="uid://clhw8xw8welp2" path="res://Common/Scripts/SceneTrigger.cs" id="16_svxe0"]
 [ext_resource type="Script" uid="uid://ltqhvqcgr87p" path="res://Common/Scripts/Locations.cs" id="17_e0om7"]
 [ext_resource type="PackedScene" uid="uid://ce42ff5dpv77b" path="res://Common/Tools/poi.tscn" id="18_svxe0"]
-[ext_resource type="PackedScene" uid="uid://camul2t8tfgtn" path="res://Creatures/joachim.tscn" id="19_6b5rd"]
 [ext_resource type="PackedScene" uid="uid://ba1y8upqstekl" path="res://Assets/Equipment/Replicator/replicator_type_1.tscn" id="21_851v1"]
 [ext_resource type="PackedScene" uid="uid://dohf3b0ohy80a" path="res://Common/Tools/entrance_marker.tscn" id="22_e0om7"]
 
@@ -75,6 +74,7 @@ script = ExtResource("1_4f71o")
 SceneName = "Waterfront"
 
 [node name="Content" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.67731)
 navigation_mesh = SubResource("NavigationMesh_851v1")
 use_edge_connections = false
 
@@ -341,7 +341,7 @@ debug_color = Color(0.833, 0.105, 0, 1)
 
 [node name="Top" type="VisibleOnScreenNotifier3D" parent="Content/MapBounds/Top" groups=["MapBounds"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.2688, 16.4918, -0.11562)
-aabb = AABB(22.8038, -4.50289, 0.147417, 54.3923, 2.84197, 1.07016)
+aabb = AABB(22.8038, -1.82836, 0.147417, 54.3923, 3.47703, 1.07016)
 
 [node name="Right" type="StaticBody3D" parent="Content/MapBounds"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.5957, -4.01324, -4.26767)
@@ -403,6 +403,7 @@ FromScene = "uid://dvcrnialcr258"
 FacingDirection = "Down"
 
 [node name="Locations" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.67731)
 script = ExtResource("17_e0om7")
 
 [node name="CafeHappiness" parent="Locations" instance=ExtResource("18_svxe0")]
@@ -430,21 +431,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.7496, 11.8667, -26.8748)
 LocationName = "artifact_factory"
 
 [node name="World" parent="." instance=ExtResource("1_w3fsy")]
-DayTimeHours = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.67731)
 DayOfYear = 160
 Latitude = 33.009
 TimeScale = 0.00666
 
-[node name="Actor" parent="." groups=["Actor"] instance=ExtResource("3_6g5e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.6517, 5.95858, -10.3032)
+[node name="Sun" parent="World" index="1"]
+transform = Transform3D(0.559054, 2.38127e-08, 0.829128, 0.829125, -3.66557e-08, -0.559056, 1.70796e-08, 1, -4.02364e-08, 0, 0, 0)
+
+[node name="Moon" parent="World" index="3"]
+transform = Transform3D(0.841334, 0.539951, -0.0247057, 0.528338, -0.831166, -0.173271, -0.114092, 0.132725, -0.984564, 0, 0, 0)
+light_energy = 0.0
+
+[node name="OrthoCam" parent="World" index="5"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 33.12, 50, 30)
 
 [node name="AI" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.67731)
 
-[node name="Joachim" parent="AI" instance=ExtResource("19_6b5rd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 55.8291, 8.10985, -26.9149)
+[node name="Joachim" parent="AI" instance=ExtResource("11_ur2uv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.1133, 8.15417, -26.3202)
+Creature = "uid://camul2t8tfgtn"
 
 [node name="Replicator" parent="." instance=ExtResource("21_851v1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.4446, 11.9286, -26.3829)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.4446, 11.9286, -23.7056)
 
 [node name="Replicator2" parent="." instance=ExtResource("21_851v1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.0515, 8.21609, -28.0024)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.0515, 8.21609, -25.3251)
+
+[node name="Actor" parent="." instance=ExtResource("11_ur2uv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.1241, 5.9499, -10.4219)
+Creature = "uid://7nos3bf51wac"
+
+[editable path="World"]

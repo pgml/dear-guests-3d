@@ -30,7 +30,7 @@ public partial class World : Node
 	public bool TimeOnly { get; set; } = false;
 
 	// For simplify, a local time, I skip totally a longitude
-	private double _dayTimeHours;
+	private double _dayTimeHours = 10;
 	[Export(PropertyHint.Range, "0.0, 24, 0.0001")]
 	public double DayTimeHours {
 		get => _dayTimeHours;

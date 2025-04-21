@@ -73,7 +73,10 @@ public partial class Controller : CreatureController, IController
 
 		Velocity = CreatureData.Velocity;
 
-		MoveAndSlide();
+		if (CreatureData.CanMove) {
+			MoveAndSlide();
+		}
+
 		_updatePositionToParent();
 
 		if (CreatureData.IsClimbing &&

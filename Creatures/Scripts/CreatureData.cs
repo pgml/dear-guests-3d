@@ -10,7 +10,17 @@ public partial class CreatureData : Resource
 	//public RectangleShape2D CollisionShape = null;
 
 	// movement
+	/// <summary>
+	/// Indicates whether a character can move and slide.<br />
+	/// If set to false the character can still move on the y-axis
+	/// </summary>
 	public bool CanMoveAndSlide = true;
+
+	/// <summary>
+	/// Indicates whether a character can move in any direction.<br />
+	/// If set to false the character can not move at all
+	/// </summary>
+	public bool CanMove = true;
 	public bool CanJump = false;
 	public bool StartJump = false;
 	public bool ShouldJump = false;

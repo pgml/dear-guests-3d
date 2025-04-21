@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0gr320gfr5fh"]
+
+[ext_resource type="Script" uid="uid://cqvbxgosgp5iq" path="res://Common/Scripts/SpawnMarker.cs" id="1_tc5i5"]
+[ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_buvsi"]
+
+[sub_resource type="TextMesh" id="TextMesh_svxe0"]
+text = "SPAWN"
+font = ExtResource("2_buvsi")
+font_size = 24
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eldlo"]
+shading_mode = 0
+specular_mode = 2
+albedo_color = Color(0.383838, 0.717704, 1, 1)
+billboard_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_psgro"]
+size = Vector3(0.04, 3, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gxk6y"]
+shading_mode = 0
+specular_mode = 2
+albedo_color = Color(0.384314, 0.717647, 1, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_ayy6q"]
+text = "x"
+font = ExtResource("2_buvsi")
+font_size = 48
+
+[node name="SpawnMarker" type="Marker3D" groups=["SpawnMarker"]]
+script = ExtResource("1_tc5i5")
+
+[node name="Gizmo" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.72168, 0)
+cast_shadow = 0
+mesh = SubResource("TextMesh_svxe0")
+material = SubResource("StandardMaterial3D_eldlo")
+
+[node name="Arrow" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.76124, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_psgro")
+material = SubResource("StandardMaterial3D_gxk6y")
+
+[node name="Marker" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0594724, 0.0383301, 0.235925)
+cast_shadow = 0
+mesh = SubResource("TextMesh_ayy6q")
+material = SubResource("StandardMaterial3D_gxk6y")

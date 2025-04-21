@@ -72,7 +72,6 @@ transform = Transform3D(0.999998, 0, 0.00190241, 0, 1, 0, -0.00190241, 0, 0.9999
 LocationName = "P1"
 
 [node name="World" parent="." instance=ExtResource("1_35xla")]
-DayTimeHours = 10.0
 Latitude = -10.054
 
 [node name="Sun" parent="World" index="1"]

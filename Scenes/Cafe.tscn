@@ -45,11 +45,7 @@ Latitude = 33.0
 environment = ExtResource("3_wmyhn")
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.825873, -0.526081, 0.202892, 0.414046, 0.810094, 0.415105, -0.382739, -0.258819, 0.886859, 0, 0, 0)
-light_energy = 1.0
-
-[node name="AnomalySun" parent="World" index="2"]
-light_energy = 0.8
+transform = Transform3D(0.554411, 2.38069e-08, 0.832239, 0.832236, -3.66595e-08, -0.554413, 1.73105e-08, 1, -4.01375e-08, 0, 0, 0)
 
 [node name="Content" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_hxbu8")
@@ -306,16 +302,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643378, 2.896, -7.20938)
 aabb = AABB(-9.51007, -1.64925, -0.022211, 19.0201, 3.2985, 0.0825079)
 
 [node name="Bottom" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643378, 2.896, 6.56517)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.643378, 2.896, 9.34088)
 aabb = AABB(-9.51007, -1.64925, -0.022211, 19.0201, 3.2985, 0.0825079)
 
 [node name="Left" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.82135, 2.896, -0.317963)
-aabb = AABB(-1.98801, -1.64925, -6.84025, 0.0892947, 3.2985, 13.7186)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.82135, 2.896, 0.921817)
+aabb = AABB(-1.98801, -1.64925, -8.98238, 0.0892947, 3.2985, 18.0029)
 
 [node name="Right" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0186, 2.896, -0.317963)
-aabb = AABB(-1.98801, -1.64925, -6.84025, 0.0892947, 3.2985, 13.7186)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0186, 2.896, 1.09903)
+aabb = AABB(-1.98801, -1.64925, -8.71746, 0.0892947, 3.2985, 17.473)
 
 [node name="NavObstacles" type="Node3D" parent="Content"]
 

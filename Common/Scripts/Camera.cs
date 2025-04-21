@@ -39,8 +39,8 @@ public partial class Camera : Camera3D
 		var (playerX, playerY, playerZ) = _currentPlayerPosition;
 
 		_toPosition = _currentPlayerPosition;
-		_toPosition.Y += Size * 2;
-		_toPosition.Z += Size * 2;
+		_toPosition.Y += Size * 2 + 2;
+		_toPosition.Z += Size * 2 - 2;
 
 		_limitCamera();
 

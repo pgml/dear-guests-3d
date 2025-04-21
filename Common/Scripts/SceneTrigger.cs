@@ -25,7 +25,6 @@ public partial class SceneTrigger : Area3D
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		ActorData = GD.Load<CreatureData>(Resources.ActorData);
 
-		GD.PrintS("asda");
 		//AreaEntered += _onAreaEntered;
 		//AreaExited += _onAreaExited;
 		//MouseEntered += _onMouseEntered;

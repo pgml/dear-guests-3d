@@ -66,6 +66,7 @@ InstancePlaceholder=""
 Climbable=""
 PowerSource=""
 EntranceMarker=""
+SpawnMarker=""
 
 [gui]
 

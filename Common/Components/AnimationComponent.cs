@@ -35,7 +35,6 @@ public partial class AnimationComponent : Component
 
 	public void SetInitialFacingDirection(Vector2 direction)
 	{
-		GD.PrintS(direction, "asdad");
 		AnimationTree.Set("parameters/Idle/blend_position", direction);
 		AnimationTree.Set("parameters/BoxedIdle/blend_position", direction);
 	}

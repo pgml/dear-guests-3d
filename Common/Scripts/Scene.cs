@@ -53,13 +53,16 @@ public partial class Scene : Node3D
 		GD.PrintS(" -- LOADED SCENE IN:", Time.GetTicksMsec() - groups, "ms");
 	}
 
+	/// <summary>
+	/// Changes a scene to a given scene `to`
+	/// </summary>
 	public async void Change(Node3D from, string to)
 	{
 		var transition = _sceneTransition.Instantiate<SceneTransition>();
 		GetTree().Root.AddChild(transition);
 
 		ActorData.CanMove = false;
-		ActorData.Velocity = Vector3.Zero;
+		ActorData.Direction = Vector3.Zero;
 
 		transition.FadeIn();
 		await transition.AnimationFinished();
@@ -71,8 +74,6 @@ public partial class Scene : Node3D
 		var toScene = ResourceLoader.Load<PackedScene>(to).Instantiate<Scene>();
 		_tree.Root.AddChild(toScene);
 		(currentScene as Node3D).Visible = false;
-
-		//ActorData.CanMoveAndSlide = true;
 
 		_tree.Root.RemoveChild(currentScene);
 		_tree.CurrentScene = toScene;

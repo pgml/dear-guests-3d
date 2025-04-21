@@ -30,6 +30,9 @@ public partial class Actor : Creature
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (!CreatureData.CanMove) {
+			return;
+		}
 		//SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);
 
 		if (Input.IsPhysicalKeyPressed(Key.Shift)) {
@@ -42,6 +45,7 @@ public partial class Actor : Creature
 			"action_walk_up",
 			"action_walk_down"
 		);
+
 		Vector3 direction = new() {
 			X = input.X,
 			Y = 0,

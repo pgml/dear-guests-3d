@@ -12,7 +12,8 @@ public partial class CreatureData : Resource
 	// movement
 	/// <summary>
 	/// Indicates whether a character can move and slide.<br />
-	/// If set to false the character can still move on the y-axis
+	/// If set to false the character can still move on the y-axis<br />
+	/// Turning will still be possible
 	/// </summary>
 	public bool CanMoveAndSlide = true;
 

@@ -5,6 +5,12 @@ public partial class SpawnMarker : Marker3D
 	[Export(PropertyHint.File, "*.tscn")]
 	public string Creature { get; set; }
 
+	/// <summary>
+	/// Hides the marker in game
+	/// </summary>
+	[Export]
+	public bool Hide = true;
+
 	protected CreatureData ActorData;
 
 	public async override void _Ready()
@@ -12,7 +18,10 @@ public partial class SpawnMarker : Marker3D
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		ActorData = GD.Load<CreatureData>(Resources.ActorData);
 		Spawn();
-		QueueFree();
+
+		if (Hide) {
+			QueueFree();
+		}
 	}
 
 	/// <summary>

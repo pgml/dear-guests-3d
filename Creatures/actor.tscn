@@ -568,7 +568,7 @@ DefaultWalkSpeed = 6.0
 DefaultRunSpeed = 10.0
 
 [node name="Character" type="Node3D" parent="Controller" node_paths=PackedStringArray("Parent", "ComponentsParent", "CharacterSprite") groups=["Actor"]]
-transform = Transform3D(1.12, 0, 0, 0, 1.58, 0, 0, 0, 1, 0, 1.915, 0)
+transform = Transform3D(1.12, 0, 0, 0, 1.58, 0, 0, 0, 1, 0, 1.9, 0)
 script = ExtResource("3_ew7kk")
 CreatureData = ExtResource("8_3eq32")
 Inventory = ExtResource("9_3eq32")
@@ -587,7 +587,7 @@ hframes = 6
 vframes = 20
 
 [node name="CharacterCollision" type="CollisionShape3D" parent="Controller"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.395, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.448, 0)
 shape = SubResource("CapsuleShape3D_y1pvj")
 debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
 

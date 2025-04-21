@@ -21,7 +21,11 @@ public partial class Locations : Node3D
 
 			if (child is Marker3D) {
 				var location = child as LocationMarker;
-				LocationMarkers.Add(location.LocationName.ToLower(), location);
+				var locationName = location.LocationName.ToLower();
+				if (LocationMarkers.ContainsKey(locationName)) {
+					continue;
+				}
+				LocationMarkers.Add(locationName, location);
 			}
 		}
 	}

@@ -31,21 +31,21 @@ size = Vector3(10.7773, 4.8252, 13.0153)
 script = ExtResource("1_ys1qc")
 
 [node name="Actor" parent="." instance=ExtResource("1_8od7v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.0185, 5.96001e-08, -8.52224)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.0346, 5.96001e-08, 0.652187)
 
 [node name="Content" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_qpfo2")
 
 [node name="TestMap" parent="Content" groups=["Climbable"] instance=ExtResource("5_i3aeo")]
-transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Props" type="Node3D" parent="Content"]
 
 [node name="RubbishContainer" parent="Content/Props" instance=ExtResource("5_35xla")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5441, 9.56591, -18.2197)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9301, 6.0467, -10.8426)
 
 [node name="RubbishContainer2" parent="Content/Props" instance=ExtResource("5_35xla")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.3294, 0.0619182, -9.23759)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.394, 0.061922, -6.11478)
 
 [node name="Collisions" type="Node3D" parent="Content" groups=["Climbable"]]
 
@@ -75,13 +75,15 @@ LocationName = "P1"
 Latitude = -10.054
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.837761, -7.63097e-09, -0.546028, -0.546026, -4.30401e-08, -0.837764, -1.71081e-08, 1, -4.02242e-08, 0, 0, 0)
+transform = Transform3D(0.965406, 0.0872881, -0.245684, 0.172596, 0.492322, 0.853127, 0.195423, -0.866025, 0.460226, 0, 0, 0)
+light_energy = 1.0
 directional_shadow_split_1 = 0.328
 directional_shadow_split_2 = 0.379
 
 [node name="AnomalySun" parent="World" index="2"]
 transform = Transform3D(0.961262, 0, -0.275637, 0.217205, 0.615662, 0.757484, 0.169699, -0.788011, 0.591812, 0, 0, 0)
 rotation_order = 4
+light_energy = 0.8
 
 [node name="Moon" parent="World" index="3"]
 light_color = Color(0.0590279, 0.0590279, 0.0590279, 1)
@@ -90,15 +92,15 @@ light_color = Color(0.0590279, 0.0590279, 0.0590279, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.4121, 0, 0)
 
 [node name="Joachim" parent="." instance=ExtResource("9_2cgwh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.7712, -0.0576349, 6.24851)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4168, -0.0576349, 6.00223)
 
 [node name="ReplicatorType1" parent="." instance=ExtResource("10_iaow0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.4082, 1.19209e-07, -7.83952)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7887, 1.19209e-07, -5.16139)
 
 [node name="ReplicatorType2" parent="." instance=ExtResource("10_iaow0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.1576, -7.62939e-06, -7.82928)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.107, -3.81469e-06, -5.10224)
 
 [node name="GeneratorType1" parent="." instance=ExtResource("11_qpfo2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.0397, 0, -8.7177)
 
 [editable path="World"]

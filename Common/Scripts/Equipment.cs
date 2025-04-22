@@ -57,7 +57,7 @@ public partial class Equipment : Node3D
 	public DateTime DateTime { get; private set; }
 	public UiQuickInventory QuickInventoryInst = null;
 	//public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
-	public Vector3 TopDownScale = new Vector3(0.69f, 0.99f, 0.69f);
+	public Vector3 TopDownScale = new Vector3(0.69f, 0.99f, 1f);
 
 	protected CreatureData ActorData;
 

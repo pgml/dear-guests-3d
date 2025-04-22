@@ -553,6 +553,7 @@ FootStepLoopInterval = 0.34
 [node name="EdgeCheckComponent" parent="Components" instance=ExtResource("3_fkfj1")]
 
 [node name="JumpComponent" parent="Components" instance=ExtResource("4_ad0ix")]
+JumpImpulse = 10.0
 
 [node name="ClimbComponent" parent="Components" instance=ExtResource("5_ejg33")]
 MinClimbHeight = 1.0

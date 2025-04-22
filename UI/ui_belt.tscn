@@ -1,0 +1,136 @@
+[gd_scene load_steps=7 format=3 uid="uid://da1exgkujvtgl"]
+
+[ext_resource type="Texture2D" uid="uid://bcwdg78ojpxx0" path="res://Assets/Sprites/UI/ui_belt_bg.png" id="1_p0vg0"]
+[ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_8w5y5"]
+[ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="3_1oa2c"]
+[ext_resource type="Texture2D" uid="uid://cf27u6dph4r5e" path="res://Assets/Sprites/UI/ui_kb_key.png" id="4_mgxec"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_b20gn"]
+font = ExtResource("2_8w5y5")
+font_size = 3
+font_color = Color(0.239216, 0, 0.0235294, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b20gn"]
+content_margin_left = 64.0
+
+[node name="Belt" type="Control"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -50.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = -9
+alignment = 2
+
+[node name="Button" type="Button" parent="HBoxContainer2/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.85)
+layout_mode = 2
+button_mask = 0
+icon = ExtResource("1_p0vg0")
+flat = true
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer2/HBoxContainer/Button"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 14.0
+text = "1"
+label_settings = SubResource("LabelSettings_b20gn")
+horizontal_alignment = 1
+
+[node name="Button2" type="Button" parent="HBoxContainer2/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.85)
+layout_mode = 2
+button_mask = 0
+icon = ExtResource("1_p0vg0")
+flat = true
+icon_alignment = 1
+
+[node name="Label2" type="Label" parent="HBoxContainer2/HBoxContainer/Button2"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 14.0
+text = "2"
+label_settings = SubResource("LabelSettings_b20gn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="HBoxContainer2/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.85)
+layout_mode = 2
+button_mask = 0
+icon = ExtResource("1_p0vg0")
+flat = true
+icon_alignment = 1
+
+[node name="Label3" type="Label" parent="HBoxContainer2/HBoxContainer/Button3"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 14.0
+text = "3"
+label_settings = SubResource("LabelSettings_b20gn")
+horizontal_alignment = 1
+
+[node name="Button4" type="Button" parent="HBoxContainer2/HBoxContainer"]
+modulate = Color(1, 1, 1, 0.85)
+layout_mode = 2
+button_mask = 0
+icon = ExtResource("1_p0vg0")
+flat = true
+icon_alignment = 1
+
+[node name="Label4" type="Label" parent="HBoxContainer2/HBoxContainer/Button4"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 14.0
+text = "4"
+label_settings = SubResource("LabelSettings_b20gn")
+horizontal_alignment = 1
+
+[node name="Button5" type="Button" parent="HBoxContainer2/HBoxContainer"]
+visible = false
+modulate = Color(1, 1, 1, 0.85)
+layout_mode = 2
+theme = ExtResource("3_1oa2c")
+theme_type_variation = &"FlatButton"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_b20gn")
+button_mask = 0
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer2"]
+visible = false
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+theme_type_variation = &"FlatButton"
+icon = ExtResource("4_mgxec")

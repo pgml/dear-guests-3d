@@ -41,8 +41,8 @@ public partial class Camera : Camera3D
 		_toPosition = _currentPlayerPosition;
 		// adding and subtracting 2 is a bit dumb but i am lazy and this is the
 		// y position of the character node and i don't really care right now
-		_toPosition.Y += Size * 2 + 2;
-		_toPosition.Z += Size * 2 - 2;
+		_toPosition.Y += Size * 2 + 1.9f;
+		_toPosition.Z += Size * 2 - 1.9f;
 
 		_limitCamera();
 

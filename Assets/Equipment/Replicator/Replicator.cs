@@ -72,25 +72,25 @@ public partial class Replicator : Equipment
 			return;
 		}
 
-		//if (!HasPower()) {
-		//	TurnOff();
-		//}
-		//else {
-		//	if (LightsParent is not null) {
-		//		SetLights();
-		//	}
-		//}
+		if (!HasPower()) {
+			TurnOff();
+		}
+		else {
+			if (LightsParent is not null) {
+				SetLights();
+			}
+		}
 
-		//if (IsInstanceValid(UiReplicatorInst)) {
-		//	if (UiReplicatorInst.IsOpen) {
-		//		UpdateProgress();
-		//		_connectButtonSignals();
-		//		_updateReplicatorUi();
-		//	}
-		//	else {
-		//		_disconnectButtonSignals();
-		//	}
-		//}
+		if (IsInstanceValid(UiReplicatorInst)) {
+			if (UiReplicatorInst.IsOpen) {
+				UpdateProgress();
+				_connectButtonSignals();
+				_updateReplicatorUi();
+			}
+			else {
+				_disconnectButtonSignals();
+			}
+		}
 
 		base._Process(delta);
 	}
@@ -268,6 +268,11 @@ public partial class Replicator : Equipment
 	/// </summary>
 	public void SetLights()
 	{
+		if (_process.Artifact is null) {
+			LightsParent.Visible = false;
+			return;
+		}
+
 		var brightness = Brightness();
 
 		if (!HasPower()) {

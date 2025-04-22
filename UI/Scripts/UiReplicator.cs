@@ -246,9 +246,12 @@ public partial class UiReplicator : UiControl
 
 		CollectButton.Visible = process.IsComplete;
 
-		CancelButton.Visible = _replicatorHasArtifact
-			&& process.InProgress
-			&& !process.IsComplete;
+		CancelButton.Visible = false;
+		if (_replicatorHasArtifact && process.InProgress && !process.IsComplete) {
+			CancelButton.Visible = true;
+		}
+
+		GD.PrintS(process.IsComplete, process.InProgress);
 
 		_toggleItemList();
 		_toggleSettings();

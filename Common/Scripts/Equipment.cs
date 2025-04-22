@@ -104,7 +104,7 @@ public partial class Equipment : Node3D
 
 	public override void _Input(InputEvent @event)
 	{
-		if (Engine.IsEditorHint() || ActorData.IsConsoleOpen) {
+		if (Engine.IsEditorHint() || (ActorData is not null && ActorData.IsConsoleOpen)) {
 			return;
 		}
 

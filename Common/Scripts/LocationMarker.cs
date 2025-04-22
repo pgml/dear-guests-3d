@@ -14,7 +14,7 @@ public partial class LocationMarker : Marker3D, Location
 	public override void _Ready()
 	{
 		if (!ShowInGame) {
-			QueueFree();
+			Visible = false;
 		}
 	}
 }

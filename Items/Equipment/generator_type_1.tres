@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_uic0n")
 IsPowerSource = true
-NeedPower = false
+NeedsPower = false
 PowerConsumption = 0.0
 Type = 3
 ItemScene = ExtResource("1_xcio6")

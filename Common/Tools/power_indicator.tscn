@@ -29,7 +29,7 @@ animations = [{
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.532288, 0)
 offset = Vector2(0, 16)
-pixel_size = 0.07
+pixel_size = 0.04
 billboard = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_x2aqx")

@@ -1,7 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dcu2ehwqjyg8g"]
+[gd_scene load_steps=6 format=3 uid="uid://dcu2ehwqjyg8g"]
 
 [ext_resource type="Script" uid="uid://ciov2ti11s0ba" path="res://Common/Scripts/LightSource.cs" id="1_4d2d7"]
-[ext_resource type="ArrayMesh" uid="uid://dxxnsqojl3upk" path="res://Assets/Exterior/street_light_mesh.tres" id="1_xht61"]
+
+[sub_resource type="Resource" id="Resource_6iiuo"]
+metadata/__load_path__ = "res://Assets/Exterior/street_light_mesh.tres"
+
+[sub_resource type="Resource" id="Resource_xy5jp"]
+metadata/__load_path__ = "res://Assets/Exterior/street_light_mesh.tres"
+
+[sub_resource type="Resource" id="Resource_xqmgj"]
+metadata/__load_path__ = "res://Assets/Exterior/street_light_mesh.tres"
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i3aeo"]
 height = 10.015
@@ -13,20 +21,20 @@ LightSources = []
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, 0)
 cast_shadow = 0
-mesh = ExtResource("1_xht61")
+mesh = SubResource("Resource_6iiuo")
 skeleton = NodePath("../..")
 
 [node name="SunShadowMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, -0.5)
 cast_shadow = 3
-mesh = ExtResource("1_xht61")
+mesh = SubResource("Resource_xy5jp")
 skeleton = NodePath("../..")
 
 [node name="StaticShadowMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.12, 0, 0, 0, 1.584, 0, 0, 0, 1.6, 0, 0, -0.5)
 layers = 2
 cast_shadow = 3
-mesh = ExtResource("1_xht61")
+mesh = SubResource("Resource_xqmgj")
 skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

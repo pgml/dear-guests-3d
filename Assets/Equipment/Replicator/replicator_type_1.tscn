@@ -32,14 +32,14 @@ debug_color = Color(0.352843, 0.549768, 1, 1)
 visible = false
 
 [node name="TubeLight" type="OmniLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00726, -0.619652)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35091, -0.292423)
 light_color = Color(0.823529, 0.823529, 0, 1)
 light_energy = 2.5
 shadow_enabled = true
 omni_attenuation = 0.5
 
 [node name="Ambient" type="OmniLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.647017, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.647017, 0.163452)
 light_color = Color(0.823529, 0.823529, 0, 1)
 light_energy = 0.05
 omni_range = 7.0

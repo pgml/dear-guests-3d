@@ -437,10 +437,13 @@ Latitude = 33.009
 TimeScale = 0.00666
 
 [node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.559054, 2.38127e-08, 0.829128, 0.829125, -3.66557e-08, -0.559056, 1.70796e-08, 1, -4.02364e-08, 0, 0, 0)
+transform = Transform3D(0.559054, 2.38127e-08, 0.829128, 0.829124, -3.66557e-08, -0.559056, 1.70796e-08, 0.999999, -4.02364e-08, 0, 0, 0)
+light_energy = 1.0
+
+[node name="AnomalySun" parent="World" index="2"]
+light_energy = 0.8
 
 [node name="Moon" parent="World" index="3"]
-transform = Transform3D(0.841334, 0.539951, -0.0247057, 0.528338, -0.831166, -0.173271, -0.114092, 0.132725, -0.984564, 0, 0, 0)
 light_energy = 0.0
 
 [node name="OrthoCam" parent="World" index="5"]

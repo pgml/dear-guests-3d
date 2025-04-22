@@ -17,6 +17,7 @@ GrowPowerConsumption = 0.0
 ReplicatesInto = ""
 Type = 1
 Name = "Synthetic Feather"
+Description = ""
 Weight = 0.1
 MaxCarryAmount = 10
 Value = 500.0

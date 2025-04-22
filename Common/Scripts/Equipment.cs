@@ -97,12 +97,14 @@ public partial class Equipment : Node3D
 		//	_quickInventory.Position = QuickInventoryPosition();
 		//}
 
-		_powerIndicatorInst.Visible = !HasPower() && _itemResource.NeedsPower;
+		if (IsInstanceValid(_powerIndicatorInst)) {
+			_powerIndicatorInst.Visible = !HasPower() && _itemResource.NeedsPower;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (ActorData.IsConsoleOpen) {
+		if (Engine.IsEditorHint() || ActorData.IsConsoleOpen) {
 			return;
 		}
 

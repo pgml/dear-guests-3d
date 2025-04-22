@@ -9,7 +9,7 @@ public partial class SpawnMarker : Marker3D
 	/// Hides the marker in game
 	/// </summary>
 	[Export]
-	public bool Hide = true;
+	public bool ShowInGame = false;
 
 	protected CreatureData ActorData;
 
@@ -19,7 +19,7 @@ public partial class SpawnMarker : Marker3D
 		ActorData = GD.Load<CreatureData>(Resources.ActorData);
 		Spawn();
 
-		if (Hide) {
+		if (!ShowInGame) {
 			QueueFree();
 		}
 	}

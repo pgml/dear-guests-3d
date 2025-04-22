@@ -9,11 +9,11 @@ public partial class LocationMarker : Marker3D, Location
 	/// Hides the marker in game
 	/// </summary>
 	[Export]
-	public bool Hide = true;
+	public bool ShowInGame = false;
 
 	public override void _Ready()
 	{
-		if (Hide) {
+		if (!ShowInGame) {
 			QueueFree();
 		}
 	}

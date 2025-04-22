@@ -14,7 +14,7 @@ public partial class EntranceMarker : Marker3D
 	/// Hides the marker in game
 	/// </summary>
 	[Export]
-	public bool Hide = true;
+	public bool ShowInGame = false;
 
 	public Dictionary<string, Vector2> Directions = new() {
 		{ "Up", Vector2.Up },
@@ -25,7 +25,7 @@ public partial class EntranceMarker : Marker3D
 
 	public override void _Ready()
 	{
-		if (Hide) {
+		if (!ShowInGame) {
 			QueueFree();
 		}
 	}

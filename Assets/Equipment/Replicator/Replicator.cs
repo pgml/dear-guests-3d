@@ -345,6 +345,7 @@ public partial class Replicator : Equipment
 
 	public void CloseUi()
 	{
+		_playClosingSound();
 		UiReplicatorInst.Close();
 	}
 

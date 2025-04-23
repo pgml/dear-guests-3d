@@ -1,4 +1,5 @@
 using Godot;
+using System.Linq;
 
 public partial class UiInventory : UiControl
 {
@@ -18,6 +19,7 @@ public partial class UiInventory : UiControl
 
 	private UiQuickInventory _quickInventory;
 	private Node _mainUi;
+	private Actor _actor;
 
 	public override void _Ready()
 	{
@@ -36,6 +38,33 @@ public partial class UiInventory : UiControl
 		}
 		else if (toggleInventory) {
 			_closeInventory();
+		}
+
+		_actor = ActorData().Character<Actor>();
+
+		if (@event is InputEventKey key) {
+			UiBackPackItemList itemList = BackPackItemList;
+
+			if (itemList.GetSelected() is TreeItem selectedItem && IsOpen) {
+				foreach (var (invItemResource, treeItem) in itemList.ListItems.ToList()) {
+					// Add to belt stuff
+					if (treeItem == selectedItem) {
+						int invIndex = invItemResource.InventoryIndex;
+
+						for (var i = 0; i < _actor.Belt.MaxItems; i++) {
+							int slotIndex = i + 1;
+
+							if (@event.IsActionPressed(DGInputMap.AddRemoveFromBelt)) {
+								_actor.Inventory.DetachItemFromBelt(invIndex);
+							}
+							else if (@event.IsActionPressed($"{DGInputMap.AddToBeltSlot}{slotIndex}")) {
+								_actor.Inventory.ClearBeltSlot(i);
+								_actor.Inventory.AttachItemToBelt(invIndex, i);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -65,6 +94,7 @@ public partial class UiInventory : UiControl
 			RestrictPlayerMovement = false;
 			ActorData().IsInventoryOpen = IsOpen;
 			var audioInstance = BackPackItemList.AudioInstance;
+
 			if (IsInstanceValid(audioInstance)) {
 				audioInstance.PlayUiSound(AudioLibrary.InventoryClose);
 				await ToSignal(audioInstance.AudioUi, "finished");

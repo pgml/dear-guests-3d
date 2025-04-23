@@ -27,6 +27,12 @@ public partial class ItemResource : Resource
 	[Export]
 	public PackedScene ItemScene { get; set; }
 
+	[Export]
+	public Texture2D Sprite { get; set; }
+
+	[Export]
+	public Texture2D ListIcon { get; set; }
+
 	[ExportCategory("Item Properties")]
 	[Export]
 	public string Name { get; set; }
@@ -42,6 +48,9 @@ public partial class ItemResource : Resource
 
 	[Export]
 	public float Value { get; set; }
+
+	[Export]
+	public bool AttachableToBelt { get; set; } = false;
 
 	private static readonly string _itemResourceDir = "res://Items/";
 

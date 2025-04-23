@@ -12,30 +12,40 @@
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("2_ormwg")
 Amount = 10
+BeltSlot = -1
+InventoryIndex = 0
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_dvcg0"]
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("3_f5ro0")
 Amount = 10
+BeltSlot = -1
+InventoryIndex = 1
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_ormwg"]
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("4_mk5dh")
 Amount = 50
+BeltSlot = -1
+InventoryIndex = 2
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_mk5dh"]
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("5_f5ro0")
 Amount = 5
+BeltSlot = -1
+InventoryIndex = 3
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_oq0oe"]
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("6_mk5dh")
 Amount = 1
+BeltSlot = -1
+InventoryIndex = 4
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [resource]

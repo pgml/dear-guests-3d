@@ -36,7 +36,8 @@ public partial class Inventory : Resource, ICloneable
 			Items.Add(
 				new InventoryItemResource() {
 					ItemResource = item,
-					Amount = amount
+					Amount = amount,
+					InventoryIndex = Items.Count + 1
 				}
 			);
 			wasAdded = true;
@@ -49,8 +50,11 @@ public partial class Inventory : Resource, ICloneable
 		return wasAdded;
 	}
 
-	public bool UpdateItem(int resourceIndex, ItemResource item, int amount)
-	{
+	public bool UpdateItem(
+		int resourceIndex,
+		ItemResource item,
+		int amount
+	) {
 		if (!IsInInventory(item) || resourceIndex < 0) {
 			return false;
 		}
@@ -132,6 +136,64 @@ public partial class Inventory : Resource, ICloneable
 		return false;
 	}
 
+	public List<InventoryItemResource> BeltItems()
+	{
+		var beltItems = new List<InventoryItemResource>();
+
+		foreach (var item in Items) {
+			if (item.IsInBelt) {
+				beltItems.Add(item);
+			}
+		}
+
+		return beltItems;
+	}
+
+	public InventoryItemResource GetBeltItemAt(int index)
+	{
+		foreach (var item in Items) {
+			if (item.BeltSlot == index) {
+				return item;
+			}
+		}
+		return null;
+	}
+
+	public bool AttachItemToBelt(int index, int beltSlot)
+	{
+		var item = Items[index].ItemResource;
+
+		if (!IsInInventory(item)) {
+			return false;
+		}
+
+		var resource = Items[index];
+
+		if (resource.ItemResource.AttachableToBelt) {
+			resource.BeltSlot = beltSlot;
+			EmitSignal(SignalName.InventoryUpdated);
+			return true;
+		}
+
+		return false;
+	}
+
+	public bool DetachItemFromBelt(int index)
+	{
+		return AttachItemToBelt(index, -1);
+	}
+
+	public bool ClearBeltSlot(int index)
+	{
+		foreach (var item in BeltItems()) {
+			if (item.BeltSlot == index) {
+				item.BeltSlot = -1;
+				return true;
+			}
+		}
+		return false;
+	}
+
 	[ConsoleCommand("add_item")]
 	public bool ConsoleAddItem(string type, string name, string amount)
 	{
@@ -152,6 +214,16 @@ public partial class Inventory : Resource, ICloneable
 		}
 
 		return false;
+	}
+
+	[ConsoleCommand("attach_item_to_belt")]
+	public bool ConsoleAttachItemToBelt(int itemResourceIndex, int beltSlot)
+	{
+		if (Items[itemResourceIndex] is null) {
+			throw new ConsoleException($"no item at: `{itemResourceIndex}`");
+		}
+
+		return AttachItemToBelt(itemResourceIndex, beltSlot);
 	}
 
 	[ConsoleCommand("add_artifact")]

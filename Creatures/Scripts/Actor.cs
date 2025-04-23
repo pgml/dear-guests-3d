@@ -8,6 +8,9 @@ public partial class Actor : Creature
 	[Export]
 	public Inventory Inventory { get; private set; }
 
+	[Export]
+	public Belt Belt { get; private set; }
+
 	private World _world;
 	private DirectionalLight3D _sun;
 
@@ -17,8 +20,10 @@ public partial class Actor : Creature
 
 	public override void _Ready()
 	{
+		//await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		Tools.CheckAssigned(CreatureData, "ActorData is not assigned", GetType().Name);
 		Inventory = GD.Load<Inventory>(Resources.ActorInventory);
+		Belt = GD.Load<Belt>(Resources.ActorBelt);
 
 		base._Ready();
 

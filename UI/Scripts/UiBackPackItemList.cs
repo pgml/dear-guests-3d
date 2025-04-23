@@ -25,6 +25,7 @@ public partial class UiBackPackItemList : UiItemList
 		ColumnTitlesVisible = true;
 		Columns = ColumnTitles.Count;
 		int i = 0;
+
 		foreach (var (name, properties) in ColumnTitles) {
 			SetColumnTitle(i, name.ToUpper());
 			SetColumnTitleAlignment(i, properties.Alignment);
@@ -58,12 +59,15 @@ public partial class UiBackPackItemList : UiItemList
 				: "0";
 
 			//double weight = Math.Round(item.Weight * inventoryItem.Amount, 2);
-			var image = GD
-				.Load<CompressedTexture2D>("res://Assets/Sprites/UI/ui_list_icon.png")
-				.GetImage();
+			var image = GD.Load<CompressedTexture2D>(Resources.UiListIcon).GetImage();
+			if (inventoryItem.ItemResource.Sprite is not null) {
+				image = inventoryItem.ItemResource.ListIcon.GetImage();
+			}
+
 			if (image is not null) {
 				row.SetIcon(0, ImageTexture.CreateFromImage(image));
 			}
+
 			row.SetText(0, $"   {itemName}");
 			//row.SetText(1, weight.ToString());
 			row.SetText(1, item.Type.ToString());

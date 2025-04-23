@@ -53,6 +53,7 @@ public partial class UiBelt : UiControl
 			if (SlotItem(i) is not null) {
 				item.Populate(SlotItem(i));
 			}
+
 			item.InputLabel.Text = shortKey;
 			ItemParent.AddChild(item);
 			_beltItems.Add(item);

@@ -42,10 +42,12 @@ public partial class UiInventory : UiControl
 
 		_actor = ActorData().Character<Actor>();
 
-		if (@event is InputEventKey key) {
-			UiBackPackItemList itemList = BackPackItemList;
+		UiBackPackItemList itemList = BackPackItemList;
+		if (@event is InputEventKey key && key.IsPressed()) {
+			int selectedIndex = 0;
 
 			if (itemList.GetSelected() is TreeItem selectedItem && IsOpen) {
+				int index = 0;
 				foreach (var (invItemResource, treeItem) in itemList.ListItems.ToList()) {
 					// Add to belt stuff
 					if (treeItem == selectedItem) {
@@ -62,8 +64,14 @@ public partial class UiInventory : UiControl
 								_actor.Inventory.AttachItemToBelt(invIndex, i);
 							}
 						}
+						selectedIndex = index;
 					}
+					index++;
 				}
+
+				// keep selected row selected
+				var selected = itemList.GetRoot().GetChild(selectedIndex);
+				itemList.SetSelected(selected, 0);
 			}
 		}
 	}

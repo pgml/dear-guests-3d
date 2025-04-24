@@ -5,38 +5,72 @@ public partial class ThrowComponent : Component
 	[Export]
 	public ProgressBar ForceProgress { get; set; }
 
+	[Export]
+	public HBoxContainer ThrowForceIndicator { get; set; }
+
 	public bool CanThrow { get; set; } = false;
 	public float ThrowForce { get; set; } = 0;
 	public float MaxThrowForce { get; set; } = 20;
 	public float ThrowIncreaseStep { get; set; } = 0.05f;
 
 	private PhysicsObject _throwObject;
+	private float _chargeProgress = 0;
 
-	//public override void _Ready()
-	//{
-	//	base._Ready();
-	//	ForceProgress.MaxValue = MaxThrowForce;
-	//	ForceProgress.Step = ThrowIncreaseStep;
-	//}
+	public override void _Ready()
+	{
+		base._Ready();
+
+		ThrowForceIndicator.Visible = false;
+	}
 
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionPressed("action_trigger") && CanThrow) {
-			if (ThrowForce <= _throwObject.MaxThrowForce) {
-				ThrowForce += _throwObject.ThrowIncreaseStep;
+			if (_chargeProgress <= _throwObject.MaxThrowForce) {
+				_chargeProgress += _throwObject.ThrowIncreaseStep;
 			}
+			ThrowForceIndicator.Visible = true;
+			Vector2 mousePos = ThrowForceIndicator.GetGlobalMousePosition();
+			ThrowForceIndicator.GlobalPosition = mousePos - new Vector2(
+				ThrowForceIndicator.Size.X / 2,
+				ThrowForceIndicator.Size.Y + 2
+			);
 		}
 
 		if (Input.IsActionJustReleased("action_trigger")) {
 			CanThrow = false;
 			ThrowForce = 0;
+			_chargeProgress = 0;
 
 			if (!_throwObject.IsInsideTree()) {
 				_throwObject.QueueFree();
 			}
+
+			// Reset charge progress ui
+			for (var i = 0; i < 5; i++) {
+				ThrowForceIndicator.GetChild<TextureRect>(i).FlipV = false;
+			}
+
+			ThrowForceIndicator.Visible = false;
 		}
 
-		ForceProgress.Value = ThrowForce;
+		if (_throwObject is not null) {
+			ForceProgress.Value = _chargeProgress;
+
+			ProgressBar p = ForceProgress;
+			double percentage = (p.Value - p.MinValue) / (p.MaxValue - p.MinValue) * 100f;
+
+			if (ForceProgress.Value > _throwObject.MinThrowForce &&
+				percentage % 20 == 0 &&
+				percentage <= 100)
+		 	{
+				// update charge progress ui and set throw force
+				for (var i = 0; i < percentage / 20; i++) {
+					ThrowForceIndicator.GetChild<TextureRect>(i).FlipV = true;
+					ThrowForce = _chargeProgress;
+				}
+			}
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -54,7 +88,7 @@ public partial class ThrowComponent : Component
 
 		 	if (mouseEvent.ButtonIndex == MouseButton.Right) {
 				_throwObject = _instantiateThrowObject();
-				ThrowForce = _throwObject.MinThrowForce;
+				//ThrowForce = _throwObject.MinThrowForce;
 				ForceProgress.MinValue = _throwObject.MinThrowForce;
 				ForceProgress.MaxValue = _throwObject.MaxThrowForce;
 				CanThrow = true;

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://craquqyiupbcx"]
+[gd_scene load_steps=5 format=3 uid="uid://dhqf7tyiv505s"]
 
 [ext_resource type="Script" uid="uid://xrqjv3ims05c" path="res://Common/Components/ThrowComponent.cs" id="1_hkond"]
+[ext_resource type="Texture2D" uid="uid://cc6b34ngniihr" path="res://Assets/Sprites/UI/ui_indicator_dot.png" id="2_7mokb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkond"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -24,19 +25,77 @@ anti_aliasing = false
 bg_color = Color(1, 1, 1, 1)
 anti_aliasing = false
 
-[node name="ThrowComponent" type="Node3D" node_paths=PackedStringArray("ForceProgress")]
+[node name="ThrowComponent" type="Node3D" node_paths=PackedStringArray("ForceProgress", "ThrowForceIndicator")]
 script = ExtResource("1_hkond")
 ForceProgress = NodePath("ProgressBar")
+ThrowForceIndicator = NodePath("ThrowForceIndicator")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -25.0
-offset_top = 150.0
+offset_top = -10.0
 offset_right = 25.0
-offset_bottom = 152.0
+offset_bottom = -8.0
 grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_hkond")
 theme_override_styles/fill = SubResource("StyleBoxFlat_7mokb")
 show_percentage = false
+
+[node name="ThrowForceIndicator" type="HBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 140.0
+offset_right = 16.0
+offset_bottom = 148.0
+grow_horizontal = 2
+scale = Vector2(1.1, 1.1)
+theme_override_constants/separation = -1
+
+[node name="TextureRect" type="TextureRect" parent="ThrowForceIndicator"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="ThrowForceIndicator"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="ThrowForceIndicator"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="ThrowForceIndicator"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="ThrowForceIndicator"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2

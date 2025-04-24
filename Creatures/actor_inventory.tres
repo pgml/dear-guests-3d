@@ -29,7 +29,7 @@ script = ExtResource("2_r51eg")
 ItemResource = ExtResource("4_mk5dh")
 Amount = 5
 InventoryIndex = 2
-BeltSlot = -1
+BeltSlot = 0
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_mk5dh"]
@@ -50,4 +50,4 @@ metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [resource]
 script = ExtResource("1_tjkxb")
-Items = Array[ExtResource("2_r51eg")]([SubResource("Resource_fvods"), SubResource("Resource_dvcg0"), SubResource("Resource_ormwg"), SubResource("Resource_mk5dh"), SubResource("Resource_oq0oe")])
+Items = [SubResource("Resource_fvods"), SubResource("Resource_dvcg0"), SubResource("Resource_ormwg"), SubResource("Resource_mk5dh"), SubResource("Resource_oq0oe")]

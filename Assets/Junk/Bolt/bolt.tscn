@@ -20,7 +20,7 @@ angular_damp = 0.5
 script = ExtResource("1_m0e6x")
 LockRotationAxisXY = true
 MaxThrowForce = 12.0
-ThrowIncreaseStep = 0.1
+ThrowIncreaseStep = 0.01
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.50136, -0.865239, 0, 0.865239, 0.50136, 0, 0, 0, 1, 0, 0.132389, 0)

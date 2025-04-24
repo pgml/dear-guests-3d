@@ -62,7 +62,8 @@ public partial class UiInventory : UiControl
 							int slotIndex = pressedKey.ToInt();
 
 							if (slotIndex <= _actor.Belt.MaxItems &&
-								@event.IsActionPressed($"{DGInputMap.AddToBeltSlot}{slotIndex}")) {
+								@event.IsActionPressed($"{DGInputMap.AddToBeltSlot}{slotIndex}"))
+							{
 								_actor.Inventory.ClearBeltSlot(slotIndex-1);
 								_actor.Inventory.AttachItemToBelt(invIndex, slotIndex-1);
 							}

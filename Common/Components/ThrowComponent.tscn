@@ -52,7 +52,7 @@ offset_top = 140.0
 offset_right = 16.0
 offset_bottom = 148.0
 grow_horizontal = 2
-scale = Vector2(1.1, 1.1)
+scale = Vector2(1.2, 1.2)
 theme_override_constants/separation = -1
 
 [node name="TextureRect" type="TextureRect" parent="ThrowForceIndicator"]

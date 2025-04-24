@@ -50,4 +50,4 @@ metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [resource]
 script = ExtResource("1_tjkxb")
-Items = [SubResource("Resource_fvods"), SubResource("Resource_dvcg0"), SubResource("Resource_ormwg"), SubResource("Resource_mk5dh"), SubResource("Resource_oq0oe")]
+Items = Array[ExtResource("2_r51eg")]([SubResource("Resource_fvods"), SubResource("Resource_dvcg0"), SubResource("Resource_ormwg"), SubResource("Resource_mk5dh"), SubResource("Resource_oq0oe")])

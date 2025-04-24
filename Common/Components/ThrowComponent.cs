@@ -23,12 +23,13 @@ public partial class ThrowComponent : Component
 		ThrowForceIndicator.Visible = false;
 	}
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		if (Input.IsActionPressed("action_trigger") && CanThrow) {
 			if (_chargeProgress <= _throwObject.MaxThrowForce) {
 				_chargeProgress += _throwObject.ThrowIncreaseStep;
 			}
+
 			ThrowForceIndicator.Visible = true;
 			Vector2 mousePos = ThrowForceIndicator.GetGlobalMousePosition();
 			ThrowForceIndicator.GlobalPosition = mousePos - new Vector2(
@@ -83,6 +84,7 @@ public partial class ThrowComponent : Component
 					_throw();
 					ThrowForce = 0;
 					CanThrow = false;
+					ThrowForceIndicator.Visible = false;
 				}
 			}
 

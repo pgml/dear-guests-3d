@@ -1,12 +1,14 @@
-[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bgua2dee46e2j"]
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://bgua2dee46e2j"]
 
 [ext_resource type="Script" uid="uid://ces7ytnbgkr4x" path="res://Inventory/Scripts/ItemResource.cs" id="1_2niiy"]
+[ext_resource type="PackedScene" uid="uid://bpmvfplqksh2e" path="res://Assets/Junk/Bolt/bolt.tscn" id="1_7a4bq"]
 [ext_resource type="Texture2D" uid="uid://dogalobt0ukg" path="res://Assets/Junk/Bolt/bolt.png" id="1_17x2g"]
 [ext_resource type="Texture2D" uid="uid://dgb3jved6bops" path="res://Assets/Junk/Bolt/bolt_list_icon.png" id="1_b2aco"]
 
 [resource]
 script = ExtResource("1_2niiy")
 Type = 4
+ItemScene = ExtResource("1_7a4bq")
 Sprite = ExtResource("1_17x2g")
 ListIcon = ExtResource("1_b2aco")
 Name = "Bolt"

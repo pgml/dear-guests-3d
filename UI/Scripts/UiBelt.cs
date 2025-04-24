@@ -13,11 +13,37 @@ public partial class UiBelt : UiControl
 	/// <summary>
 	/// Currently availabe and populated items in the belt
 	/// </summary>
-	private List<UiBeltItem> _beltItems = new();
+	private List<UiBeltItem> _uiBeltItems = new();
 	private Inventory _inventory;
 	private Belt _belt;
+	private int _maxBeltSlots;
 
 	public override void _Ready() {}
+
+	public override void _Input(InputEvent @event)
+	{
+		if (ActorData().IsAnyUiPanelOpen()) {
+			return;
+		}
+
+		if (@event is InputEventKey key && key.IsPressed()) {
+			string pressedKey = key.AsTextKeyLabel();
+
+			if (InputMap.HasAction($"{DGInputMap.AddToBeltSlot}{pressedKey}")) {
+				int slotIndex = pressedKey.ToInt() - 1;
+
+				if (slotIndex < _maxBeltSlots &&
+					@event.IsActionPressed($"{DGInputMap.AddToBeltSlot}{pressedKey}"))
+			 	{
+					_deselectSlots();
+					_uiBeltItems[slotIndex].IsSelected = true;
+					_belt.Items[SlotItem(slotIndex).InventoryIndex] = true;
+					_belt.SelectedItemResource = SlotItem(slotIndex).ItemResource;
+					_belt.SelectedItemResourceIndex = SlotItem(slotIndex).InventoryIndex;
+				}
+			}
+		}
+	}
 
 	public override void _Process(double delta)
 	{
@@ -26,10 +52,11 @@ public partial class UiBelt : UiControl
 		// When spawning characters via the marker ActorData isn't set yet
 		// @todo: make it happen - find a way for ActorData to be set
 		// before UiBelt is initiated
-		if (_beltItems.Count <= 0) {
+		if (_uiBeltItems.Count <= 0) {
 			var actor = ActorData().Character<Actor>();
 			_inventory = actor.Inventory;
 			_belt = actor.Belt;
+			_maxBeltSlots = _belt.MaxItems;
 			_populateSlots();
 
 			_inventory.InventoryUpdated += _onInventoryUpdated;
@@ -55,8 +82,9 @@ public partial class UiBelt : UiControl
 			}
 
 			item.InputLabel.Text = shortKey;
+			item.InventoryIndex = SlotItem(i).InventoryIndex;
 			ItemParent.AddChild(item);
-			_beltItems.Add(item);
+			_uiBeltItems.Add(item);
 		}
 	}
 
@@ -75,15 +103,29 @@ public partial class UiBelt : UiControl
 
 	private void _onInventoryUpdated()
 	{
-		for (var i = 0; i < _beltItems.Count; i++) {
-			_beltItems[i].Populate(new InventoryItemResource());
+		for (var i = 0; i < _uiBeltItems.Count; i++) {
+			_uiBeltItems[i].Populate(new InventoryItemResource());
+			_belt.Items.Clear();
 		}
 
 		foreach (var item in _inventory.BeltItems()) {
-			if (_beltItems[item.BeltSlot] is null) {
+			if (_uiBeltItems[item.BeltSlot] is null) {
 				continue;
 			}
-			_beltItems[item.BeltSlot].Populate(item);
+
+			_uiBeltItems[item.BeltSlot].Populate(item);
+			_belt.Items[item.InventoryIndex] = false;
+		}
+	}
+
+	private void _deselectSlots()
+	{
+		for (var i = 0; i < _belt.Items.Count; i++) {
+			_belt.Items[i] = false;
+		}
+
+		foreach (var slot in _uiBeltItems) {
+			slot.IsSelected = false;
 		}
 	}
 }

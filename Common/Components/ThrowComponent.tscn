@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://craquqyiupbcx"]
+
+[ext_resource type="Script" uid="uid://xrqjv3ims05c" path="res://Common/Components/ThrowComponent.cs" id="1_hkond"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkond"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 1
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mokb"]
+bg_color = Color(1, 1, 1, 1)
+anti_aliasing = false
+
+[node name="ThrowComponent" type="Node3D" node_paths=PackedStringArray("ForceProgress")]
+script = ExtResource("1_hkond")
+ForceProgress = NodePath("ProgressBar")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 150.0
+offset_right = 25.0
+offset_bottom = 152.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_hkond")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7mokb")
+show_percentage = false

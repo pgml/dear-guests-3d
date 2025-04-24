@@ -6,6 +6,9 @@ public partial class UiBeltItem : Button
 	public Label InputLabel { get; set; }
 
 	[Export]
+	public TextureRect ItemSelectedTexture { get; set; }
+
+	[Export]
 	public TextureRect ItemTexture { get; set; }
 
 	[Export]
@@ -14,12 +17,24 @@ public partial class UiBeltItem : Button
 	[Export]
 	public Label AmountLabel { get; set; }
 
+	public bool IsSelected { get; set; }
+
+	public int InventoryIndex { get; set; }
+
 	public override void _Ready()
 	{
 		ItemTexture.SetSize(new Vector2(32f, 32f), true);
 		ItemTexture.ClipContents = true;
 		ItemTexture.ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize;
 		ItemTexture.StretchMode = TextureRect.StretchModeEnum.Keep;
+	}
+
+	public override void _Process(double delta)
+	{
+		ItemSelectedTexture.Visible = false;
+		if (IsSelected) {
+			ItemSelectedTexture.Visible = true;
+		}
 	}
 
 	public UiBeltItem Populate(InventoryItemResource slotItem)

@@ -9,5 +9,21 @@ public partial class Belt : Resource
 	[Export]
 	public int MaxItems { get; set; } = 2;
 
-	public List<int> Items { get; set; } = new();
+	/// <summary>
+	/// Dictionary of InventoryIndex and IsSelected
+	/// </summary>
+	public Dictionary<int, bool> Items { get; set; } = new();
+
+	public int SelectedItemResourceIndex { get; set; }
+	public ItemResource SelectedItemResource { get; set; }
+
+	public int SelectedItemIndex()
+	{
+		foreach (var (index, isSelected) in Items) {
+			if (isSelected) {
+				return index;
+			}
+		}
+		return -1;
+	}
 }

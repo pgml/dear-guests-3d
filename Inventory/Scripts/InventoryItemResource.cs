@@ -10,9 +10,10 @@ public partial class InventoryItemResource : Resource
 	public int Amount { get; set; } = 0;
 
 	[Export]
-	public int BeltSlot { get; set; } = -1;
+	public int InventoryIndex { get; set; }
 
 	[Export]
-	public int InventoryIndex { get; set; }
+	public int BeltSlot { get; set; } = -1;
+
 	public bool IsInBelt { get => BeltSlot > -1; }
 }

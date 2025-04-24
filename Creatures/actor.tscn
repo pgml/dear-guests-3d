@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=75 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://681if87gpoek" path="res://Creatures/Assets/actor.png" id="4_p5kc0"]
 [ext_resource type="PackedScene" uid="uid://cbpvyb7u8275d" path="res://Common/Components/ClimbComponent.tscn" id="5_ejg33"]
 [ext_resource type="PackedScene" uid="uid://dg3ceau2pn23w" path="res://Common/Components/BuildComponent.tscn" id="6_2kvs5"]
+[ext_resource type="PackedScene" uid="uid://craquqyiupbcx" path="res://Common/Components/ThrowComponent.tscn" id="7_t4p7i"]
 [ext_resource type="Resource" uid="uid://brw1tt2r2vtxh" path="res://Creatures/actor_data.tres" id="8_3eq32"]
 [ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
 [ext_resource type="Resource" uid="uid://debmpq2sbx6j8" path="res://Creatures/actor_inventory.tres" id="9_3eq32"]
@@ -561,7 +562,10 @@ MinClimbHeight = 1.0
 
 [node name="BuildComponent" parent="Components" instance=ExtResource("6_2kvs5")]
 
+[node name="ThrowComponent" parent="Components" instance=ExtResource("7_t4p7i")]
+
 [node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterCollider")]
+collision_layer = 2
 floor_max_angle = 1.39626
 floor_snap_length = 1.0
 script = ExtResource("2_6neyu")

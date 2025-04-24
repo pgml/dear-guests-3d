@@ -1,23 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpuo4txhyxyfc"]
+[gd_scene load_steps=8 format=3 uid="uid://dpuo4txhyxyfc"]
 
 [ext_resource type="Script" uid="uid://cbwdri5jt4ehe" path="res://UI/Scripts/UiBeltItem.cs" id="1_bvws5"]
 [ext_resource type="Texture2D" uid="uid://bcwdg78ojpxx0" path="res://Assets/Sprites/UI/ui_belt_bg.png" id="1_bywox"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="2_15l7f"]
 [ext_resource type="Texture2D" uid="uid://86brvamg7wg1" path="res://Assets/Sprites/UI/ui_belt_item_amount.png" id="3_bvws5"]
 [ext_resource type="Texture2D" uid="uid://cf27u6dph4r5e" path="res://Assets/Sprites/UI/ui_kb_key.png" id="4_hvwk7"]
+[ext_resource type="Texture2D" uid="uid://jm6yr52pybiv" path="res://Assets/Sprites/UI/ui_belt_selected_bg.png" id="5_in718"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_b20gn"]
 font = ExtResource("2_15l7f")
 font_size = 3
 font_color = Color(0.239216, 0, 0.0235294, 1)
 
-[node name="BeltItem" type="Button" node_paths=PackedStringArray("InputLabel", "ItemTexture", "ItemAmountBg", "AmountLabel")]
+[node name="BeltItem" type="Button" node_paths=PackedStringArray("InputLabel", "ItemSelectedTexture", "ItemTexture", "ItemAmountBg", "AmountLabel")]
 custom_minimum_size = Vector2(32, 32)
 offset_right = 32.0
 offset_bottom = 32.0
 flat = true
 script = ExtResource("1_bvws5")
 InputLabel = NodePath("Label")
+ItemSelectedTexture = NodePath("BeltBgSelected")
 ItemTexture = NodePath("ItemTexture")
 ItemAmountBg = NodePath("AmountBg")
 AmountLabel = NodePath("Amount")
@@ -46,12 +48,23 @@ texture = ExtResource("3_bvws5")
 stretch_mode = 2
 
 [node name="BeltBg" type="TextureRect" parent="."]
+clip_contents = true
 layout_mode = 2
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 33.0
-offset_bottom = 33.0
+offset_right = 32.0
+offset_bottom = 32.0
 texture = ExtResource("1_bywox")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="BeltBgSelected" type="TextureRect" parent="."]
+visible = false
+clip_contents = true
+layout_mode = 2
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("5_in718")
+expand_mode = 1
+stretch_mode = 2
 
 [node name="ItemTexture" type="TextureRect" parent="."]
 clip_contents = true
@@ -69,19 +82,19 @@ stretch_mode = 2
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-offset_left = 14.0
-offset_top = 2.0
-offset_right = 21.0
-offset_bottom = 12.0
+offset_left = 13.0
+offset_top = 1.0
+offset_right = 20.0
+offset_bottom = 11.0
 text = "1"
 label_settings = SubResource("LabelSettings_b20gn")
 horizontal_alignment = 1
 
 [node name="Amount" type="Label" parent="."]
 layout_mode = 2
-offset_left = 24.0
+offset_left = 25.0
 offset_top = 23.0
-offset_right = 32.0
+offset_right = 33.0
 offset_bottom = 32.0
 text = "99"
 label_settings = SubResource("LabelSettings_b20gn")

@@ -45,6 +45,7 @@ public partial class UiInventory : UiControl
 		UiBackPackItemList itemList = BackPackItemList;
 		if (@event is InputEventKey key && key.IsPressed()) {
 			int selectedIndex = 0;
+			string pressedKey = key.AsTextKeyLabel();
 
 			if (itemList.GetSelected() is TreeItem selectedItem && IsOpen) {
 				int index = 0;
@@ -53,15 +54,17 @@ public partial class UiInventory : UiControl
 					if (treeItem == selectedItem) {
 						int invIndex = invItemResource.InventoryIndex;
 
-						for (var i = 0; i < _actor.Belt.MaxItems; i++) {
-							int slotIndex = i + 1;
+						if (@event.IsActionPressed(DGInputMap.AddRemoveFromBelt)) {
+							_actor.Inventory.DetachItemFromBelt(invIndex);
+						}
 
-							if (@event.IsActionPressed(DGInputMap.AddRemoveFromBelt)) {
-								_actor.Inventory.DetachItemFromBelt(invIndex);
-							}
-							else if (@event.IsActionPressed($"{DGInputMap.AddToBeltSlot}{slotIndex}")) {
-								_actor.Inventory.ClearBeltSlot(i);
-								_actor.Inventory.AttachItemToBelt(invIndex, i);
+						if (InputMap.HasAction($"{DGInputMap.AddToBeltSlot}{pressedKey}")) {
+							int slotIndex = pressedKey.ToInt();
+
+							if (slotIndex <= _actor.Belt.MaxItems &&
+								@event.IsActionPressed($"{DGInputMap.AddToBeltSlot}{slotIndex}")) {
+								_actor.Inventory.ClearBeltSlot(slotIndex-1);
+								_actor.Inventory.AttachItemToBelt(invIndex, slotIndex-1);
 							}
 						}
 						selectedIndex = index;

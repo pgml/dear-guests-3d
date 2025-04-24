@@ -72,6 +72,7 @@ public partial class Inventory : Resource, ICloneable
 			resource.Amount = amount;
 		}
 
+		EmitSignal(SignalName.InventoryUpdated);
 		return true;
 	}
 
@@ -99,7 +100,7 @@ public partial class Inventory : Resource, ICloneable
 		return true;
 	}
 
-	public bool RemoveOneItem(int resourceIndex, int removeByAmount = -1)
+	public bool RemoveOneItem(int resourceIndex)
 	{
 		return RemoveItem(resourceIndex, 1);
 	}
@@ -115,6 +116,16 @@ public partial class Inventory : Resource, ICloneable
 		return -1;
 	}
 
+	public InventoryItemResource GetItemByInventoryIndex(int index)
+	{
+		foreach (var item in Items) {
+			if (item.InventoryIndex == index) {
+				return item;
+			}
+		}
+		return null;
+	}
+
 	public List<InventoryItemResource> GetItemsOfType(ItemType type)
 	{
 		List<InventoryItemResource>	itemsOfType = new();
@@ -124,6 +135,15 @@ public partial class Inventory : Resource, ICloneable
 			}
 		}
 		return itemsOfType;
+	}
+
+	/// <summary>
+	/// Returns the amount of the item with the inventory index `index`
+	/// </summary>
+	public int GetItemAmount(int index)
+	{
+		InventoryItemResource item = GetItemByInventoryIndex(index);
+		return item is null ? 0 : item.Amount;
 	}
 
 	public bool IsInInventory(ItemResource item)
@@ -168,7 +188,6 @@ public partial class Inventory : Resource, ICloneable
 		}
 
 		var resource = Items[index];
-
 		if (resource.ItemResource.AttachableToBelt) {
 			resource.BeltSlot = beltSlot;
 			EmitSignal(SignalName.InventoryUpdated);

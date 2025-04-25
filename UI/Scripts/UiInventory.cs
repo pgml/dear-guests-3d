@@ -63,7 +63,7 @@ public partial class UiInventory : UiControl
 					if (treeItem == selectedItem) {
 						int invIndex = invItemResource.InventoryIndex;
 
-						if (@event.IsActionPressed(DGInputMap.AddRemoveFromBelt)) {
+						if (@event.IsActionPressed(DGInputMap.RemoveFromBelt)) {
 							_actor.Inventory.DetachItemFromBelt(invIndex);
 						}
 

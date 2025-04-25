@@ -47,7 +47,7 @@ public partial class UiBeltItem : Button
 			ItemTexture.Visible = true;
 			ItemTexture.Texture = slotItem.ItemResource.Sprite;
 
-			if (slotItem.Amount > 0) {
+			if (slotItem.Amount > 0 && slotItem.ItemResource.IsUseable) {
 				ItemAmountBg.Visible = true;
 				AmountLabel.Visible = true;
 				AmountLabel.Text = $"{slotItem.Amount}";

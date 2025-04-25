@@ -52,6 +52,9 @@ public partial class ItemResource : Resource
 	[Export]
 	public bool AttachableToBelt { get; set; } = false;
 
+	[Export]
+	public bool IsUseable { get; set; } = false;
+
 	private static readonly string _itemResourceDir = "res://Items/";
 
 	public static ItemResource Get(string path, bool absoluePath = false)

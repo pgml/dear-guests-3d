@@ -6,6 +6,9 @@ public partial class PhysicsObject : RigidBody3D
 	public bool LockRotationAxisXY { get; set; } = false;
 
 	[Export]
+	public bool IsThrowable { get; set; } = false;
+
+	[Export]
 	public float MinThrowForce { get; set; } = 2;
 
 	[Export]

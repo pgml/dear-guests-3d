@@ -25,6 +25,10 @@ public partial class ThrowComponent : Component
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_throwObject is null || !_throwObject.IsThrowable) {
+			return;
+		}
+
 		if (Input.IsActionPressed("action_trigger") && CanThrow) {
 			if (_chargeProgress <= _throwObject.MaxThrowForce) {
 				_chargeProgress += _throwObject.ThrowIncreaseStep;

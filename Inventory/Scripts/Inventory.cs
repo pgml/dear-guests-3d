@@ -18,6 +18,16 @@ public partial class Inventory : Resource, ICloneable
 		Console.AddCommands((object)this);
 	}
 
+	public void SetIndices()
+	{
+		for (var i = 0; i < Items.Count; i++) {
+			var item = Items[i];
+			if (i > 0 && item.InventoryIndex == 0) {
+				item.InventoryIndex = i;
+			}
+		}
+	}
+
 	public bool AddItem(ItemResource item, int amount)
 	{
 		bool wasAdded = false;
@@ -37,7 +47,7 @@ public partial class Inventory : Resource, ICloneable
 				new InventoryItemResource() {
 					ItemResource = item,
 					Amount = amount,
-					InventoryIndex = Items.Count + 1
+					InventoryIndex = Items.Count
 				}
 			);
 			wasAdded = true;

@@ -7,6 +7,7 @@ public partial class AnimationComponent : Component
 
 	private AnimationNodeStateMachinePlayback _stateMachine;
 	private Vector3 _moveDirection;
+	private Vector3 _forwardDirection;
 	private Vector2 _startingDirection = Vector2.Down;
 
 	public async override void _Ready()
@@ -27,10 +28,11 @@ public partial class AnimationComponent : Component
 			return;
 		}
 
-		_moveDirection = CreatureData.Direction;
+		_moveDirection = CreatureData.ForwardDirection;
+		_forwardDirection = CreatureData.ForwardDirection;
 
 		_updateAnimationState();
-		_updateAnimationParameters(_moveDirection);
+		_updateAnimationParameters(_forwardDirection);
 	}
 
 	public void SetInitialFacingDirection(Vector2 direction)

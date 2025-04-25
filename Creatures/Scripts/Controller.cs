@@ -43,11 +43,6 @@ public partial class Controller : CreatureController, IController
 
 		CreatureData.CurrentState = CurrentState;
 		CreatureData.IsIdle = CurrentState == _stateIdle();
-		CreatureData.VelocityMultiplier = CreatureData.WalkSpeed;
-
-		if (CreatureData.IsRunning) {
-			CreatureData.VelocityMultiplier = CreatureData.RunSpeed;
-		}
 
 		SlopeMovement();
 

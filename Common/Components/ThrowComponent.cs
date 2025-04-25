@@ -33,10 +33,14 @@ public partial class ThrowComponent : Component
 			if (_chargeProgress <= _throwObject.MaxThrowForce) {
 				_chargeProgress += _throwObject.ThrowIncreaseStep;
 			}
+
+			ActorData.CanMove = false;
+			ActorData.VelocityMultiplier = 0;
 			_positionThrowIndicator();
 		}
 
 		if (Input.IsActionJustReleased("action_trigger")) {
+			ActorData.CanMove = true;
 			_resetChargeProgress();
 		}
 
@@ -61,6 +65,7 @@ public partial class ThrowComponent : Component
 				_throwObject = _instantiateThrowObject();
 				ForceProgress.MinValue = _throwObject.MinThrowForce;
 				ForceProgress.MaxValue = _throwObject.MaxThrowForce;
+				ActorData.ForwardDirection = _throwDirection();
 				// force always a specific amount of initial progress
 				// otherwise if charging and throwing quickly would be just
 				// dropping
@@ -106,19 +111,6 @@ public partial class ThrowComponent : Component
 		GetTree().CurrentScene.AddChild(_throwObject);
 		_throwObject.GlobalPosition = actor.GlobalPosition;
 
-		Vector2 mousePos = GetViewport().GetMousePosition();
-		var camera = GetViewport().GetCamera3D();
-
-		Vector3 rayOrigin = camera.ProjectRayOrigin(mousePos);
-		Vector3 rayDirection = camera.ProjectRayNormal(mousePos).Normalized();
-
-		// determine the throw direction from the origin
-		// based on the position of the mouse cursor
-		float groundY = actor.GlobalPosition.Y;
-		float distanceToIntersection = (groundY - rayOrigin.Y) / rayDirection.Y;
-		Vector3 hitPoint = rayOrigin + rayDirection * distanceToIntersection;
-		Vector3 direction = (hitPoint - actor.GlobalPosition).Normalized();
-
 		// throw at a roughly 45° angle
 		float angleDeg = 45 + (float)GD.RandRange(-5,  5);
 		float angle = Mathf.DegToRad(angleDeg);
@@ -135,10 +127,32 @@ public partial class ThrowComponent : Component
 			GD.RandRange(-1, 1)
 		);
 
+		Vector3 direction = _throwDirection();
 		Vector3 velocity = direction * ThrowForce + trajectory;
+
 		_throwObject.LinearVelocity = velocity;
 
 		_updateInventory();
+	}
+
+	/// <summary>
+	/// Determines the direction the object should be thrown
+	/// </summary>
+	private Vector3 _throwDirection()
+	{
+		var actor = ActorData.Character<Actor>();
+		Vector2 mousePos = GetViewport().GetMousePosition();
+		var camera = GetViewport().GetCamera3D();
+
+		Vector3 rayOrigin = camera.ProjectRayOrigin(mousePos);
+		Vector3 rayDirection = camera.ProjectRayNormal(mousePos).Normalized();
+
+		// determine the throw direction from the origin
+		// based on the position of the mouse cursor
+		float groundY = actor.GlobalPosition.Y;
+		float distanceToIntersection = (groundY - rayOrigin.Y) / rayDirection.Y;
+		Vector3 hitPoint = rayOrigin + rayDirection * distanceToIntersection;
+		return (hitPoint - actor.GlobalPosition).Normalized();
 	}
 
 	/// <summary>

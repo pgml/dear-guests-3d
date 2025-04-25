@@ -16,4 +16,16 @@ public partial class AIController : Controller
 	{
 		base._Ready();
 	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		CreatureData.VelocityMultiplier = CreatureData.WalkSpeed;
+
+		if (CreatureData.IsRunning) {
+			CreatureData.VelocityMultiplier = CreatureData.RunSpeed;
+		}
+		CreatureData.ForwardDirection = CreatureData.Direction;
+
+		base._PhysicsProcess(delta);
+	}
 }

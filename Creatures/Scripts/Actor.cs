@@ -59,6 +59,13 @@ public partial class Actor : Creature
 
 		if (CreatureData is not null && !_console.IsOpen) {
 			CreatureData.Direction = direction;
+
+			CreatureData.VelocityMultiplier = CreatureData.WalkSpeed;
+			if (CreatureData.IsRunning) {
+				CreatureData.VelocityMultiplier = CreatureData.RunSpeed;
+			}
+			CreatureData.ForwardDirection = CreatureData.Direction;
+			//GD.PrintS(CreatureData.Direction);
 		}
 	}
 

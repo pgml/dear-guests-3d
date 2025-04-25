@@ -37,6 +37,7 @@ public partial class CreatureData : Resource
 	public float JumpImpulse = 0;
 	public Vector3 Position = Vector3.Zero;
 	public Vector3 Direction = Vector3.Zero;
+	public Vector3 ForwardDirection = Vector3.Zero;
 	public Vector3 Velocity = Vector3.Zero;
 	public Vector3 FacingDirection = Vector3.Zero;
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhqf7tyiv505s"]
+[gd_scene load_steps=6 format=3 uid="uid://dhqf7tyiv505s"]
 
 [ext_resource type="Script" uid="uid://xrqjv3ims05c" path="res://Common/Components/ThrowComponent.cs" id="1_hkond"]
 [ext_resource type="Texture2D" uid="uid://cc6b34ngniihr" path="res://Assets/Sprites/UI/ui_indicator_dot.png" id="2_7mokb"]
@@ -25,10 +25,12 @@ anti_aliasing = false
 bg_color = Color(1, 1, 1, 1)
 anti_aliasing = false
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mokb"]
+
 [node name="ThrowComponent" type="Node3D" node_paths=PackedStringArray("ForceProgress", "ThrowForceIndicator")]
 script = ExtResource("1_hkond")
 ForceProgress = NodePath("ProgressBar")
-ThrowForceIndicator = NodePath("ThrowForceIndicator")
+ThrowForceIndicator = NodePath("Control")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 anchors_preset = 5
@@ -43,7 +45,151 @@ theme_override_styles/background = SubResource("StyleBoxFlat_hkond")
 theme_override_styles/fill = SubResource("StyleBoxFlat_7mokb")
 show_percentage = false
 
+[node name="Control" type="Panel" parent="."]
+offset_right = 38.0
+offset_bottom = 14.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7mokb")
+
+[node name="TextureRect6" type="TextureRect" parent="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_top = 6.0
+offset_right = 8.0
+offset_bottom = 14.0
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 15.0
+offset_bottom = 11.0
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect8" type="TextureRect" parent="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_left = 15.0
+offset_top = 1.0
+offset_right = 23.0
+offset_bottom = 9.0
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect9" type="TextureRect" parent="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_left = 23.0
+offset_top = 3.0
+offset_right = 31.0
+offset_bottom = 11.0
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect10" type="TextureRect" parent="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_left = 30.0
+offset_top = 6.0
+offset_right = 38.0
+offset_bottom = 14.0
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="Control2" type="Panel" parent="."]
+visible = false
+offset_right = 30.0
+offset_bottom = 12.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7mokb")
+
+[node name="TextureRect6" type="TextureRect" parent="Control2"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_top = 6.0
+offset_right = 8.0
+offset_bottom = 14.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="Control2"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 12.0
+offset_bottom = 11.0
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect8" type="TextureRect" parent="Control2"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_left = 9.0
+offset_top = 1.0
+offset_right = 17.0
+offset_bottom = 9.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect9" type="TextureRect" parent="Control2"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_left = 16.0
+offset_top = 1.0
+offset_right = 24.0
+offset_bottom = 9.0
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="TextureRect10" type="TextureRect" parent="Control2"]
+clip_contents = true
+custom_minimum_size = Vector2(8, 8)
+layout_direction = 2
+layout_mode = 2
+offset_left = 22.0
+offset_top = 4.0
+offset_right = 30.0
+offset_bottom = 12.0
+texture = ExtResource("2_7mokb")
+expand_mode = 1
+stretch_mode = 2
+
 [node name="ThrowForceIndicator" type="HBoxContainer" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

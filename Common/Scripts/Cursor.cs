@@ -11,13 +11,13 @@ public partial class Cursor : Node3D
 	[Export]
 	public Texture2D Grab;
 
-	//private ActorData _actorData;
+	private CreatureData _actorData;
 	//private AnimatedSprite3D _throw;
 	//private ContainerResource _container;
 
 	public override void _Ready()
 	{
-		//_actorData = Load<ActorData>(Resources.ActorData);
+		_actorData = GD.Load<CreatureData>(Resources.ActorData);
 		//_throw = GetNode<AnimatedSprite3D>("ThrowCursor");
 
 		CursorDefault();
@@ -32,15 +32,15 @@ public partial class Cursor : Node3D
 		//else if (_actorData.IsPickingUpItem) {
 		//	CursorGrab();
 		//}
-		//else if (_actorData.CanPickupItem || _actorData.CanOpenContainer) {
-		//	CursorHand();
-		//}
+		if (_actorData.CanPickUp) {
+			CursorHand();
+		}
 		//else if (_actorData.CanThrowItem) {
 		//	CursorThrow();
 		//}
-		//else {
+		else {
 			CursorDefault();
-		//}
+		}
 	}
 
 	public void CursorDefault()
@@ -81,4 +81,3 @@ public partial class Cursor : Node3D
 		//_throw.Visible = false;
 	}
 }
-

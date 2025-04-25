@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://vjobyvvlpntj"]
+
+[ext_resource type="Script" uid="uid://bottbm2j57f4t" path="res://Common/Components/PickUpComponent.cs" id="1_ibh7t"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ibh7t"]
+height = 2.76182
+radius = 1.5
+
+[node name="PickUpComponent" type="Node3D" node_paths=PackedStringArray("PickUpArea")]
+script = ExtResource("1_ibh7t")
+PickUpArea = NodePath("Area3D")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38161, 0)
+shape = SubResource("CylinderShape3D_ibh7t")
+debug_color = Color(0.940661, 8.08597e-06, 0.614029, 0.42)

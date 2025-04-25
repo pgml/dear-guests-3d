@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dcp421rmke0ht"]
+
+[ext_resource type="Shader" uid="uid://cm2bdmg7oupxr" path="res://Shaders/outline.gdshader" id="1_6phny"]
+[ext_resource type="Texture2D" uid="uid://dogalobt0ukg" path="res://Assets/Junk/Bolt/bolt.png" id="2_ypdug"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_6phny")
+shader_parameter/sprite_texture = ExtResource("2_ypdug")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/glowSize = 1.0
+shader_parameter/glowDensity = 1
+shader_parameter/glowRadialCoverage = 4
+shader_parameter/glowAngle = 0.0
+shader_parameter/glowSharpness = 0.0
+shader_parameter/alphaThreshold = 1.0

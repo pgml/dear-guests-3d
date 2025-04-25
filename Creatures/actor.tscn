@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=78 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -12,8 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://dhqf7tyiv505s" path="res://Common/Components/ThrowComponent.tscn" id="7_t4p7i"]
 [ext_resource type="Resource" uid="uid://brw1tt2r2vtxh" path="res://Creatures/actor_data.tres" id="8_3eq32"]
 [ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
+[ext_resource type="PackedScene" uid="uid://vjobyvvlpntj" path="res://Common/Components/PickUpComponent.tscn" id="8_y2omn"]
 [ext_resource type="Resource" uid="uid://debmpq2sbx6j8" path="res://Creatures/actor_inventory.tres" id="9_3eq32"]
 [ext_resource type="Resource" uid="uid://cj2qbr5n55aut" path="res://Creatures/actor_belt.tres" id="11_2kvs5"]
+[ext_resource type="Texture2D" uid="uid://q1m6fsp1d7qm" path="res://Assets/Sprites/UI/Cursors/hand.png" id="16_dhulj"]
+[ext_resource type="Texture2D" uid="uid://cmuhumqshkxqr" path="res://Assets/Sprites/UI/Cursors/grab.png" id="17_6qk7i"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1pvj"]
 height = 2.86407
@@ -531,7 +534,7 @@ advance_mode = 2
 states/Fall/node = SubResource("AnimationNodeBlendSpace2D_t4p7i")
 states/Fall/position = Vector2(525.388, 251.84)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_8od7v")
-states/Idle/position = Vector2(318.108, 108.775)
+states/Idle/position = Vector2(318.108, 108.685)
 states/Jump/node = SubResource("AnimationNodeBlendSpace2D_1x1is")
 states/Jump/position = Vector2(363.73, 281.028)
 states/JumpBegin/node = SubResource("AnimationNodeBlendSpace2D_t4353")
@@ -545,6 +548,8 @@ graph_offset = Vector2(-81.9453, 56.3867)
 [node name="Actor" type="Node3D"]
 
 [node name="Components" type="Node3D" parent="."]
+
+[node name="ThrowComponent" parent="Components" instance=ExtResource("7_t4p7i")]
 
 [node name="AnimationComponent" parent="Components" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y1pvj")]
 AnimationTree = NodePath("../../AnimationTree")
@@ -562,7 +567,7 @@ MinClimbHeight = 1.0
 
 [node name="BuildComponent" parent="Components" instance=ExtResource("6_2kvs5")]
 
-[node name="ThrowComponent" parent="Components" instance=ExtResource("7_t4p7i")]
+[node name="PickUpComponent" parent="Components" instance=ExtResource("8_y2omn")]
 
 [node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterCollider")]
 collision_layer = 2
@@ -607,7 +612,7 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_8od7v")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Fall/blend_position = Vector2(0.00368214, -1.07798)
-parameters/Idle/blend_position = Vector2(-0.0321911, 1.27383)
+parameters/Idle/blend_position = Vector2(0.0520723, -1.72159)
 parameters/Jump/blend_position = Vector2(0.0940542, 0.931708)
 parameters/JumpBegin/blend_position = Vector2(0.961474, -0.163887)
 parameters/Walk/blend_position = Vector2(-0.139847, 0.628897)
@@ -615,6 +620,8 @@ parameters/Walk/blend_position = Vector2(-0.139847, 0.628897)
 [node name="UI" type="Node3D" parent="."]
 
 [node name="Cursor" parent="UI" instance=ExtResource("8_xua5t")]
+Hand = ExtResource("16_dhulj")
+Grab = ExtResource("17_6qk7i")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)

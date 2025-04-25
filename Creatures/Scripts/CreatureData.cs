@@ -23,18 +23,23 @@ public partial class CreatureData : Resource
 	/// </summary>
 	public bool CanMove = true;
 	public bool CanJump = false;
+	public bool CanClimb = false;
+	public bool CanPickUp = false;
+
+	public bool StartClimb = false;
 	public bool StartJump = false;
+
 	public bool ShouldJump = false;
 	public bool ShouldJumpForward = true;
-	public bool CanClimb = false;
-	public bool StartClimb = false;
 	public bool ShouldClimb = false;
+
 	public float WalkSpeed = 0;
 	public float RunSpeed = 0;
 	public float DefaultWalkSpeed = 0;
 	public float DefaultRunSpeed = 0;
 	public float VelocityMultiplier = 0;
 	public float JumpImpulse = 0;
+
 	public Vector3 Position = Vector3.Zero;
 	public Vector3 Direction = Vector3.Zero;
 	public Vector3 ForwardDirection = Vector3.Zero;

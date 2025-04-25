@@ -18,13 +18,14 @@ continuous_cd = true
 linear_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_m0e6x")
+Pickupable = true
 LockRotationAxisXY = true
 IsThrowable = true
 MaxThrowForce = 12.0
 ThrowIncreaseStep = 0.1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.50136, -0.865239, 0, 0.865239, 0.50136, 0, 0, 0, 1, 0, 0.163964, -0.0320381)
+transform = Transform3D(0.50136, -0.865239, 0, 0.865239, 0.50136, 0, 0, 0, 1, 0, 0.159, -0.032)
 shape = SubResource("CapsuleShape3D_iaow0")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
@@ -36,4 +37,4 @@ alpha_cut = 2
 texture_filter = 2
 texture = ExtResource("2_digwd")
 region_enabled = true
-region_rect = Rect2(67, 3, 9, 9)
+region_rect = Rect2(64, 0, 15, 15)

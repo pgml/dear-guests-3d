@@ -20,17 +20,19 @@ public partial class UiInventory : UiControl
 	private UiQuickInventory _quickInventory;
 	private Node _mainUi;
 	private Actor _actor;
+	private bool _indicesSet = false;
 
-	public async override void _Ready()
+	//public async override void _Ready()
+	//{
+	//	base._Ready();
+	//}
+
+	public override void _Process(double delta)
 	{
-		base._Ready();
-
-		// Waiting for additional frames to be done.
-		// This seems kinda dumb but it works, so I'll leave it for now
-		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-
-		_actor.Inventory.SetIndices();
+		if (!_indicesSet && _actor is not null) {
+			_actor.Inventory.SetIndices();
+			_indicesSet = true;
+		}
 	}
 
 	public override void _Input(InputEvent @event)

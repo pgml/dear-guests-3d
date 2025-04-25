@@ -20,23 +20,23 @@ metadata/_custom_type_script = ExtResource("2_r51eg")
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("3_f5ro0")
 Amount = 10
-InventoryIndex = 1
+InventoryIndex = 0
 BeltSlot = -1
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_ormwg"]
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("4_mk5dh")
-Amount = 5
-InventoryIndex = 2
-BeltSlot = 0
+Amount = 20
+InventoryIndex = 0
+BeltSlot = -1
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
 [sub_resource type="Resource" id="Resource_mk5dh"]
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("5_f5ro0")
 Amount = 5
-InventoryIndex = 3
+InventoryIndex = 0
 BeltSlot = -1
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
@@ -44,7 +44,7 @@ metadata/_custom_type_script = ExtResource("2_r51eg")
 script = ExtResource("2_r51eg")
 ItemResource = ExtResource("6_mk5dh")
 Amount = 1
-InventoryIndex = 4
+InventoryIndex = 0
 BeltSlot = -1
 metadata/_custom_type_script = ExtResource("2_r51eg")
 

@@ -104,5 +104,4 @@ Creature = "uid://7nos3bf51wac"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4332, 0, 5.21258)
 Creature = "uid://camul2t8tfgtn"
 
-[editable path="Content/TestMap"]
 [editable path="World"]

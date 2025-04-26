@@ -33,7 +33,7 @@ public partial class AudioComponent : Component
 
 	public void PlayFootStepSound()
 	{
-		if (CreatureData.IsIdle || !CreatureData.IsOnFloor) {
+		if (!CreatureData.CanMove || CreatureData.IsIdle || !CreatureData.IsOnFloor) {
 			return;
 		}
 

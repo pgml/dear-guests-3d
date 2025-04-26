@@ -28,7 +28,7 @@ public partial class AnimationComponent : Component
 			return;
 		}
 
-		_moveDirection = CreatureData.ForwardDirection;
+		_moveDirection = CreatureData.Direction;
 		_forwardDirection = CreatureData.ForwardDirection;
 
 		_updateAnimationState();

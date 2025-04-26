@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_sem34"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sem34"]
-size = Vector3(2.86798, 2.47475, 1.8689)
+size = Vector3(2.86798, 2.34961, 1.81262)
 
 [node name="RubbishContainer" type="Node3D" groups=["Climbable"]]
 script = ExtResource("1_6uyms")
@@ -30,5 +30,6 @@ collision_layer = 256
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.985603, -0.169074, 0, 0.169074, 0.985603, -0.0132449, 1.27085, -0.651837)
+transform = Transform3D(1, 0, 0, 0, 0.973579, -0.228351, 0, 0.228351, 0.973579, -0.0132449, 1.21636, -0.69352)
 shape = SubResource("BoxShape3D_sem34")
+disabled = true

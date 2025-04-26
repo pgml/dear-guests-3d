@@ -25,13 +25,18 @@ public partial class ClimbComponent : Component
 	[Export]
 	public float SafeThreshold { get; set; } = 25;
 
+	[Export]
+	public bool Debug { get; set; } = false;
+
 	public float ClimbTestForwardDistance { get; set; } = 1f;
 	public Vector3 ClimbOrigin { get; set; }
 	public Vector3 ClimbTo { get; set; }
 
 	// @temporary
-	public float InitialJumpImpulseTile = 30;
-	public float JumpImpulsePerTile = 6;
+	[Export]
+	public float InitialJumpImpulseTile = 26;
+	[Export]
+	public float JumpImpulsePerTile = 3;
 
 	public async override void _Ready()
 	{
@@ -46,12 +51,14 @@ public partial class ClimbComponent : Component
 			return;
 		}
 
-		//GD.Print(
-		//	"ColliderHeight: ", ColliderHeight(), " ",
-		//	"TileHeight: ", ColliderHeight(true), " ",
-		//	"DistanceToFloor: ", CreatureData.Controller.DistanceToFloor(), " ",
-		//	"TileDistanceToFloor: ", CreatureData.Controller.DistanceToFloor(true)
-		//);
+		if (Debug) {
+			GD.PrintS(
+				"ColliderHeight:", ColliderHeight(),
+				"TileHeight:", ColliderHeight(true),
+				"DistanceToFloor:", CreatureData.Controller.DistanceToFloor(),
+				"TileDistanceToFloor:", CreatureData.Controller.DistanceToFloor(true)
+			);
+		}
 
 		if (!_canClimb()) {
 			return;
@@ -139,7 +146,8 @@ public partial class ClimbComponent : Component
 				Basis.Identity,
 				Controller.GlobalTransform.Origin + new Vector3(0, 2, 0)
 			),
-			CreatureData.FacingDirection
+			CreatureData.FacingDirection,
+			0.01f
 		);
 
 		if (testMotion.IsColliding) {

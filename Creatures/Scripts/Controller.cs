@@ -171,7 +171,7 @@ public partial class Controller : CreatureController, IController
 	/// <summary>
 	/// Get the real elevation of a character<br />
 	/// Due to different things like scaling and pixel size, position.Y
-	/// doesn't not correctly represent the characters y position
+	/// doesn't correctly represent the characters y position
 	/// </summary>
 	public double CharacterElevation(bool inTileSize = false)
 	{

@@ -566,7 +566,8 @@ JumpImpulse = 10.0
 
 [node name="ClimbComponent" parent="Components" instance=ExtResource("5_ejg33")]
 MinClimbHeight = 1.0
-SafeThreshold = 10.0
+MaxClimbHeight = 5.8
+SafeThreshold = 1.0
 
 [node name="BuildComponent" parent="Components" instance=ExtResource("6_2kvs5")]
 

@@ -26,6 +26,8 @@ region_rect = Rect2(0, 257, 64, 63)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.427463)
+collision_layer = 256
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 0.985603, -0.169074, 0, 0.169074, 0.985603, -0.0132449, 1.27085, -0.651837)

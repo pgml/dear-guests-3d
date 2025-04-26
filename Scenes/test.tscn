@@ -31,7 +31,7 @@ script = ExtResource("1_ys1qc")
 navigation_mesh = SubResource("NavigationMesh_qpfo2")
 
 [node name="TestMap" parent="Content" groups=["Climbable"] instance=ExtResource("5_i3aeo")]
-transform = Transform3D(0.7, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Props" type="Node3D" parent="Content"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00987053, 0.221972, -0.247444)

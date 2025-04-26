@@ -34,6 +34,9 @@ animation/import_rest_as_RESET=false
 import_script/path="uid://c3e3ye80f025p"
 _subresources={
 "nodes": {
+"PATH:default": {
+"generate/navmesh": 1
+},
 "PATH:front": {
 "mesh_instance/cast_shadow": 3
 }

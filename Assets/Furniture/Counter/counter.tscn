@@ -8,3 +8,4 @@ script = ExtResource("1_tqus8")
 
 [node name="Mesh" parent="." instance=ExtResource("2_ohmub")]
 transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
+cast_shadow = 2

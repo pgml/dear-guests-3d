@@ -556,6 +556,8 @@ FootStepLoopInterval = 0.34
 [node name="EdgeCheckComponent" parent="Components" instance=ExtResource("3_n14qi")]
 
 [node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("NavigationAgent", "CharacterCollider")]
+collision_layer = 4
+collision_mask = 259
 floor_max_angle = 2.36492
 floor_snap_length = 5.0
 script = ExtResource("1_jmxrq")

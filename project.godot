@@ -294,7 +294,11 @@ action_trigger={
 3d_render/layer_1="Normal"
 3d_render/layer_2="ShadowAnomaly"
 3d_physics/layer_1="World"
-3d_physics/layer_2="Items"
+3d_physics/layer_2="Player"
+3d_physics/layer_3="AI"
+3d_physics/layer_4="Interactions"
+3d_physics/layer_9="Props"
+3d_physics/layer_10="Items"
 
 [navigation]
 

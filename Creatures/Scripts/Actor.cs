@@ -36,6 +36,7 @@ public partial class Actor : Creature
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!CreatureData.CanMove || CreatureData.IsAnyUiPanelOpen()) {
+			CreatureData.Direction = Vector3.Zero;
 			return;
 		}
 		//SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);

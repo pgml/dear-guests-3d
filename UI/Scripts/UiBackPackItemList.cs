@@ -60,7 +60,7 @@ public partial class UiBackPackItemList : UiItemList
 
 			//double weight = Math.Round(item.Weight * inventoryItem.Amount, 2);
 			var image = GD.Load<CompressedTexture2D>(Resources.UiListIcon).GetImage();
-			if (inventoryItem.ItemResource.Sprite is not null) {
+			if (inventoryItem.ItemResource.ListIcon is not null) {
 				image = inventoryItem.ItemResource.ListIcon.GetImage();
 			}
 

@@ -211,12 +211,14 @@ public partial class World : Node
 			DayTimeHours += delta * TimeScale;
 			DateTime.UpdateDateTime(DayTimeHours, DayOfYear, Year);
 		}
+		else {
+			_update();
+		}
 
 		if (_initialDayTimeHours == 0) {
 			_initialDayTimeHours = DayTimeHours;
 			_update();
 		}
-
 	}
 
 	private void _update()

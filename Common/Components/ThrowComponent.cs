@@ -178,6 +178,9 @@ public partial class ThrowComponent : Component
 	private PackedScene _itemScene()
 	{
 		var actor = ActorData.Character<Actor>();
+		if (actor.Belt.SelectedItemResource == null) {
+			return null;
+		}
 		return actor.Belt.SelectedItemResource.ItemScene;
 	}
 

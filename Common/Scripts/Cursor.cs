@@ -29,10 +29,10 @@ public partial class Cursor : Node3D
 		//if (_container.IsOpen) {
 		//	CursorDefault();
 		//}
-		//else if (_actorData.IsPickingUpItem) {
-		//	CursorGrab();
-		//}
-		if (_actorData.CanPickUp) {
+		if (_actorData.IsPickingUpItem) {
+			CursorGrab();
+		}
+		else if (_actorData.CanPickUp) {
 			CursorHand();
 		}
 		//else if (_actorData.CanThrowItem) {

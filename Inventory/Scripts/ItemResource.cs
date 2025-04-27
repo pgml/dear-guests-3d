@@ -62,6 +62,7 @@ public partial class ItemResource : Resource
 		if (!absoluePath) {
 			path = $"{ItemResource._itemResourceDir}/{path}";
 		}
+
 		return ResourceLoader.Load<ItemResource>(path);
 	}
 
@@ -73,6 +74,17 @@ public partial class ItemResource : Resource
 		}
 
 		return ResourceLoader.Load<T>(path);
+	}
+
+	public static ItemResource GetByUid(string uid)
+	{
+		return ResourceLoader.Load<ItemResource>(uid);
+	}
+
+	public static T GetByUid<T>(string uid)
+		where T : class
+	{
+		return ResourceLoader.Load<T>(uid);
 	}
 
 	public static bool Exists(string itemName)

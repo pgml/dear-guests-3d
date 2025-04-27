@@ -1,12 +1,18 @@
 using Godot;
 using System.Collections.Generic;
 
+struct PickUpObject
+{
+	public PhysicsBody3D Node { get; set; }
+	public bool InVicinity { get; set; }
+}
+
 public partial class PickUpComponent : Component
 {
 	[Export]
 	public Area3D PickUpArea { get; set; }
 
-	public bool IsHoveringObject { get; set; } = false;
+	private PickUpObject _hoveredObj = new();
 
 	private List<RigidBody3D> _bodiesInVicinity = new();
 
@@ -20,19 +26,39 @@ public partial class PickUpComponent : Component
 
 	public override void _Process(double delta)
 	{
-		if (_hoveredObject() is RigidBody3D obj && IsHoveringObject) {
-			if (_bodiesInVicinity.Contains(obj)) {
-				ActorData.CanPickUp = true;
-				var hoverMaterial = GD.Load<ShaderMaterial>(Resources.ItemPickupHover);
-				(obj.FindChild("Sprite3D") as Sprite3D).MaterialOverride = hoverMaterial;
-			}
+		_hoveredObj = _hoveredObject();
+		if (_hoveredObj.Node is RigidBody3D node && _hoveredObj.InVicinity) {
+			ActorData.CanPickUp = true;
+			var hoverMaterial = GD.Load<ShaderMaterial>(Resources.ItemPickupHover);
+			(node.FindChild("Sprite3D") as Sprite3D).MaterialOverride = hoverMaterial;
 		}
 		else {
 			_resetHoveredObjects();
 		}
 	}
 
-	private RigidBody3D _hoveredObject()
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseButton &&
+			mouseButton.Pressed &&
+			mouseButton.ButtonIndex == MouseButton.Left)
+		{
+			if (_hoveredObj.Node is PhysicsObject obj && _hoveredObj.InVicinity) {
+				ActorData.IsPickingUpItem = true;
+				ItemResource itemResource = ItemResource.GetByUid(obj.ItemResourcePath);
+				ActorData.Character<Actor>().Inventory.AddItem(itemResource, 1);
+				obj.QueueFree();
+			}
+		}
+		else {
+			ActorData.IsPickingUpItem = false;
+		}
+	}
+
+	/// <summary>
+	/// Returns the object the mouse is currently hovering over.
+	/// </summary>
+	private PickUpObject _hoveredObject()
 	{
 		// increase hover detection slightly so that it's a little bit
 		// easier to grab smaller objects
@@ -59,7 +85,7 @@ public partial class PickUpComponent : Component
 			{
 				From = rayOrigin,
 				To = rayEnd,
-				CollisionMask = 2,
+				CollisionMask = 512,
 			};
 
 			var result = spaceState.IntersectRay(query);
@@ -69,14 +95,21 @@ public partial class PickUpComponent : Component
 				var hitNode = (Node3D)result["collider"];
 
 				if (hitNode is RigidBody3D) {
-					IsHoveringObject = true;
-					return (RigidBody3D)hitNode;
+					var obj = hitNode as RigidBody3D;
+					bool inVicinity = _bodiesInVicinity.Contains(obj);
+
+					return new PickUpObject {
+					 Node = obj,
+					 InVicinity = inVicinity
+					};
 				}
 			}
 		}
 
-		IsHoveringObject = false;
-		return null;
+		return new PickUpObject {
+			Node = null,
+			InVicinity = false
+		};
 	}
 
 	private void _resetHoveredObjects()
@@ -94,12 +127,10 @@ public partial class PickUpComponent : Component
 	private void _onBodyEntered(Node3D body)
 	{
 		_bodiesInVicinity.Add(body as RigidBody3D);
-		//GD.PrintS(body);
 	}
 
 	private void _onBodyExited(Node3D body)
 	{
 		_bodiesInVicinity.Remove(body as RigidBody3D);
-		//GD.PrintS(body);
 	}
 }

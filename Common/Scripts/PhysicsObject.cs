@@ -2,6 +2,9 @@ using Godot;
 
 public partial class PhysicsObject : RigidBody3D
 {
+	[Export(PropertyHint.File, "*.tres")]
+	public string ItemResourcePath { get; set; }
+
 	[Export]
 	public bool Pickupable { get; set; } = false;
 

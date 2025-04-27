@@ -144,7 +144,7 @@ public partial class ClimbComponent : Component
 			Controller.GetRid(),
 			new Transform3D(
 				Basis.Identity,
-				Controller.GlobalTransform.Origin + new Vector3(0, 2, 0)
+				Controller.GlobalTransform.Origin
 			),
 			CreatureData.FacingDirection,
 			0.01f

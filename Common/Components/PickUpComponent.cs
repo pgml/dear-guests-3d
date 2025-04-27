@@ -90,8 +90,7 @@ public partial class PickUpComponent : Component
 
 			var result = spaceState.IntersectRay(query);
 
-			if (result.Count > 0)
-			{
+			if (result.Count > 0) {
 				var hitNode = (Node3D)result["collider"];
 
 				if (hitNode is RigidBody3D) {

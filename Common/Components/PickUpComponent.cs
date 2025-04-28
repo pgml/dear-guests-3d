@@ -72,11 +72,11 @@ public partial class PickUpComponent : Component
 		};
 
 		var spaceState = GetWorld3D().DirectSpaceState;
-		var camera = GetViewport().GetCamera3D();
+		var camera = World.Viewport.GetCamera3D();
 
 		foreach (var offset in offsets)
 		{
-			Vector2 screenPos = GetViewport().GetMousePosition() + offset;
+			Vector2 screenPos = World.Viewport.GetMousePosition() + offset;
 			Vector3 rayOrigin = camera.ProjectRayOrigin(screenPos);
 			Vector3 rayDir = camera.ProjectRayNormal(screenPos);
 			Vector3 rayEnd = rayOrigin + rayDir * 1000f;

@@ -9,6 +9,9 @@ using Godot;
 public partial class World : Node
 {
 	[Export]
+	public SubViewport Viewport { get; set; }
+
+	[Export]
 	public DirectionalLight3D Sun { get; set; }
 
 	[Export]
@@ -220,6 +223,7 @@ public partial class World : Node
 			_update();
 		}
 	}
+
 
 	private void _update()
 	{

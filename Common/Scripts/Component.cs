@@ -20,6 +20,8 @@ public partial class Component : Node3D
 	protected Controller Controller;
 	protected CreatureData CreatureData { get; set; }
 
+	protected World World { get; set; }
+
 	public async override void _Ready()
 	{
 		//SceneManager = GetNode<SceneManager>(Resources.SceneManager);
@@ -28,6 +30,7 @@ public partial class Component : Node3D
 		ActorInventory = GD.Load<Inventory>(Resources.ActorInventory);
 		//AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
 		//Quickbar = Load<QuickBar>(Resources.QuickBar);
+		World = GetTree().CurrentScene.FindChild("World") as World;
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		Controller = GetParent().GetParent().GetNode<CharacterBody3D>("Controller") as Controller;

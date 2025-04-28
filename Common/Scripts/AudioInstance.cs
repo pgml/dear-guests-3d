@@ -30,7 +30,7 @@ public partial class AudioInstance : Node3D
 	) {
 		int randomIndex = RandRange(0, audioClip.AudioFiles.Count - 1);
 
-		// @deprecated - in discovered the audio listener...
+		// @deprecated - i discovered the audio listener...
 		//
 		// due to the orthogonal camera the z position of the spawned audio
 		// instance will always be off which causes the sound
@@ -38,7 +38,8 @@ public partial class AudioInstance : Node3D
 		// This fixes the position and puts it slightly below the camera
 		// at the momenet the audio is played.
 		if (fixPosition) {
-			var cameraPos = GetViewport().GetCamera3D().GlobalPosition;
+			var world = GetTree().CurrentScene.FindChild("World") as World;
+			var cameraPos = world.Viewport.GetCamera3D().GlobalPosition;
 			GlobalPosition = new Vector3(
 				GlobalPosition.X,
 				cameraPos.Y / 2,

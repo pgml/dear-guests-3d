@@ -141,8 +141,8 @@ public partial class ThrowComponent : Component
 	private Vector3 _throwDirection()
 	{
 		var actor = ActorData.Character<Actor>();
-		Vector2 mousePos = GetViewport().GetMousePosition();
-		var camera = GetViewport().GetCamera3D();
+		Vector2 mousePos = World.Viewport.GetMousePosition();
+		var camera = World.Viewport.GetCamera3D();
 
 		Vector3 rayOrigin = camera.ProjectRayOrigin(mousePos);
 		Vector3 rayDirection = camera.ProjectRayNormal(mousePos).Normalized();

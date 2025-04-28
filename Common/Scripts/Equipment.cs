@@ -132,6 +132,7 @@ public partial class Equipment : Node3D
 	{
 		var collisionShape = TriggerArea
 			.FindChild("CollisionShape3D") as CollisionShape3D;
+
 		return collisionShape.Shape switch {
 			BoxShape3D => (collisionShape.Shape as BoxShape3D).Size.Y,
 			CapsuleShape3D => (collisionShape.Shape as CapsuleShape3D).Height,
@@ -145,9 +146,8 @@ public partial class Equipment : Node3D
 		if (uiInstance is null) {
 			return Vector2.Zero;
 		}
-		Vector2 position = GetViewport()
-			.GetCamera3D()
-			.UnprojectPosition(GlobalPosition);
+		var world = GetTree().CurrentScene.FindChild("World") as World;
+		Vector2 position = world.Viewport.GetCamera3D().UnprojectPosition(GlobalPosition);
 		position.X += Position.X;
 		position.Y -= uiInstance.Size.Y + Position.Z;
 		return position;

@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsca8xc1cojae"]
+[gd_scene load_steps=6 format=3 uid="uid://dsca8xc1cojae"]
 
 [ext_resource type="Script" uid="uid://ktebfg07t4i7" path="res://Common/Scripts/World.cs" id="1_iaoyc"]
 [ext_resource type="Environment" uid="uid://jff1p13xc4bx" path="res://Resources/default_environment.tres" id="2_f76b8"]
 [ext_resource type="Texture2D" uid="uid://drjt0uhsjl4jk" path="res://Resources/Tiled/Waterfront/Waterfront.png" id="2_iaoyc"]
 [ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_f76b8"]
 
-[node name="World" type="Node3D" node_paths=PackedStringArray("Sun", "AnomalySun", "Moon", "Environment")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_f76b8"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[node name="World" type="Node3D" node_paths=PackedStringArray("Viewport", "Sun", "AnomalySun", "Moon", "Environment")]
 script = ExtResource("1_iaoyc")
+Viewport = NodePath("SubViewportContainer/SubViewport")
 Sun = NodePath("Sun")
 AnomalySun = NodePath("AnomalySun")
 Moon = NodePath("Moon")
@@ -27,10 +31,9 @@ MoonBaseEnergy = 0.2
 environment = ExtResource("2_f76b8")
 
 [node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.882869, 3.39941e-08, 0.469609, 0.469607, -2.74788e-08, -0.882873, -1.71081e-08, 1, -4.02242e-08, 0, 0, 0)
+transform = Transform3D(0.315397, -0.388847, -0.865632, 0.928613, 0.314321, 0.197153, 0.195423, -0.866025, 0.460227, 0, 0, 0)
 rotation_order = 4
 light_color = Color(0.964706, 0.952941, 0.901961, 1)
-light_energy = 0.0
 shadow_enabled = true
 shadow_bias = 0.04
 shadow_normal_bias = 2.5
@@ -42,7 +45,7 @@ directional_shadow_split_3 = 0.51
 [node name="AnomalySun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.961262, 0.217205, -0.169699, 0, 0.615661, 0.78801, 0.275637, -0.757484, 0.591812, 0, 0, 0)
 light_color = Color(0.964706, 0.952941, 0.901961, 1)
-light_energy = 0.0
+light_energy = 0.8
 light_cull_mask = 4294967293
 shadow_enabled = true
 shadow_bias = 0.01
@@ -109,6 +112,34 @@ region_rect = Rect2(201, 842, 54, 101)
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)
 projection = 1
 current = true
-size = 14.4
+size = 16.2
 far = 110.0
 script = ExtResource("4_f76b8")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+scale = Vector2(0.333, 0.333)
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 0
+
+[node name="OrthoCam" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)
+visible = false
+projection = 1
+size = 16.2
+far = 110.0
+script = ExtResource("4_f76b8")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.333, 0.333)
+texture = SubResource("ViewportTexture_f76b8")
+stretch_mode = 2

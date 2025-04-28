@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://f1inc7pl32n"
+uid="uid://cwsp0rjswmi3g"
 path="res://.godot/imported/Waterfront.gltf-c831c5de51930249f54216d1fb386de6.scn"
 
 [deps]
@@ -31,7 +31,7 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
-import_script/path=""
+import_script/path="uid://c3e3ye80f025p"
 _subresources={}
 gltf/naming_version=1
 gltf/embedded_image_handling=3

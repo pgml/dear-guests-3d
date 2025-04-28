@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cfu2aqgdl0feg"
+uid="uid://c44haxyp7tfl8"
 path="res://.godot/imported/Props.gltf-dbf03c7a59b3e2c327ab4b7bfee80278.scn"
 
 [deps]
@@ -24,14 +24,14 @@ meshes/generate_lods=true
 meshes/create_shadow_meshes=true
 meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
-meshes/force_disable_compression=false
+meshes/force_disable_compression=true
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
-import_script/path=""
+import_script/path="uid://c3e3ye80f025p"
 _subresources={}
 gltf/naming_version=1
 gltf/embedded_image_handling=3

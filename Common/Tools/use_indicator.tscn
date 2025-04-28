@@ -51,7 +51,6 @@ offset = Vector2(0, 16)
 pixel_size = 0.04
 billboard = 1
 texture_filter = 0
-render_priority = 1
 sprite_frames = SubResource("SpriteFrames_x2aqx")
 autoplay = "default"
 frame_progress = 0.984694

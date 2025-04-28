@@ -1,11 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dvcrnialcr258"]
+[gd_scene load_steps=26 format=3 uid="uid://dvcrnialcr258"]
 
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_1tv80"]
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_wmvcl"]
-[ext_resource type="PackedScene" uid="uid://b7d42jyie82l3" path="res://Resources/Crocotile/Cafe_Town.gltf" id="3_53i4g"]
+[ext_resource type="PackedScene" uid="uid://biuqsaihv5v42" path="res://Resources/Crocotile/Cafe_Town.gltf" id="3_53i4g"]
 [ext_resource type="Environment" uid="uid://dr53pmp4gnsph" path="res://Resources/default_environment_indoor.tres" id="3_wmyhn"]
 [ext_resource type="PackedScene" uid="uid://c7lwh4dvxmt6n" path="res://Assets/Furniture/Bottles/bottle_blue.tscn" id="4_2f4rf"]
-[ext_resource type="PackedScene" uid="uid://rvrt45cvpvrd" path="res://Resources/Crocotile/Cafe_Town_Front.gltf" id="5_bdnae"]
+[ext_resource type="PackedScene" uid="uid://dhy8fhq7rwipk" path="res://Resources/Crocotile/Cafe_Town_Front.gltf" id="5_bdnae"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="6_hxbu8"]
 [ext_resource type="PackedScene" uid="uid://bu21btmpi3naj" path="res://Assets/Furniture/Chair_1/chair_1_l.tscn" id="10_1maqr"]
 [ext_resource type="PackedScene" uid="uid://bq4i3g1k74ec4" path="res://Assets/Furniture/Chair_1/chair_1_r.tscn" id="10_2ql0y"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cp1dhdgmesqu8" path="res://Assets/Furniture/Bottles/cup.tscn" id="14_hxbu8"]
 [ext_resource type="PackedScene" uid="uid://ch3lsem0ncpvq" path="res://Assets/Furniture/Bottles/bottle_brown.tscn" id="15_pjwsc"]
 [ext_resource type="PackedScene" uid="uid://ca0kgkrbvdkt5" path="res://Assets/Furniture/Bottles/bottle_green.tscn" id="16_hxbu8"]
+[ext_resource type="PackedScene" uid="uid://ba1y8upqstekl" path="res://Assets/Equipment/Replicator/replicator_type_1.tscn" id="17_pjwsc"]
 [ext_resource type="Texture2D" uid="uid://dfxesufusbh01" path="res://Assets/Sprites/Tiles/decals.png" id="19_55gey"]
 [ext_resource type="Script" uid="uid://clhw8xw8welp2" path="res://Common/Scripts/SceneTrigger.cs" id="20_gil5b"]
 [ext_resource type="PackedScene" uid="uid://dohf3b0ohy80a" path="res://Common/Tools/entrance_marker.tscn" id="21_7a8qd"]
@@ -67,6 +68,9 @@ light_energy = 0.8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295594, 0.0208511, -0.0213242)
 navigation_mesh = SubResource("NavigationMesh_hxbu8")
 
+[node name="Map" parent="Content" instance=ExtResource("3_53i4g")]
+transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
+
 [node name="CafeFront" parent="Content" instance=ExtResource("5_bdnae")]
 transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 
@@ -79,58 +83,6 @@ mesh = SubResource("QuadMesh_gil5b")
 transform = Transform3D(0.707107, 0, 0.707107, 0, 0.999999, 0, -0.707107, 0, 0.707107, 11.4172, 4.36443, 0.802403)
 cast_shadow = 3
 mesh = SubResource("QuadMesh_gil5b")
-
-[node name="Lights" type="Node3D" parent="Content"]
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Content/Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0509, 5.67489, 0)
-visible = false
-light_color = Color(0.993947, 0.951409, 0.729972, 1)
-light_energy = 2.455
-shadow_enabled = true
-omni_range = 11.009
-
-[node name="OmniLight3D2" type="OmniLight3D" parent="Content/Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.00074, 5.67489, 0)
-visible = false
-light_color = Color(0.993947, 0.951409, 0.729972, 1)
-light_energy = 2.455
-shadow_enabled = true
-omni_range = 11.009
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Content/Lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 11.3714, 7.05977, 0.878418)
-visible = false
-light_color = Color(0.974143, 0.920995, 0.745289, 1)
-light_energy = 1.212
-shadow_enabled = true
-spot_angle = 42.02
-spot_angle_attenuation = 0.0490368
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="Content/Lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.575518, 18.4676, -5.91185)
-visible = false
-light_color = Color(0.974143, 0.920995, 0.745289, 1)
-light_energy = 16.0
-shadow_enabled = true
-spot_range = 23.395
-spot_attenuation = 0.4
-spot_angle = 42.02
-spot_angle_attenuation = 0.0490368
-
-[node name="SpotLight3D3" type="SpotLight3D" parent="Content/Lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -12.6721, 18.4676, -5.91185)
-visible = false
-light_color = Color(0.974143, 0.920995, 0.745289, 1)
-light_energy = 16.0
-shadow_enabled = true
-spot_range = 23.395
-spot_attenuation = 0.4
-spot_angle = 42.02
-spot_angle_attenuation = 0.0490368
-
-[node name="Map" parent="Content" instance=ExtResource("3_53i4g")]
-transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Props" type="Node3D" parent="Content"]
 script = ExtResource("6_hxbu8")
@@ -352,6 +304,55 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310514, 0.0962853, 3.76597
 transform = Transform3D(1, 0, -4.17241e-07, 0, 1, 0, 4.17241e-07, 0, 1, -5.71887, 1.93479, 0.789549)
 shape = SubResource("BoxShape3D_yd8ja")
 
+[node name="Lights" type="Node3D" parent="Content"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Content/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0509, 5.67489, 0)
+visible = false
+light_color = Color(0.993947, 0.951409, 0.729972, 1)
+light_energy = 2.455
+shadow_enabled = true
+omni_range = 11.009
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Content/Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.00074, 5.67489, 0)
+visible = false
+light_color = Color(0.993947, 0.951409, 0.729972, 1)
+light_energy = 2.455
+shadow_enabled = true
+omni_range = 11.009
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Content/Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 11.3714, 7.05977, 0.878418)
+visible = false
+light_color = Color(0.974143, 0.920995, 0.745289, 1)
+light_energy = 1.212
+shadow_enabled = true
+spot_angle = 42.02
+spot_angle_attenuation = 0.0490368
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Content/Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.575518, 18.4676, -5.91185)
+visible = false
+light_color = Color(0.974143, 0.920995, 0.745289, 1)
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 23.395
+spot_attenuation = 0.4
+spot_angle = 42.02
+spot_angle_attenuation = 0.0490368
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Content/Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -12.6721, 18.4676, -5.91185)
+visible = false
+light_color = Color(0.974143, 0.920995, 0.745289, 1)
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 23.395
+spot_attenuation = 0.4
+spot_angle = 42.02
+spot_angle_attenuation = 0.0490368
+
 [node name="MapBounds" type="Node3D" parent="Content"]
 
 [node name="Top" type="VisibleOnScreenEnabler3D" parent="Content/MapBounds" groups=["MapBounds"]]
@@ -406,5 +407,8 @@ shape = SubResource("BoxShape3D_55gey")
 [node name="Waterfront" parent="Content/EntranceMarkers" groups=["EntranceMarker"] instance=ExtResource("21_7a8qd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.679233, -0.01333, 3.50651)
 FromScene = "uid://blxmhwe5ji5w0"
+
+[node name="ReplicatorType1" parent="Content" instance=ExtResource("17_pjwsc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.97495, 0.048586, -2.58119)
 
 [editable path="World"]

@@ -562,7 +562,8 @@ TestDownDistance = Vector3(0, -0.6, 0)
 TestForwardDistance = 0.2
 
 [node name="JumpComponent" parent="Components" instance=ExtResource("4_ad0ix")]
-JumpImpulse = 10.0
+JumpImpulse = 8.0
+JumpTestForwardDistance = 2.0
 
 [node name="ClimbComponent" parent="Components" instance=ExtResource("5_ejg33")]
 MinClimbHeight = 1.0

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_4f71o"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_w3fsy"]
-[ext_resource type="PackedScene" uid="uid://f1inc7pl32n" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
+[ext_resource type="PackedScene" uid="uid://cwsp0rjswmi3g" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="5_w3fsy"]
 [ext_resource type="PackedScene" uid="uid://b0gr320gfr5fh" path="res://Common/Tools/spawn_marker.tscn" id="11_ur2uv"]
 [ext_resource type="Script" uid="uid://clhw8xw8welp2" path="res://Common/Scripts/SceneTrigger.cs" id="16_svxe0"]

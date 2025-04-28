@@ -108,16 +108,7 @@ texture = ExtResource("2_iaoyc")
 region_enabled = true
 region_rect = Rect2(201, 842, 54, 101)
 
-[node name="OrthoCam" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)
-projection = 1
-current = true
-size = 16.2
-far = 110.0
-script = ExtResource("4_f76b8")
-
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-visible = false
 offset_right = 1920.0
 offset_bottom = 1080.0
 scale = Vector2(0.333, 0.333)
@@ -126,11 +117,10 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(1920, 1080)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="OrthoCam" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, -0.0388203, 23.3274, 20.0005)
-visible = false
 projection = 1
 size = 16.2
 far = 110.0

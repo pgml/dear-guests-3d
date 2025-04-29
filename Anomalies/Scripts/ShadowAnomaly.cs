@@ -7,10 +7,13 @@ public partial class ShadowAnomaly : Anomaly
 	public uint DefaultVisualLayer { get; set; } = 1;
 
 	[Export]
-	public uint AnomalyVisualLayer { get; set; } = 2;
+	public uint AnomalyVisualLayer { get; set; } = new();
 
 	[Export]
 	public Area3D AnomalyArea { get; set; }
+
+	[Export]
+	public MeshInstance3D AnomalySphere { get; set; }
 
 	public async override void _Ready()
 	{
@@ -20,11 +23,11 @@ public partial class ShadowAnomaly : Anomaly
 		AnomalyArea.BodyExited += _onBodyExited;
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-		foreach (var node in _findVisualInstances(this)) {
-			if (node is VisualInstance3D child) {
-				child.Layers = AnomalyVisualLayer;
-			}
-		}
+		//foreach (var node in _findVisualInstances(this)) {
+		//	if (node is VisualInstance3D child) {
+		//		child.Layers = AnomalyVisualLayer;
+		//	}
+		//}
 	}
 
 	private void _anomalyEntered(Node body)

@@ -130,6 +130,11 @@ public partial class StaticObject : Node3D
 				meshInstance.Scale = scale;
 			}
 
+			var collisionShape = (CollisionShape3D)Mesh.FindChild("CollisionShape3D");
+			var shape = (collisionShape.Shape as ConcavePolygonShape3D);
+			shape.BackfaceCollision = true;
+			collisionShape.Shape = shape;
+
 			//Mesh.SetSceneInstanceLoadPlaceholder(true);
 			Mesh.SetSceneInstanceLoadPlaceholder(false);
 		}

@@ -157,7 +157,7 @@ scroll_vertical_enabled = false
 auto_tooltip = false
 
 [node name="Main" type="VBoxContainer" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 183.0
 offset_top = 30.0
 offset_right = 458.0

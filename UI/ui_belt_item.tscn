@@ -37,7 +37,7 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="AmountBg" type="TextureRect" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 36.0
@@ -49,7 +49,7 @@ stretch_mode = 2
 
 [node name="BeltBg" type="TextureRect" parent="."]
 clip_contents = true
-layout_mode = 2
+layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("1_bywox")
@@ -59,7 +59,7 @@ stretch_mode = 2
 [node name="BeltBgSelected" type="TextureRect" parent="."]
 visible = false
 clip_contents = true
-layout_mode = 2
+layout_mode = 0
 offset_right = 32.0
 offset_bottom = 32.0
 texture = ExtResource("5_in718")
@@ -69,7 +69,7 @@ stretch_mode = 2
 [node name="ItemTexture" type="TextureRect" parent="."]
 clip_contents = true
 custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
+layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 35.0
@@ -81,7 +81,7 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 13.0
 offset_top = 1.0
 offset_right = 20.0
@@ -91,7 +91,7 @@ label_settings = SubResource("LabelSettings_b20gn")
 horizontal_alignment = 1
 
 [node name="Amount" type="Label" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_left = 25.0
 offset_top = 23.0
 offset_right = 33.0

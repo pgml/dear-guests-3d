@@ -1,11 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://dvcrnialcr258"]
+[gd_scene load_steps=20 format=3 uid="uid://dvcrnialcr258"]
 
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_1tv80"]
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_wmvcl"]
-[ext_resource type="PackedScene" uid="uid://biuqsaihv5v42" path="res://Resources/Crocotile/Cafe_Town.gltf" id="3_53i4g"]
+[ext_resource type="PackedScene" uid="uid://dpc2ovpet64yo" path="res://Resources/Crocotile/Cafe_Town.gltf" id="3_53i4g"]
 [ext_resource type="Environment" uid="uid://dr53pmp4gnsph" path="res://Resources/default_environment_indoor.tres" id="3_wmyhn"]
 [ext_resource type="PackedScene" uid="uid://c7lwh4dvxmt6n" path="res://Assets/Furniture/Bottles/bottle_blue.tscn" id="4_2f4rf"]
-[ext_resource type="PackedScene" uid="uid://dhy8fhq7rwipk" path="res://Resources/Crocotile/Cafe_Town_Front.gltf" id="5_bdnae"]
+[ext_resource type="PackedScene" uid="uid://xchth3d7cr0l" path="res://Resources/Crocotile/Cafe_Town_Front.gltf" id="5_bdnae"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="6_hxbu8"]
 [ext_resource type="PackedScene" uid="uid://bu21btmpi3naj" path="res://Assets/Furniture/Chair_1/chair_1_l.tscn" id="10_1maqr"]
 [ext_resource type="PackedScene" uid="uid://bq4i3g1k74ec4" path="res://Assets/Furniture/Chair_1/chair_1_r.tscn" id="10_2ql0y"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://cp1dhdgmesqu8" path="res://Assets/Furniture/Bottles/cup.tscn" id="14_hxbu8"]
 [ext_resource type="PackedScene" uid="uid://ch3lsem0ncpvq" path="res://Assets/Furniture/Bottles/bottle_brown.tscn" id="15_pjwsc"]
 [ext_resource type="PackedScene" uid="uid://ca0kgkrbvdkt5" path="res://Assets/Furniture/Bottles/bottle_green.tscn" id="16_hxbu8"]
-[ext_resource type="PackedScene" uid="uid://ba1y8upqstekl" path="res://Assets/Equipment/Replicator/replicator_type_1.tscn" id="17_pjwsc"]
 [ext_resource type="Texture2D" uid="uid://dfxesufusbh01" path="res://Assets/Sprites/Tiles/decals.png" id="19_55gey"]
 [ext_resource type="Script" uid="uid://clhw8xw8welp2" path="res://Common/Scripts/SceneTrigger.cs" id="20_gil5b"]
 [ext_resource type="PackedScene" uid="uid://dohf3b0ohy80a" path="res://Common/Tools/entrance_marker.tscn" id="21_7a8qd"]
@@ -26,21 +25,6 @@ agent_max_climb = 0.75
 
 [sub_resource type="QuadMesh" id="QuadMesh_gil5b"]
 size = Vector2(5.195, 0.41)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_j00ud"]
-size = Vector3(0.286743, 4.05402, 5.80142)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_gil5b"]
-size = Vector3(0.327148, 3.88672, 1.98376)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7a8qd"]
-size = Vector3(0.338257, 4.00244, 8.73447)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_lsgkj"]
-size = Vector3(3.8894, 4.03394, 0.221924)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_yd8ja"]
-size = Vector3(12.3194, 4.03394, 0.230347)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_55gey"]
 size = Vector3(1.32141, 0.1, 0.824438)
@@ -59,10 +43,6 @@ environment = ExtResource("3_wmyhn")
 
 [node name="Sun" parent="World" index="1"]
 transform = Transform3D(0.825873, -0.526081, 0.202892, 0.414046, 0.810094, 0.415104, -0.382739, -0.258819, 0.886859, 0, 0, 0)
-light_energy = 1.0
-
-[node name="AnomalySun" parent="World" index="2"]
-light_energy = 0.8
 
 [node name="Content" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295594, 0.0208511, -0.0213242)
@@ -267,43 +247,6 @@ texture = ExtResource("19_55gey")
 region_enabled = true
 region_rect = Rect2(6, 593, 20, 15)
 
-[node name="WallColliders" type="Node3D" parent="Content"]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Content/WallColliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.43888, 0.0962853, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Content/WallColliders/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0354614, 1.92184, 1.6097)
-shape = SubResource("BoxShape3D_j00ud")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="Content/WallColliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.78104, 0.0962853, -2.8555)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Content/WallColliders/StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0226431, 1.92087, -0.180161)
-shape = SubResource("BoxShape3D_gil5b")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="Content/WallColliders"]
-transform = Transform3D(0.821746, 0, -0.569853, 0, 1, 0, 0.569853, 0, 0.821746, 9.78104, 0.0962853, -1.78047)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Content/WallColliders/StaticBody3D3"]
-transform = Transform3D(1, 0, -6.25849e-07, 0, 1, 0, 6.25849e-07, 0, 1, -0.0836086, 1.94286, 4.17969)
-shape = SubResource("BoxShape3D_7a8qd")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="Content/WallColliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.03881, 0.0962853, 3.76597)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Content/WallColliders/StaticBody3D4"]
-transform = Transform3D(1, 0, -4.17225e-07, 0, 1, 0, 4.17225e-07, 0, 1, -1.75958, 1.89976, 0.40473)
-shape = SubResource("BoxShape3D_lsgkj")
-
-[node name="StaticBody3D5" type="StaticBody3D" parent="Content/WallColliders"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.310514, 0.0962853, 3.76597)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Content/WallColliders/StaticBody3D5"]
-transform = Transform3D(1, 0, -4.17241e-07, 0, 1, 0, 4.17241e-07, 0, 1, -5.71887, 1.93479, 0.789549)
-shape = SubResource("BoxShape3D_yd8ja")
-
 [node name="Lights" type="Node3D" parent="Content"]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Content/Lights"]
@@ -407,8 +350,5 @@ shape = SubResource("BoxShape3D_55gey")
 [node name="Waterfront" parent="Content/EntranceMarkers" groups=["EntranceMarker"] instance=ExtResource("21_7a8qd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.679233, -0.01333, 3.50651)
 FromScene = "uid://blxmhwe5ji5w0"
-
-[node name="ReplicatorType1" parent="Content" instance=ExtResource("17_pjwsc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.97495, 0.048586, -2.58119)
 
 [editable path="World"]

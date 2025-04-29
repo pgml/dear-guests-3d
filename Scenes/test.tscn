@@ -5,8 +5,8 @@
 [ext_resource type="Shader" uid="uid://bfu3d1gccudbn" path="res://Shaders/test.gdshader" id="4_2cgwh"]
 [ext_resource type="Script" uid="uid://cjiqlfk3wfiib" path="res://Anomalies/Scripts/ShadowAnomaly.cs" id="4_iaow0"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="4_yb21e"]
-[ext_resource type="PackedScene" uid="uid://c44haxyp7tfl8" path="res://Resources/Crocotile/Props.gltf" id="5_5wyu1"]
-[ext_resource type="PackedScene" uid="uid://ccasflnlfryab" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
+[ext_resource type="PackedScene" uid="uid://bmgjtcyv4guh8" path="res://Resources/Crocotile/Props.gltf" id="5_5wyu1"]
+[ext_resource type="PackedScene" uid="uid://17qrvmq74aum" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
 [ext_resource type="Shader" uid="uid://qr3ods2ir0lx" path="res://Shaders/test2.gdshader" id="6_qpfo2"]
 [ext_resource type="PackedScene" uid="uid://ce42ff5dpv77b" path="res://Common/Tools/poi.tscn" id="7_iaow0"]
 [ext_resource type="Script" uid="uid://ltqhvqcgr87p" path="res://Common/Scripts/Locations.cs" id="8_qpfo2"]
@@ -73,7 +73,7 @@ script = ExtResource("4_yb21e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9301, 5.82473, -10.8426)
 
 [node name="RubbishContainer2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.394, -0.11527, -6.11478)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9501, -0.11527, -5.6057)
 
 [node name="ReplicatorType1" parent="Content/Props" instance_placeholder="res://Assets/Equipment/Replicator/replicator_type_1.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7887, -0.173386, -5.16139)
@@ -129,7 +129,6 @@ Latitude = -10.054
 
 [node name="Sun" parent="World" index="1"]
 transform = Transform3D(0.965406, 0.0872881, -0.245684, 0.172596, 0.492322, 0.853127, 0.195423, -0.866025, 0.460226, 0, 0, 0)
-light_energy = 1.0
 directional_shadow_split_1 = 0.328
 directional_shadow_split_2 = 0.379
 
@@ -137,7 +136,6 @@ directional_shadow_split_2 = 0.379
 transform = Transform3D(0.958656, 0.0876834, 0.270721, -0.277966, 0.492252, 0.824878, -0.0609347, -0.866026, 0.496273, 0, 0, 0)
 rotation_order = 4
 layers = 2
-light_energy = 0.8
 
 [node name="Moon" parent="World" index="3"]
 light_color = Color(0.0590279, 0.0590279, 0.0590279, 1)

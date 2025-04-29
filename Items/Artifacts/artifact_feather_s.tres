@@ -22,3 +22,4 @@ Weight = 0.1
 MaxCarryAmount = 10
 Value = 500.0
 AttachableToBelt = true
+IsUseable = false

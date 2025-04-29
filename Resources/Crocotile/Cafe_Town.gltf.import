@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dpc2ovpet64yo"
+uid="uid://bjrxo6gvqux3e"
 path="res://.godot/imported/Cafe_Town.gltf-8cc28de8d29d75246b8068164c1ac90a.scn"
 
 [deps]
@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/Cafe_Town.gltf-8cc28de8d29d75246b8068164c1ac9
 
 [params]
 
-nodes/root_type="Node3D"
+nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0

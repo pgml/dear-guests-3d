@@ -34,7 +34,7 @@ public partial class SpawnMarker : Marker3D
 			return;
 		}
 
-		GD.PrintS(" -- Spawning", Creature.GetBaseName(), "at:", GlobalPosition);
+		GD.PrintRich("[i] -- Spawning ", Creature.GetBaseName(), " at: ", GlobalPosition, "[/i]");
 
 		//var scene = await AsyncLoader.LoadResource<PackedScene>(Creature, "", true);
 		//var creature = scene.Instantiate<Node3D>();

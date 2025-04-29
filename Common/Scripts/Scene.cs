@@ -28,7 +28,7 @@ public partial class Scene : Node3D
 		}
 
 		GD.PrintS("");
-		GD.PrintS(" -- LOADING SCENE");
+		GD.PrintRich($"[b]LOADING SCENE[/b]");
 
 		var groups = Time.GetTicksMsec();
 		_uiLoading.Show();
@@ -50,7 +50,7 @@ public partial class Scene : Node3D
 			await _loadPlaceholders();
 		}
 
-		GD.PrintS(" -- LOADED SCENE IN:", Time.GetTicksMsec() - groups, "ms");
+		GD.PrintRich($"[b]LOADED SCENE IN: ", Time.GetTicksMsec() - groups, "ms[/b]");
 	}
 
 	/// <summary>
@@ -86,7 +86,8 @@ public partial class Scene : Node3D
 
 		ActorData.CanMove = true;
 
-		GD.PrintS("changed scene to:", toScene.SceneName);
+		GD.Print("");
+		GD.PrintRich($"[b]Changed scene to: ", toScene.SceneName, "[/b]");
 	}
 
 	public bool HasActor(SceneTree tree)
@@ -103,7 +104,7 @@ public partial class Scene : Node3D
 			return;
 		}
 
-		GD.PrintS(" -- Spawning actor at:", position);
+		GD.PrintRich($"[i] -- Spawning actor at: ", position, "[/i]");
 
 		var actor = new Node3D();
 
@@ -149,7 +150,7 @@ public partial class Scene : Node3D
 	/// </summary>
 	private async System.Threading.Tasks.Task _loadPlaceholders()
 	{
-		GD.PrintS(" -- LOADING PLACEHOLDERS");
+		GD.PrintRich("[i] -- LOADING PLACEHOLDERS[/i]");
 
 		var groups = Time.GetTicksMsec();
 
@@ -171,7 +172,7 @@ public partial class Scene : Node3D
 			i++;
 		}
 
-		GD.PrintS(" -- LOADED PLACEHOLDERS IN:", Time.GetTicksMsec() - groups, "ms");
+		GD.PrintRich("[i] -- LOADED PLACEHOLDERS IN: ", Time.GetTicksMsec() - groups, "ms[/i]");
 
 		EmitSignal(SignalName.SceneLoaded);
 	}
@@ -210,7 +211,7 @@ public partial class Scene : Node3D
 			_sceneCache[path] = scene;
 		}
 
-		GD.PrintS(" -- CACHED SCENES:", _sceneCache.Count);
+		GD.PrintS("[i] -- CACHED SCENES:", _sceneCache.Count, "[/i]");
 	}
 
 	private void _onSceneLoaded()

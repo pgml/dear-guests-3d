@@ -103,7 +103,6 @@ public partial class CreatureData : Resource
 			IsConsoleOpen ||
 			IsQuickInventoryOpen ||
 			IsReplicatorOpen ||
-			IsReplicatorOpen ||
 			IsBuildMoveActive)
 		{
 			return true;

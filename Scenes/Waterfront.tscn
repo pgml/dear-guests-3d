@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_4f71o"]
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_w3fsy"]
-[ext_resource type="PackedScene" uid="uid://f1inc7pl32n" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
+[ext_resource type="PackedScene" uid="uid://c7doarldbj7v4" path="res://Resources/Crocotile/Waterfront.gltf" id="2_4mlve"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="5_w3fsy"]
 [ext_resource type="PackedScene" uid="uid://b0gr320gfr5fh" path="res://Common/Tools/spawn_marker.tscn" id="11_ur2uv"]
 [ext_resource type="Script" uid="uid://clhw8xw8welp2" path="res://Common/Scripts/SceneTrigger.cs" id="16_svxe0"]
@@ -437,19 +437,6 @@ DayOfYear = 160
 Latitude = 33.009
 TimeScale = 0.00666
 
-[node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.956321, -0.272385, -0.106046, 0.217171, 0.419292, 0.881492, -0.19564, -0.866025, 0.460135, 0, 0, 0)
-light_energy = 1.0
-
-[node name="AnomalySun" parent="World" index="2"]
-light_energy = 0.8
-
-[node name="Moon" parent="World" index="3"]
-light_energy = 0.0
-
-[node name="OrthoCam" parent="World" index="5"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 33.12, 50, 30)
-
 [node name="AI" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.67731)
 
@@ -466,5 +453,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.0515, 8.21609, -25.3251)
 [node name="Actor" parent="." instance=ExtResource("11_ur2uv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.1241, 5.9499, -10.4219)
 Creature = "uid://7nos3bf51wac"
-
-[editable path="World"]

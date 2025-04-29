@@ -558,7 +558,6 @@ FootStepLoopInterval = 0.34
 
 [node name="EdgeCheckComponent" parent="Components" instance=ExtResource("3_fkfj1")]
 BodyTestMargin = 0.25
-TestDownDistance = Vector3(0, -0.6, 0)
 TestForwardDistance = 0.2
 
 [node name="JumpComponent" parent="Components" instance=ExtResource("4_ad0ix")]

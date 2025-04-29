@@ -15,3 +15,5 @@ Description = ""
 Weight = 20.0
 MaxCarryAmount = 5
 Value = 60.0
+AttachableToBelt = false
+IsUseable = false

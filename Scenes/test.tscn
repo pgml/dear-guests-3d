@@ -5,8 +5,8 @@
 [ext_resource type="Shader" uid="uid://bfu3d1gccudbn" path="res://Shaders/test.gdshader" id="4_2cgwh"]
 [ext_resource type="Script" uid="uid://cjiqlfk3wfiib" path="res://Anomalies/Scripts/ShadowAnomaly.cs" id="4_iaow0"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="4_yb21e"]
-[ext_resource type="PackedScene" uid="uid://cfu2aqgdl0feg" path="res://Resources/Crocotile/Props.gltf" id="5_5wyu1"]
-[ext_resource type="PackedScene" uid="uid://byufb06nwr5eo" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
+[ext_resource type="PackedScene" uid="uid://cti6osbxkbxmg" path="res://Resources/Crocotile/Props.gltf" id="5_5wyu1"]
+[ext_resource type="PackedScene" uid="uid://b3da5lbiqxut8" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
 [ext_resource type="Shader" uid="uid://qr3ods2ir0lx" path="res://Shaders/test2.gdshader" id="6_qpfo2"]
 [ext_resource type="PackedScene" uid="uid://ce42ff5dpv77b" path="res://Common/Tools/poi.tscn" id="7_iaow0"]
 [ext_resource type="Script" uid="uid://ltqhvqcgr87p" path="res://Common/Scripts/Locations.cs" id="8_qpfo2"]
@@ -73,7 +73,7 @@ script = ExtResource("4_yb21e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9301, 5.82473, -10.8426)
 
 [node name="RubbishContainer2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.394, -0.11527, -6.11478)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9501, -0.11527, -5.6057)
 
 [node name="ReplicatorType1" parent="Content/Props" instance_placeholder="res://Assets/Equipment/Replicator/replicator_type_1.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7887, -0.173386, -5.16139)
@@ -82,7 +82,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7887, -0.173386, -5.16139)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.107, -0.173386, -5.10224)
 
 [node name="GeneratorType1" parent="Content/Props" instance_placeholder="res://Assets/Equipment/Generator/generator_type_1.tscn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.7732, -0.221972, -9.79357)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5784, -0.221972, -9.79357)
 
 [node name="Collisions" type="Node3D" parent="Content" groups=["Climbable"]]
 

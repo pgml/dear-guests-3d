@@ -146,10 +146,15 @@ public partial class Equipment : Node3D
 		if (uiInstance is null) {
 			return Vector2.Zero;
 		}
+
 		var world = GetTree().CurrentScene.FindChild("World") as World;
-		Vector2 position = world.Viewport.GetCamera3D().UnprojectPosition(GlobalPosition);
-		position.X += Position.X;
-		position.Y -= uiInstance.Size.Y + Position.Z;
+		var subViewportContainer = world.Viewport.GetParent<SubViewportContainer>();
+		Vector2 scale = subViewportContainer.Scale;
+		Vector2 position = world.Viewport.GetCamera3D().UnprojectPosition(Position);
+
+		position.X += uiInstance.Size.X * scale.X;
+		position.Y -= uiInstance.Size.Y * scale.Y;
+
 		return position;
 	}
 

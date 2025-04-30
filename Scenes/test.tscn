@@ -1,14 +1,14 @@
-[gd_scene load_steps=21 format=3 uid="uid://cnutg2mbomaxd"]
+[gd_scene load_steps=20 format=3 uid="uid://cnutg2mbomaxd"]
 
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_35xla"]
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_ys1qc"]
-[ext_resource type="PackedScene" uid="uid://lfwf4mywggqx" path="res://Anomalies/shadow_anomaly.tscn" id="4_2cgwh"]
+[ext_resource type="PackedScene" uid="uid://lfwf4mywggqx" path="res://Anomalies/shadow.tscn" id="4_2cgwh"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="4_yb21e"]
 [ext_resource type="PackedScene" uid="uid://cti6osbxkbxmg" path="res://Resources/Crocotile/Props.gltf" id="5_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://b3da5lbiqxut8" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
 [ext_resource type="Shader" uid="uid://c1gyruf6hymtq" path="res://Shaders/warp.gdshader" id="7_aees8"]
 [ext_resource type="PackedScene" uid="uid://ce42ff5dpv77b" path="res://Common/Tools/poi.tscn" id="7_iaow0"]
-[ext_resource type="Shader" uid="uid://4wv8a5xj8218" path="res://Shaders/chromatic_sphere.gdshader" id="7_yb21e"]
+[ext_resource type="Shader" uid="uid://cg3oquaaxylrv" path="res://Shaders/chromatic_chaos.gdshader" id="7_mie3u"]
 [ext_resource type="Script" uid="uid://ltqhvqcgr87p" path="res://Common/Scripts/Locations.cs" id="8_qpfo2"]
 [ext_resource type="PackedScene" uid="uid://b0gr320gfr5fh" path="res://Common/Tools/spawn_marker.tscn" id="9_2cgwh"]
 
@@ -40,27 +40,11 @@ top_radius = 0.9
 bottom_radius = 1.3
 height = 9.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qpfo2"]
-render_priority = 0
-shader = ExtResource("7_yb21e")
-shader_parameter/sphere_color = Color(0, 0, 0, 0)
-shader_parameter/wave_amplitude = 0.009
-shader_parameter/wave_frequency = 19.397
-shader_parameter/wave_speed = 0.0
-shader_parameter/chroma_amount = 0.096
-shader_parameter/stars_enabled = true
-shader_parameter/star_field_scale = 4.377
-shader_parameter/star_size = 0.008
-shader_parameter/star_intensity = 1.0
-shader_parameter/star_axis_speed = 0.051
-shader_parameter/star_move_mode = 1
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mie3u"]
-render_priority = 0
-shader = ExtResource("7_aees8")
-shader_parameter/wave_amplitude = 0.2
-shader_parameter/wave_frequency = 3.0
-shader_parameter/wave_speed = 1.0
+shader = ExtResource("7_mie3u")
+shader_parameter/chaos = 1.0
+shader_parameter/radius = 0.5
+shader_parameter/attenuation = 2.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_qpfo2"]
 material = SubResource("ShaderMaterial_mie3u")
@@ -85,6 +69,9 @@ transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 [node name="Props" type="Node3D" parent="Content"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00987053, 0.221972, -0.247444)
 script = ExtResource("4_yb21e")
+
+[node name="StreetLight" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.6202, -0.221973, -4.76757)
 
 [node name="RubbishContainer3" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7052, -0.221972, -10.6136)
@@ -132,13 +119,6 @@ AnomalyVisualLayer = 4
 [node name="CollisionShape3D" parent="Content/Anomalies/ShadowAnomaly/Area3D" index="0"]
 visible = false
 
-[node name="MeshInstance3D" parent="Content/Anomalies/ShadowAnomaly" index="1"]
-visible = false
-
-[node name="MeshInstance3D2" parent="Content/Anomalies/ShadowAnomaly" index="2"]
-visible = false
-material_override = SubResource("ShaderMaterial_qpfo2")
-
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Content/Anomalies/ShadowAnomaly"]
 visible = false
 mesh = SubResource("SphereMesh_qpfo2")
@@ -155,7 +135,7 @@ LocationName = "P1"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.4121, 0, 0)
 
 [node name="SpawnMarker" parent="." instance=ExtResource("9_2cgwh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.04384, 7.62939e-06, -3.60457)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.5829, 7.62939e-06, -3.60457)
 Creature = "uid://7nos3bf51wac"
 
 [node name="SpawnMarker2" parent="." instance=ExtResource("9_2cgwh")]
@@ -171,17 +151,9 @@ transform = Transform3D(0.965406, 0.0872881, -0.245684, 0.172596, 0.492322, 0.85
 [node name="AnomalySun" parent="World" index="2"]
 layers = 7
 
-[node name="OrthoCam" parent="World/SubViewportContainer/SubViewport" index="0"]
-cull_mask = 1048573
-
-[node name="SubViewportContainer2" parent="World" index="6"]
-visible = true
-
 [node name="EffectSubViewport" parent="World/SubViewportContainer2" index="0"]
-render_target_update_mode = 4
-
-[node name="OrthoCam" parent="World/SubViewportContainer2/EffectSubViewport" index="0"]
-visible = true
+oversampling = false
+render_target_clear_mode = 2
 
 [node name="TextureRect" parent="World/SubViewportContainer2" index="1"]
 texture = SubResource("ViewportTexture_qpfo2")

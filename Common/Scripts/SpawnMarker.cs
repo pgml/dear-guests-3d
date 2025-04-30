@@ -13,8 +13,12 @@ public partial class SpawnMarker : Marker3D
 
 	protected CreatureData ActorData;
 
+	private World _world;
+
 	public async override void _Ready()
 	{
+		_world = GetTree().CurrentScene.FindChild("World") as World;
+
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		ActorData = GD.Load<CreatureData>(Resources.ActorData);
 		Spawn();
@@ -40,6 +44,7 @@ public partial class SpawnMarker : Marker3D
 		//var creature = scene.Instantiate<Node3D>();
 		var creature = ResourceLoader.Load<PackedScene>(Creature).Instantiate<Node3D>();
 		creature.Position = GlobalPosition;
-		GetTree().CurrentScene.AddChild(creature);
+		//GetTree().CurrentScene.AddChild(creature);
+		_world.Viewport.AddChild(creature);
 	}
 }

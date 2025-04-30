@@ -629,4 +629,5 @@ Hand = ExtResource("16_dhulj")
 Grab = ExtResource("17_6qk7i")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+current = true

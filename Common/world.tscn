@@ -14,10 +14,9 @@ shader = ExtResource("5_meh0u")
 shader_parameter/levels = 100
 shader_parameter/spread = 0.005
 
-[node name="World" type="Node3D" node_paths=PackedStringArray("Viewport", "EffectViewport", "Sun", "AnomalySun", "Moon", "Environment")]
+[node name="World" type="Node3D" node_paths=PackedStringArray("Viewport", "Sun", "AnomalySun", "Moon", "Environment")]
 script = ExtResource("1_iaoyc")
 Viewport = NodePath("SubViewportContainer/SubViewport")
-EffectViewport = NodePath("SubViewportContainer2/EffectSubViewport")
 Sun = NodePath("Sun")
 AnomalySun = NodePath("AnomalySun")
 Moon = NodePath("Moon")
@@ -125,7 +124,9 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+audio_listener_enable_3d = true
 size = Vector2i(1920, 1080)
+size_2d_override = Vector2i(640, 320)
 render_target_update_mode = 4
 
 [node name="OrthoCam" type="Camera3D" parent="SubViewportContainer/SubViewport"]

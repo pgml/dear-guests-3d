@@ -39,6 +39,18 @@ public partial class ShadowAnomaly : Anomaly
 		//}
 	}
 
+	public override void _Process(double delta)
+	{
+		var shaderMaterial = AnomalySphere.MaterialOverride as ShaderMaterial;
+		shaderMaterial.SetShaderParameter("hit_position", ActorData.Parent.Position);
+		shaderMaterial.SetShaderParameter("effect_enabled", true);
+
+		GD.PrintS(
+			shaderMaterial.GetShaderParameter("hit_position"),
+			shaderMaterial.GetShaderParameter("effect_enabled")
+		);
+	}
+
 	private void _onSceneLoaded()
 	{
 		CallDeferred("_prepareShadows");
@@ -47,8 +59,8 @@ public partial class ShadowAnomaly : Anomaly
 	private async void _prepareShadows()
 	{
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
 		foreach (var body in AnomalyArea.GetOverlappingBodies()) {
-			//GD.PrintS(body.Name, body.GetParent().Name, body.GetParent().GetParent().Name);
 			if (body.GetParent() is MeshInstance3D mesh) {
 				var bodyRoot = body.GetParent().GetParent<Node3D>();
 
@@ -60,7 +72,6 @@ public partial class ShadowAnomaly : Anomaly
 				var shaderMaterial = ResourceLoader.Load<ShaderMaterial>(Resources.AnomalyShadowMaterial);
 				var mat = shaderMaterial.Duplicate() as ShaderMaterial;
 				mat.SetShaderParameter("albedo_texture", albedo);
-				GD.PrintS(albedo.ResourcePath);
 
 				var meshClone = mesh.Duplicate() as MeshInstance3D;
 

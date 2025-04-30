@@ -10,7 +10,10 @@ uniform float wave_speed : hint_range(0.0, 10.0) = 1.0;
 
 void vertex() {
     float wave = sin(VERTEX.y * wave_frequency + TIME * wave_speed);
-    VERTEX.x += wave * wave_amplitude;
+
+    // Scale the effect based on height: 0 at y=0, 1 at max height
+    float height_factor = clamp(VERTEX.y, 0.0, 1.0); // assumes mesh height is in range [0,1]
+    VERTEX.x += wave * wave_amplitude * height_factor;
 }
 
 void fragment() {

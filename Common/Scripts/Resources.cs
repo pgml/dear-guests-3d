@@ -29,4 +29,7 @@ public static class Resources
 	public static readonly string UiReplicator = "res://UI/ui_replicator.tscn";
 	public static readonly string UiBeltItem = "uid://dpuo4txhyxyfc";
 	public static readonly string UiListIcon = "uid://760a2y5sr57a";
+
+	// anomalies
+	public static readonly string AnomalyShadowMaterial = "uid://c3qc4r0md3ft7";
 }

@@ -15,6 +15,8 @@ public partial class ShadowAnomaly : Anomaly
 	[Export]
 	public MeshInstance3D AnomalySphere { get; set; }
 
+	private ShaderMaterial _shaderMaterial;
+
 	public async override void _Ready()
 	{
 		base._Ready();
@@ -22,12 +24,53 @@ public partial class ShadowAnomaly : Anomaly
 		AnomalyArea.BodyEntered += _onBodyEntered;
 		AnomalyArea.BodyExited += _onBodyExited;
 
+		_shaderMaterial = GD.Load<ShaderMaterial>(Resources.AnomalyShadowMaterial);
+
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+		Scene scene = GetTree().CurrentScene as Scene;
+		scene.SceneLoaded += _onSceneLoaded;
+
 		//foreach (var node in _findVisualInstances(this)) {
 		//	if (node is VisualInstance3D child) {
-		//		child.Layers = AnomalyVisualLayer;
+		//		GD.PrintS(child.Name);
+		//		//child.Layers = AnomalyVisualLayer;
 		//	}
 		//}
+	}
+
+	private void _onSceneLoaded()
+	{
+		CallDeferred("_prepareShadows");
+	}
+
+	private async void _prepareShadows()
+	{
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		foreach (var body in AnomalyArea.GetOverlappingBodies()) {
+			//GD.PrintS(body.Name, body.GetParent().Name, body.GetParent().GetParent().Name);
+			if (body.GetParent() is MeshInstance3D mesh) {
+				var bodyRoot = body.GetParent().GetParent<Node3D>();
+
+				mesh.Layers = DefaultVisualLayer;
+				mesh.CastShadow = GeometryInstance3D.ShadowCastingSetting.Off;
+				var baseMaterial = mesh.GetActiveMaterial(0) as BaseMaterial3D;
+				var albedo = baseMaterial.AlbedoTexture;
+				//var shaderMaterial = GD.Load<ShaderMaterial>(Resources.AnomalyShadowMaterial);
+				var shaderMaterial = ResourceLoader.Load<ShaderMaterial>(Resources.AnomalyShadowMaterial);
+				var mat = shaderMaterial.Duplicate() as ShaderMaterial;
+				mat.SetShaderParameter("albedo_texture", albedo);
+				GD.PrintS(albedo.ResourcePath);
+
+				var meshClone = mesh.Duplicate() as MeshInstance3D;
+
+				meshClone.Layers = AnomalyVisualLayer;
+				meshClone.CastShadow = GeometryInstance3D.ShadowCastingSetting.ShadowsOnly;
+				meshClone.MaterialOverride = mat;
+
+				bodyRoot.AddChild(meshClone);
+			}
+		}
 	}
 
 	private void _anomalyEntered(Node body)

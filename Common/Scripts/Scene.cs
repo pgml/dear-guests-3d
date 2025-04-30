@@ -51,6 +51,8 @@ public partial class Scene : Node3D
 		}
 
 		GD.PrintRich($"[b]LOADED SCENE IN: ", Time.GetTicksMsec() - groups, "ms[/b]");
+
+		EmitSignal(SignalName.SceneLoaded);
 	}
 
 	/// <summary>
@@ -173,8 +175,6 @@ public partial class Scene : Node3D
 		}
 
 		GD.PrintRich("[i] -- LOADED PLACEHOLDERS IN: ", Time.GetTicksMsec() - groups, "ms[/i]");
-
-		EmitSignal(SignalName.SceneLoaded);
 	}
 
 	/// <summary>

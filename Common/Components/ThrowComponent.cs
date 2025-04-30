@@ -21,6 +21,12 @@ public partial class ThrowComponent : Component
 	{
 		base._Ready();
 		ThrowForceIndicator.Visible = false;
+
+		// adjust ui to compensate for subviewport scale
+		var subviewContainer = World.Viewport.GetParent<SubViewportContainer>();
+		var viewportScale = subviewContainer.Scale;
+		ThrowForceIndicator.Scale /= viewportScale;
+		ThrowForceIndicator.Size /= viewportScale;
 	}
 
 	public override void _PhysicsProcess(double delta)

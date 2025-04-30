@@ -51,6 +51,7 @@ offset_bottom = 14.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7mokb")
 
 [node name="TextureRect6" type="TextureRect" parent="Control"]
+texture_filter = 3
 clip_contents = true
 custom_minimum_size = Vector2(8, 8)
 layout_direction = 2
@@ -63,6 +64,7 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="TextureRect7" type="TextureRect" parent="Control"]
+texture_filter = 3
 clip_contents = true
 custom_minimum_size = Vector2(8, 8)
 layout_direction = 2
@@ -76,6 +78,7 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="TextureRect8" type="TextureRect" parent="Control"]
+texture_filter = 3
 clip_contents = true
 custom_minimum_size = Vector2(8, 8)
 layout_direction = 2
@@ -89,6 +92,7 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="TextureRect9" type="TextureRect" parent="Control"]
+texture_filter = 3
 clip_contents = true
 custom_minimum_size = Vector2(8, 8)
 layout_direction = 2
@@ -102,6 +106,7 @@ expand_mode = 1
 stretch_mode = 2
 
 [node name="TextureRect10" type="TextureRect" parent="Control"]
+texture_filter = 3
 clip_contents = true
 custom_minimum_size = Vector2(8, 8)
 layout_direction = 2

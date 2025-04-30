@@ -113,6 +113,10 @@ public partial class PickUpComponent : Component
 
 	private void _resetHoveredObjects()
 	{
+		if (_hoveredObj.Node is null) {
+			return;
+		}
+
 		foreach (var body in _bodiesInVicinity) {
 			if (body is null) {
 				continue;

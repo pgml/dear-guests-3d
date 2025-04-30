@@ -33,9 +33,28 @@ public partial class Actor : Creature
 		//_sun = _world.Sun;
 	}
 
+	public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey keyEvent && @event.IsActionPressed("action_use_debug")) {
+			var bolt = GD.Load<PackedScene>("uid://bpmvfplqksh2e").Instantiate<RigidBody3D>().Duplicate();
+
+			var script = GD.Load<Script>("uid://coac04ovlg0v5");
+			bolt.SetScript(script);
+
+			CreatureData.IsMimic = true;
+			CreatureData.Parent.AddChild(bolt);
+			CreatureData.Controller.Visible = false;
+
+			GD.Print("Debug use action pressed");
+		}
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!CreatureData.CanMove || CreatureData.IsAnyUiPanelOpen()) {
+		if (!CreatureData.CanMove ||
+			CreatureData.IsAnyUiPanelOpen() ||
+			CreatureData.IsMimic)
+		{
 			if (!CreatureData.IsBuildMoveActive) {
 				CreatureData.Direction = Vector3.Zero;
 				return;
@@ -62,11 +81,12 @@ public partial class Actor : Creature
 
 		if (CreatureData is not null && !_console.IsOpen) {
 			CreatureData.Direction = direction;
-
 			CreatureData.VelocityMultiplier = CreatureData.WalkSpeed;
+
 			if (CreatureData.IsRunning) {
 				CreatureData.VelocityMultiplier = CreatureData.RunSpeed;
 			}
+
 			CreatureData.ForwardDirection = CreatureData.Direction;
 			//GD.PrintS(CreatureData.Direction);
 		}

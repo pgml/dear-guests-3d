@@ -42,6 +42,11 @@ public partial class ClimbComponent : Component
 	{
 		base._Ready();
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+		if (CreatureData is null) {
+			return;
+		}
+
 		CreatureData.ClimbComponent = this;
 	}
 

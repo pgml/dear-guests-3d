@@ -16,6 +16,10 @@ public partial class AnimationComponent : Component
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
+		if (CreatureData is null) {
+			return;
+		}
+
 		_stateMachine = AnimationTree.Get("parameters/playback").Obj as AnimationNodeStateMachinePlayback;
 		_startingDirection = CreatureData.Controller.StartingDirection;
 		SetInitialFacingDirection(_startingDirection);

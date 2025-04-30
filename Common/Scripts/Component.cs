@@ -33,7 +33,18 @@ public partial class Component : Node3D
 		World = GetTree().CurrentScene.FindChild("World") as World;
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-		Controller = GetParent().GetParent().GetNode<CharacterBody3D>("Controller") as Controller;
+
+		foreach (var child in GetParent().GetParent().GetChildren()) {
+			if (child is CharacterBody3D body) {
+				Controller = body as Controller;
+				break;
+			}
+		}
+
+		if (Controller is null) {
+			return;
+		}
+
 		CreatureData = Controller.CreatureData;
 	}
 }

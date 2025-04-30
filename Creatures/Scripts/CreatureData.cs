@@ -57,6 +57,7 @@ public partial class CreatureData : Resource
 	public bool IsOnSlope = false;
 	public bool IsFacingEdge = false;
 	public bool IsPickingUpItem = false;
+	public bool IsMimic = false;
 
 	// ui states
 	public bool IsAnyPanelOpen = false;

@@ -19,6 +19,11 @@ public partial class JumpComponent : Component
 		base._Ready();
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+		if (CreatureData is null) {
+			return;
+		}
+
 		CreatureData.JumpComponent = this;
 	}
 

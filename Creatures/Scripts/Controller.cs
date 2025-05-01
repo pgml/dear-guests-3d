@@ -24,7 +24,20 @@ public partial class Controller : CreatureController, IController
 	{
 		if (CreatureData is not null) {
 			base._PhysicsProcess(delta);
-			Movement(delta);
+
+			// Movement when morphed into a RigidBody3D via the mimic artifact
+			if (CreatureData.IsMimic &&
+				CreatureData.MimicObject is PhysicsObject mimicbObj)
+			{
+				if (mimicbObj.LinearVelocity.Length() <= 1) {
+					mimicbObj.ApplyCentralImpulse(CreatureData.Direction);
+				}
+
+				_updatePositionToParent(mimicbObj);
+			}
+			else {
+				Movement(delta);
+			}
 		}
 	}
 
@@ -72,7 +85,7 @@ public partial class Controller : CreatureController, IController
 			MoveAndSlide();
 		}
 
-		_updatePositionToParent();
+		_updatePositionToParent(this);
 
 		if (CreatureData.IsClimbing &&
 			DistanceToFloor() > CreatureData.ClimbComponent.SafeThreshold)
@@ -239,15 +252,15 @@ public partial class Controller : CreatureController, IController
 	/// Since the CharacterBody3D is not the root node we move the position
 	/// to the actual root which makes it easier to handle
 	/// </summary>
-	private void _updatePositionToParent()
+	private void _updatePositionToParent(dynamic body)
 	{
 		var parentPosition = GetParent<Node3D>().Position;
 		GetParent<Node3D>().Position = new Vector3(
-			parentPosition.X + Position.X,
-			parentPosition.Y + Position.Y,
-			parentPosition.Z + Position.Z
+			parentPosition.X + body.Position.X,
+			parentPosition.Y + body.Position.Y,
+			parentPosition.Z + body.Position.Z
 		);
-		Position = Vector3.Zero;
+		body.Position = Vector3.Zero;
 	}
 
 	private void _disableHorizontalMovement()

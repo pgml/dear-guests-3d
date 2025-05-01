@@ -35,8 +35,6 @@ public partial class PhysicsObject : RigidBody3D
 		}
 	}
 
-	public override void _PhysicsProcess(double delta) {}
-
 	public override void _IntegrateForces(PhysicsDirectBodyState3D state)
 	{
 		if (LockRotationAxisXY) {

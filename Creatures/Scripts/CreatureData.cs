@@ -57,7 +57,6 @@ public partial class CreatureData : Resource
 	public bool IsOnSlope = false;
 	public bool IsFacingEdge = false;
 	public bool IsPickingUpItem = false;
-	public bool IsMimic = false;
 
 	// ui states
 	public bool IsAnyPanelOpen = false;
@@ -73,9 +72,14 @@ public partial class CreatureData : Resource
 	public JumpComponent JumpComponent = new();
 	public ClimbComponent ClimbComponent = new();
 
+	// Mimic stuff
+	public bool IsMimic = false;
+	public PhysicsObject MimicObject = null;
+
 	// misc helpers
 	public List<Equipment> EquipmentInVicinity = new();
 	public Equipment FocusedEquipment = null;
+	public float CameraOffset = 0;
 
 	public T Character<T>() where T : class
 	{
@@ -96,6 +100,24 @@ public partial class CreatureData : Resource
 		}
 
 		return sprite;
+	}
+
+	public float CharacterHeight()
+	{
+		Sprite3D sprite = CharacterSprite();
+		float height = 0;
+
+		if (sprite.Vframes > 0) {
+			height = sprite.Texture.GetHeight() / sprite.Vframes;
+		}
+		else if (sprite.RegionEnabled) {
+			height = sprite.RegionRect.Size.Y;
+		}
+		else {
+			height = sprite.Texture.GetHeight();
+		}
+
+		return height;
 	}
 
 	public bool IsAnyUiPanelOpen()

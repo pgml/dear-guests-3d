@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b6rmx3qqvb4q"]
+
+[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Inventory/Scripts/ArtifactResource.cs" id="1_iu6w5"]
+
+[resource]
+script = ExtResource("1_iu6w5")
+IsSynthetic = false
+Degradation = 0
+DegradationFactorPerReplication = 0
+OptimalGrowConditions = Dictionary[int, float]({})
+DeviationPenalties = null
+ReplicatorGlowColour = Color(0, 0, 0, 0)
+FastestReplicationTime = 72.0
+GrowPowerConsumption = 0.0
+ReplicatesInto = ""
+Type = 1
+Name = "Mimic"
+Description = ""
+Weight = 2.0
+MaxCarryAmount = 1
+Value = 9999.0
+AttachableToBelt = true
+IsUseable = false

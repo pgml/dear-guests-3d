@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=13 format=3 uid="uid://debmpq2sbx6j8"]
+[gd_resource type="Resource" load_steps=15 format=3 uid="uid://debmpq2sbx6j8"]
 
 [ext_resource type="Script" uid="uid://b4s3eldqbyqqv" path="res://Inventory/Scripts/Inventory.cs" id="1_tjkxb"]
 [ext_resource type="Resource" uid="uid://bwk10r1yuh1to" path="res://Items/Artifacts/artifact_feather.tres" id="2_ormwg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://bgua2dee46e2j" path="res://Items/Junk/bolt.tres" id="4_mk5dh"]
 [ext_resource type="Resource" uid="uid://dhfae6wemk3wa" path="res://Items/Equipment/replicator_type_1.tres" id="5_f5ro0"]
 [ext_resource type="Resource" uid="uid://ccc1jx5qyy0ag" path="res://Items/Equipment/generator_type_1.tres" id="6_mk5dh"]
+[ext_resource type="Resource" uid="uid://b6rmx3qqvb4q" path="res://Items/Artifacts/artifact_mimic.tres" id="7_fvods"]
 
 [sub_resource type="Resource" id="Resource_fvods"]
 script = ExtResource("2_r51eg")
@@ -48,6 +49,14 @@ InventoryIndex = 0
 BeltSlot = -1
 metadata/_custom_type_script = ExtResource("2_r51eg")
 
+[sub_resource type="Resource" id="Resource_jwxqh"]
+script = ExtResource("2_r51eg")
+ItemResource = ExtResource("7_fvods")
+Amount = 1
+InventoryIndex = 0
+BeltSlot = -1
+metadata/_custom_type_script = "uid://bbwkvf47k1xp1"
+
 [resource]
 script = ExtResource("1_tjkxb")
-Items = Array[ExtResource("2_r51eg")]([SubResource("Resource_fvods"), SubResource("Resource_dvcg0"), SubResource("Resource_ormwg"), SubResource("Resource_mk5dh"), SubResource("Resource_oq0oe")])
+Items = Array[ExtResource("2_r51eg")]([SubResource("Resource_fvods"), SubResource("Resource_dvcg0"), SubResource("Resource_ormwg"), SubResource("Resource_mk5dh"), SubResource("Resource_oq0oe"), SubResource("Resource_jwxqh")])

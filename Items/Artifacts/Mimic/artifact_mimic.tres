@@ -1,6 +1,8 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b6rmx3qqvb4q"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://b6rmx3qqvb4q"]
 
 [ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Inventory/Scripts/ArtifactResource.cs" id="1_iu6w5"]
+[ext_resource type="Texture2D" uid="uid://b3n6msaxqbm1x" path="res://Items/Artifacts/Feather/Assets/artifact_feather_list_icon.png" id="1_mjrk8"]
+[ext_resource type="Texture2D" uid="uid://gx6cx5uky3vr" path="res://Items/Artifacts/Feather/Assets/artifact_feather.png" id="2_4td1n"]
 
 [resource]
 script = ExtResource("1_iu6w5")
@@ -14,6 +16,8 @@ FastestReplicationTime = 72.0
 GrowPowerConsumption = 0.0
 ReplicatesInto = ""
 Type = 1
+Sprite = ExtResource("2_4td1n")
+ListIcon = ExtResource("1_mjrk8")
 Name = "Mimic"
 Description = ""
 Weight = 2.0

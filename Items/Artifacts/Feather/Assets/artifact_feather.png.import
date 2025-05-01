@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gx6cx5uky3vr"
-path.s3tc="res://.godot/imported/artifact_feather.png-3b54dd29ccbd21bba0834d0a847eb16b.s3tc.ctex"
+path.s3tc="res://.godot/imported/artifact_feather.png-8004f09a694d3c42150fc2107d4ef8d3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Artifacts/Feather/artifact_feather.png"
-dest_files=["res://.godot/imported/artifact_feather.png-3b54dd29ccbd21bba0834d0a847eb16b.s3tc.ctex"]
+source_file="res://Items/Artifacts/Feather/Assets/artifact_feather.png"
+dest_files=["res://.godot/imported/artifact_feather.png-8004f09a694d3c42150fc2107d4ef8d3.s3tc.ctex"]
 
 [params]
 

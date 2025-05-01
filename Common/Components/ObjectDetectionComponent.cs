@@ -1,13 +1,37 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class ObjectDetectionComponent : Component
 {
+	public bool HighlightHovered = false;
+	public Node3D HoveredNode { get; set; }
+
+	private List<Node3D> _hoveredNodes = new();
+
 	public async override void _Ready()
 	{
 		base._Ready();
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
 		if (CreatureData is CreatureData cd) {
 			cd.ObjectDetectionComponent = this;
+		}
+	}
+
+	public override void _Process(double delta)
+	{
+		if (CreatureData is not null) {
+			HoveredNode = HoveredObject();
+
+			if (HoveredNode is Node3D node && HighlightHovered) {
+				var sprite = node.FindChild("Sprite3D") as Sprite3D;
+				var hoverMaterial = GD.Load<ShaderMaterial>(Resources.ItemPickupHover);
+				hoverMaterial.SetShaderParameter("sprite_texture", sprite.Texture);
+				sprite.MaterialOverride = hoverMaterial;
+			}
+			else {
+				_resetHoveredNodes();
+			}
 		}
 	}
 
@@ -48,10 +72,27 @@ public partial class ObjectDetectionComponent : Component
 
 			if (result.Count > 0) {
 				var hitNode = (Node3D)result["collider"];
+
+				if (!_hoveredNodes.Contains(hitNode)) {
+					_hoveredNodes.Add(hitNode);
+				}
+
 				return hitNode;
 			}
 		}
 
 		return null;
+	}
+
+	private void _resetHoveredNodes()
+	{
+		HighlightHovered = false;
+
+		foreach (var node in _hoveredNodes) {
+			if (node is null) {
+				continue;
+			}
+			(node.FindChild("Sprite3D") as Sprite3D).MaterialOverride = null;
+		}
 	}
 }

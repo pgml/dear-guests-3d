@@ -14,6 +14,7 @@ public partial class PickUpComponent : Component
 
 	private PickUpObject _hoveredObj = new();
 	private List<RigidBody3D> _bodiesInVicinity = new();
+	private ObjectDetectionComponent _objDetection;
 
 	public override void _Ready()
 	{
@@ -25,11 +26,14 @@ public partial class PickUpComponent : Component
 
 	public override void _Process(double delta)
 	{
+		if (CreatureData is CreatureData cd && _objDetection is null) {
+			_objDetection = cd.ObjectDetectionComponent;
+		}
+
 		_hoveredObj = _hoveredObject();
 		if (_hoveredObj.Node is RigidBody3D node && _hoveredObj.InVicinity) {
 			ActorData.CanPickUp = true;
-			var hoverMaterial = GD.Load<ShaderMaterial>(Resources.ItemPickupHover);
-			(node.FindChild("Sprite3D") as Sprite3D).MaterialOverride = hoverMaterial;
+			_objDetection.HighlightHovered = true;
 		}
 		else {
 			_resetHoveredObjects();
@@ -60,9 +64,11 @@ public partial class PickUpComponent : Component
 	private PickUpObject _hoveredObject()
 	{
 		if (CreatureData is not null) {
-			var hoveredObject = CreatureData.ObjectDetectionComponent.HoveredObject();
+			var hoveredObject = _objDetection.HoveredObject();
+
 			if (hoveredObject is RigidBody3D obj) {
 				bool inVicinity = _bodiesInVicinity.Contains(obj);
+
 				return new PickUpObject {
 					Node = obj,
 					InVicinity = inVicinity

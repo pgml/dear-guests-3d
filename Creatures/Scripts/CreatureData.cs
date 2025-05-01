@@ -71,6 +71,7 @@ public partial class CreatureData : Resource
 	public EdgeCheckComponent EdgeCheck = new();
 	public JumpComponent JumpComponent = new();
 	public ClimbComponent ClimbComponent = new();
+	public ObjectDetectionComponent ObjectDetectionComponent = new();
 
 	// Mimic stuff
 	public bool IsMimic = false;

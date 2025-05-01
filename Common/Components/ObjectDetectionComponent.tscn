@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0u82a0c5rm06"]
+
+[ext_resource type="Script" uid="uid://cyeurvqv2vyv" path="res://Common/Components/ObjectDetectionComponent.cs" id="1_ssgob"]
+
+[node name="ObjectDetectionComponent" type="Node3D"]
+script = ExtResource("1_ssgob")

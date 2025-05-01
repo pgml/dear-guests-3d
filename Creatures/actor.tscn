@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://7nos3bf51wac"]
+[gd_scene load_steps=78 format=3 uid="uid://7nos3bf51wac"]
 
 [ext_resource type="PackedScene" uid="uid://cv36dudu8kyck" path="res://Common/Components/AnimationComponent.tscn" id="1_y1pvj"]
 [ext_resource type="Script" uid="uid://carmcirpav17q" path="res://Creatures/Scripts/Controller.cs" id="2_6neyu"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://25ayw3mle0p" path="res://Common/cursor.tscn" id="8_xua5t"]
 [ext_resource type="PackedScene" uid="uid://vjobyvvlpntj" path="res://Common/Components/PickUpComponent.tscn" id="8_y2omn"]
 [ext_resource type="Resource" uid="uid://debmpq2sbx6j8" path="res://Creatures/actor_inventory.tres" id="9_3eq32"]
+[ext_resource type="PackedScene" uid="uid://c0u82a0c5rm06" path="res://Common/Components/ObjectDetectionComponent.tscn" id="9_dhulj"]
 [ext_resource type="Texture2D" uid="uid://q1m6fsp1d7qm" path="res://Assets/Sprites/UI/Cursors/hand.png" id="16_dhulj"]
 [ext_resource type="Texture2D" uid="uid://cmuhumqshkxqr" path="res://Assets/Sprites/UI/Cursors/grab.png" id="17_6qk7i"]
 
@@ -572,6 +573,8 @@ SafeThreshold = 1.0
 [node name="BuildComponent" parent="Components" instance=ExtResource("6_2kvs5")]
 
 [node name="PickUpComponent" parent="Components" instance=ExtResource("8_y2omn")]
+
+[node name="ObjectDetectionComponent" parent="Components" instance=ExtResource("9_dhulj")]
 
 [node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterCollider")]
 collision_layer = 2

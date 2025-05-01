@@ -11,6 +11,15 @@ public enum Bound
 
 public partial class Camera : Camera3D
 {
+	[ExportCategory("Camera Smoothing")]
+	[Export]
+	public bool EnableSmoothing = true;
+
+	[Export]
+	public float SmoothingDelta = 20f;
+
+	public bool Freeze { get; set; } = false;
+
 	private Vector3 _currentCameraPosition = Vector3.Zero;
 	private Vector3 _currentPlayerPosition = Vector3.Zero;
 	private Vector3 _toPosition = Vector3.Zero;
@@ -24,8 +33,8 @@ public partial class Camera : Camera3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_creatureData is not null) {
-			_followPlayer();
+		if (_creatureData is not null && !Freeze) {
+			_followPlayer(delta);
 		}
 	}
 
@@ -33,20 +42,24 @@ public partial class Camera : Camera3D
 	 * Implement follow logic instead of attaching camera to controller
 	 * so that the camera can be stopped at map bounds
 	 */
-	private void _followPlayer()
+	private void _followPlayer(double delta)
 	{
+		float cameraOffset = _creatureData.CameraOffset;
 		_currentPlayerPosition = _creatureData.Parent.Position;
 		var (playerX, playerY, playerZ) = _currentPlayerPosition;
 
 		_toPosition = _currentPlayerPosition;
-		// adding and subtracting 2 is a bit dumb but i am lazy and this is the
-		// y position of the character node and i don't really care right now
-		_toPosition.Y += Size * 2 + 1.9f;
-		_toPosition.Z += Size * 2 - 1.9f;
+		_toPosition.Y += Size * 2;
+		_toPosition.Z += Size * 2 - cameraOffset;
 
 		_limitCamera();
 
-		Position = _toPosition;
+		if (EnableSmoothing && Position != _toPosition) {
+			Position = Position.Lerp(_toPosition, (float)delta * SmoothingDelta);
+		}
+		else {
+			Position = _toPosition;
+		}
 	}
 
 	private void _limitCamera()

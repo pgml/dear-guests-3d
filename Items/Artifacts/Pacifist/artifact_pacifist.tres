@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://dgfy5kgja7dvl"]
 
-[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Inventory/Scripts/ArtifactResource.cs" id="1_0lkjl"]
+[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Items/Artifacts/ArtifactResource.cs" id="1_0lkjl"]
 
 [resource]
 script = ExtResource("1_0lkjl")

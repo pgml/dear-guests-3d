@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://cqi8g26ftaugo"]
 
 [ext_resource type="Resource" uid="uid://bwk10r1yuh1to" path="res://Items/Artifacts/Feather/artifact_feather.tres" id="1_44d71"]
-[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Inventory/Scripts/ArtifactResource.cs" id="1_yiqli"]
+[ext_resource type="Script" uid="uid://clfcp2pl8j2yh" path="res://Items/Artifacts/ArtifactResource.cs" id="1_yiqli"]
 
 [resource]
 script = ExtResource("1_yiqli")

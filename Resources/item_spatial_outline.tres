@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://kxlm4gpy1w8f"]
+
+[ext_resource type="Shader" uid="uid://bx2dxoxn2t3jr" path="res://Shaders/spatial_outline.gdshader" id="1_hecy3"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_hecy3")
+shader_parameter/outline_threshold = 0.2
+shader_parameter/outline_color = Color(1, 1, 1, 1)

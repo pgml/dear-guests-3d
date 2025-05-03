@@ -23,7 +23,7 @@ public partial class ThrowComponent : Component
 		ThrowForceIndicator.Visible = false;
 
 		// adjust ui to compensate for subviewport scale
-		var subviewContainer = World.Viewport.GetParent<SubViewportContainer>();
+		var subviewContainer = WorldData.World.Viewport.GetParent<SubViewportContainer>();
 		var viewportScale = subviewContainer.Scale;
 		ThrowForceIndicator.Scale /= viewportScale;
 		ThrowForceIndicator.Size /= viewportScale;
@@ -123,7 +123,7 @@ public partial class ThrowComponent : Component
 
 		// add some randomness to the throw force otherwise it would always land
 		// on the same spot
-		ThrowForce += (float)GD.RandRange(-0.4, 0.4);
+		ThrowForce += (float)GD.RandRange(-0.2, 0.2);
 
 		// same with ThrowForce – add some randomness to the trajectory to vary not
 		// only the distance but also the "wideness"
@@ -136,7 +136,8 @@ public partial class ThrowComponent : Component
 		Vector3 direction = _throwDirection();
 		Vector3 velocity = direction * ThrowForce + trajectory;
 
-		_throwObject.LinearVelocity = velocity;
+		//_throwObject.LinearVelocity = velocity;
+		_throwObject.ApplyCentralForce(velocity * _throwObject.GravityScale / _throwObject.Mass);
 
 		_updateInventory();
 	}
@@ -147,8 +148,8 @@ public partial class ThrowComponent : Component
 	private Vector3 _throwDirection()
 	{
 		var actor = ActorData.Character<Actor>();
-		Vector2 mousePos = World.Viewport.GetMousePosition();
-		var camera = World.Viewport.GetCamera3D();
+		Vector2 mousePos = WorldData.Viewport.GetMousePosition();
+		var camera = WorldData.Camera;
 
 		Vector3 rayOrigin = camera.ProjectRayOrigin(mousePos);
 		Vector3 rayDirection = camera.ProjectRayNormal(mousePos).Normalized();

@@ -10,6 +10,8 @@ public partial class Scene : Node3D
 	[Export]
 	public string SceneName { get; set; }
 
+	public Dictionary<string, string> PlaceholderDict { get; set; } = new();
+
 	protected CreatureData ActorData;
 
 	private UiLoading _uiLoading;
@@ -17,6 +19,8 @@ public partial class Scene : Node3D
 	private Godot.Collections.Array<Node> _instancePlaceholders;
 	private PackedScene _sceneTransition;
 	private Dictionary<string, PackedScene> _sceneCache = new();
+
+	private WorldData _worldData;
 
 	public async override void _Ready()
 	{
@@ -50,6 +54,8 @@ public partial class Scene : Node3D
 			await _loadPlaceholders();
 		}
 
+		_worldData = GD.Load<WorldData>(Resources.WorldData);
+
 		GD.PrintRich($"[b]LOADED SCENE IN: ", Time.GetTicksMsec() - groups, "ms[/b]");
 
 		EmitSignal(SignalName.SceneLoaded);
@@ -70,7 +76,6 @@ public partial class Scene : Node3D
 		await transition.AnimationFinished();
 
 		_tree = GetTree();
-		_tree.CurrentScene.RemoveChild(ActorData.Parent);
 
 		Node currentScene = _tree.CurrentScene;
 		var toScene = ResourceLoader.Load<PackedScene>(to).Instantiate<Scene>();
@@ -108,17 +113,10 @@ public partial class Scene : Node3D
 
 		GD.PrintRich($"[i] -- Spawning actor at: ", position, "[/i]");
 
-		var actor = new Node3D();
-
-		if (ActorData.Parent is null) {
-			actor = ResourceLoader.Load<PackedScene>(Resources.Actor).Instantiate<Node3D>();
-		}
-		else {
-			actor = ActorData.Parent;
-		}
-
-		actor.Position = position;
-		scene.AddChild(actor);
+		var actor = ResourceLoader.Load<PackedScene>(Resources.Actor);
+		var instance = actor.Instantiate<Node3D>();
+		instance.Position = position;
+		_worldData.Viewport.AddChild(instance);
 	}
 
 	/// <summary>
@@ -128,7 +126,9 @@ public partial class Scene : Node3D
 	private void _setActorPosition(string currentSceneRes)
 	{
 		foreach (EntranceMarker marker in _tree.GetNodesInGroup("EntranceMarker")) {
-			var fromScenePath = ResourceUid.GetIdPath(ResourceUid.TextToId(marker.FromScene));
+			string fromScenePath = ResourceUid.GetIdPath(
+				ResourceUid.TextToId(marker.FromScene)
+			);
 
 			if (fromScenePath == currentSceneRes) {
 				Vector3 startPos = marker.GlobalPosition;
@@ -154,8 +154,7 @@ public partial class Scene : Node3D
 	{
 		GD.PrintRich("[i] -- LOADING PLACEHOLDERS[/i]");
 
-		var groups = Time.GetTicksMsec();
-
+		ulong groups = Time.GetTicksMsec();
 		int batchSize = 10;
 		int i = 0;
 
@@ -165,11 +164,12 @@ public partial class Scene : Node3D
 			}
 
 			if (placeholder.IsInsideTree()) {
-				placeholder.CreateInstance();
+				var instance = placeholder.CreateInstance();
+				PlaceholderDict.Add(instance.Name, placeholder.GetInstancePath());
 			}
 
 			if (++i % batchSize == 0) {
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+				await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 			}
 			i++;
 		}

@@ -34,7 +34,5 @@ public partial class CreatureController : CharacterBody3D
 		set { GravitySq = value; }
 	}
 
-	public override void _PhysicsProcess(double delta)
-	{
-	}
+	public override void _PhysicsProcess(double delta) {}
 }

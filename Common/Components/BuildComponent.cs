@@ -123,7 +123,7 @@ public partial class BuildComponent : Component
 			EnterBuildMode();
 		}
 		else if ((@event.IsActionReleased("action_build") ||
-			@event.IsActionReleased("action_cancel")) &&
+			@event.IsActionReleased(DGInputMap.ActionExit)) &&
 			IsBuildModeActive)
 		{
 			uiInstance.ExitBuildModeButton.SetPressedNoSignal(false);
@@ -135,7 +135,7 @@ public partial class BuildComponent : Component
 		}
 
 		// make ui buttons react to keypresses
-		if (@event.IsActionPressed("action_cancel")) {
+		if (@event.IsActionPressed(DGInputMap.ActionExit)) {
 			uiInstance.ExitBuildModeButton.SetPressedNoSignal(true);
 		}
 

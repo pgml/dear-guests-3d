@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public partial class ObjectDetectionComponent : Component
 {
+	[Export]
+	public uint HoverCollisionMask { get; set; }
+
 	public bool HighlightHovered = false;
 	public Node3D HoveredNode { get; set; }
 
@@ -20,14 +23,11 @@ public partial class ObjectDetectionComponent : Component
 
 	public override void _Process(double delta)
 	{
-		if (CreatureData is not null) {
+		if (CreatureData is not null && IsInstanceValid(WorldData.World)) {
 			HoveredNode = HoveredObject();
 
 			if (HoveredNode is Node3D node && HighlightHovered) {
-				var sprite = node.FindChild("Sprite3D") as Sprite3D;
-				var hoverMaterial = GD.Load<ShaderMaterial>(Resources.ItemPickupHover);
-				hoverMaterial.SetShaderParameter("sprite_texture", sprite.Texture);
-				sprite.MaterialOverride = hoverMaterial;
+				HighlightNode(node);
 			}
 			else {
 				_resetHoveredNodes();
@@ -52,11 +52,11 @@ public partial class ObjectDetectionComponent : Component
 		};
 
 		var spaceState = GetWorld3D().DirectSpaceState;
-		var camera = World.Viewport.GetCamera3D();
+		var camera = WorldData.Camera;
 
 		foreach (var offset in offsets)
 		{
-			Vector2 screenPos = World.Viewport.GetMousePosition() + offset;
+			Vector2 screenPos = WorldData.World.Viewport.GetMousePosition() + offset;
 			Vector3 rayOrigin = camera.ProjectRayOrigin(screenPos);
 			Vector3 rayDir = camera.ProjectRayNormal(screenPos);
 			Vector3 rayEnd = rayOrigin + rayDir * 1000f;
@@ -65,7 +65,7 @@ public partial class ObjectDetectionComponent : Component
 			{
 				From = rayOrigin,
 				To = rayEnd,
-				CollisionMask = 512,
+				CollisionMask = HoverCollisionMask,
 			};
 
 			var result = spaceState.IntersectRay(query);
@@ -84,15 +84,42 @@ public partial class ObjectDetectionComponent : Component
 		return null;
 	}
 
+	public void HighlightNode(Node3D node)
+	{
+		var sprite = node.FindChild("Sprite3D") as Sprite3D;
+		if (sprite is not null) {
+			var mat = GD.Load<ShaderMaterial>(Resources.ItemCanvasOutline);
+			mat.SetShaderParameter("sprite_texture", sprite.Texture);
+			sprite.MaterialOverride = mat;
+		}
+
+		if (node is StaticBody3D) {
+			var mesh = node.GetParent() as MeshInstance3D;
+			var mat = GD.Load<ShaderMaterial>(Resources.ItemSpatialOutline);
+			mesh.MaterialOverlay = mat;
+		}
+	}
+
 	private void _resetHoveredNodes()
 	{
 		HighlightHovered = false;
 
 		foreach (var node in _hoveredNodes) {
-			if (node is null) {
+			if (node is null || !IsInstanceValid(node)) {
 				continue;
 			}
-			(node.FindChild("Sprite3D") as Sprite3D).MaterialOverride = null;
+
+			var sprite = node.FindChild("Sprite3D") as Sprite3D;
+			if (sprite is not null) {
+				sprite.MaterialOverride = null;
+			}
+
+			if (node is StaticBody3D) {
+				var mesh = node.GetParent() as MeshInstance3D;
+				mesh.MaterialOverlay = null;
+			}
 		}
+
+		_hoveredNodes = new();
 	}
 }

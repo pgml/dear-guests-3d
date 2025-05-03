@@ -34,7 +34,7 @@ public partial class UiBelt : UiControl
 
 				if (slotIndex < _maxBeltSlots &&
 					@event.IsActionPressed($"{DGInputMap.AddToBeltSlot}{pressedKey}"))
-			 	{
+				{
 					_deselectSlots();
 					_uiBeltItems[slotIndex].IsSelected = true;
 					_belt.Items[SlotItem(slotIndex).InventoryIndex] = true;

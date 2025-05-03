@@ -164,8 +164,8 @@ public partial class World : Node
 
 	public static double HoursInDay { get; } = 24;
 	public static double DaysInYear { get; } = 365;
-
 	public DateTime DateTime;
+	public WorldData WorldData { get; private set; }
 
 	private double _initialDayTimeHours = 0;
 
@@ -173,6 +173,10 @@ public partial class World : Node
 	{
 		if (!Engine.IsEditorHint()) {
 			DateTime = GD.Load<DateTime>(Resources.DateTime);
+			WorldData = GD.Load<WorldData>(Resources.WorldData);
+			WorldData.World = this;
+			WorldData.Viewport = Viewport;
+			WorldData.Camera = Viewport.GetCamera3D();
 		}
 
 		if (IsInstanceValid(Sun)) {
@@ -223,7 +227,6 @@ public partial class World : Node
 			_update();
 		}
 	}
-
 
 	private void _update()
 	{

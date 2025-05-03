@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dnummqdo1te4k"]
+
+[ext_resource type="Script" uid="uid://5ukju0ilhsy3" path="res://Common/Scripts/WorldData.cs" id="1_6mbdb"]
+
+[resource]
+script = ExtResource("1_6mbdb")

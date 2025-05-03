@@ -1,10 +1,8 @@
 using Godot;
-using static Godot.GD;
 
 public partial class Component : Node3D
 {
 	// resources
-	protected CreatureData ActorData;
 	protected Inventory ActorInventory;
 
 	protected static AudioLibrary AudioLibrary { get {
@@ -14,37 +12,23 @@ public partial class Component : Node3D
 	protected AudioInstance AudioInstance { get {
 		return AudioLibrary.CreateAudioInstance("Replicator", this);
 	}}
-	//protected SceneManager SceneManager;
-	//protected QuickBar Quickbar;
 
 	protected Controller Controller;
-	protected CreatureData CreatureData { get; set; }
-
-	protected World World { get; set; }
+	// alias of ActorData, too lazy to rename it erverywhere else
+	protected CreatureData CreatureData;
+	protected CreatureData ActorData;
+	protected WorldData WorldData;
 
 	public async override void _Ready()
 	{
-		//SceneManager = GetNode<SceneManager>(Resources.SceneManager);
-
-		ActorData = Load<CreatureData>(Resources.ActorData);
-		ActorInventory = GD.Load<Inventory>(Resources.ActorInventory);
 		//AudioLibrary = Load<AudioLibrary>(Resources.AudioLibrary);
-		//Quickbar = Load<QuickBar>(Resources.QuickBar);
-		World = GetTree().CurrentScene.FindChild("World") as World;
+		ActorInventory = GD.Load<Inventory>(Resources.ActorInventory);
+		WorldData = GD.Load<WorldData>(Resources.WorldData);
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
-		foreach (var child in GetParent().GetParent().GetChildren()) {
-			if (child is CharacterBody3D body) {
-				Controller = body as Controller;
-				break;
-			}
-		}
-
-		if (Controller is null) {
-			return;
-		}
-
-		CreatureData = Controller.CreatureData;
+		ActorData = GD.Load<CreatureData>(Resources.ActorData);
+		CreatureData = ActorData;
+		Controller = ActorData.Controller;
 	}
 }

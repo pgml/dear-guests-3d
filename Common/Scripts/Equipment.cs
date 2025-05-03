@@ -121,7 +121,7 @@ public partial class Equipment : Node3D
 		}
 
 		if (IsInstanceValid(QuickInventoryInst)) {
-			if (@event.IsActionPressed("action_cancel")) {
+			if (@event.IsActionPressed(DGInputMap.ActionExit)) {
 				//QuickInventoryInstance.Close();
 				QuickInventoryInst.QueueFree();
 			}

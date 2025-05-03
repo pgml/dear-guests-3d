@@ -18,9 +18,12 @@ public partial class Actor : Creature
 		return GD.Load<Console>(Resources.Console);
 	}}
 
+	private WorldData _worldData;
 	private Camera _camera;
 	private float _cameraOffset = 0;
 	private float _cameraSmoothingDelta = 0;
+
+	private Scene _scene;
 
 	public override void _Ready()
 	{
@@ -29,10 +32,10 @@ public partial class Actor : Creature
 
 		Inventory = GD.Load<Inventory>(Resources.ActorInventory);
 		Belt = GD.Load<Belt>(Resources.ActorBelt);
+		_worldData = GD.Load<WorldData>(Resources.WorldData);
 
-		_world = GetTree().CurrentScene.FindChild("World") as World;
 		// store camera data
-		_camera = _world.Viewport.GetCamera3D() as Camera;
+		_camera = _worldData.Camera as Camera;
 		_cameraSmoothingDelta = _camera.SmoothingDelta;
 		_cameraOffset = Position.Y;
 
@@ -41,16 +44,15 @@ public partial class Actor : Creature
 		CreatureData.Node = this;
 		CreatureData.CameraOffset = _cameraOffset;
 
+		_scene = GetTree().CurrentScene as Scene;
+
 		//_sun = _world.Sun;
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventKey keyEvent && @event.IsActionPressed("action_use_debug")) {
-			if (!CreatureData.IsMimic) {
-				MorphInto("uid://bpmvfplqksh2e");
-			}
-			else {
+		if (@event.IsActionPressed(DGInputMap.ActionCancel)) {
+			if (CreatureData.IsMimic) {
 				MorphBack();
 			}
 		}
@@ -64,6 +66,20 @@ public partial class Actor : Creature
 				return;
 			}
 		}
+
+		if (Belt.SelectedItemResource is ItemResource beltItem) {
+			if (beltItem is MimicResource) {
+				var objDetection = CreatureData.ObjectDetectionComponent;
+				var hoveredObject = objDetection.HoveredObject();
+				objDetection.HighlightHovered = true;
+
+				if (hoveredObject is PhysicsObject obj) {
+					if (Input.IsMouseButtonPressed(MouseButton.Left)) {
+						CloneObject(obj);
+					}
+				}
+			}
+		}
 		//SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);
 
 		if (Input.IsPhysicalKeyPressed(Key.Shift)) {
@@ -72,15 +88,15 @@ public partial class Actor : Creature
 
 		Vector3 direction = GetInputDirection();
 
-		if (CreatureData is not null && !_console.IsOpen) {
-			CreatureData.Direction = direction;
-			CreatureData.VelocityMultiplier = CreatureData.WalkSpeed;
+		if (CreatureData is CreatureData cd && !_console.IsOpen) {
+			cd.Direction = direction;
+			cd.VelocityMultiplier = cd.WalkSpeed;
 
-			if (CreatureData.IsRunning) {
-				CreatureData.VelocityMultiplier = CreatureData.RunSpeed;
+			if (cd.IsRunning) {
+				cd.VelocityMultiplier = cd.RunSpeed;
 			}
 
-			CreatureData.ForwardDirection = CreatureData.Direction;
+			cd.ForwardDirection = cd.Direction;
 		}
 	}
 
@@ -106,6 +122,37 @@ public partial class Actor : Creature
 		GD.PrintS(actor, scene);
 		scene.AddChild(actor);
 		actor.Position = position;
+	}
+
+	public async void CloneObject(PhysicsObject obj)
+	{
+		if (CreatureData.IsMimic) {
+			return;
+		}
+
+		// freeze camera for a short amount of time to make
+		// transition a little bit smoother
+		_camera.Freeze = true;
+		// increase camera smoothing to let movement appear a bit
+		// heavier since we are an object now
+		_camera.SmoothingDelta = 8;
+
+		// Hide original actor form
+		CreatureData.Controller.Visible = false;
+
+		var itemInstance = obj.Duplicate() as PhysicsObject;
+		itemInstance.Freeze = true;
+		itemInstance.Position = new Vector3(0, _cameraOffset, 0);
+		itemInstance.CollisionMask = 257;
+
+		CreatureData.IsMimic = true;
+		CreatureData.MimicObject = itemInstance;
+		CreatureData.Parent.AddChild(itemInstance);
+		CreatureData.CameraOffset = itemInstance.Position.Y - 2.0f;
+
+		await ToSignal(GetTree().CreateTimer(0.15f), SceneTreeTimer.SignalName.Timeout);
+		_camera.Freeze = false;
+		itemInstance.Freeze = false;
 	}
 
 	/// <summary>

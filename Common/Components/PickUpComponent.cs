@@ -26,17 +26,20 @@ public partial class PickUpComponent : Component
 
 	public override void _Process(double delta)
 	{
-		if (CreatureData is CreatureData cd && _objDetection is null) {
-			_objDetection = cd.ObjectDetectionComponent;
-		}
+		if (ActorData is CreatureData ad) {
+			if (_objDetection is null) {
+				_objDetection = ad.ObjectDetectionComponent;
+			}
 
-		_hoveredObj = _hoveredObject();
-		if (_hoveredObj.Node is RigidBody3D node && _hoveredObj.InVicinity) {
-			ActorData.CanPickUp = true;
-			_objDetection.HighlightHovered = true;
-		}
-		else {
-			_resetHoveredObjects();
+			_hoveredObj = _hoveredObject();
+
+			if (_hoveredObj.Node is RigidBody3D node && _hoveredObj.InVicinity) {
+				ActorData.CanPickUp = true;
+				_objDetection.HighlightHovered = true;
+			}
+			else {
+				_resetHoveredObjects();
+			}
 		}
 	}
 
@@ -54,7 +57,9 @@ public partial class PickUpComponent : Component
 			}
 		}
 		else {
-			ActorData.IsPickingUpItem = false;
+			if (ActorData is not null) {
+				ActorData.IsPickingUpItem = false;
+			}
 		}
 	}
 

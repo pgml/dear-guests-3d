@@ -9,8 +9,10 @@ public static class Resources
 	public static readonly string DateTime = "res://Common/date_time.tres";
 	public static readonly string Console = "res://Common/console.tres";
 	public static readonly string ReplicatorStorage = "res://Common/replicator_storage.tres";
+	public static readonly string WorldData = "res://Common/world_data.tres";
 
-	public static readonly string ItemPickupHover = "uid://dcp421rmke0ht";
+	public static readonly string ItemCanvasOutline = "uid://dcp421rmke0ht";
+	public static readonly string ItemSpatialOutline = "uid://kxlm4gpy1w8f";
 
 	// Creatures
 	//public static readonly string Actor = "res://Creatures/actor.tscn";

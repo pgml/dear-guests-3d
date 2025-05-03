@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcjimqhc3n5ye"]
+[gd_scene load_steps=12 format=3 uid="uid://dcjimqhc3n5ye"]
 
 [ext_resource type="PackedScene" uid="uid://bid37ltc5t4se" path="res://UI/ui_clock.tscn" id="1_hvcg1"]
 [ext_resource type="PackedScene" uid="uid://wdvffohf5vt3" path="res://UI/ui_inventory.tscn" id="1_psx24"]
@@ -7,11 +7,20 @@
 [ext_resource type="Theme" uid="uid://dgsbiabr6dh8c" path="res://UI/Themes/ui_inventory_item_list.tres" id="4_pp6k1"]
 [ext_resource type="Texture2D" uid="uid://bcwdg78ojpxx0" path="res://Assets/Sprites/UI/ui_belt_bg.png" id="4_rqtoc"]
 [ext_resource type="FontFile" uid="uid://b3y0h16iwom86" path="res://Resources/Fonts/Pixeled.ttf" id="6_3wttk"]
+[ext_resource type="FontFile" uid="uid://jfkwd1flgplq" path="res://Resources/Fonts/dear_guests_text.ttf" id="8_5q2q3"]
+[ext_resource type="Script" uid="uid://b4yllktrlo57d" path="res://UI/Scripts/FpsCounter.cs" id="9_w01xh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3wttk"]
 font = ExtResource("6_3wttk")
 font_size = 3
 font_color = Color(0.239216, 0, 0.0235294, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5q2q3"]
+font = ExtResource("8_5q2q3")
+font_size = 6
+font_color = Color(0.829331, 0.829331, 0.829331, 1)
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [node name="MainUi" type="CanvasLayer"]
 
@@ -344,3 +353,12 @@ theme_type_variation = &"FlatButton"
 button_mask = 0
 icon = ExtResource("4_rqtoc")
 icon_alignment = 1
+
+[node name="FpsCounter" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "asdas"
+label_settings = SubResource("LabelSettings_5q2q3")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_w01xh")

@@ -27,8 +27,17 @@ public partial class Component : Node3D
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
-		ActorData = GD.Load<CreatureData>(Resources.ActorData);
-		CreatureData = ActorData;
-		Controller = ActorData.Controller;
+		foreach (var child in GetParent().GetParent().GetChildren()) {
+			if (child is CharacterBody3D body) {
+				Controller = body as Controller;
+				break;
+			}
+		}
+
+		if (Controller is null) {
+			return;
+		}
+
+		CreatureData = Controller.CreatureData;
 	}
 }

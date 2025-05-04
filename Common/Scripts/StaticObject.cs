@@ -25,16 +25,7 @@ public partial class StaticObject : Node3D
 
 	//public Vector3 TopDownScale = new Vector3(1.12f, 1.584f, 1.6f);
 	public Vector3 TopDownScale = new Vector3(0.69f, 0.99f, 1.0f);
-
-	public Node Mesh {
-		get {
-			if (FindChild(_meshNodeName) is null) {
-				return null;
-			}
-
-			return GetNode(_meshNodeName);
-		}
-	}
+	public Node Mesh { get; private set; }
 
 	public Sprite3D BillboardPlaceholer {
 		get {
@@ -62,6 +53,10 @@ public partial class StaticObject : Node3D
 			if (IsInstanceValid(World)) {
 				Sun = World.Sun;
 			}
+		}
+
+		if (FindChild(_meshNodeName) is Node3D mesh) {
+			Mesh = mesh;
 		}
 
 		ReplacePlaceholderWithMesh();
@@ -95,15 +90,14 @@ public partial class StaticObject : Node3D
 			BillboardPlaceholer.Visible = true;
 		}
 
-		var meshNode = GetNode(_meshNodeName);
-		var placeholder = (InstancePlaceholder)meshNode;
-
-		string path = placeholder.GetInstancePath();
-
-		await AsyncLoader.LoadResource<Resource>(path, "", true);
-
-		placeholder.CreateInstance();
-		BillboardPlaceholer.QueueFree();
+		if (GetNode(_meshNodeName) is InstancePlaceholder mesh) {
+			//var meshNode = GetNode(_meshNodeName);
+			var placeholder = (InstancePlaceholder)mesh;
+			string path = placeholder.GetInstancePath();
+			await AsyncLoader.LoadResource<Resource>(path, "", true);
+			placeholder.CreateInstance();
+			BillboardPlaceholer.QueueFree();
+		}
 	}
 
 	public void PrepareForTopdown()

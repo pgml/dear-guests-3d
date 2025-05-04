@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public partial class CreatureData : Resource
 {
-	public Node3D Parent = null;
+	public Node3D Parent { get; set; }
 	public dynamic Node = null;
 	public Controller Controller = null;
 	//public RectangleShape2D CollisionShape = null;

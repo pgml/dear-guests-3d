@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cnutg2mbomaxd"]
+[gd_scene load_steps=12 format=3 uid="uid://cnutg2mbomaxd"]
 
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_35xla"]
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_ys1qc"]
@@ -9,18 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://ce42ff5dpv77b" path="res://Common/Tools/poi.tscn" id="7_iaow0"]
 [ext_resource type="Script" uid="uid://ltqhvqcgr87p" path="res://Common/Scripts/Locations.cs" id="8_qpfo2"]
 [ext_resource type="PackedScene" uid="uid://b0gr320gfr5fh" path="res://Common/Tools/spawn_marker.tscn" id="9_2cgwh"]
-[ext_resource type="PackedScene" uid="uid://75xtbr5fblcr" path="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige.tscn" id="11_mie3u"]
-[ext_resource type="PackedScene" uid="uid://yrmmist0esc6" path="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn" id="12_0qy5o"]
-[ext_resource type="PackedScene" uid="uid://bdvtj7cx5bh5o" path="res://Assets/Furniture/Bench_Booth/bench_booth.tscn" id="13_7nf3m"]
-[ext_resource type="PackedScene" uid="uid://ba1y8upqstekl" path="res://Assets/Equipment/Replicator/replicator_type_1.tscn" id="14_2ocox"]
+[ext_resource type="PackedScene" uid="uid://cqql2yahtehec" path="res://Assets/Equipment/Generator/generator_type_1.tscn" id="14_mie3u"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qpfo2"]
 agent_radius = 0.75
 agent_max_climb = 0.75
 agent_max_slope = 80.0
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_qpfo2"]
-viewport_path = NodePath("SubViewportContainer2/EffectSubViewport")
 
 [node name="Scene" type="Node3D"]
 script = ExtResource("1_ys1qc")
@@ -52,12 +46,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9501, -0.11527, -5.6057)
 
 [node name="ReplicatorType1" parent="Content/Props" instance_placeholder="res://Assets/Equipment/Replicator/replicator_type_1.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.7887, -0.173386, -5.16139)
+script = null
 
 [node name="ReplicatorType2" parent="Content/Props" instance_placeholder="res://Assets/Equipment/Replicator/replicator_type_1.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.107, -0.173386, -5.10224)
+script = null
 
 [node name="GeneratorType1" parent="Content/Props" instance_placeholder="res://Assets/Equipment/Generator/generator_type_1.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.5784, -0.221972, -9.79357)
+
+[node name="FoodstantSmallBeige" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Foodstand_Small_Beige/foodstand_small_beige.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3746, -0.22198, -14.8799)
+
+[node name="RubbishBin" parent="Content/Props" instance_placeholder="res://Assets/Exterior/RubbishBin/rubbish_bin.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.8246, -0.221972, -9.13957)
+
+[node name="BenchBooth" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Bench_Booth/bench_booth.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3877, -0.221972, -14.7199)
+
+[node name="ReplicatorType3" parent="Content/Props" instance_placeholder="res://Assets/Equipment/Replicator/replicator_type_1.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5796, -0.173386, -13.4782)
+script = null
+
+[node name="GeneratorType2" parent="Content/Props" instance_placeholder="res://Assets/Equipment/Generator/generator_type_1.tscn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3645, -0.221972, -8.08996)
 
 [node name="Collisions" type="Node3D" parent="Content" groups=["Climbable"]]
 
@@ -78,7 +90,7 @@ LocationName = "P1"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.4121, 0, 0)
 
 [node name="SpawnMarker" parent="." instance=ExtResource("9_2cgwh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.48795, 7.62939e-06, -4.35636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.11762, -0.0133309, -3.89087)
 Creature = "uid://7nos3bf51wac"
 
 [node name="SpawnMarker2" parent="." instance=ExtResource("9_2cgwh")]
@@ -94,23 +106,14 @@ transform = Transform3D(0.965406, 0.0872881, -0.245684, 0.172596, 0.492322, 0.85
 [node name="AnomalySun" parent="World" index="2"]
 layers = 7
 
+[node name="Moon" parent="World" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
 [node name="EffectSubViewport" parent="World/SubViewportContainer2" index="0"]
 oversampling = false
 render_target_clear_mode = 2
 
-[node name="TextureRect" parent="World/SubViewportContainer2" index="1"]
-texture = SubResource("ViewportTexture_qpfo2")
-
-[node name="FoodstantSmallBeige" parent="." instance=ExtResource("11_mie3u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.3647, -7.62939e-06, -15.1273)
-
-[node name="RubbishBin" parent="." instance=ExtResource("12_0qy5o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.8147, 0, -9.38701)
-
-[node name="BenchBooth" parent="." instance=ExtResource("13_7nf3m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3778, 0, -14.9673)
-
-[node name="ReplicatorType1" parent="." instance=ExtResource("14_2ocox")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5697, 0.0485859, -13.7256)
+[node name="GeneratorType1" parent="." instance=ExtResource("14_mie3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8026, 0.00012207, -5.91687)
 
 [editable path="World"]

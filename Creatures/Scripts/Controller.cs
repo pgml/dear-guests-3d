@@ -17,23 +17,23 @@ public partial class Controller : CreatureController, IController
 	public override void _Ready()
 	{
 		_setCharacterData();
-		base._Ready();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (CreatureData is not null) {
+		if (CreatureData is CreatureData cd) {
 			base._PhysicsProcess(delta);
 
 			// Movement when morphed into a RigidBody3D via the mimic artifact
-			if (CreatureData.IsMimic &&
-				CreatureData.MimicObject is PhysicsObject mimicbObj)
+			if (cd.IsMimic &&
+				cd.MimicObject is PhysicsObject obj &&
+				CreatureData.Node is Actor)
 			{
-				if (mimicbObj.LinearVelocity.Length() <= 1) {
-					mimicbObj.ApplyCentralImpulse(CreatureData.Direction);
+				if (obj.LinearVelocity.Length() <= 1) {
+					obj.ApplyCentralImpulse(cd.Direction * obj.Mass);
 				}
 
-				_updatePositionToParent(mimicbObj);
+				_updatePositionToParent(obj);
 			}
 			else {
 				Movement(delta);
@@ -252,14 +252,16 @@ public partial class Controller : CreatureController, IController
 	/// Since the CharacterBody3D is not the root node we move the position
 	/// to the actual root which makes it easier to handle
 	/// </summary>
-	private void _updatePositionToParent(dynamic body)
+	private void _updatePositionToParent(Node3D body)
 	{
 		var parentPosition = GetParent<Node3D>().Position;
+
 		GetParent<Node3D>().Position = new Vector3(
 			parentPosition.X + body.Position.X,
 			parentPosition.Y + body.Position.Y,
 			parentPosition.Z + body.Position.Z
 		);
+
 		body.Position = Vector3.Zero;
 	}
 

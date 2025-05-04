@@ -125,7 +125,7 @@ public partial class Replicator : Equipment
 				}
 			}
 
-			if (@event.IsActionPressed("action_cancel")) {
+			if (@event.IsActionPressed(DGInputMap.ActionExit)) {
 				CloseUi();
 			}
 		}

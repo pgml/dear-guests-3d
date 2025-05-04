@@ -1,18 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsca8xc1cojae"]
+[gd_scene load_steps=5 format=3 uid="uid://dsca8xc1cojae"]
 
 [ext_resource type="Script" uid="uid://ktebfg07t4i7" path="res://Common/Scripts/World.cs" id="1_iaoyc"]
 [ext_resource type="Environment" uid="uid://jff1p13xc4bx" path="res://Resources/default_environment.tres" id="2_f76b8"]
 [ext_resource type="Texture2D" uid="uid://drjt0uhsjl4jk" path="res://Resources/Tiled/Waterfront/Waterfront.png" id="2_iaoyc"]
 [ext_resource type="Script" uid="uid://bvsurwg3q0jay" path="res://Common/Scripts/Camera.cs" id="4_f76b8"]
-[ext_resource type="Shader" uid="uid://ccrgyp3fx8cj6" path="res://Shaders/chromatic_aberation.gdshader" id="5_meh0u"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_f76b8"]
-viewport_path = NodePath("SubViewportContainer2/EffectSubViewport")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_65mgw"]
-shader = ExtResource("5_meh0u")
-shader_parameter/levels = 100
-shader_parameter/spread = 0.005
 
 [node name="World" type="Node3D" node_paths=PackedStringArray("Viewport", "Sun", "AnomalySun", "Moon", "Environment")]
 script = ExtResource("1_iaoyc")
@@ -161,23 +152,3 @@ current = true
 size = 16.2
 far = 110.0
 script = ExtResource("4_f76b8")
-
-[node name="TextureRect" type="TextureRect" parent="SubViewportContainer2"]
-visible = false
-light_mask = 3
-visibility_layer = 3
-layout_mode = 2
-texture = SubResource("ViewportTexture_f76b8")
-stretch_mode = 2
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-visible = false
-material = SubResource("ShaderMaterial_65mgw")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2

@@ -575,6 +575,7 @@ SafeThreshold = 1.0
 [node name="PickUpComponent" parent="Components" instance=ExtResource("8_y2omn")]
 
 [node name="ObjectDetectionComponent" parent="Components" instance=ExtResource("9_dhulj")]
+HoverCollisionMask = 768
 
 [node name="Controller" type="CharacterBody3D" parent="." node_paths=PackedStringArray("CharacterCollider")]
 collision_layer = 2

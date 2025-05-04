@@ -16,7 +16,6 @@ public partial class Component : Node3D
 	protected Controller Controller;
 	// alias of ActorData, too lazy to rename it erverywhere else
 	protected CreatureData CreatureData;
-	protected CreatureData ActorData;
 	protected WorldData WorldData;
 
 	public async override void _Ready()

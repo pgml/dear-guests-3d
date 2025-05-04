@@ -40,13 +40,13 @@ public partial class ThrowComponent : Component
 				_chargeProgress += _throwObject.ThrowIncreaseStep;
 			}
 
-			ActorData.CanMove = false;
-			ActorData.VelocityMultiplier = 0;
+			CreatureData.CanMove = false;
+			CreatureData.VelocityMultiplier = 0;
 			_positionThrowIndicator();
 		}
 
 		if (Input.IsActionJustReleased("action_trigger")) {
-			ActorData.CanMove = true;
+			CreatureData.CanMove = true;
 			_resetChargeProgress();
 		}
 
@@ -71,7 +71,7 @@ public partial class ThrowComponent : Component
 				_throwObject = _instantiateThrowObject();
 				ForceProgress.MinValue = _throwObject.MinThrowForce;
 				ForceProgress.MaxValue = _throwObject.MaxThrowForce;
-				ActorData.ForwardDirection = _throwDirection();
+				CreatureData.ForwardDirection = _throwDirection();
 				// force always a specific amount of initial progress
 				// otherwise if charging and throwing quickly would be just
 				// dropping
@@ -106,7 +106,7 @@ public partial class ThrowComponent : Component
 	/// </summary>
 	private void _throw()
 	{
-		var actor = ActorData.Character<Actor>();
+		var actor = CreatureData.Character<Actor>();
 		int itemAmount = actor.Inventory.GetItemAmount(
 			actor.Belt.SelectedItemResourceIndex);
 
@@ -147,7 +147,7 @@ public partial class ThrowComponent : Component
 	/// </summary>
 	private Vector3 _throwDirection()
 	{
-		var actor = ActorData.Character<Actor>();
+		var actor = CreatureData.Character<Actor>();
 		Vector2 mousePos = WorldData.Viewport.GetMousePosition();
 		var camera = WorldData.Camera;
 
@@ -184,7 +184,7 @@ public partial class ThrowComponent : Component
 
 	private PackedScene _itemScene()
 	{
-		var actor = ActorData.Character<Actor>();
+		var actor = CreatureData.Character<Actor>();
 		if (actor.Belt.SelectedItemResource == null) {
 			return null;
 		}
@@ -204,7 +204,7 @@ public partial class ThrowComponent : Component
 	/// </summary>
 	private bool _updateInventory()
 	{
-		var actor = ActorData.Character<Actor>();
+		var actor = CreatureData.Character<Actor>();
 		var itemResource = actor.Belt.SelectedItemResource;
 		int itemResourceIndex = actor.Inventory.GetItemResourceIndex(itemResource);
 

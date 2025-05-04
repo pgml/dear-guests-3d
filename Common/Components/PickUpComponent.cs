@@ -26,7 +26,7 @@ public partial class PickUpComponent : Component
 
 	public override void _Process(double delta)
 	{
-		if (ActorData is CreatureData ad) {
+		if (CreatureData is CreatureData ad) {
 			if (_objDetection is null) {
 				_objDetection = ad.ObjectDetectionComponent;
 			}
@@ -34,7 +34,7 @@ public partial class PickUpComponent : Component
 			_hoveredObj = _hoveredObject();
 
 			if (_hoveredObj.Node is RigidBody3D node && _hoveredObj.InVicinity) {
-				ActorData.CanPickUp = true;
+				CreatureData.CanPickUp = true;
 				_objDetection.HighlightHovered = true;
 			}
 			else {
@@ -50,15 +50,15 @@ public partial class PickUpComponent : Component
 			mouseButton.ButtonIndex == MouseButton.Left)
 		{
 			if (_hoveredObj.Node is PhysicsObject obj && _hoveredObj.InVicinity) {
-				ActorData.IsPickingUpItem = true;
+				CreatureData.IsPickingUpItem = true;
 				ItemResource itemResource = ItemResource.GetByUid(obj.ItemResourcePath);
-				ActorData.Character<Actor>().Inventory.AddItem(itemResource, 1);
+				CreatureData.Character<Actor>().Inventory.AddItem(itemResource, 1);
 				obj.QueueFree();
 			}
 		}
 		else {
-			if (ActorData is not null) {
-				ActorData.IsPickingUpItem = false;
+			if (CreatureData is not null) {
+				CreatureData.IsPickingUpItem = false;
 			}
 		}
 	}
@@ -89,8 +89,8 @@ public partial class PickUpComponent : Component
 
 	private void _resetHoveredObjects()
 	{
-		ActorData.CanPickUp = false;
-		ActorData.IsPickingUpItem = false;
+		CreatureData.CanPickUp = false;
+		CreatureData.IsPickingUpItem = false;
 
 		foreach (var body in _bodiesInVicinity) {
 			if (body is null) {

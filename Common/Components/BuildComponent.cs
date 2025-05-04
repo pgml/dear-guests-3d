@@ -84,8 +84,8 @@ public partial class BuildComponent : Component
 		_unfocusAll();
 
 		Equipment focusedEquipment = null;
-		if (ActorData.FocusedEquipment is Equipment) {
-			focusedEquipment = ActorData.FocusedEquipment;
+		if (CreatureData.FocusedEquipment is Equipment) {
+			focusedEquipment = CreatureData.FocusedEquipment;
 			_itemInstance = focusedEquipment;
 			_itemResource = _equipmentResource();
 		}
@@ -117,7 +117,7 @@ public partial class BuildComponent : Component
 		var uiInstance = UiBuildModeInstance;
 
 		if (@event.IsActionReleased("action_build") &&
-			!ActorData.IsAnyUiPanelOpen() &&
+			!CreatureData.IsAnyUiPanelOpen() &&
 			!IsBuildModeActive)
 		{
 			EnterBuildMode();
@@ -175,7 +175,7 @@ public partial class BuildComponent : Component
 			}
 			else if (CurrentMode == BuildMode.Move) {
 				if (!IsMovingItem &&
-					ActorData.FocusedEquipment is Equipment focusedEquipment &&
+					CreatureData.FocusedEquipment is Equipment focusedEquipment &&
 					IsInstanceValid(focusedEquipment))
 				{
 					_itemInstance = focusedEquipment;
@@ -253,7 +253,7 @@ public partial class BuildComponent : Component
 			// adjust position snapping is enabled and object can be snapped
 			if (IsSnappingEnabled) {
 				bool canSnap = false;
-				var testMotion = Controller.TestMotion(ActorData.FacingDirection * 4);
+				var testMotion = Controller.TestMotion(CreatureData.FacingDirection * 4);
 				if (testMotion.IsColliding) {
 					var col = testMotion.Collider<PhysicsBody3D>();
 					canSnap = col == mesh.GetChild(0);
@@ -320,12 +320,12 @@ public partial class BuildComponent : Component
 
 	public bool PickUpItem()
 	{
-		if (!IsInstanceValid(ActorData.FocusedEquipment)) {
+		if (!IsInstanceValid(CreatureData.FocusedEquipment)) {
 			return false;
 		}
 
 		// @todo: implement removal confirmation
-		_itemInstance = ActorData.FocusedEquipment;
+		_itemInstance = CreatureData.FocusedEquipment;
 		_itemInstance.QueueFree();
 		ActorInventory.AddItem(_itemResource, 1);
 		return true;
@@ -339,7 +339,7 @@ public partial class BuildComponent : Component
 		GetNode("/root/MainUI").AddChild(UiBuildModeInstance);
 		UiBuildModeInstance.Open();
 		IsBuildModeActive = true;
-		ActorData.IsBuildMoveActive = true;
+		CreatureData.IsBuildMoveActive = true;
 		AudioInstance.PlayUiSound(AudioLibrary.MiscBleep);
 	}
 
@@ -347,11 +347,13 @@ public partial class BuildComponent : Component
 	{
 		UiBuildModeInstance.QueueFree();
 		IsBuildModeActive = false;
-		ActorData.IsBuildMoveActive = false;
+		CreatureData.IsBuildMoveActive = false;
+
 		if (IsMovingItem) {
 			_removeItemInstance();
 			IsMovingItem = false;
 		}
+
 		_unfocusAll();
 		AudioInstance.PlayUiSound(AudioLibrary.MiscBleep);
 	}

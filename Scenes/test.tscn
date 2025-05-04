@@ -90,7 +90,7 @@ LocationName = "P1"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.4121, 0, 0)
 
 [node name="SpawnMarker" parent="." instance=ExtResource("9_2cgwh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.11762, -0.0133309, -3.89087)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.32145, -0.0133309, -3.70004)
 Creature = "uid://7nos3bf51wac"
 
 [node name="SpawnMarker2" parent="." instance=ExtResource("9_2cgwh")]

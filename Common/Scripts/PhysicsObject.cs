@@ -6,6 +6,9 @@ public partial class PhysicsObject : RigidBody3D
 	public string ItemResourcePath { get; set; }
 
 	[Export]
+	public bool CanBeMimicked { get; set; } = false;
+
+	[Export]
 	public bool Pickupable { get; set; } = false;
 
 	[Export]

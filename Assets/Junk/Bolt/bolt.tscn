@@ -22,6 +22,7 @@ linear_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_m0e6x")
 ItemResourcePath = "uid://bgua2dee46e2j"
+CanBeMimicked = true
 Pickupable = true
 LockRotationAxisXY = true
 IsThrowable = true

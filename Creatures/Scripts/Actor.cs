@@ -71,12 +71,17 @@ public partial class Actor : Creature
 			if (beltItem is MimicResource) {
 				var objDetection = CreatureData.ObjectDetectionComponent;
 				var hoveredObject = objDetection.HoveredObject();
-				objDetection.HighlightHovered = true;
 
-				if (hoveredObject is PhysicsObject obj) {
+				if (hoveredObject is PhysicsObject obj && obj.CanBeMimicked) {
+					CreatureData.CanMimic = true;
+					objDetection.HighlightHovered = true;
+
 					if (Input.IsMouseButtonPressed(MouseButton.Left)) {
 						CloneObject(obj);
 					}
+				}
+				else {
+					CreatureData.CanMimic = false;
 				}
 			}
 		}

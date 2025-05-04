@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c01cdiavnc8pt"]
 
 [ext_resource type="Script" uid="uid://c74ncnw8ufpmy" path="res://Common/Scripts/StaticObject.cs" id="1_6uyms"]
-[ext_resource type="PackedScene" uid="uid://cnm75h6daik0l" path="res://Assets/Exterior/Rubbish_Container/rubbish_container_mesh.tscn" id="2_sem34"]
+[ext_resource type="PackedScene" uid="uid://b5vh3kvjtuhyr" path="res://Assets/Exterior/Rubbish_Container/rubbish_container_body.tscn" id="2_sem34"]
 [ext_resource type="Texture2D" uid="uid://c50rxhobks2ym" path="res://Assets/Sprites/Tiles/props.png" id="3_sem34"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sem34"]
@@ -10,9 +10,7 @@ size = Vector3(2.86798, 2.34961, 1.81262)
 [node name="RubbishContainer" type="Node3D" groups=["Climbable"]]
 script = ExtResource("1_6uyms")
 
-[node name="Mesh" parent="." instance=ExtResource("2_sem34")]
-transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
-cast_shadow = 2
+[node name="Body" parent="." instance=ExtResource("2_sem34")]
 
 [node name="Billboard" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.36, 0.2)

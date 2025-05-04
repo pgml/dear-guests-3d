@@ -1,12 +1,20 @@
 using Godot;
 using System.Collections.Generic;
 
+public enum HighlightMode {
+	Outline,
+	Translucent,
+	Coloured,
+	ColouredTranslucent
+}
+
 public partial class ObjectDetectionComponent : Component
 {
 	[Export]
 	public uint HoverCollisionMask { get; set; }
 
-	public bool HighlightHovered = false;
+	public bool HighlightHovered { get; set; } = false;
+	public HighlightMode HighlightMode { get; set; } = HighlightMode.Outline;
 	public Node3D HoveredNode { get; set; }
 
 	private List<Node3D> _hoveredNodes = new();
@@ -86,40 +94,54 @@ public partial class ObjectDetectionComponent : Component
 
 	public void HighlightNode(Node3D node)
 	{
-		var sprite = node.FindChild("Sprite3D") as Sprite3D;
-		if (sprite is not null) {
+		if (node.FindChild("Sprite3D") is Sprite3D sprite) {
 			var mat = GD.Load<ShaderMaterial>(Resources.ItemCanvasOutline);
 			mat.SetShaderParameter("sprite_texture", sprite.Texture);
 			sprite.MaterialOverride = mat;
+			if (HighlightMode == HighlightMode.Translucent) {
+				sprite.Transparency = 0.5f;
+			}
 		}
 
-		if (node is StaticBody3D) {
-			var mesh = node.GetParent() as MeshInstance3D;
-			var mat = GD.Load<ShaderMaterial>(Resources.ItemSpatialOutline);
-			mesh.MaterialOverlay = mat;
+		if (node.FindChild("Mesh") is MeshInstance3D mesh) {
+			var surfaceMat = mesh.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
+
+			if (HighlightMode == HighlightMode.Outline) {
+				var mat = GD.Load<ShaderMaterial>(Resources.ItemCanvasOutline);
+				mat.SetShaderParameter("sprite_texture", surfaceMat.AlbedoTexture);
+				mesh.MaterialOverlay = mat;
+			}
+
+			surfaceMat.AlbedoColor = HighlightMode switch {
+				HighlightMode.Translucent => Color.FromString("ffffff99", default),
+				HighlightMode.ColouredTranslucent => Color.FromString("ddc40099", default),
+				_ => Color.FromString("ffffff", default)
+			};
 		}
 	}
 
 	private void _resetHoveredNodes()
 	{
-		HighlightHovered = false;
-
 		foreach (var node in _hoveredNodes) {
 			if (node is null || !IsInstanceValid(node)) {
 				continue;
 			}
 
-			var sprite = node.FindChild("Sprite3D") as Sprite3D;
-			if (sprite is not null) {
+			if (node.FindChild("Sprite3D") is Sprite3D sprite) {
 				sprite.MaterialOverride = null;
+				if (HighlightMode == HighlightMode.Translucent) {
+					sprite.Transparency = 0;
+				}
 			}
 
-			if (node is StaticBody3D) {
-				var mesh = node.GetParent() as MeshInstance3D;
+			if (node.FindChild("Mesh") is MeshInstance3D mesh) {
+				var surfaceMat = mesh.Mesh.SurfaceGetMaterial(0) as StandardMaterial3D;
+				surfaceMat.AlbedoColor = Color.FromString("ffffff", default);
 				mesh.MaterialOverlay = null;
 			}
 		}
 
+		HighlightHovered = false;
 		_hoveredNodes = new();
 	}
 }

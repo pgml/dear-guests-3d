@@ -76,6 +76,7 @@ public partial class CreatureData : Resource
 	// Mimic stuff
 	public bool IsMimic = false;
 	public PhysicsObject MimicObject = null;
+	public bool CanMimic = false;
 
 	// misc helpers
 	public List<Equipment> EquipmentInVicinity = new();

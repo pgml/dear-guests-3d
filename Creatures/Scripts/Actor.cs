@@ -146,14 +146,21 @@ public partial class Actor : Creature
 		CreatureData.Controller.Visible = false;
 
 		var itemInstance = obj.Duplicate() as PhysicsObject;
+		var mesh = itemInstance.FindChild("Mesh") as MeshInstance3D;
+		// meshheight * tile size
+		float meshHeight = mesh.GetAabb().Size.Y * 32;
+
+		if (CreatureData.CharacterHeight() > meshHeight) {
+			itemInstance.Position = new Vector3(0, _cameraOffset, 0);
+			CreatureData.CameraOffset = itemInstance.Position.Y - 2.0f;
+		}
+
 		itemInstance.Freeze = true;
-		itemInstance.Position = new Vector3(0, _cameraOffset, 0);
 		itemInstance.CollisionMask = 257;
 
 		CreatureData.IsMimic = true;
 		CreatureData.MimicObject = itemInstance;
 		CreatureData.Parent.AddChild(itemInstance);
-		CreatureData.CameraOffset = itemInstance.Position.Y - 2.0f;
 
 		await ToSignal(GetTree().CreateTimer(0.15f), SceneTreeTimer.SignalName.Timeout);
 		_camera.Freeze = false;

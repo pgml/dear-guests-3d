@@ -19,7 +19,6 @@ public partial class Scene : Node3D
 	private Godot.Collections.Array<Node> _instancePlaceholders;
 	private PackedScene _sceneTransition;
 	private Dictionary<string, PackedScene> _sceneCache = new();
-
 	private WorldData _worldData;
 
 	public async override void _Ready()
@@ -59,6 +58,29 @@ public partial class Scene : Node3D
 		GD.PrintRich($"[b]LOADED SCENE IN: ", Time.GetTicksMsec() - groups, "ms[/b]");
 
 		EmitSignal(SignalName.SceneLoaded);
+	}
+
+	public override void _Process(double delta)
+	{
+		//var frustum = _worldData.Camera.GetFrustum();
+		var objects = GetTree().GetNodesInGroup("CullGroup");
+		//var cullGroupParent = GetTree().GetNodesInGroup("CullGroupParent");
+
+		//foreach (var parent in cullGroupParent) {
+		//	if (parent is Node3D obj && parent.IsInsideTree()) {
+		//		foreach (var o in obj.GetChildren()) {
+		//			//o.AddToGroup("CullGroup");
+		//			VisibleOnScreenNotifier3D notifier = new();
+		//			o.AddChild(notifier);
+		//		}
+		//	}
+		//}
+
+		//foreach (var @object in objects) {
+		//	if (@object is Node3D obj && @object.IsInsideTree()) {
+		//		obj.Visible = _worldData.Camera.IsPositionInFrustum(obj.Position);
+		//	}
+		//}
 	}
 
 	/// <summary>
@@ -164,7 +186,13 @@ public partial class Scene : Node3D
 			}
 
 			if (placeholder.IsInsideTree()) {
-				var instance = placeholder.CreateInstance();
+				var instance = placeholder.CreateInstance(true);
+				VisibleOnScreenNotifier3D notifier = new();
+				instance.AddChild(notifier);
+				foreach (var group in placeholder.GetGroups()) {
+					instance.AddToGroup(group);
+					instance.AddToGroup("CullGroup");
+				}
 				PlaceholderDict.Add(instance.Name, placeholder.GetInstancePath());
 			}
 

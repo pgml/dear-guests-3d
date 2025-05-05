@@ -73,7 +73,7 @@ size = Vector3(1.40431, 0.1, 0.6)
 script = ExtResource("1_4f71o")
 SceneName = "Waterfront"
 
-[node name="Content" type="NavigationRegion3D" parent="."]
+[node name="Content" type="NavigationRegion3D" parent="." groups=["Climbable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.67731)
 navigation_mesh = SubResource("NavigationMesh_851v1")
 use_edge_connections = false

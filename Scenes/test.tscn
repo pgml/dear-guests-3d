@@ -24,10 +24,10 @@ script = ExtResource("1_ys1qc")
 [node name="Content" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_qpfo2")
 
-[node name="TestMap" parent="Content" groups=["Climbable"] instance=ExtResource("5_i3aeo")]
+[node name="TestMap" parent="Content" groups=["Climbable", "CullGroupParent"] instance=ExtResource("5_i3aeo")]
 transform = Transform3D(0.69, 0, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Props" type="Node3D" parent="Content"]
+[node name="Props" type="Node3D" parent="Content" groups=["CullGroup"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00987053, 0.221972, -0.247444)
 script = ExtResource("4_yb21e")
 
@@ -40,7 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7052, -0.221972, -10.6136
 [node name="TreeSmall" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Tree_Small/tree_small.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5317, -0.22198, -15.7281)
 
-[node name="RubbishContainer" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
+[node name="RubbishContainer" parent="Content/Props" groups=["CullGroup"] instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.9301, 5.82473, -10.8426)
 
 [node name="RubbishContainer2" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]

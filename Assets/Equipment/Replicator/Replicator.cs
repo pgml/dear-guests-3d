@@ -25,7 +25,6 @@ public partial class Replicator : Equipment
 	[Export]
 	public Color LightColor { get; set; }
 
-
 	public PackedScene UiReplicator { get {
 		return GD.Load<PackedScene>(Resources.UiReplicator);
 	}}

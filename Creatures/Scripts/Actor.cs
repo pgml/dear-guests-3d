@@ -11,9 +11,6 @@ public partial class Actor : Creature
 	[Export]
 	public Belt Belt { get; private set; }
 
-	private World _world;
-	private DirectionalLight3D _sun;
-
 	private Console _console { get {
 		return GD.Load<Console>(Resources.Console);
 	}}
@@ -22,7 +19,6 @@ public partial class Actor : Creature
 	private Camera _camera;
 	private float _cameraOffset = 0;
 	private float _cameraSmoothingDelta = 0;
-
 	private Scene _scene;
 
 	public override void _Ready()
@@ -45,8 +41,6 @@ public partial class Actor : Creature
 		CreatureData.CameraOffset = _cameraOffset;
 
 		_scene = GetTree().CurrentScene as Scene;
-
-		//_sun = _world.Sun;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -85,7 +79,15 @@ public partial class Actor : Creature
 				}
 			}
 		}
-		//SunShadowSprite.RotationDegrees = new Vector3(0, _sun.RotationDegrees.X, 0);
+
+		//SunShadowSprite.RotationDegrees = new Vector3(
+		//	0,
+		//	_worldData.World.Sun.RotationDegrees.X,
+		//	0
+		//);
+
+		TopShadow.Frame = CharacterSprite.Frame;
+		TopShadow.FrameCoords = CharacterSprite.FrameCoords;
 
 		if (Input.IsPhysicalKeyPressed(Key.Shift)) {
 			CreatureData.IsRunning = !CreatureData.IsRunning;
@@ -146,16 +148,18 @@ public partial class Actor : Creature
 
 		var tween = CreateTween();
 		CharacterSprite.Transparency = 0;
-		tween.TweenProperty(CharacterSprite, "transparency", 1, 0.3);
+		tween.TweenProperty(CharacterSprite, "transparency", 0.85, 0.3);
 
+		CreatureData.AudioComponent.PlayMorphSoundMwhoop();
 		await ToSignal(tween, Tween.SignalName.Finished);
 		tween = CreateTween();
 		tween.TweenProperty(CharacterSprite, "transparency", 0, 0.3);
 
 		await ToSignal(tween, Tween.SignalName.Finished);
 		tween = CreateTween();
-		tween.TweenProperty(CharacterSprite, "transparency", 1, 0.3);
+		tween.TweenProperty(CharacterSprite, "transparency", 0.85, 0.3);
 
+		CreatureData.AudioComponent.PlayMorphSoundMwhoop();
 		await ToSignal(tween, Tween.SignalName.Finished);
 		tween = CreateTween();
 		tween.TweenProperty(CharacterSprite, "transparency", 0, 0.3);
@@ -164,6 +168,7 @@ public partial class Actor : Creature
 		await ToSignal(GetTree().CreateTimer(0.3f), SceneTreeTimer.SignalName.Timeout);
 		tween.IsQueuedForDeletion();
 
+		CreatureData.AudioComponent.PlayMorphSoundBlob();
 		// Hide original actor form
 		CreatureData.Controller.Visible = false;
 
@@ -240,6 +245,8 @@ public partial class Actor : Creature
 		CreatureData.MimicObject = null;
 		CreatureData.Controller.Visible = true;
 		CreatureData.CameraOffset = _cameraOffset;
+
+		CreatureData.AudioComponent.PlayMorphSoundBlob();
 
 		var tween = CreateTween();
 		CharacterSprite.Transparency = 0;

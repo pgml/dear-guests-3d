@@ -28,6 +28,8 @@ public partial class AudioLibrary : Resource
 	[Export] public AudioClip MiscBleep { get; set; }
 	[Export] public AudioClip MiscPlace { get; set; }
 	[Export] public AudioClip MiscDenied { get; set; }
+	[Export] public AudioClip MiscMorphMwhoop { get; set; }
+	[Export] public AudioClip MiscMorphBlob { get; set; }
 
 	public AudioInstance CreateAudioInstance(
 		string instanceName,

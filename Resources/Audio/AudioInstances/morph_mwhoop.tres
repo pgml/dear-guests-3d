@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://d0k1ero6uqb7c"]
+
+[ext_resource type="AudioStream" uid="uid://dwcag831d134y" path="res://Resources/Audio/Misc/morph_whoop.wav" id="1_oqg48"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="2_j4wuu"]
+
+[resource]
+script = ExtResource("2_j4wuu")
+AudioFiles = Array[AudioStream]([ExtResource("1_oqg48")])
+MinVolume = 0.5
+MaxVolume = 0.5
+AutoPlay = false

@@ -67,6 +67,7 @@ public partial class CreatureData : Resource
 	public bool IsBuildMoveActive = false;
 
 	// Component Helper
+	public AudioComponent AudioComponent = new();
 	public AnimationComponent AnimationComponent = new();
 	public EdgeCheckComponent EdgeCheck = new();
 	public JumpComponent JumpComponent = new();

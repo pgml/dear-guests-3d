@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cmo220gjihmy6"]
+
+[ext_resource type="AudioStream" uid="uid://b7118c6d8eprf" path="res://Resources/Audio/Misc/morph_blob.wav" id="1_gfy2k"]
+[ext_resource type="Script" uid="uid://csjwqu2jamcpg" path="res://Common/Scripts/AudioClip.cs" id="2_ckj5a"]
+
+[resource]
+script = ExtResource("2_ckj5a")
+AudioFiles = Array[AudioStream]([ExtResource("1_gfy2k")])
+MinVolume = 0.5
+MaxVolume = 0.5
+AutoPlay = false

@@ -10,7 +10,7 @@ public partial class Component : Node3D
 	}}
 
 	protected AudioInstance AudioInstance { get {
-		return AudioLibrary.CreateAudioInstance("Replicator", this);
+		return AudioLibrary.CreateAudioInstance("Misc", this);
 	}}
 
 	protected Controller Controller;

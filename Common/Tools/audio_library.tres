@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=17 format=3 uid="uid://bqujfr0eb46cn"]
+[gd_resource type="Resource" load_steps=19 format=3 uid="uid://bqujfr0eb46cn"]
 
 [ext_resource type="Script" uid="uid://5b3vry7osrjh" path="res://Common/Scripts/AudioLibrary.cs" id="1_7lvr4"]
 [ext_resource type="Resource" uid="uid://cn3cmg4ealxlw" path="res://Resources/Audio/AudioInstances/inventory_browse.tres" id="1_g4ir7"]
@@ -15,7 +15,9 @@
 [ext_resource type="Resource" uid="uid://bjimi1c8or1np" path="res://Resources/Audio/AudioInstances/misc_place.tres" id="7_e76mo"]
 [ext_resource type="Resource" uid="uid://coqfpe5ketsiy" path="res://Resources/Audio/AudioInstances/misc_denied.tres" id="7_v5rkt"]
 [ext_resource type="Resource" uid="uid://plwoldql88jf" path="res://Resources/Audio/AudioInstances/replicator_start_1.tres" id="8_whwcy"]
+[ext_resource type="Resource" uid="uid://cmo220gjihmy6" path="res://Resources/Audio/AudioInstances/morph_blob.tres" id="8_xnk3l"]
 [ext_resource type="Resource" uid="uid://diod6xuscrhvi" path="res://Resources/Audio/AudioInstances/replicator_stop_1.tres" id="9_whwcy"]
+[ext_resource type="Resource" uid="uid://d0k1ero6uqb7c" path="res://Resources/Audio/AudioInstances/morph_mwhoop.tres" id="9_wjtwl"]
 
 [resource]
 script = ExtResource("1_7lvr4")
@@ -34,3 +36,5 @@ MiscClick = ExtResource("5_iw0jx")
 MiscBleep = ExtResource("5_pvstt")
 MiscPlace = ExtResource("7_e76mo")
 MiscDenied = ExtResource("7_v5rkt")
+MiscMorphMwhoop = ExtResource("9_wjtwl")
+MiscMorphBlob = ExtResource("8_xnk3l")

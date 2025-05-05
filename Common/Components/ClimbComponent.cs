@@ -69,7 +69,6 @@ public partial class ClimbComponent : Component
 			return;
 		}
 
-
 		if (_collider().Body is not null && CreatureData.IsOnFloor) {
 			CreatureData.CanClimb = true;
 		}
@@ -109,12 +108,21 @@ public partial class ClimbComponent : Component
 			return 0;
 		}
 
-		StaticBody3D staticBody = _collider().Body;
-		Node parent = staticBody.GetParent();
+		PhysicsBody3D physicsBody = _collider().Body;
+		Node parent = physicsBody.GetParent();
 		double colliderHeight = 0;
 
-		if (parent is MeshInstance3D)	{
-			var mesh = parent as MeshInstance3D;
+		MeshInstance3D mesh = null;
+
+		if (parent is MeshInstance3D) {
+			mesh = parent as MeshInstance3D;
+		}
+
+		if (physicsBody is RigidBody3D body) {
+			mesh = body.GetChild<MeshInstance3D>(0);
+		}
+
+		if (mesh is not null)	{
 			Aabb aabb = mesh.Mesh.GetAabb();
 			double meshElevation = mesh.Position.Y;
 			double elevation = Controller.DistanceToFloor();
@@ -125,8 +133,8 @@ public partial class ClimbComponent : Component
 				colliderHeight = aabb.Size.Y / 2 - Controller.DistanceToFloor(true);
 			}
 		}
-		else if (parent is StaticBody3D || IsInstanceValid(staticBody)) {
-			var child = staticBody.GetChild<CollisionShape3D>(0);
+		else if (parent is StaticBody3D || IsInstanceValid(physicsBody)) {
+			var child = physicsBody.GetChild<CollisionShape3D>(0);
 			float childHeight = child.GlobalTransform.Origin.Y;
 
 			colliderHeight = child.Shape switch {
@@ -143,7 +151,7 @@ public partial class ClimbComponent : Component
 		return (float)System.Math.Round(colliderHeight, 1);
 	}
 
-	private (StaticBody3D Body, bool IsClimbable) _collider()
+	private (PhysicsBody3D Body, bool IsClimbable) _collider()
 	{
 		TestMotion testMotion = new(
 			Controller.GetRid(),
@@ -156,7 +164,7 @@ public partial class ClimbComponent : Component
 		);
 
 		if (testMotion.IsColliding) {
-			var collider = testMotion.Collider<StaticBody3D>();
+			var collider = testMotion.Collider<PhysicsBody3D>();
 			return (collider, _bodyIsClimbable(collider));
 		}
 
@@ -167,7 +175,7 @@ public partial class ClimbComponent : Component
 	/// checks if a StaticBody3D is climbable by checking its parent or
 	/// their parent is in the Climbable group<br />
 	/// </summary>
-	private bool _bodyIsClimbable(StaticBody3D body)
+	private bool _bodyIsClimbable(PhysicsBody3D body)
 	{
 		if (!IsInstanceValid(body)) {
 			return false;

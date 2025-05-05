@@ -146,7 +146,8 @@ public partial class Actor : Creature
 		CreatureData.Controller.Visible = false;
 
 		var itemInstance = obj.Duplicate() as PhysicsObject;
-		var mesh = itemInstance.FindChild("Mesh") as MeshInstance3D;
+		//var mesh = itemInstance.FindChild("Mesh") as MeshInstance3D;
+		var mesh = itemInstance.GetChild<MeshInstance3D>(0);
 		// meshheight * tile size
 		float meshHeight = mesh.GetAabb().Size.Y * 32;
 
@@ -179,7 +180,6 @@ public partial class Actor : Creature
 		// increase camera smoothing to let movement appear a bit
 		// heavier since we are an object now
 		_camera.SmoothingDelta = 8;
-
 		// Hide original actor form
 		CreatureData.Controller.Visible = false;
 

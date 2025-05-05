@@ -77,7 +77,7 @@ public partial class Actor : Creature
 					objDetection.HighlightHovered = true;
 
 					if (Input.IsMouseButtonPressed(MouseButton.Left)) {
-						CloneObject(obj);
+						CloneObject(obj, delta);
 					}
 				}
 				else {
@@ -129,11 +129,13 @@ public partial class Actor : Creature
 		actor.Position = position;
 	}
 
-	public async void CloneObject(PhysicsObject obj)
+	public async void CloneObject(PhysicsObject obj, double delta)
 	{
 		if (CreatureData.IsMimic) {
 			return;
 		}
+
+		CreatureData.IsMimic = true;
 
 		// freeze camera for a short amount of time to make
 		// transition a little bit smoother
@@ -142,14 +144,47 @@ public partial class Actor : Creature
 		// heavier since we are an object now
 		_camera.SmoothingDelta = 8;
 
+		var tween = CreateTween();
+		CharacterSprite.Transparency = 0;
+		tween.TweenProperty(CharacterSprite, "transparency", 1, 0.3);
+
+		await ToSignal(tween, Tween.SignalName.Finished);
+		tween = CreateTween();
+		tween.TweenProperty(CharacterSprite, "transparency", 0, 0.3);
+
+		await ToSignal(tween, Tween.SignalName.Finished);
+		tween = CreateTween();
+		tween.TweenProperty(CharacterSprite, "transparency", 1, 0.3);
+
+		await ToSignal(tween, Tween.SignalName.Finished);
+		tween = CreateTween();
+		tween.TweenProperty(CharacterSprite, "transparency", 0, 0.3);
+
+		await ToSignal(tween, Tween.SignalName.Finished);
+		await ToSignal(GetTree().CreateTimer(0.3f), SceneTreeTimer.SignalName.Timeout);
+		tween.IsQueuedForDeletion();
+
 		// Hide original actor form
 		CreatureData.Controller.Visible = false;
 
 		var itemInstance = obj.Duplicate() as PhysicsObject;
 		//var mesh = itemInstance.FindChild("Mesh") as MeshInstance3D;
-		var mesh = itemInstance.GetChild<MeshInstance3D>(0);
-		// meshheight * tile size
-		float meshHeight = mesh.GetAabb().Size.Y * 32;
+		float meshHeight = 0;
+		foreach (var child in itemInstance.GetChildren()) {
+			if (child is MeshInstance3D mesh) {
+				//var mesh = itemInstance.GetChild<MeshInstance3D>(0);
+				//float meshHeight = mesh.GetAabb().Size.Y * 32;
+				meshHeight = mesh.GetAabb().Size.Y * 32;
+			}
+			else if (child is Sprite3D sprite) {
+				if (sprite.RegionEnabled) {
+					meshHeight = sprite.RegionRect.Size.Y;
+				}
+				else {
+					meshHeight = sprite.Texture.GetHeight();
+				}
+			}
+		}
 
 		if (CreatureData.CharacterHeight() > meshHeight) {
 			itemInstance.Position = new Vector3(0, _cameraOffset, 0);
@@ -159,7 +194,6 @@ public partial class Actor : Creature
 		itemInstance.Freeze = true;
 		itemInstance.CollisionMask = 257;
 
-		CreatureData.IsMimic = true;
 		CreatureData.MimicObject = itemInstance;
 		CreatureData.Parent.AddChild(itemInstance);
 
@@ -206,5 +240,9 @@ public partial class Actor : Creature
 		CreatureData.MimicObject = null;
 		CreatureData.Controller.Visible = true;
 		CreatureData.CameraOffset = _cameraOffset;
+
+		var tween = CreateTween();
+		CharacterSprite.Transparency = 0;
+		tween.TweenProperty(CharacterSprite, "transparency", 0, 0.3);
 	}
 }

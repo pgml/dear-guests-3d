@@ -37,10 +37,7 @@ public partial class Controller : CreatureController, IController
 				cd.MimicObject is PhysicsObject obj &&
 				CreatureData.Node is Actor)
 			{
-				if (obj.LinearVelocity.Length() <= 1) {
-					obj.ApplyCentralImpulse(cd.Direction * obj.Mass);
-				}
-
+				obj.Move(cd);
 				_updatePositionToParent(obj);
 			}
 			else {

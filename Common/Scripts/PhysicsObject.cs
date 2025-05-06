@@ -26,6 +26,20 @@ public partial class PhysicsObject : RigidBody3D
 	[Export]
 	public float ThrowIncreaseStep { get; set; } = 0.05f;
 
+	[Export]
+	public float AdditionalImpulse { get; set; } = 1;
+
+	[Export]
+	public bool ContinuousImpulse { get; set; } = false;
+
+	/// <summary>
+	/// Changes the gravity scale while object is not on floor
+	/// 0 means no override
+	/// </summary>
+	[Export]
+	public float GravityScaleWhileAirborne { get; set; } = 5;
+
+	private float _defaultGravityScale;
 	private Vector3 _initialRotation;
 
 	public override void _Ready()
@@ -36,12 +50,41 @@ public partial class PhysicsObject : RigidBody3D
 			SetAxisLock(PhysicsServer3D.BodyAxis.AngularY, true);
 			SetAxisLock(PhysicsServer3D.BodyAxis.AngularZ, false);
 		}
+
+		_defaultGravityScale = GravityScale;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (LinearVelocity.Y <= -0.1 && GravityScaleWhileAirborne > 0) {
+			GravityScale = GravityScaleWhileAirborne;
+		}
+		else {
+			GravityScale = _defaultGravityScale;
+		}
 	}
 
 	public override void _IntegrateForces(PhysicsDirectBodyState3D state)
 	{
 		if (LockRotationAxisXY) {
 			state = PhysicsObject.LockRotationAxis(state, _initialRotation);
+		}
+	}
+
+	public void Move(CreatureData cd)
+	{
+		Vector3 impulse = cd.Direction * Mass * AdditionalImpulse;
+		if (ContinuousImpulse) {
+			ApplyCentralImpulse(impulse);
+		}
+		else if (LinearVelocity.Length() <= 1) {
+			if (Input.IsActionJustReleased(DGInputMap.ActionWalkLeft) ||
+				Input.IsActionJustReleased(DGInputMap.ActionWalkRight) ||
+				Input.IsActionJustReleased(DGInputMap.ActionWalkUp) ||
+				Input.IsActionJustReleased(DGInputMap.ActionWalkDown))
+			{
+				ApplyCentralImpulse(impulse);
+			}
 		}
 	}
 

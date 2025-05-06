@@ -28,13 +28,15 @@ LockRotationAxisXY = true
 IsThrowable = true
 MaxThrowForce = 12.0
 ThrowIncreaseStep = 0.1
+AdditionalImpulse = 5.0
+GravityScaleWhileAirborne = 0.0
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.799999, 0, 0, 0, 0.799999, 0, 0.148598, 0)
 cast_shadow = 2
 pixel_size = 0.04
 shaded = true
-alpha_cut = 2
+alpha_cut = 3
 texture_filter = 2
 texture = ExtResource("2_digwd")
 region_enabled = true

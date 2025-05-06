@@ -113,10 +113,10 @@ public partial class Actor : Creature
 	public Vector3 GetInputDirection()
 	{
 		Vector2 input = Input.GetVector(
-			"action_walk_left",
-			"action_walk_right",
-			"action_walk_up",
-			"action_walk_down"
+			DGInputMap.ActionWalkLeft,
+			DGInputMap.ActionWalkRight,
+			DGInputMap.ActionWalkUp,
+			DGInputMap.ActionWalkDown
 		);
 
 		return new() {

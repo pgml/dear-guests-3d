@@ -562,6 +562,7 @@ floor_max_angle = 2.36492
 floor_snap_length = 5.0
 script = ExtResource("1_jmxrq")
 NavigationAgent = NodePath("../Agent")
+DefaultCollisionMask = 263
 CharacterCollider = NodePath("CharacterCollision")
 DefaultWalkSpeed = 8.0
 DefaultRunSpeed = 12.0

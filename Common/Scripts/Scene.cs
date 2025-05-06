@@ -41,6 +41,7 @@ public partial class Scene : Node3D
 		_instancePlaceholders = _tree.GetNodesInGroup("InstancePlaceholder");
 
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+		_worldData = GD.Load<WorldData>(Resources.WorldData);
 		ActorData = GD.Load<CreatureData>(Resources.ActorData);
 
 		if (!HasActor(_tree)) {
@@ -53,8 +54,6 @@ public partial class Scene : Node3D
 			SceneLoaded += _onSceneLoaded;
 			await _loadPlaceholders();
 		}
-
-		_worldData = GD.Load<WorldData>(Resources.WorldData);
 
 		GD.PrintRich($"[b]LOADED SCENE IN: ", Time.GetTicksMsec() - groups, "ms[/b]");
 

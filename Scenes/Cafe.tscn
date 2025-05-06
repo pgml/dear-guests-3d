@@ -33,22 +33,6 @@ size = Vector3(1.32141, 0.1, 0.824438)
 script = ExtResource("1_wmvcl")
 SceneName = "Cafe"
 
-[node name="World" parent="." instance=ExtResource("1_1tv80")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.43323e-05, 0.0131073, -0.0131741)
-DayTimeHours = 7.0
-DayOfYear = 165
-Latitude = 33.0
-
-[node name="WorldEnvironment" parent="World" index="0"]
-environment = ExtResource("3_wmyhn")
-
-[node name="Sun" parent="World" index="1"]
-transform = Transform3D(0.825873, -0.526081, 0.202892, 0.414046, 0.810094, 0.415104, -0.382739, -0.258819, 0.886859, 0, 0, 0)
-
-[node name="Moon" parent="World" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-light_energy = 0.0
-
 [node name="Content" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0295594, 0.0208511, -0.0213242)
 navigation_mesh = SubResource("NavigationMesh_hxbu8")
@@ -73,7 +57,7 @@ mesh = SubResource("QuadMesh_gil5b")
 script = ExtResource("6_hxbu8")
 
 [node name="Counter" parent="Content/Props" instance_placeholder="res://Assets/Furniture/Counter/counter.tscn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54031, 0.0034191, 1.80589)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.50007, 0.0034191, 1.86654)
 
 [node name="Booth" type="Node3D" parent="Content/Props"]
 script = ExtResource("6_hxbu8")
@@ -386,5 +370,20 @@ shape = SubResource("BoxShape3D_55gey")
 [node name="Waterfront" parent="Content/EntranceMarkers" groups=["EntranceMarker"] instance=ExtResource("21_7a8qd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.679233, -0.01333, 3.50651)
 FromScene = "uid://blxmhwe5ji5w0"
+
+[node name="World" parent="." instance=ExtResource("1_1tv80")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.43323e-05, 0.0131073, -0.0131741)
+DayTimeHours = 7.0
+DayOfYear = 165
+Latitude = 33.0
+
+[node name="WorldEnvironment" parent="World" index="0"]
+environment = ExtResource("3_wmyhn")
+
+[node name="Sun" parent="World" index="1"]
+transform = Transform3D(0.825873, -0.526081, 0.202892, 0.414046, 0.810094, 0.415104, -0.382739, -0.258819, 0.886859, 0, 0, 0)
+
+[node name="Moon" parent="World" index="3"]
+light_energy = 0.0
 
 [editable path="World"]

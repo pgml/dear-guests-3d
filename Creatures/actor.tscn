@@ -19,8 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://q1m6fsp1d7qm" path="res://Assets/Sprites/UI/Cursors/hand.png" id="16_dhulj"]
 [ext_resource type="Texture2D" uid="uid://cmuhumqshkxqr" path="res://Assets/Sprites/UI/Cursors/grab.png" id="17_6qk7i"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_y1pvj"]
-height = 2.85
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6qk7i"]
+radius = 0.273926
+height = 2.83557
 
 [sub_resource type="Animation" id="Animation_qc4db"]
 length = 0.001
@@ -635,8 +636,13 @@ hframes = 6
 vframes = 20
 
 [node name="CharacterCollision" type="CollisionShape3D" parent="Controller"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0410614, 1.4304, 0)
-shape = SubResource("CapsuleShape3D_y1pvj")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.138214, 1.43648, -0.196045)
+shape = SubResource("CapsuleShape3D_6qk7i")
+debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
+
+[node name="CharacterCollision2" type="CollisionShape3D" parent="Controller"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.222913, 1.43648, -0.196045)
+shape = SubResource("CapsuleShape3D_6qk7i")
 debug_color = Color(2.88785e-07, 0.597335, 0.715095, 0.42)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -97,6 +97,7 @@ public partial class ObjectDetectionComponent : Component
 			var mat = GD.Load<ShaderMaterial>(Resources.ItemCanvasOutline);
 			mat.SetShaderParameter("sprite_texture", sprite.Texture);
 			sprite.MaterialOverride = mat;
+
 			if (HighlightMode == HighlightMode.Translucent) {
 				sprite.Transparency = 0.5f;
 			}

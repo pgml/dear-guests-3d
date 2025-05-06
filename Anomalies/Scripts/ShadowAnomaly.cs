@@ -80,6 +80,10 @@ public partial class ShadowAnomaly : Anomaly
 				child.Layers = AnomalyVisualLayer;
 			}
 		}
+
+		if (body is CharacterBody3D) {
+			ActorData.IsInShadowAnomaly = true;
+		}
 	}
 
 	private void _anomalyExited(Node body)
@@ -88,6 +92,10 @@ public partial class ShadowAnomaly : Anomaly
 			if (node is VisualInstance3D child) {
 				child.Layers = DefaultVisualLayer;
 			}
+		}
+
+		if (body is CharacterBody3D) {
+			ActorData.IsInShadowAnomaly = false;
 		}
 	}
 

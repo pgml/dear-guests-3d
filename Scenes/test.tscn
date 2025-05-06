@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnutg2mbomaxd"]
+[gd_scene load_steps=13 format=3 uid="uid://cnutg2mbomaxd"]
 
 [ext_resource type="PackedScene" uid="uid://dsca8xc1cojae" path="res://Common/world.tscn" id="1_35xla"]
 [ext_resource type="Script" uid="uid://dh6xkr2k7uomn" path="res://Common/Scripts/Scene.cs" id="1_ys1qc"]
 [ext_resource type="PackedScene" uid="uid://dd6ydnjq2vqvy" path="res://Anomalies/shadow_anomaly.tscn" id="4_2cgwh"]
+[ext_resource type="PackedScene" uid="uid://c01cdiavnc8pt" path="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn" id="4_aees8"]
 [ext_resource type="Script" uid="uid://f3wkx3n8rof2" path="res://Common/Scripts/InstancePlaceholderGroup.cs" id="4_yb21e"]
 [ext_resource type="PackedScene" uid="uid://cti6osbxkbxmg" path="res://Resources/Crocotile/Props.gltf" id="5_5wyu1"]
 [ext_resource type="PackedScene" uid="uid://b3da5lbiqxut8" path="res://Resources/Crocotile/Test.gltf" id="5_i3aeo"]
@@ -34,7 +35,7 @@ script = ExtResource("4_yb21e")
 [node name="StreetLight" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Street_Light/street_light.tscn"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.6202, -0.221973, 0.938767)
 
-[node name="RubbishContainer3" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Rubbish_Container/rubbish_container.tscn"]
+[node name="RubbishContainer3" parent="Content/Props" instance=ExtResource("4_aees8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7052, -0.221972, -10.6136)
 
 [node name="TreeSmall" parent="Content/Props" instance_placeholder="res://Assets/Exterior/Tree_Small/tree_small.tscn"]

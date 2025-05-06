@@ -4,6 +4,12 @@ using static IController;
 
 public partial class Controller : CreatureController, IController
 {
+	[Export(PropertyHint.Flags)]
+	public Layer DefaultCollisionMask { get; set; }
+
+	[Export(PropertyHint.Flags)]
+	public Layer MorphCollisionMask { get; set; }
+
 	[Export]
 	public CollisionShape3D CharacterCollider { get; set; }
 
@@ -17,6 +23,8 @@ public partial class Controller : CreatureController, IController
 	public override void _Ready()
 	{
 		_setCharacterData();
+
+		CollisionMask = (uint)DefaultCollisionMask;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -245,6 +253,16 @@ public partial class Controller : CreatureController, IController
 	public void SetFacingDirection(Vector2 direction)
 	{
 		CreatureData.AnimationComponent.SetInitialFacingDirection(direction);
+	}
+
+	public void SetDefaultCollisionMask()
+	{
+		CollisionMask = (uint)DefaultCollisionMask;
+	}
+
+	public void SetMorphCollisionMask()
+	{
+		CollisionMask = (uint)MorphCollisionMask;
 	}
 
 	/// <summary>

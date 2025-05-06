@@ -307,6 +307,7 @@ action_cancel={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="AI"
 3d_physics/layer_4="Interactions"
+3d_physics/layer_5="Anomalies"
 3d_physics/layer_9="Props"
 3d_physics/layer_10="Items"
 

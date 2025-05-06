@@ -16,7 +16,7 @@ public partial class Creature : Node3D
 	public Sprite3D TopShadow { get; set; }
 
 	[Export]
-	public Sprite3D SunShadowSprite { get; set; }
+	public Sprite3D SunShadow { get; set; }
 
 	public Vector3 Direction { get; set; }
 	public Dictionary<string, Component> Components { get; private set; } = new();

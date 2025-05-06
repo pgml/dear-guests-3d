@@ -1,9 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://dd6ydnjq2vqvy"]
+[gd_scene load_steps=7 format=3 uid="uid://dd6ydnjq2vqvy"]
 
 [ext_resource type="Script" uid="uid://cjiqlfk3wfiib" path="res://Anomalies/Scripts/ShadowAnomaly.cs" id="1_fgyc3"]
+[ext_resource type="Shader" uid="uid://4wv8a5xj8218" path="res://Shaders/chromatic_sphere.gdshader" id="2_ditl3"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_0c07c"]
 radius = 13.373
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_28u6f"]
+radius = 13.373
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u6fe2"]
+render_priority = 0
+shader = ExtResource("2_ditl3")
+shader_parameter/sphere_color = Color(0, 0, 0, 0)
+shader_parameter/wave_amplitude = 0.001
+shader_parameter/wave_frequency = 20.0
+shader_parameter/wave_speed = 0.0
+shader_parameter/chroma_amount = 0.0
+shader_parameter/stars_enabled = true
+shader_parameter/star_field_scale = 9.539
+shader_parameter/star_size = 0.008
+shader_parameter/star_intensity = 1.0
+shader_parameter/star_axis_speed = 0.003
+shader_parameter/star_move_mode = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_fgyc3"]
+radius = 13.0
+height = 13.0
+radial_segments = 16
+rings = 8
+is_hemisphere = true
 
 [node name="ShadowAnomaly" type="Node3D" node_paths=PackedStringArray("AnomalyArea")]
 script = ExtResource("1_fgyc3")
@@ -16,3 +42,16 @@ collision_mask = 770
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_0c07c")
 debug_color = Color(0.0146852, 0.929145, 0, 1)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_28u6f")
+debug_color = Color(0.996959, 0.596822, 1, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.28882e-05, 0.0130081, -0.0128708)
+material_override = SubResource("ShaderMaterial_u6fe2")
+mesh = SubResource("SphereMesh_fgyc3")

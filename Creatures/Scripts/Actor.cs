@@ -71,7 +71,7 @@ public partial class Actor : Creature
 					objDetection.HighlightHovered = true;
 
 					if (Input.IsMouseButtonPressed(MouseButton.Left)) {
-						CloneObject(obj, delta);
+						CloneMorph(obj, delta);
 					}
 				}
 				else {
@@ -88,6 +88,9 @@ public partial class Actor : Creature
 
 		TopShadow.Frame = CharacterSprite.Frame;
 		TopShadow.FrameCoords = CharacterSprite.FrameCoords;
+
+		SunShadow.Frame = CharacterSprite.Frame;
+		SunShadow.FrameCoords = CharacterSprite.FrameCoords;
 
 		if (Input.IsPhysicalKeyPressed(Key.Shift)) {
 			CreatureData.IsRunning = !CreatureData.IsRunning;
@@ -131,13 +134,15 @@ public partial class Actor : Creature
 		actor.Position = position;
 	}
 
-	public async void CloneObject(PhysicsObject obj, double delta)
+	public async void CloneMorph(PhysicsObject obj, double delta)
 	{
-		if (CreatureData.IsMimic) {
+		var cdata = CreatureData;
+		if (cdata.IsMimic) {
 			return;
 		}
 
-		CreatureData.IsMimic = true;
+		cdata.CanMove = false;
+		cdata.IsMimic = true;
 
 		// freeze camera for a short amount of time to make
 		// transition a little bit smoother
@@ -150,7 +155,7 @@ public partial class Actor : Creature
 		CharacterSprite.Transparency = 0;
 		tween.TweenProperty(CharacterSprite, "transparency", 0.85, 0.3);
 
-		CreatureData.AudioComponent.PlayMorphSoundMwhoop();
+		cdata.AudioComponent.PlayMorphSoundMwhoop();
 		await ToSignal(tween, Tween.SignalName.Finished);
 		tween = CreateTween();
 		tween.TweenProperty(CharacterSprite, "transparency", 0, 0.3);
@@ -159,7 +164,7 @@ public partial class Actor : Creature
 		tween = CreateTween();
 		tween.TweenProperty(CharacterSprite, "transparency", 0.85, 0.3);
 
-		CreatureData.AudioComponent.PlayMorphSoundMwhoop();
+		cdata.AudioComponent.PlayMorphSoundMwhoop();
 		await ToSignal(tween, Tween.SignalName.Finished);
 		tween = CreateTween();
 		tween.TweenProperty(CharacterSprite, "transparency", 0, 0.3);
@@ -168,9 +173,9 @@ public partial class Actor : Creature
 		await ToSignal(GetTree().CreateTimer(0.3f), SceneTreeTimer.SignalName.Timeout);
 		tween.IsQueuedForDeletion();
 
-		CreatureData.AudioComponent.PlayMorphSoundBlob();
+		cdata.AudioComponent.PlayMorphSoundBlob();
 		// Hide original actor form
-		CreatureData.Controller.Visible = false;
+		cdata.Controller.Visible = false;
 
 		var itemInstance = obj.Duplicate() as PhysicsObject;
 		//var mesh = itemInstance.FindChild("Mesh") as MeshInstance3D;
@@ -191,18 +196,21 @@ public partial class Actor : Creature
 			}
 		}
 
-		if (CreatureData.CharacterHeight() > meshHeight) {
+		if (cdata.CharacterHeight() > meshHeight) {
 			itemInstance.Position = new Vector3(0, _cameraOffset, 0);
-			CreatureData.CameraOffset = itemInstance.Position.Y - 2.0f;
+			cdata.CameraOffset = itemInstance.Position.Y - 2.0f;
 		}
 
 		itemInstance.Freeze = true;
-		itemInstance.CollisionMask = 257;
+		var collisionMask = Layer.World | Layer.Props;
+		itemInstance.CollisionMask = (uint)collisionMask;
 
-		CreatureData.MimicObject = itemInstance;
-		CreatureData.Parent.AddChild(itemInstance);
+		cdata.MimicObject = itemInstance;
+		cdata.Parent.AddChild(itemInstance);
+		cdata.Controller.SetMorphCollisionMask();
 
 		await ToSignal(GetTree().CreateTimer(0.15f), SceneTreeTimer.SignalName.Timeout);
+		cdata.CanMove = true;
 		_camera.Freeze = false;
 		itemInstance.Freeze = false;
 	}
@@ -239,14 +247,21 @@ public partial class Actor : Creature
 	/// </summary>
 	public void MorphBack()
 	{
-		_camera.SmoothingDelta = _cameraSmoothingDelta;
-		CreatureData.Parent.RemoveChild(CreatureData.MimicObject);
-		CreatureData.IsMimic = false;
-		CreatureData.MimicObject = null;
-		CreatureData.Controller.Visible = true;
-		CreatureData.CameraOffset = _cameraOffset;
+		if (CreatureData.IsInShadowAnomaly) {
+			return;
+		}
 
-		CreatureData.AudioComponent.PlayMorphSoundBlob();
+		if (CreatureData is CreatureData cdata) {
+			cdata.Parent.RemoveChild(CreatureData.MimicObject);
+			cdata.IsMimic = false;
+			cdata.MimicObject = null;
+			cdata.Controller.Visible = true;
+			cdata.CameraOffset = _cameraOffset;
+			cdata.AudioComponent.PlayMorphSoundBlob();
+			cdata.Controller.SetDefaultCollisionMask();
+		}
+
+		_camera.SmoothingDelta = _cameraSmoothingDelta;
 
 		var tween = CreateTween();
 		CharacterSprite.Transparency = 0;

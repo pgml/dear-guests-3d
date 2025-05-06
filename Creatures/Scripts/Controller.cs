@@ -37,6 +37,7 @@ public partial class Controller : CreatureController, IController
 				cd.MimicObject is PhysicsObject obj &&
 				CreatureData.Node is Actor)
 			{
+				cd.IsIdle = cd.Direction == Vector3.Zero;
 				obj.Move(cd);
 				_updatePositionToParent(obj);
 			}

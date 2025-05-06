@@ -100,8 +100,9 @@ public partial class Camera : Camera3D
 				_toPosition.X = camX;
 			}
 
-			if ((playerZ + (Size * 2) < camZ && limitTop) ||
-				(playerZ + (Size * 2) > camZ && limitBottom))
+			float cameraOffset = _creatureData.CameraOffset;
+			if ((playerZ + (Size * 2) < camZ + cameraOffset && limitTop) ||
+				(playerZ + (Size * 2) > camZ + cameraOffset && limitBottom))
 			{
 				_toPosition.Y = camY;
 				_toPosition.Z = camZ;
@@ -123,12 +124,9 @@ public partial class Camera : Camera3D
 		List<VisibleOnScreenNotifier3D> mapBounds = new();
 
 		foreach (var node in GetTree().GetNodesInGroup("MapBounds")) {
-			if (node is not VisibleOnScreenNotifier3D) {
-				continue;
+			if (node is VisibleOnScreenNotifier3D bound) {
+				mapBounds.Add(bound);
 			}
-
-			var bound = node as VisibleOnScreenNotifier3D;
-			mapBounds.Add(bound);
 		}
 
 		return mapBounds;

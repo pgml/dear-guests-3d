@@ -10,8 +10,8 @@ public enum HighlightMode {
 
 public partial class ObjectDetectionComponent : Component
 {
-	[Export]
-	public uint HoverCollisionMask { get; set; }
+	[Export(PropertyHint.Flags)]
+	public Layer HoverCollisionMask { get; set; }
 
 	public bool HighlightHovered { get; set; } = false;
 	public HighlightMode HighlightMode { get; set; } = HighlightMode.Outline;
@@ -69,11 +69,10 @@ public partial class ObjectDetectionComponent : Component
 			Vector3 rayDir = camera.ProjectRayNormal(screenPos);
 			Vector3 rayEnd = rayOrigin + rayDir * 1000f;
 
-			var query = new PhysicsRayQueryParameters3D
-			{
+			var query = new PhysicsRayQueryParameters3D {
 				From = rayOrigin,
 				To = rayEnd,
-				CollisionMask = HoverCollisionMask,
+				CollisionMask = (uint)HoverCollisionMask
 			};
 
 			var result = spaceState.IntersectRay(query);

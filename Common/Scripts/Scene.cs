@@ -164,7 +164,7 @@ public partial class Scene : Node3D
 			}
 
 			if (placeholder.IsInsideTree()) {
-				var instance = placeholder.CreateInstance();
+				var instance = placeholder.CreateInstance(true);
 				PlaceholderDict.Add(instance.Name, placeholder.GetInstancePath());
 			}
 

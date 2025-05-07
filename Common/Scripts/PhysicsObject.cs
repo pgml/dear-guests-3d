@@ -30,7 +30,7 @@ public partial class PhysicsObject : RigidBody3D
 	public float AdditionalImpulse { get; set; } = 1;
 
 	[Export]
-	public bool ContinuousImpulse { get; set; } = false;
+	public bool ContinuousMovement { get; set; } = false;
 
 	/// <summary>
 	/// Changes the gravity scale while object is not on floor
@@ -73,15 +73,17 @@ public partial class PhysicsObject : RigidBody3D
 
 	public void Move(CreatureData cd)
 	{
-		Vector3 impulse = cd.Direction * Mass * AdditionalImpulse;
-		if (ContinuousImpulse) {
+		Vector3 direction = cd.Character<Actor>().GetInputDirection(false);
+		var impulse = direction * Mass * AdditionalImpulse;
+
+		if (ContinuousMovement) {
 			ApplyCentralImpulse(impulse);
 		}
-		else if (LinearVelocity.Length() <= 1) {
-			if (Input.IsActionJustReleased(DGInputMap.ActionWalkLeft) ||
-				Input.IsActionJustReleased(DGInputMap.ActionWalkRight) ||
-				Input.IsActionJustReleased(DGInputMap.ActionWalkUp) ||
-				Input.IsActionJustReleased(DGInputMap.ActionWalkDown))
+		else if (LinearVelocity.Length() <= 1.5) {
+			if (Input.IsActionJustPressed(DGInputMap.ActionWalkLeft) ||
+				Input.IsActionJustPressed(DGInputMap.ActionWalkRight) ||
+				Input.IsActionJustPressed(DGInputMap.ActionWalkUp) ||
+				Input.IsActionJustPressed(DGInputMap.ActionWalkDown))
 			{
 				ApplyCentralImpulse(impulse);
 			}

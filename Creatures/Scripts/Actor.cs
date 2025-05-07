@@ -110,7 +110,7 @@ public partial class Actor : Creature
 		}
 	}
 
-	public Vector3 GetInputDirection()
+	public Vector3 GetInputDirection(bool topDownCompensation = true)
 	{
 		Vector2 input = Input.GetVector(
 			DGInputMap.ActionWalkLeft,
@@ -119,10 +119,12 @@ public partial class Actor : Creature
 			DGInputMap.ActionWalkDown
 		);
 
+		var zFix = topDownCompensation ? Mathf.Sqrt(1.58f) : 1;
+
 		return new() {
 			X = input.X,
 			Y = 0,
-			Z = input.Y * Mathf.Sqrt(1.58f)
+			Z = input.Y * zFix
 		};
 	}
 
